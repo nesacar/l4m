@@ -5,12 +5,12 @@ Vue.use(VueRouter);
 
 export const router = new VueRouter({
     routes: [
-        // { path: "/", component: require('./components/home/Home.vue'), meta: { forAuth: true } },
-        // { path: "/home", component: require('./components/home/Home.vue'), meta: { forAuth: true } },
-        //
-        // { path: "/login", component: require('./components/auth/Login.vue'), meta: { forVisitors: true } },
-        // { path: "/register", component: require('./components/auth/Register.vue'), meta: { forVisitors: true } },
-        // { path: "/logout", component: require('./components/auth/Logout.vue'), meta: { forAuth: true } },
+        { path: "/", component: require('./components/home/Home.vue'), meta: { forAuth: true } },
+        { path: "/home", component: require('./components/home/Home.vue'), meta: { forAuth: true } },
+
+        { path: "/login", component: require('./components/auth/Login.vue'), meta: { forVisitors: true } },
+        { path: "/register", component: require('./components/auth/Register.vue'), meta: { forVisitors: true } },
+        { path: "/logout", component: require('./components/auth/Logout.vue'), meta: { forAuth: true } },
         //
         // { path: "/users", component: require('./components/users/UserList.vue'), meta: { forAuth: true } },
         // { path: "/users/create", component: require('./components/users/UserCreate.vue'), meta: { forAuth: true } },

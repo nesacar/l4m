@@ -1,0 +1,241 @@
+#place{
+  display: flex;
+  width: calc(100vw - 250px);
+  min-height: calc(100vh - 80px);
+  height: auto;
+  margin-left: 250px;
+  background-color: $info;
+  padding: 15px 1% 15px 0;
+  box-sizing: border-box;
+
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+
+  -webkit-transition: all 0.5s; /* Safari */
+  transition: all 0.5s;
+
+  @include max-breakpoint(xs){
+    width: 100%;
+    margin-left: 0;
+  }
+
+  h5{
+    margin-bottom: 0;
+  }
+
+  .edit-link{
+    color: black;
+  }
+
+  .card{
+    padding: 15px;
+    margin-bottom: 30px;
+    height: auto;
+  }
+
+  small{
+    color: red !important;
+  }
+
+  .sortable{
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      border: 1px solid #d4d4d4;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+      padding: 6px;
+      margin: 0;
+      background: #f6f6f6;
+      background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed));
+      background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+
+      svg{
+        margin: 5px;
+
+        &.sort{
+          cursor: move;
+        }
+
+        &.edit{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .nested-sortable{
+
+    li {
+      border: 1px solid #d4d4d4;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+      padding: 6px;
+      margin: 0;
+      background: #f6f6f6;
+      background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed));
+      background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+
+      svg{
+        margin: 5px;
+
+        &.sort{
+          cursor: move;
+        }
+
+        &.edit{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
+  .vue-switcher-theme--bootstrap {
+    &.vue-switcher-color--primary {
+      div {
+        background-color: lighten($primary, 10%);
+
+        &:after {
+          // for the circle on the switch
+          background-color: darken($primary, 5%);
+        }
+      }
+
+      &.vue-switcher--unchecked {
+        div {
+          background-color: lighten($primary, 30%);
+
+          &:after {
+            background-color: lighten($primary, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .new-link-add{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+
+    &.left-one-place{
+      right: 40px;
+    }
+  }
+}
+
+/** AUTH **/
+#login{
+  display: flex;
+  background-color: $info;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+
+  .form-body{
+    position: relative;
+
+    .form-header{
+      background-color: $primary;
+      padding: 15px;
+      color: white;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    form{
+      display: block;
+      width: 450px;
+      height: auto;
+      background-color: white;
+      padding: 15px;
+
+      small{
+        color: red !important;
+      }
+
+      button{
+        color: white;
+      }
+    }
+  }
+}
+
+.table-hover{
+
+  svg{
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+}
+
+#myTabContent{
+  padding-top: 15px;
+}
+
+#gallery{
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+
+    .photo{
+      position: relative;
+      width: 150px;
+      height: auto;
+
+      svg{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: red;
+        cursor: pointer;
+      }
+    }
+
+}
+
+footer{
+  position: relative;
+  bottom: 0;
+  display: block;
+  width: calc(100vw - 250px);
+  height: 20px;
+  background-color: $primary;
+  color: white;
+  text-align: center;
+  margin: 0 0 0 250px;
+  padding: 0 1% 0 0;
+  box-sizing: border-box;
+
+  p{
+    margin-bottom: 0;
+    font-size: 13px;
+  }
+}

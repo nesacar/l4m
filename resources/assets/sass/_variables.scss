@@ -1,8 +1,29 @@
 
 // Body
-$body-bg: #f5f8fa;
+$body-bg: #fff;
+
+// Borders
+$laravel-border-color: darken($body-bg, 10%);
+$list-group-border-color: $laravel-border-color;
+
+$card-border-color: $laravel-border-color;
+
+// Brands
+$primary: #38424C;
+$info: #f6f6f6;
+$success: #2ab27b;
+$warning: #cbb956;
+$danger: #fb9678;
+$tamna: #4a5368;
+$svetla: #545d73;
+$border: #e6e5e5;
 
 // Typography
 $font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 0.9rem;
+$font-size-base: .875rem; // 14px
 $line-height-base: 1.6;
+$text-color: #636b6f;
+
+// Inputs
+$input-border-color: lighten($text-color, 40%);
+$input-placeholder-color: lighten($text-color, 30%);

@@ -1,0 +1,481 @@
+/** TOP MENU **/
+
+#topMenu{
+  height: 80px;
+  box-sizing: border-box;
+
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+
+  .logo-holder{
+    display: inline-flex;
+    width: 250px;
+    height: 80px;
+    margin-left: -15px;
+
+    @include max-breakpoint(xs){
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  .logo{
+    width: 100%;
+    height: 80px;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    a{
+      display: flex;
+      width: 100%;
+      height: 80px;
+
+      img{
+        display: block;
+        width: 190px;
+        height: auto;
+        margin: auto;
+      }
+    }
+  }
+
+  .center-holder{
+    display: inline-flex;
+    height: 80px;
+    width: 50px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 250px;
+
+    @include max-breakpoint(xs){
+      left: 0;
+    }
+
+    svg{
+      font-size: 24px;
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+  ul.top-nav{
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    height: 80px;
+    display: flex;
+
+    /* Center vertically */
+    align-items: center;
+
+    /*Center horizontaly */
+    justify-content: center;
+
+    @include max-breakpoint(xs){
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    li:not(.user){
+      @include max-breakpoint(xs){
+        display: none;
+      }
+    }
+
+    li{
+      margin-left: 10px;
+      display: inline-flex;
+
+      [data-prefix="fas"]{
+        color: white;
+      }
+
+      .transparent{
+        background-color: transparent;
+        border: none;
+      }
+
+      &.user{
+
+        img{
+          display: block;
+          width: 66px;
+          height: auto;
+        }
+
+        svg{
+          width: 30px;
+          height: 30px;
+          position: absolute;
+          right: 10px;
+          bottom: 5px;
+          color: $primary;
+        }
+
+        a:focus{
+          box-shadow: none;
+        }
+      }
+
+
+    }
+
+    .dropdown-toggle::after {
+      display:none
+    }
+
+    .avatar-image{
+      border-radius: 50%;
+    }
+  }
+}
+
+/** RIGHT MENU **/
+
+#rightMenu{
+  position: absolute;
+  top: 80px;
+  right: 0;
+  display: block;
+  width: 250px;
+  height: calc(100vh - 80px);
+  border: 1px solid $primary;
+  padding: 10px 0;
+  z-index: 100;
+  background-color: white;
+  overflow-y: scroll;
+
+  -ms-transform: translate(250px,0); /* IE 9 */
+  -webkit-transform: translate(250px,0); /* Safari */
+  transform: translate(250px,0); /* Standard syntax */
+
+  -webkit-transition: all 0.5s; /* Safari */
+  transition: all 0.5s;
+
+  &.active{
+    -ms-transform: translate(0,0); /* IE 9 */
+    -webkit-transform: translate(0,0); /* Safari */
+    transform: translate(0,0); /* Standard syntax */
+  }
+
+  h3{
+    font-size: 48px;
+    padding: 0 10px;
+  }
+
+  .title{
+    text-transform: uppercase;
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 0;
+    background-color: $info;
+  }
+
+  ul{
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+
+    li{
+      display: flex;
+      position: relative;
+      cursor: pointer;
+      padding: 10px;
+      border-bottom: 1px solid $info;
+
+      img{
+        flex: 1;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      > div{
+        flex: 4;
+        padding: 4px 0 0 10px;
+
+        p{
+          margin-bottom: 0;
+        }
+      }
+
+      &:hover{
+        background-color: $info;
+      }
+    }
+
+    &.online{
+
+      span{
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: $primary;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+    }
+
+    &.offline{
+      span{
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: $danger;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+    }
+  }
+}
+
+/** LEFT MENU **/
+
+#leftMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 250px;
+  height: 100vh;
+  padding: 0;
+  background-color: $tamna;
+  z-index: 100;
+
+  -ms-transform: translate(0, 0); /* IE 9 */
+  -webkit-transform: translate(0, 0); /* Safari */
+  transform: translate(0, 0); /* Standard syntax */
+
+  -webkit-transition: all 0.5s; /* Safari */
+  transition: all 0.5s;
+
+  @include max-breakpoint(xs){
+    top: 80px;
+    height: calc(100vh - 80px);
+
+    -ms-transform: translate(-250px, 0); /* IE 9 */
+    -webkit-transform: translate(-250px, 0); /* Safari */
+    transform: translate(-250px, 0); /* Standard syntax */
+
+    .logo-holder{
+      display: none;
+    }
+  }
+
+  &.hide{
+    -ms-transform: translate(-220px, 0); /* IE 9 */
+    -webkit-transform: translate(-220px, 0); /* Safari */
+    transform: translate(-220px, 0); /* Standard syntax */
+
+    -webkit-transition: all 0.5s; /* Safari */
+    transition: all 0.5s;
+
+    + #place{
+      width: calc(100% - 30px);
+
+      -ms-transform: translate(-220px, 0); /* IE 9 */
+      -webkit-transform: translate(-220px, 0); /* Safari */
+      transform: translate(-220px, 0); /* Standard syntax */
+
+      @include max-breakpoint(xs){
+        -ms-transform: translate(250px, 0); /* IE 9 */
+        -webkit-transform: translate(250px, 0); /* Safari */
+        transform: translate(250px, 0); /* Standard syntax */
+      }
+    }
+
+    @include max-breakpoint(xs){
+      -ms-transform: translate(0, 0); /* IE 9 */
+      -webkit-transform: translate(0, 0); /* Safari */
+      transform: translate(0, 0); /* Standard syntax */
+    }
+
+
+    ul{
+      display: block;
+
+      > li{
+
+        @include min-breakpoint(sm){
+          &:hover > ul{
+            overflow-y: visible;
+            position: absolute;
+            left: 280px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+          }
+        }
+
+      }
+
+      li{
+        position: relative;
+
+        @include min-breakpoint(sm){
+          svg{
+
+            &[data-icon="angle-right"]{
+              display: none;
+            }
+
+            left: 223px;
+            cursor: pointer;
+
+            -webkit-transition: all 0.5s; /* Safari */
+            transition: all 0.5s;
+          }
+        }
+
+      }
+    }
+  }
+
+  .logo{
+    width: 100%;
+    background-color: white;
+    height: 80px;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    a{
+      display: flex;
+      width: 100%;
+      height: 80px;
+
+      img{
+        display: block;
+        width: 190px;
+        height: auto;
+        margin: auto;
+      }
+    }
+  }
+
+  ul{
+    list-style: none;
+    padding-left: 0;
+
+    li{
+      position: relative;
+      font-size: 16px;
+      text-transform: capitalize;
+      padding-left: 35px;
+
+      -webkit-transition: all 0.5s; /* Safari */
+      transition: all 0.5s;
+
+      &.active{
+        background-color: $svetla;
+
+        ul{
+          height: 100%;
+          background-color: $svetla;
+        }
+
+        svg {
+          -webkit-transition: all 0.5s; /* Safari */
+          transition: all 0.5s;
+
+          &.fa-angle-right {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
+      &:hover{
+        background-color: $svetla;
+      }
+
+      a{
+        padding: 12px 0;
+        display: block;
+        color: white;
+
+        &:hover{
+          text-decoration: none;
+        }
+      }
+
+      svg{
+        position: absolute;
+        left: 8px;
+        top: 16px;
+        color: $primary;
+        margin-right: 10px;
+
+        &.fa-angle-right{
+          transform: rotate(0);
+          right: 8px;
+          left: auto;
+          top: 17px;
+          color: white;
+        }
+      }
+
+      ul{
+        height: 0;
+        overflow-y: hidden;
+
+        li{
+          font-size: 14px;
+          background-color: $svetla;
+          margin-left: -35px;
+
+          &:hover{
+            background-color: $tamna;
+          }
+        }
+      }
+    }
+  }
+}
+
+/** BREADCRUMBS **/
+
+#breadcrumbs{
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 5px 15px;
+  background-color: white;
+  margin-bottom: 15px;
+  border: 1px solid $border;
+  border-radius: 0.25rem;
+
+  ul{
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    li{
+      padding: 4px;
+      height: 30px;
+
+      &:after{
+        content: "/";
+        margin-left: 10px;
+      }
+
+      &:last-child{
+        &:after{
+          content: "";
+        }
+      }
+    }
+  }
+}
