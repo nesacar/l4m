@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/blog', function () {
+  return view('themes.l4m.pages.blog');
+});
+
 Route::get('/admin', function () {
     return view('layouts.admin-app');
 });
