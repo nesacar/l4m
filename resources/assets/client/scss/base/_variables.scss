@@ -10,42 +10,40 @@ $text-primary-on-dark: rgba(255, 255, 255, 1);
 $text-secondary-on-dark: rgba(255, 255, 255, .7);
 $text-hint-on-dark: rgba(255, 255, 255, .5);
 
-$gray-100: #F5F5F5;
-$gray-200: #EEEEEE;
-$gray-300: #E0E0E0;
-$gray-400: #BDBDBD;
-$gray-500: #9E9E9E;
-$gray-600: #757575;
-$gray-700: #616161;
-$gray-800: #424242;
-$gray-900: #212121;
-
 $navy: #131b24;
 $gold: #c69c6d;
 
-$theme-colors: (
-  "primary": $navy,
-  "secondary": $gold
-);
+$theme-primary: $navy;
+$theme-secondary: $gold;
 
-$yiq-text-dark: $text-hint-on-dark;
+$base-line: 7.5px;
+$column-paddings: 2 * $base-line;
+
+$column-width: 300;
+$grid-gutter-width: 2 * $column-paddings;
+
+// helper function
+@function get-container-width($n, $width: $column-width, $gutter: $grid-gutter-width) {
+  $w: $n * ($width + $gutter);
+  @return $w;
+}
+
+@function get-breakpoints($n, $width: $column-width, $gutter: $grid-gutter-width) {
+  $w: $n * ($width + $gutter) + $gutter;
+  @return $w;
+}
 
 $grid-breakpoints: (
   xs: 0,
-  sm: 480px,
-  md: 600px,
-  lg: 840px,
-  xl: 960px
+  sm: get-breakpoints(1),
+  md: get-breakpoints(2),
+  lg: get-breakpoints(3)
 );
 
 $container-max-widths: (
-  sm: 448px,
-  md: 568px,
-  lg: 808px,
-  xl: 928px
+  sm: get-container-width(1),
+  md: get-container-width(2),
+  lg: get-container-width(3)
 );
 
-$br: 2px;
-$border-radius: $br;
-$border-radius-lg: $br;
-$border-radius-sm: $br;
+$border-radius: 2px;

@@ -1,0 +1,6 @@
+.column {
+  padding-left: $column-paddings;
+  padding-right: $column-paddings;
+  width: $grid-gutter-width + 300px;
+  flex-shrink: 0;
+}
