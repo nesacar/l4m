@@ -16,6 +16,8 @@ $gold: #c69c6d;
 $theme-primary: $navy;
 $theme-secondary: $gold;
 
+$border-radius: 2px;
+
 $base-line: 7.5px;
 $column-paddings: 2 * $base-line;
 
@@ -45,5 +47,3 @@ $container-max-widths: (
   md: get-container-width(2),
   lg: get-container-width(3)
 );
-
-$border-radius: 2px;

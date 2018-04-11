@@ -9,8 +9,14 @@
 </head>
 <body>
   
-  @yield('content')
+  <div class="content">
+
+    @yield('content')
+
+  </div>
   
-<script src="{{ url('themes/l4m/js/index.js')}}"></script>
+  @include('themes/l4m/partials/footer')
+
+  <script src="{{ url('themes/l4m/js/index.js')}}"></script>
 </body>
 </html>
