@@ -16,6 +16,9 @@ $gold: #c69c6d;
 $theme-primary: $navy;
 $theme-secondary: $gold;
 
+$border-color-dark: rgba(0, 0, 0, .12);
+$border-color-light: rgba(255, 255, 255, .12);
+
 $border-radius: 2px;
 
 $base-line: 7.5px;
@@ -37,13 +40,15 @@ $grid-gutter-width: 2 * $column-paddings;
 
 $grid-breakpoints: (
   xs: 0,
-  sm: get-breakpoints(1),
-  md: get-breakpoints(2),
-  lg: get-breakpoints(3)
+  sm: 480px,
+  md: 690px,
+  lg: get-breakpoints(2),
+  xl: get-breakpoints(3)
 );
 
 $container-max-widths: (
-  sm: get-container-width(1),
-  md: get-container-width(2),
-  lg: get-container-width(3)
+  sm: (480 - $grid-gutter-width),
+  md: (690 - $grid-gutter-width),
+  lg: get-container-width(2),
+  xl: get-container-width(3)
 );

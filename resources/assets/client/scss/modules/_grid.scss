@@ -5,6 +5,10 @@
 .column {
   padding-left: $column-paddings;
   padding-right: $column-paddings;
-  width: $grid-gutter-width + 300px;
+  width: 100%;
   flex-shrink: 0;
+
+  @include media-breakpoint-up(md) {
+    width: $grid-gutter-width + 300px;
+  }
 }
