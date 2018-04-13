@@ -19,7 +19,7 @@ mix.sass('resources/assets/sass/app.scss', 'public/css')
   .sass('resources/assets/client/scss/main.scss', 'public/themes/l4m/css')
   .options({
     postCss: [
-      require('postcss-cssnext')
+      require('postcss-css-variables')()
     ]
   })
   .purgeCss();
