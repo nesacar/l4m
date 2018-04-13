@@ -1,1 +1,3 @@
-console.log('hello, world!')
+import { Toast } from './components/toast';
+
+window.toast = Toast;
