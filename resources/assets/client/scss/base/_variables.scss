@@ -41,14 +41,12 @@ $grid-gutter-width: 2 * $column-paddings;
 $grid-breakpoints: (
   xs: 0,
   sm: 480px,
-  md: 690px,
-  lg: get-breakpoints(2),
-  xl: get-breakpoints(3)
+  md: get-breakpoints(2),
+  lg: get-breakpoints(3)
 );
 
 $container-max-widths: (
   sm: (480 - $grid-gutter-width),
-  md: (690 - $grid-gutter-width),
-  lg: get-container-width(2),
-  xl: get-container-width(3)
+  md: get-container-width(2),
+  lg: get-container-width(3)
 );

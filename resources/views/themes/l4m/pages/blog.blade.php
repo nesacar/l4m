@@ -1,14 +1,21 @@
 @extends('themes.l4m.index')
 @section('content')
 <style>
-  .test {
-    height: 300px;
-    width: 100%;
-    background-color: aqua;
+  .grid-wrap {
+    display: flex;
   }
   .banner {
-    height: 300px;
-    background-color: chocolate;
+    width: 300px;
+    margin-left: 30px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    /* temp */
+    height: 450px;
+    background-color: lightgray;
+  }
+  .test {
+    background-color: darkgray;
+    height: 320px;
   }
   .hide {
     display: none;
@@ -16,23 +23,19 @@
 </style>
   <div class="container">
     <h1 class="section-title"><span>section title</span></h1>
-    <div class="grid">
-      <div class="row">
-        <div class="column">
-          <div class="test">column</div>
+    <div class="grid-wrap">
+      <div class="grid">
+        <div class="grid_item test">
+          grid item
         </div>
-        <div class="column">
-          <div class="test">column</div>
+        <div class="grid_item test">
+          grid item
         </div>
-        <div class="column">
-          <div class="test">column</div>
-        </div>
-      </div>
-      <div class="row" id="banner">
-        <div class="column">
-          <div class="banner">banner</div>
+        <div class="grid_item test">
+          grid item
         </div>
       </div>
+      <div class="banner" id="banner"></div>
     </div>
   </div>
 @endsection
