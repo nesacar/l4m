@@ -1,0 +1,13 @@
+@function get-container-width($n, $width, $gutter) {
+  $w: $n * ($width + $gutter);
+  @return $w;
+}
+
+@function get-breakpoints($n, $width, $gutter) {
+  $w: $n * ($width + $gutter) + $gutter;
+  @return $w;
+}
+
+@function get-padding-from-ratio($w: 1, $h: 1) {
+  @return ($h / $w) * 100%;
+}

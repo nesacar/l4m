@@ -8,19 +8,19 @@
   background-size: cover;
 
   &--square {
-    padding-top: 100%;
+    padding-top: get-padding-from-ratio();
   }
 
   &--standard {
-    padding-top: 75%;
+    padding-top: get-padding-from-ratio(4, 3);
   }
 
   &--wide {
-    padding-top: 56.25%;
+    padding-top: get-padding-from-ratio(16, 9);
   }
 
   &--ultra-wide {
-    padding-top: 42.857%;
+    padding-top: get-padding-from-ratio(21, 9);
   }
 
   img {

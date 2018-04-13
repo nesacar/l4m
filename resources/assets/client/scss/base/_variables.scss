@@ -24,29 +24,18 @@ $border-radius: 2px;
 $base-line: 7.5px;
 $column-paddings: 2 * $base-line;
 
-$column-width: 300;
+$column-width: 300px;
 $grid-gutter-width: 2 * $column-paddings;
-
-// helper function
-@function get-container-width($n, $width: $column-width, $gutter: $grid-gutter-width) {
-  $w: $n * ($width + $gutter);
-  @return $w;
-}
-
-@function get-breakpoints($n, $width: $column-width, $gutter: $grid-gutter-width) {
-  $w: $n * ($width + $gutter) + $gutter;
-  @return $w;
-}
 
 $grid-breakpoints: (
   xs: 0,
   sm: 480px,
-  md: get-breakpoints(2),
-  lg: get-breakpoints(3)
+  md: get-breakpoints(2, $column-width, $grid-gutter-width),
+  lg: get-breakpoints(3, $column-width, $grid-gutter-width)
 );
 
 $container-max-widths: (
   sm: (480 - $grid-gutter-width),
-  md: get-container-width(2),
-  lg: get-container-width(3)
+  md: get-container-width(2, $column-width, $grid-gutter-width),
+  lg: get-container-width(3, $column-width, $grid-gutter-width)
 );
