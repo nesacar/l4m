@@ -15,7 +15,7 @@
 
   </div>
 
-  @include('themes/l4m/partials/footer')
+  @include('themes/' . env('THEME_NAME','') . '/partials/footer')
 
   <script src="{{ url('themes/' . env('THEME_NAME', '') . '/js/index.js')}}"></script>
 </body>

@@ -29,20 +29,9 @@
   <section class="container">
     <h1 class="section-title"><span>section title</span></h1>
     <div class="grid-wrap">
-      <div class="grid">
-        <div class="grid_item demo">
-          <div class="image image--standard demo-img"></div>
-          grid item
-        </div>
-        <div class="grid_item demo">
-          <div class="image image--standard demo-img"></div>
-          grid item
-        </div>
-        <div class="grid_item demo">
-          <div class="image image--standard demo-img"></div>
-          grid item
-        </div>
-      </div>
+
+      @include('themes.' . env('THEME_NAME', '') . '.partials.grid',  ['items' => $items])
+
       <aside class="banner" id="banner">banner positions</aside>
     </div>
   </section>

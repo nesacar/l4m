@@ -16,9 +16,16 @@ Route::get('/', function () {
 });
 
 Route::get('/blog', function () {
+  // tmp data
   $title = 'Luxury 4 Me';
+  $items = [
+    (object) ["img" => "img src1", "title" => "tile title1" ],
+    (object) ["img" => "img src2", "title" => "tile title2" ],
+    (object) ["img" => "img src3", "title" => "tile title3" ],
+    (object) ["img" => "img src4", "title" => "tile title4" ]
+  ];
 
-  return view('themes.l4m.pages.blog', compact('title'));
+  return view('themes.l4m.pages.blog', compact('title', 'items'));
 });
 
 Route::get('/admin', function () {
