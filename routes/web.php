@@ -16,7 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/blog', function () {
-  return view('themes.l4m.pages.blog');
+  $title = 'Luxury 4 Me';
+
+  return view('themes.l4m.pages.blog', compact('title'));
 });
 
 Route::get('/admin', function () {

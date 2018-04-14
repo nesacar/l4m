@@ -1,4 +1,7 @@
-@extends('themes.l4m.index')
+@extends('themes.' . env('THEME_NAME','') . '.index')
+
+@section('title'){{ $title }}@endsection
+
 @section('content')
 <style>
   .grid-wrap {
