@@ -30,7 +30,13 @@
     <h1 class="section-title"><span>section title</span></h1>
     <div class="grid-wrap">
 
-      @include('themes.' . env('THEME_NAME', '') . '.partials.grid',  ['items' => $items])
+      @component('themes.' . env('THEME_NAME', '') . '.components.grid',
+        [
+          'component' => 'grid-tile',
+          'items' => $items
+        ]
+      )
+      @endcomponent
 
       <aside class="banner" id="banner">banner positions</aside>
     </div>
