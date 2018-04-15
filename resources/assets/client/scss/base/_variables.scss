@@ -1,7 +1,8 @@
 $font-family-playfair-display: 'Playfair Display', serif;
 $font-family-roboto: 'Roboto', sans-serif;
 
-$font-family-sans-serif: $font-family-roboto;
+$font-family-header: $font-family-playfair-display;
+$font-family: $font-family-roboto;
 
 $text-primary-on-light: rgba(0, 0, 0, .87);
 $text-secondary-on-light: rgba(0, 0, 0, .54);
@@ -9,6 +10,10 @@ $text-hint-on-light: rgba(0, 0, 0, .38);
 $text-primary-on-dark: rgba(255, 255, 255, 1);
 $text-secondary-on-dark: rgba(255, 255, 255, .7);
 $text-hint-on-dark: rgba(255, 255, 255, .5);
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
 
 $navy: #131b24;
 $gold: #c69c6d;
