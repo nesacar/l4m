@@ -9,10 +9,6 @@
   }
   .banner {
     width: 300px;
-    margin-left: 30px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    /* temp */
     height: 450px;
     background-color: #E0E0E0;
   }
@@ -28,28 +24,42 @@
 </style>
   <section class="container">
     <h1 class="section-title"><span>section title</span></h1>
-    <div class="grid-wrap">
 
-      @component('themes.' . env('THEME_NAME', '') . '.components.grid',
-        [
-          'component' => 'grid-tile',
-          'items' => $items
-        ]
-      )
-      @endcomponent
+    <div class="split-view">
 
-      <aside class="banner" id="banner">banner positions</aside>
+      <div class="split-view_left-pane">
+        @component('themes.' . env('THEME_NAME', '') . '.components.grid',
+          [
+            'component' => 'grid-tile',
+            'items' => $items
+          ]
+        )
+        @endcomponent
+      </div>
+
+      <aside class="split-view_right-pane" id="banner">
+        <div class="banner">banner positions</div>
+      </aside>
+
     </div>
+
   </section>
 
   <section class="container">
     <h1 class="section-title"><span>section title</span></h1>
 
-    @component('themes.' . env('THEME_NAME', '') . '.components.list', [
-      'component' => 'blog.list-item',
-      'items' => $items
-    ])
-    @endcomponent
+    <div class="split-view">
+      <div class="split-view_left-pane"></div>
+      
+      <div class="split-view_right-pane">
+        @component('themes.' . env('THEME_NAME', '') . '.components.list', [
+          'component' => 'blog.list-item',
+          'items' => $items
+          ])
+        @endcomponent
+      </div>
+    
+    </div>
 
   </section>
 @endsection

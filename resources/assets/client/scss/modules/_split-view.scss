@@ -1,0 +1,27 @@
+.split-view {
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+  }
+
+  &_left-pane {
+    flex-grow: 1;
+  }
+
+  &_right-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-left: 0;
+
+    @include media-breakpoint-up(md) {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: $column-width;
+      margin-left: $grid-gutter-width;
+    }
+  }
+}
