@@ -1,0 +1,23 @@
+.blog-list-item {
+  display: flex;
+  
+  padding-top: $base-line;
+  padding-bottom: $base-line;
+  padding-right: 2 * $base-line;
+
+  &_start-image {
+    width: 14 * $base-line;
+    margin-right: 3 * $base-line;
+    flex-shrink: 0;
+  }
+
+  &_label {
+    color: $theme-secondary;
+    margin-bottom: $base-line;
+  }
+
+  &_title {
+    height: 3em;
+    overflow: hidden;
+  }
+}

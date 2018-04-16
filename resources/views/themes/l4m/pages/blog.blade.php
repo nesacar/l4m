@@ -44,5 +44,12 @@
 
   <section class="container">
     <h1 class="section-title"><span>section title</span></h1>
+
+    @component('themes.' . env('THEME_NAME', '') . '.components.list', [
+      'component' => 'blog.list-item',
+      'items' => $items
+    ])
+    @endcomponent
+
   </section>
 @endsection

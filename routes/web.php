@@ -19,10 +19,10 @@ Route::get('/blog', function () {
   // tmp data
   $title = 'Luxury 4 Me';
   $items = [
-    (object) ["img" => "img src1", "title" => "tile title1" ],
-    (object) ["img" => "img src2", "title" => "tile title2" ],
-    (object) ["img" => "img src3", "title" => "tile title3" ],
-    (object) ["img" => "img src4", "title" => "tile title4" ]
+    (object) ["img" => "img src1", "title" => "WC Takes the Ingenieur Back to its Roots" ],
+    (object) ["img" => "img src2", "title" => "Rossato Home Collection:  Masterpieces of elegance conceived" ],
+    (object) ["img" => "img src3", "title" => "Groove Innovative bed system" ],
+    (object) ["img" => "img src4", "title" => "Tom Ford Spring line - Look Like a Movie Star" ]
   ];
 
   return view('themes.l4m.pages.blog', compact('title', 'items'));
