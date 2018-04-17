@@ -1,6 +1,10 @@
 .grid {
   display: grid;
   grid-gap: $grid-gutter-width;
-  grid-template-columns: repeat(auto-fit, minmax($column-width, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(1fr, $column-width));
   flex-grow: 999;
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(auto-fit, minmax($column-width, 1fr));
+  }
 }

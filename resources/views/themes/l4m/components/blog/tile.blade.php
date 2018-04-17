@@ -12,15 +12,23 @@
   $asymmetricClass = (($isAsymmetric && $isOdd) ? ' blog-tile--reverse' : '');
   $className = 'blog-tile' . $horizontalClass . $asymmetricClass;
 
+  $imageUrl = isset($item->img) ? url($item->img) : 'TODO set placeholder image or remove data-src?';
+  $title = isset($item->title) ? $item->title : 'Tile title';
+  $label = isset($item->categorie) ? $item->categorie : 'Categorie';
+
 @endphp
 
 <div class="{{ $className }}">
   <div class="blog-tile_image">
     <div class="image image--standard demo-img"
-    data-src="{{ isset($item->img) ? url($item->img) : 'TODO set placeholder image or remove data-src?' }}"
+      data-src="{{ $imageUrl }}"
     ></div>
   </div>
   <div class="blog-tile_content">
-    <h4>{{ isset($item->title) ? $item->title : 'Tile title' }}</h4>
+    <div class="blog-tile_label">
+      <span>{{ $label }}</span>
+    </div>
+    <h4>{{ $title }}</h4>
+    <p class="with-trunk">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi placeat adipisci consequatur laboriosam eos ducimus sint eligendi nemo impedit maiores iure ut, quasi repellat eius, atque iusto. Exercitationem, voluptatem rem.</p>
   </div>
 </div>

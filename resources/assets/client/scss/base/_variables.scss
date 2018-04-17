@@ -1,3 +1,9 @@
+$navy: #131b24;
+$gold: #BC8F5C;
+
+$theme-primary: $navy;
+$theme-secondary: $gold;
+
 $font-family-playfair-display: 'Playfair Display', serif;
 $font-family-roboto: 'Roboto', sans-serif;
 
@@ -11,15 +17,17 @@ $text-primary-on-dark: rgba(255, 255, 255, 1);
 $text-secondary-on-dark: rgba(255, 255, 255, .7);
 $text-hint-on-dark: rgba(255, 255, 255, .5);
 
+$text-primary-on-primary: $text-primary-on-dark;
+$text-secondary-on-primary: $text-secondary-on-dark;
+$text-hint-on-primary: $text-hint-on-dark;
+$text-primary-on-secondary: $text-primary-on-light;
+$text-secondary-on-secondary: $text-secondary-on-light;
+$text-hint-on-secondary: $text-hint-on-light;
+
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-bold: 600;
 
-$navy: #131b24;
-$gold: #c69c6d;
-
-$theme-primary: $navy;
-$theme-secondary: $gold;
 
 $border-color-dark: rgba(0, 0, 0, .12);
 $border-color-light: rgba(255, 255, 255, .12);

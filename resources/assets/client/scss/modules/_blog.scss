@@ -26,6 +26,29 @@
   display: flex;
   flex-direction: column;
 
+  &_content {
+    margin-top: 3 * $base-line;
+
+    p {
+      max-height: 3 * 1.5em;
+    }
+  }
+
+  &_label {
+    margin-bottom: 3 * $base-line;
+
+    span {
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      background-color: $theme-secondary;
+      color: $text-primary-on-secondary;
+      font-size: 13px;
+      padding: 2px 8px;
+      min-width: 12 * $base-line;
+    }
+  }
+
   &--horizontal {
     margin-bottom: $grid-gutter-width;
 
@@ -40,6 +63,10 @@
         flex-shrink: 0;
         width: $column-width;
         margin-right: $grid-gutter-width;
+      }
+
+      .blog-tile_content {
+        margin: 0;
       }
       
       &.blog-tile--reverse {
