@@ -17,10 +17,10 @@ export const router = new VueRouter({
         { path: "/users/:id/edit", component: require('./components/users/UserEdit.vue'), meta: { forAuth: true } },
         { path: "/users/change-password", component: require('./components/users/UserChangePassword.vue'), meta: { forAuth: true } },
 
-        // { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAuth: true } },
-        // { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAuth: true } },
-        // { path: "/categories/:id/edit", component: require('./components/categories/CategoryEdit.vue'), meta: { forAuth: true } },
-        //
+        { path: "/blogs", component: require('./components/blogs/BlogList.vue'), meta: { forAuth: true } },
+        { path: "/blogs/create", component: require('./components/blogs/BlogCreate.vue'), meta: { forAuth: true } },
+        { path: "/blogs/:id/edit", component: require('./components/blogs/BlogEdit.vue'), meta: { forAuth: true } },
+
         // { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAuth: true } },
         // { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAuth: true } },
         // { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAuth: true } },
