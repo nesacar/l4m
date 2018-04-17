@@ -28,10 +28,6 @@
                 <font-awesome-icon icon="users" />
                 <ul>
                     <li><router-link tag="a" :to="'/users'">Pregled korisnika</router-link></li>
-                    <li><router-link tag="a" :to="'/architects'">Arhi klub</router-link></li>
-                    <!--
-                    <li><a href="#">Roles</a></li>
-                    -->
                 </ul>
             </li>
             <li>

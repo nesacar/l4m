@@ -6,8 +6,8 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\EditUserRequest;
 use App\User;
-use Illuminate\Http\Request;
 use File;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {

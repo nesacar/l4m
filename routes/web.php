@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// filemanager
+Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
+
 Route::get('/blog', function () {
   // tmp data
   $title = 'Luxury 4 Me';
