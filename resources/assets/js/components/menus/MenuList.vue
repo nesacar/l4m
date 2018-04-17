@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Teme</li>
+                            <li>Meni</li>
                         </ul>
                     </div>
                 </div>
@@ -21,16 +21,20 @@
                             <th scope="col">naziv</th>
                             <th scope="col">publikovano</th>
                             <th scope="col">kreirano</th>
-                            <th>akcija</th>
+                            <th>action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in themes">
+                        <tr v-for="row in menus">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
                             <td>{{ row.publish }}</td>
                             <td>{{ row.created_at }}</td>
                             <td>
+                                <!--
+                                <font-awesome-icon icon="sort-amount-up" @click="sortRow(row['id'])"/>
+                                -->
+                                <font-awesome-icon icon="link" @click="links(row['id'])"/>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>
                                 <font-awesome-icon icon="times" @click="deleteRow(row)" />
                             </td>
@@ -56,7 +60,7 @@
     export default {
         data(){
             return {
-                themes: {},
+                menus: {},
                 paginate: {}
             }
         },
@@ -65,21 +69,21 @@
             'font-awesome-icon': FontAwesomeIcon
         },
         created(){
-            this.getThemes();
+            this.getMenus();
         },
         methods: {
-            getThemes(){
-                axios.get('api/themes')
+            getMenus(){
+                axios.get('api/menus')
                     .then(res => {
-                        this.themes = res.data.themes.data;
-                        this.paginate = res.data.themes;
+                        this.menus = res.data.menus.data;
+                        this.paginate = res.data.menus;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('themes/' + id + '/edit');
+                this.$router.push('menus/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -89,17 +93,18 @@
                     showCancelButton: true,
                     confirmButtonColor: '#51d2b7',
                     cancelButtonColor: '#fb9678',
-                    confirmButtonText: 'Da, obriši!'
+                    confirmButtonText: 'Da, obriši ga!',
+                    cancelButtonText: 'Odustani'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/themes/' + row.id)
+                        axios.delete('api/menus/' + row.id)
                             .then(res => {
-                                this.themes = this.themes.filter(function (item) {
+                                this.menus = this.menus.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Tema je obrisana.',
+                                    'Meni je uspešno obrisan.',
                                     'success'
                                 );
                             })
@@ -107,17 +112,23 @@
                                 console.log(e);
                             });
                     }
-                })
+                });
             },
             clickToLink(index){
-                axios.get('api/themes?page=' + index)
+                axios.get('api/menus?page=' + index)
                     .then(res => {
-                        this.themes = res.data.themes.data;
-                        this.paginate = res.data.themes;
+                        this.menus = res.data.menus.data;
+                        this.paginate = res.data.menus;
                     })
                     .catch(e => {
                         console.log(e);
                     });
+            },
+            links(id){
+                this.$router.push('/menu-links/' + id);
+            },
+            sortRow(id){
+                this.$router.push('/menus/' + id + '/sort');
             }
         }
     }

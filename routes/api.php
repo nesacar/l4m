@@ -28,3 +28,10 @@ Route::middleware('auth:api')->put('settings/{id}', 'SettingsController@update')
 
 Route::middleware('auth:api')->resource('themes', 'ThemesController');
 Route::middleware('auth:api')->post('themes/{id}/image', 'ThemesController@uploadImage');
+
+Route::middleware('auth:api')->resource('menus', 'MenusController');
+
+Route::middleware('auth:api')->get('menu-links/lists', 'MenuLinksController@lists');
+Route::middleware('auth:api')->resource('menu-links', 'MenuLinksController');
+Route::middleware('auth:api')->get('menu-links/{id}/sort', 'MenuLinksController@sort');
+Route::middleware('auth:api')->post('menu-links/{id}/order', 'MenuLinksController@saveOrder');

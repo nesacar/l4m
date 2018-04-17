@@ -5,7 +5,7 @@
                 <div class="col-md-12">
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
-                            <li><router-link tag="a" :to="'/home'">Home</router-link></li>
+                            <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
                             <li><router-link tag="a" :to="'/themes'">Themes</router-link></li>
                             <li>Theme create</li>
                         </ul>
