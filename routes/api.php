@@ -22,3 +22,6 @@ Route::middleware('auth:api')->get('users/get-users', 'UsersController@getUsers'
 Route::middleware('auth:api')->post('users/change-password', 'UsersController@changePassword');
 Route::middleware('auth:api')->resource('users', 'UsersController');
 Route::middleware('auth:api')->post('users/{id}/image', 'UsersController@uploadImage');
+
+Route::middleware('auth:api')->get('settings/{id}/edit', 'SettingsController@edit');
+Route::middleware('auth:api')->put('settings/{id}', 'SettingsController@update');
