@@ -1,4 +1,5 @@
 @php
+
   $isHorizontal = false;
   $isAsymmetric = false;
   $isOdd = ($_index % 2) == 1;
@@ -14,7 +15,7 @@
 
   $imageUrl = isset($item->img) ? url($item->img) : 'TODO set placeholder image or remove data-src?';
   $title = isset($item->title) ? $item->title : 'Tile title';
-  $label = isset($item->categorie) ? $item->categorie : 'Categorie';
+  $categorie = isset($item->categorie) ? $item->categorie : 'Categorie';
 
 @endphp
 
@@ -26,7 +27,10 @@
   </div>
   <div class="blog-tile_content">
     <div class="blog-tile_label">
-      <span>{{ $label }}</span>
+      <a
+        class="blog-tile_categorie with-flare"
+        href="{{ url('categories/'.$categorie) }}"
+      >{{ $categorie }}</a>
     </div>
     <h4>{{ $title }}</h4>
     <p class="with-trunk">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi placeat adipisci consequatur laboriosam eos ducimus sint eligendi nemo impedit maiores iure ut, quasi repellat eius, atque iusto. Exercitationem, voluptatem rem.</p>

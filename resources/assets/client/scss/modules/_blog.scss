@@ -36,16 +36,21 @@
 
   &_label {
     margin-bottom: 3 * $base-line;
+  }
 
-    span {
-      display: inline-block;
-      text-align: center;
-      text-transform: uppercase;
-      background-color: $theme-secondary;
-      color: $text-primary-on-secondary;
-      font-size: 13px;
-      padding: 2px 8px;
-      min-width: 12 * $base-line;
+  &_categorie {
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: $theme-secondary;
+    color: $text-primary-on-secondary;
+    font-size: 13px;
+    padding: 2px 8px;
+    min-width: 12 * $base-line;
+
+    &:hover {
+      text-decoration: none;
+      color: initial;
     }
   }
 
