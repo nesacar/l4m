@@ -28,10 +28,6 @@
                 <font-awesome-icon icon="users" />
                 <ul>
                     <li><router-link tag="a" :to="'/users'">Pregled korisnika</router-link></li>
-                    <li><router-link tag="a" :to="'/architects'">Arhi klub</router-link></li>
-                    <!--
-                    <li><a href="#">Roles</a></li>
-                    -->
                 </ul>
             </li>
             <li>
@@ -40,11 +36,15 @@
             </li>
             <li :class="{ 'active': showProductsItemActive }" :style="{ 'display': showProductsItem ? 'block' : 'none' }">
                 <font-awesome-icon icon="angle-right" />
-                <a href="#" @click="changeShowProductsItemActive()">Proizvodi</a>
+                <a href="#" @click="changeShowProductsItemActive()">Prodavnica</a>
                 <font-awesome-icon icon="shopping-cart" />
                 <ul>
-                    <li><router-link tag="a" :to="'/products'">Pregled proizvoda</router-link></li>
-                    <li><router-link tag="a" :to="'/collections'">Pregled kolekcija</router-link></li>
+                    <li><router-link tag="a" :to="'/products'">Proizvodi</router-link></li>
+                    <li><router-link tag="a" :to="'/categories'">Kategorije</router-link></li>
+                    <li><router-link tag="a" :to="'/brands'">Brendovi</router-link></li>
+                    <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
+                    <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
+                    <li><router-link tag="a" :to="'/attributes'">Atributi</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">
@@ -52,16 +52,8 @@
                 <a href="#" @click="changeShowPostsItemActive()">Članci</a>
                 <font-awesome-icon icon="paste" />
                 <ul>
-                    <li><router-link tag="a" :to="'/posts'">Pregled članaka</router-link></li>
-                    <li><router-link tag="a" :to="'/categories'">Pregled kategorija</router-link></li>
-                </ul>
-            </li>
-            <li :class="{ 'active': showGalleriesItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">
-                <font-awesome-icon icon="angle-right" />
-                <a href="#" @click="changeShowGalleriesItemActive()">Galerije</a>
-                <font-awesome-icon icon="paste" />
-                <ul>
-                    <li><router-link tag="a" :to="'/galleries'">Pregled galerije</router-link></li>
+                    <li><router-link tag="a" :to="'/posts'">Članci</router-link></li>
+                    <li><router-link tag="a" :to="'/blogs'">Kategorije</router-link></li>
                 </ul>
             </li>
             <!--

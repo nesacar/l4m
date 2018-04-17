@@ -7,15 +7,15 @@
                 </div>
                 <form @submit.prevent="login()">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your email address" v-model="email">
+                        <label for="exampleInputEmail1">Email adresa</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email adresa" v-model="email">
                         <small class="form-text text-muted" v-if="error != null">{{ error.error }}</small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
+                        <label for="exampleInputPassword1">Lozinka</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Lozinka" v-model="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Potvrdi</button>
                 </form>
             </div>
         </div>
@@ -35,7 +35,7 @@
             login(){
                 let data = {
                     client_id: 2,
-                    client_secret: 'gpjvqhGsTA3ecPITmCDq36Eswf7OxRFzS7QqCbOe',
+                    client_secret: 'DhbbKtMNwymeo9feAhIbxpa2UQaVbCPkL4Ss2vpS',
                     grant_type: 'password',
                     username: this.email,
                     password: this.password

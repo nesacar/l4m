@@ -24,7 +24,7 @@
                                 <a class="dropdown-item" href="#" @click.prevent="newCollection()">Kolekcija</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" @click.prevent="newPost()">Članak</a>
-                                <a class="dropdown-item" href="#" @click.prevent="newCategory()">Kategorija</a>
+                                <a class="dropdown-item" href="#" @click.prevent="newBlog()">Kategorija</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" @click.prevent="newUser()">Korisnik</a>
                                 <div class="dropdown-divider"></div>
@@ -137,8 +137,8 @@
             newUser(){
                 this.$router.push('/users/create');
             },
-            newCategory(){
-                this.$router.push('/categories/create');
+            newBlog(){
+                this.$router.push('/blogs/create');
             },
             newPost(){
                 this.$router.push('/posts/create');
