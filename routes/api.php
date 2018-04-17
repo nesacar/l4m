@@ -25,3 +25,6 @@ Route::middleware('auth:api')->post('users/{id}/image', 'UsersController@uploadI
 
 Route::middleware('auth:api')->get('settings/{id}/edit', 'SettingsController@edit');
 Route::middleware('auth:api')->put('settings/{id}', 'SettingsController@update');
+
+Route::middleware('auth:api')->resource('themes', 'ThemesController');
+Route::middleware('auth:api')->post('themes/{id}/image', 'ThemesController@uploadImage');

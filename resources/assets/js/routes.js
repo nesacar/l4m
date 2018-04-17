@@ -35,10 +35,10 @@ export const router = new VueRouter({
 
         { path: "/settings/:id/edit", component: require('./components/settings/SettingEdit.vue'), meta: { forAuth: true } },
 
-        // { path: "/themes", component: require('./components/themes/ThemeList.vue'), meta: { forAuth: true } },
-        // { path: "/themes/create", component: require('./components/themes/ThemeCreate.vue'), meta: { forAuth: true } },
-        // { path: "/themes/:id/edit", component: require('./components/themes/ThemeEdit.vue'), meta: { forAuth: true } },
-        //
+        { path: "/themes", component: require('./components/themes/ThemeList.vue'), meta: { forAuth: true } },
+        { path: "/themes/create", component: require('./components/themes/ThemeCreate.vue'), meta: { forAuth: true } },
+        { path: "/themes/:id/edit", component: require('./components/themes/ThemeEdit.vue'), meta: { forAuth: true } },
+
         // { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAuth: true } },
         // { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAuth: true } },
         // { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAuth: true } },
