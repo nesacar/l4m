@@ -2,9 +2,10 @@
 /public/hot
 /public/css
 /public/js
-/public/client/css
-/public/client/js
+/public/themes/l4m/css
+/public/themes/l4m/js
 /public/storage
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 /.idea
