@@ -30,7 +30,7 @@
       <div class="split-view_left-pane">
         @component('themes.' . env('THEME_NAME', '') . '.components.grid',
           [
-            'component' => 'grid-tile',
+            'component' => 'blog.tile',
             'items' => $items
           ]
         )
@@ -49,7 +49,17 @@
     <h1 class="section-title"><span>section title</span></h1>
 
     <div class="split-view">
-      <div class="split-view_left-pane"></div>
+      <div class="split-view_left-pane">
+        @component('themes.' . env('THEME_NAME', '') . '.components.list', [
+          'component' => 'blog.tile',
+          'options' => (object)[
+            'horizontal' => true,
+            'asymmetric' => true
+          ],
+          'items' => $items
+        ])
+        @endcomponent
+      </div>
       
       <div class="split-view_right-pane">
         @component('themes.' . env('THEME_NAME', '') . '.components.list', [
