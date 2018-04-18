@@ -1,6 +1,7 @@
 .nav {
   display: flex;
   justify-content: center;
+  border-top: 1px solid $border-color-dark;
 
   &_link {
     position: relative;
@@ -20,22 +21,19 @@
 
     &::before {
       position: absolute;
-      top: 0;
+      top: -1px;
       left: 0;
       display: block;
       height: 2px;
       width: 100%;
       content: "";
       background-color: $theme-secondary;
-      transform: scaleX(0);
       opacity: 0;
-      // transform-origin: top left;
-      transition: transform .21s, opacity .12s;
+      transition: opacity .12s;
     }
 
     &:hover::before,
     &--active::before {
-      transform: scaleX(1);
       opacity: 1;
     }
   }
