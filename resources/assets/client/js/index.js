@@ -1,3 +1,6 @@
+import * as l4m from './l4m';
 import { Toast } from './components/toast';
 
-window.toast = Toast;
+(function () {
+  l4m.init();
+}());

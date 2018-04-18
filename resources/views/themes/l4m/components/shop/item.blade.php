@@ -18,7 +18,7 @@
     <span class="shop-item_discount-tag">{{ $discount }}</span>
   @endif
   <div class="shop-item_image">
-    <div class="image image--portrait"
+    <div class="image image--portrait lazy-image"
       data-src="{{ $img }}"
     ></div>
   </div>

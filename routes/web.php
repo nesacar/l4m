@@ -42,26 +42,26 @@ function getProducts () {
       "name" => "balmoral",
       "brand" => "Chesterfield",
       "price" => 500,
-      "img" => "product image",
+      "img" => "https://pictures.kare-design.com/8/KARE-83143-250x250.jpg",
       "discount" => 10
     ],
     (object)[
       "name" => "bluza consuella",
       "brand" => "BOSS",
       "price" => 595,
-      "img" => "product image"
+      "img" => "https://pictures.kare-design.com/8/KARE-83090-250x250.jpg"
     ],
     (object)[
       "name" => "skirt",
       "brand" => "BOSS",
       "price" => 500,
-      "img" => "product image"
+      "img" => "https://pictures.kare-design.com/8/KARE-83292-250x250.jpg"
     ],
     (object)[
       "name" => "kaput w casilie",
       "brand" => "BOSS",
       "price" => 595,
-      "img" => "product image"
+      "img" => "https://pictures.kare-design.com/8/KARE-83092-250x250.jpg"
     ]
   ];
 }

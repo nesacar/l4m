@@ -7,6 +7,15 @@
   background-repeat: no-repeat;
   background-size: cover;
 
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translate(-50%, -50%);
+  }
+
   &--square {
     padding-top: get-padding-from-ratio();
   }
@@ -23,16 +32,12 @@
     padding-top: get-padding-from-ratio(21, 9);
   }
 
-  &--portrait {
-    padding-top: get-padding-from-ratio(3, 4);
+  img {
+    height: auto;
+    width: 100%;
   }
 
-  img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 100%;
-    width: auto;
-    transform: translate(-50%, -50%);
+  &--portrait {
+    padding-top: get-padding-from-ratio(3, 4);
   }
 }
