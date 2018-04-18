@@ -113,7 +113,7 @@ class BrandsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $brands = Brand::select('id', 'title', 'short', 'image')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
+        $brands = Brand::select('id', 'title', 'short')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'brands' => $brands,

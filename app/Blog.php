@@ -46,7 +46,7 @@ class Blog extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
-//    public function post(){
-//        return $this->hasMany(Post::class);
-//    }
+    public function post(){
+        return $this->hasMany(Post::class);
+    }
 }
