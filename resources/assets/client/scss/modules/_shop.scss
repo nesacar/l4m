@@ -1,3 +1,19 @@
+.shop-grid {
+  display: grid;
+  grid-gap: $grid-gutter-width;
+  grid-template-columns: 1fr 1fr;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &--shop {
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
 .shop-item {
   position: relative;
   margin-bottom: 4 * $base-line;
@@ -5,6 +21,7 @@
   &_image {
     overflow: hidden;
     border: 1px solid $border-color-dark;
+    background-color: #fff;
   }
 
   &_content {

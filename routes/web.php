@@ -61,7 +61,7 @@ function getProducts () {
       "name" => "kaput w casilie",
       "brand" => "BOSS",
       "price" => 595,
-      "img" => "https://pictures.kare-design.com/8/KARE-83092-250x250.jpg"
+      "img" => "https://pictures.kare-design.com/8/KARE-82772-250x250.jpg"
     ]
   ];
 }
@@ -75,11 +75,20 @@ Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index'
 
 Route::get('/blog', function () {
   // tmp data
-  $title = 'Luxury 4 Me';
+  $title = 'Luxury 4 Me - Blog';
   $items = getItems();
   $products = getProducts();
 
   return view('themes.l4m.pages.blog', compact('title', 'items', 'products'));
+});
+
+Route::get('/shop', function () {
+  // tmp data
+  $title = 'Luxury 4 Me - Shop';
+  $items = getItems();
+  $products = getProducts();
+
+  return view('themes.l4m.pages.shop', compact('title', 'items', 'products'));
 });
 
 Route::get('/admin', function () {
