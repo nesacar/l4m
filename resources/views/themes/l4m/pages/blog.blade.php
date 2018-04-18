@@ -42,6 +42,15 @@
       </aside>
 
     </div>
+  </section>
+
+  <section class="container">
+    
+    @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
+      'component' => 'shop.item',
+      'items' => $products
+    ])
+    @endcomponent
 
   </section>
 

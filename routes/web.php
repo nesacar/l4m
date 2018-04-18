@@ -67,7 +67,11 @@ function getProducts () {
 }
 
 Route::get('/', function () {
-    return view('welcome');
+  // tmp data
+  $title = 'Luxury 4 Me';
+  $products = getProducts();
+
+  return view('themes.l4m.pages.home', compact('title', 'products'));
 });
 
 // filemanager
