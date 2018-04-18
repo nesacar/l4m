@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ url('themes/' . env('THEME_NAME', '') . '/css/main.css') }}">
 </head>
 <body>
+  @include('themes.' . env('THEME_NAME', '') . '.partials.header')
 
   <div class="content">
 

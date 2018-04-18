@@ -1,0 +1,42 @@
+.nav {
+  display: flex;
+  justify-content: center;
+
+  &_link {
+    position: relative;
+    display: inline-flex;
+    padding: (2 * $base-line) $base-line;
+    text-transform: uppercase;
+    color: $text-primary-on-light;
+
+    @include media-breakpoint-up(lg) {
+      padding: 2 * $base-line;
+    }
+
+    &:hover {
+      color: currentColor;
+      text-decoration: none;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 2px;
+      width: 100%;
+      content: "";
+      background-color: $theme-secondary;
+      transform: scaleX(0);
+      opacity: 0;
+      // transform-origin: top left;
+      transition: transform .21s, opacity .12s;
+    }
+
+    &:hover::before,
+    &--active::before {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+}
