@@ -24,9 +24,6 @@
                     <div class="card">
                         <h5>Generalne informacije</h5>
                         <hr>
-                        <form @submit.prevent="general()">
-
-                        </form>
                     </div>
                 </div>
                 <div class="col-md-8">

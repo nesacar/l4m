@@ -6,13 +6,21 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Teme</li>
+                            <li>Brendovi</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <div class="row">
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <h5>Brendovi</h5>
+                        <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <thead>
@@ -25,7 +33,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in themes">
+                        <tr v-for="row in brands">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
                             <td>{{ row.publish }}</td>
@@ -56,7 +64,7 @@
     export default {
         data(){
             return {
-                themes: {},
+                brands: {},
                 paginate: {}
             }
         },
@@ -65,21 +73,21 @@
             'font-awesome-icon': FontAwesomeIcon
         },
         created(){
-            this.getThemes();
+            this.getBrands();
         },
         methods: {
-            getThemes(){
-                axios.get('api/themes')
+            getBrands(){
+                axios.get('api/brands')
                     .then(res => {
-                        this.themes = res.data.themes.data;
-                        this.paginate = res.data.themes;
+                        this.brands = res.data.brands.data;
+                        this.paginate = res.data.brands;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('themes/' + id + '/edit');
+                this.$router.push('brands/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -92,14 +100,14 @@
                     confirmButtonText: 'Da, obriši!'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/themes/' + row.id)
+                        axios.delete('api/brands/' + row.id)
                             .then(res => {
-                                this.themes = this.themes.filter(function (item) {
+                                this.brands = this.brands.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Tema je obrisana.',
+                                    'Brend je obrisan.',
                                     'success'
                                 );
                             })
@@ -110,14 +118,17 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/themes?page=' + index)
+                axios.get('api/brands?page=' + index)
                     .then(res => {
-                        this.themes = res.data.themes.data;
-                        this.paginate = res.data.themes;
+                        this.brands = res.data.brands.data;
+                        this.paginate = res.data.brands;
                     })
                     .catch(e => {
                         console.log(e);
                     });
+            },
+            addRow(){
+                this.$router.push('/brands/create');
             }
         }
     }

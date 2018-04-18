@@ -15,6 +15,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+                        <h5>Kategorije članka</h5>
+                        <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card">
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -121,6 +128,9 @@
                     .catch(e => {
                         console.log(e);
                     });
+            },
+            addRow(){
+                this.$router.push('/blogs/create');
             }
         }
     }

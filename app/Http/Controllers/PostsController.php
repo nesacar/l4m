@@ -35,7 +35,7 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = Post::create(request()->all());
-        $post->slug = request('slug')? str_slug(request('slug')) : str_slug(request('title'));
+        $post->slug = request('slug')?: request('title');
         $post->publish = request('publish')?: false;
         $post->update();
 
@@ -69,7 +69,7 @@ class PostsController extends Controller
     public function update(CreatePostRequest $request, Post $post)
     {
         $post->update(request()->all());
-        $post->slug = request('slug')? str_slug(request('slug')) : str_slug(request('title'));
+        $post->slug = request('slug')?: request('title');
         $post->publish = request('publish')?: false;
         $post->update();
 
@@ -86,6 +86,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
+        if($post->image) File::delete();
         $post->delete();
 
         return response()->json([

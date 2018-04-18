@@ -172,7 +172,7 @@
                 return this.$store.getters.getUser;
             },
             publish_at(){
-                return this.post.date + ' ' + this.post.time + ':00'
+                return  moment(this.post.date).format('YYYY-MM-DD') + ' ' + this.post.time
             }
         },
         components: {
@@ -203,6 +203,7 @@
             submit(){
                 this.post.user_id = this.user.id;
                 this.post.publish_at = this.publish_at;
+                console.log(this.post);
                 axios.put('api/posts/' + this.post.id, this.post)
                     .then(res => {
                         this.post = res.data.post;
