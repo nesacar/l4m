@@ -23,7 +23,7 @@
   }
 </style>
   <section class="container">
-    <h1 class="section-title"><span>section title</span></h1>
+    <h2 class="section-title"><span>section title</span></h2>
 
     <div class="split-view">
 
@@ -46,7 +46,14 @@
   </section>
 
   <section class="container">
-    <h1 class="section-title"><span>section title</span></h1>
+    <div style="width: 25%;">
+    @component('themes.' . env('THEME_NAME', '') . '.components.shop.item')
+    @endcomponent
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title"><span>section title</span></h2>
 
     <div class="split-view">
       <div class="split-view_left-pane">

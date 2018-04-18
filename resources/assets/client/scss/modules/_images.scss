@@ -23,6 +23,10 @@
     padding-top: get-padding-from-ratio(21, 9);
   }
 
+  &--portrait {
+    padding-top: get-padding-from-ratio(3, 4);
+  }
+
   img {
     position: absolute;
     top: 50%;
