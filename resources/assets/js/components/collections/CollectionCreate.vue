@@ -6,8 +6,8 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/brands'">Brendovi</router-link></li>
-                            <li>Izmena brenda</li>
+                            <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
+                            <li>Kreiranje kolekcije</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
             <div class="row bela">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Izmena brenda</h5>
+                        <h5>Kreiranje kolekcije</h5>
                     </div>
                 </div>
 
@@ -24,48 +24,56 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
+                                <label for="brand">Brend</label>
+                                <select name="brand" id="brand" class="form-control" v-model="collection.brand_id">
+                                    <option value="0" selected>Odaberite brend</option>
+                                    <option :value="brand.id" v-for="brand in lists">{{ brand.title }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.brand_id">{{ error.brand_id[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="brand.title">
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="collection.title">
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="brand.slug">
+                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="collection.slug">
                                 <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="order">Redosled</label>
-                                <input type="text" name="slug" class="form-control" id="order" placeholder="Redosled" v-model="brand.order">
+                                <input type="text" name="slug" class="form-control" id="order" placeholder="Redosled" v-model="collection.order">
                                 <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="brand.short"></textarea>
+                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="collection.short"></textarea>
                                 <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
                             </div>
                             <div class="form-group">
                                     <label>Opis</label>
                                 <ckeditor
-                                        v-model="brand.body"
+                                        v-model="collection.body"
                                         :config="config">
                                 </ckeditor>
                                 <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label>Publikovano</label><br>
-                                <switches v-model="brand.publish" theme="bootstrap" color="primary"></switches>
+                                <switches v-model="collection.publish" theme="bootstrap" color="primary"></switches>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Izmeni</button>
+                                <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <upload-image-helper
-                            :image="brand.image"
+                            :image="collection.image"
                             :defaultImage="null"
-                            :titleImage="'brenda'"
+                            :titleImage="'kolekcije'"
                             :error="error"
                             @uploadImage="upload($event)"
                             @removeRow="remove($event)"
@@ -88,7 +96,8 @@
     export default {
         data(){
           return {
-              brand: {
+              collection: {
+                  brand_id: 0,
                   desc: null,
                   publish: false,
               },
@@ -119,42 +128,13 @@
             'ckeditor': Ckeditor
         },
         created(){
-            this.getBrand();
+            this.getList();
         },
         methods: {
-            getBrand(){
-                axios.get('api/brands/' + this.$route.params.id)
-                    .then(res => {
-                        this.brand = res.data.brand;
-                    })
-                    .catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
             submit(){
-                this.brand.user_id = this.user.id;
-                axios.put('api/brands/' + this.brand.id, this.brand)
+                this.collection.user_id = this.user.id;
+                axios.post('api/collections', this.collection)
                     .then(res => {
-                        this.brand = res.data.brand;
-                        swal({
-                            position: 'center',
-                            type: 'success',
-                            title: 'Uspeh',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        this.error = null;
-                    }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
-            },
-            upload(image){
-                axios.post('api/brands/' + this.brand.id + '/image', { file: image[0] })
-                    .then(res => {
-                        this.brand.image = res.data.image;
-                        this.error = null;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -162,11 +142,24 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        this.$router.push('/collections');
                     }).catch(e => {
-                    console.log(e);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
+            upload(image){
+                this.collection.image = image[0];
+            },
+            getList(){
+                axios.get('api/brands/lists')
+                    .then(res => {
+                        this.lists = res.data.brands;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            }
         }
     }
 </script>

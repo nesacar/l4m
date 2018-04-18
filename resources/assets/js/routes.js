@@ -21,14 +21,18 @@ export const router = new VueRouter({
         { path: "/blogs/create", component: require('./components/blogs/BlogCreate.vue'), meta: { forAuth: true } },
         { path: "/blogs/:id/edit", component: require('./components/blogs/BlogEdit.vue'), meta: { forAuth: true } },
 
-        // { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAuth: true } },
-        // { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAuth: true } },
-        // { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAuth: true } },
-        //
-        // { path: "/collections", component: require('./components/collections/CollectionList.vue'), meta: { forAuth: true } },
-        // { path: "/collections/create", component: require('./components/collections/CollectionCreate.vue'), meta: { forAuth: true } },
-        // { path: "/collections/:id/edit", component: require('./components/collections/CollectionEdit.vue'), meta: { forAuth: true } },
-        //
+        { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAuth: true } },
+        { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAuth: true } },
+        { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAuth: true } },
+        { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAuth: true } },
+        { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/collections", component: require('./components/collections/CollectionList.vue'), meta: { forAuth: true } },
+        { path: "/collections/create", component: require('./components/collections/CollectionCreate.vue'), meta: { forAuth: true } },
+        { path: "/collections/:id/edit", component: require('./components/collections/CollectionEdit.vue'), meta: { forAuth: true } },
+
         // { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAuth: true } },
         // { path: "/products/create", component: require('./components/products/ProductCreate.vue'), meta: { forAuth: true } },
         // { path: "/products/:id/edit", component: require('./components/products/ProductEdit.vue'), meta: { forAuth: true } },

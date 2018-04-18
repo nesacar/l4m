@@ -32,7 +32,7 @@ class BlogsController extends Controller
     public function store(CreateBlogRequest $request)
     {
         $blog = Blog::create(request()->except('image'));
-        $blog->slug = request('slug')? str_slug(request('slug')) : str_slug(request('title'));
+        $blog->slug = request('slug')?: request('title');
         $blog->publish = request('publish')?: false;
         $blog->update();
 
@@ -66,7 +66,7 @@ class BlogsController extends Controller
     public function update(CreateBlogRequest $request, Blog $blog)
     {
         $blog->update(request()->all());
-        $blog->slug = request('slug')? str_slug(request('slug')) : str_slug(request('title'));
+        $blog->slug = request('slug')?: request('title');
         $blog->publish = request('publish')?: false;
         $blog->update();
 

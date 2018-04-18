@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Brendovi</li>
+                            <li>Kolekcije</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Brendovi</h5>
+                        <h5>Kolekcije</h5>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -27,15 +27,17 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">naziv</th>
+                            <th scope="col">brend</th>
                             <th scope="col">publikovano</th>
                             <th scope="col">kreirano</th>
                             <th>akcija</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in brands">
+                        <tr v-for="row in collections">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
+                            <td>{{ row.brand }}</td>
                             <td>{{ row.publish }}</td>
                             <td>{{ row.created_at }}</td>
                             <td>
@@ -64,7 +66,7 @@
     export default {
         data(){
             return {
-                brands: {},
+                collections: {},
                 paginate: {}
             }
         },
@@ -77,17 +79,17 @@
         },
         methods: {
             getBrands(){
-                axios.get('api/brands')
+                axios.get('api/collections')
                     .then(res => {
-                        this.brands = res.data.brands.data;
-                        this.paginate = res.data.brands;
+                        this.collections = res.data.collections.data;
+                        this.paginate = res.data.collections;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('brands/' + id + '/edit');
+                this.$router.push('collections/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -100,9 +102,9 @@
                     confirmButtonText: 'Da, obriši!'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/brands/' + row.id)
+                        axios.delete('api/collections/' + row.id)
                             .then(res => {
-                                this.brands = this.brands.filter(function (item) {
+                                this.collections = this.collections.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
@@ -118,17 +120,17 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/brands?page=' + index)
+                axios.get('api/collections?page=' + index)
                     .then(res => {
-                        this.brands = res.data.brands.data;
-                        this.paginate = res.data.brands;
+                        this.collections = res.data.collections.data;
+                        this.paginate = res.data.collections;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             addRow(){
-                this.$router.push('/brands/create');
+                this.$router.push('/collections/create');
             }
         }
     }

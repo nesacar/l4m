@@ -5,25 +5,23 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use File;
 
-class Blog extends Model
+class Brand extends Model
 {
-    protected $table = 'blogs';
+    protected $fillable = ['title', 'slug', 'short', 'body', 'order', 'image', 'publish'];
 
-    protected $fillable = ['id', 'title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'publish'];
-
-    public static function base64UploadImage($blog_id, $image){
-        $blog = self::find($blog_id);
-        if($blog->image != null){
-            File::delete($blog->image);
+    public static function base64UploadImage($brand_id, $image){
+        $brand = self::find($brand_id);
+        if($brand->image != null){
+            File::delete($brand->image);
         }
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
-        $filename = $blog->slug . '-' . str_random(2) . '-' . $blog->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/blogs/');
+        $filename = $brand->slug . '-' . str_random(2) . '-' . $brand->id . '.' . self::getExtension($image);
+        $path = public_path('storage/uploads/brands/');
         file_put_contents($path . $filename, $data);
-        $blog->image = 'storage/uploads/blogs/' . $filename;
-        $blog->update();
-        return $blog->image;
+        $brand->image = 'storage/uploads/brands/' . $filename;
+        $brand->update();
+        return $brand->image;
     }
 
     public static function getExtension($image)
@@ -46,7 +44,7 @@ class Blog extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
-    public function post(){
-        return $this->hasMany(Post::class);
+    public function collection(){
+        return $this->hasMany(Collection::class);
     }
 }

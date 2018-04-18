@@ -39,3 +39,16 @@ Route::middleware('auth:api')->post('menu-links/{id}/order', 'MenuLinksControlle
 Route::middleware('auth:api')->get('blogs/lists', 'BlogsController@lists');
 Route::middleware('auth:api')->resource('blogs', 'BlogsController');
 Route::middleware('auth:api')->post('blogs/{id}/image', 'BlogsController@uploadImage');
+
+Route::middleware('auth:api')->post('posts/search', 'PostsController@search');
+Route::middleware('auth:api')->get('posts/lists', 'PostsController@lists');
+Route::middleware('auth:api')->resource('posts', 'PostsController');
+Route::middleware('auth:api')->post('posts/{id}/image', 'PostsController@uploadImage');
+
+Route::middleware('auth:api')->get('brands/lists', 'BrandsController@lists');
+Route::middleware('auth:api')->resource('brands', 'BrandsController');
+Route::middleware('auth:api')->post('brands/{id}/image', 'BrandsController@uploadImage');
+
+Route::middleware('auth:api')->get('collections/lists', 'CollectionsController@lists');
+Route::middleware('auth:api')->resource('collections', 'CollectionsController');
+Route::middleware('auth:api')->post('collections/{id}/image', 'CollectionsController@uploadImage');
