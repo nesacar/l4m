@@ -1,4 +1,7 @@
 .shop-item {
+  position: relative;
+  margin-bottom: 4 * $base-line;
+
   &_image {
     overflow: hidden;
     border: 1px solid $border-color-dark;
@@ -21,7 +24,31 @@
     margin-bottom: $base-line;
   }
 
-  &_price {
+  &_price-tag {
+    &::after {
+      display: inline;
+      content: "RSD";
+    }
 
+    &--invalid {
+      color: $text-secondary-on-light;
+      text-decoration: line-through;
+      margin-right: $base-line;
+    }
+  }
+
+  &_discount-tag {
+    position: absolute;
+    top: 2 * $base-line;
+    right: 2 * $base-line;
+    padding: 2px 8px;
+    background-color: $theme-secondary;
+    color: $text-primary-on-secondary;
+    border-radius: 50px;
+    z-index: 1;
+
+    &::after {
+      content: "%";
+    }
   }
 }

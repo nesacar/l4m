@@ -11,17 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// filemanager
-Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
-
-Route::get('/blog', function () {
-  // tmp data
-  $title = 'Luxury 4 Me';
-  $items = [
+function getItems () {
+  return [
     (object) [
       "img" => "img src1", 
       "title" => "WC Takes the Ingenieur Back to its Roots",
@@ -43,8 +34,52 @@ Route::get('/blog', function () {
       "categorie" => "fasion"
       ]
   ];
+}
 
-  return view('themes.l4m.pages.blog', compact('title', 'items'));
+function getProducts () {
+  return [
+    (object)[
+      "name" => "balmoral",
+      "brand" => "Chesterfield",
+      "price" => 500,
+      "img" => "product image",
+      "discount" => 10
+    ],
+    (object)[
+      "name" => "bluza consuella",
+      "brand" => "BOSS",
+      "price" => 595,
+      "img" => "product image"
+    ],
+    (object)[
+      "name" => "skirt",
+      "brand" => "BOSS",
+      "price" => 500,
+      "img" => "product image"
+    ],
+    (object)[
+      "name" => "kaput w casilie",
+      "brand" => "BOSS",
+      "price" => 595,
+      "img" => "product image"
+    ]
+  ];
+}
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// filemanager
+Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
+
+Route::get('/blog', function () {
+  // tmp data
+  $title = 'Luxury 4 Me';
+  $items = getItems();
+  $products = getProducts();
+
+  return view('themes.l4m.pages.blog', compact('title', 'items', 'products'));
 });
 
 Route::get('/admin', function () {
