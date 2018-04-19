@@ -17,9 +17,11 @@
           <div class="footer_column">
             <h4 class="section-title footer_section-title">newsletter</h4>
             <p>Receive the latest news vis email</p>
-            <form action="POST">
-              <input type="text" name="email" id="nl-email" />
-              <button type="submit">&gt;</button>
+            <form class="footer_newsletter" action="POST">
+              <input type="text" name="email" id="nl-email" placeholder="Enter your email" />
+              <button class="with-flare" type="submit">
+                <span class="arrow"></span>
+              </button>
             </form>
           </div>
         </div>

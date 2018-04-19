@@ -1,5 +1,6 @@
 #footer {
   margin-top: auto;
+  padding: 4 * $base-line;
   background-color: $theme-primary;
 }
 
@@ -29,7 +30,46 @@
     color: rgba(255, 255, 255, .5);
   }
 
+  .logo-container {
+    padding-top: 0;
+  }
+
   &_nav-item {
     margin-bottom: $base-line;
+  }
+
+  &_newsletter {
+    display: flex;
+    align-items: stretch;
+    max-width: 300px;
+
+    input[type="text"] {
+      flex-grow: 1;
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-right: 0;
+      outline: none;
+      padding: 10px 16px;
+      color: $text-primary-on-primary;
+      font-size: 16px;
+
+      &:focus {
+        border-color: rgba(255, 255, 255, 1);
+      }
+
+      &::placeholder {
+        color: $text-secondary-on-primary;
+      }
+    }
+
+    button[type="submit"] {
+      border: 0;
+      background-color: $theme-secondary;
+      padding: 0 (2 * $base-line);
+
+      &:focus {
+        outline: 3px solid darken($theme-secondary, 25%);
+      }
+    }
   }
 }

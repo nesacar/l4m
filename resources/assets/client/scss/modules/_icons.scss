@@ -7,3 +7,31 @@
   fill: currentColor;
   pointer-events: none;
 }
+
+.arrow {
+  position: relative;
+  display: block;
+  height: 20px;
+  width: 12px;
+  
+  &::after,
+  &::before {
+    position: absolute;
+    left: 50%;
+    display: block;
+    height: 50%;
+    width: 2px;
+    background-color: white;
+    content: "";
+  }
+
+  &::after {
+    top: 0;
+    transform: translateX(-50%) skewX(45deg);
+  }
+
+  &::before {
+    bottom: 0;
+    transform: translateX(-50%) skewX(-45deg);
+  }
+}

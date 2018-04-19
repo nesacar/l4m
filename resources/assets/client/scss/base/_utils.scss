@@ -31,8 +31,9 @@
     // transition: transform .6s;
   }
 
-  &:hover::after {
-    transition: transform .8s;
+  &:hover::after,
+  &:focus::after {
+    transition: transform 1s;
     transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,200%,0);
   }
 }
