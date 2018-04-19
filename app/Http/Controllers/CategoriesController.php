@@ -119,7 +119,7 @@ class CategoriesController extends Controller
     }
 
     /**
-    * Posts search
+    * Category search
     *
     * @return \Illuminate\Http\JsonResponse
     */

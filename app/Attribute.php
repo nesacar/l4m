@@ -12,6 +12,10 @@ class Attribute extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function getPublishAttribute($value){
+        return $value? 'Da' : 'Ne';
+    }
+
     public function property(){
         return $this->belongsTo(Property::class);
     }

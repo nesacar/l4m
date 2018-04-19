@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Http\Requests\CreatePropertyRequest;
 use App\Property;
 use Illuminate\Http\Request;

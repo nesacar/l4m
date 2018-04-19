@@ -100,4 +100,31 @@ class AttributesController extends Controller
             'attributes' => $attributes
         ]);
     }
+
+    /**
+     * Attribute search
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(){
+        $text = request('text');
+        $property_id = request('list')?: false;
+        $attributes = Attribute::select('attributes.id', 'attributes.title', 'attributes.order', 'attributes.publish', 'attributes.created_at', 'properties.title as property')
+            ->join('properties', 'attributes.property_id', '=', 'properties.id')
+            ->where(function ($query) use ($text){
+                if($text != ''){
+                    $query->where('attributes.title', 'like', '%'.$text.'%')->orWhere('attributes.slug', 'like', '%'.$text.'%');
+                }
+            })
+            ->where(function ($query) use ($property_id){
+                if($property_id){
+                    $query->where('attributes.property_id', $property_id);
+                }
+            })
+            ->groupBy('attributes.id')->orderBy('attributes.created_at', 'DESC')->paginate(50);
+
+        return response()->json([
+            'attributes' => $attributes,
+        ]);
+    }
 }

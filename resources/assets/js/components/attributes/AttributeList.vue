@@ -12,8 +12,9 @@
                 </div>
             </div>
 
-            <div class="row">
+            <search-helper :lists="properties" :text="''" @updateSearch="search($event)"></search-helper>
 
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Atributi</h5>
@@ -62,20 +63,24 @@
     import PaginateHelper from '../helper/PaginateHelper.vue';
     import swal from 'sweetalert2';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+    import SearchHelper from '../helper/SearchHelper.vue';
 
     export default {
         data(){
             return {
                 attributes: {},
+                properties: {},
                 paginate: {}
             }
         },
         components: {
             'paginate-helper': PaginateHelper,
-            'font-awesome-icon': FontAwesomeIcon
+            'font-awesome-icon': FontAwesomeIcon,
+            'search-helper': SearchHelper,
         },
         created(){
             this.getAttributes();
+            this.getProperties();
         },
         methods: {
             getAttributes(){
@@ -83,6 +88,15 @@
                     .then(res => {
                         this.attributes = res.data.attributes.data;
                         this.paginate = res.data.attributes;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
+            getProperties(){
+                axios.get('api/properties/lists')
+                    .then(res => {
+                        this.properties = res.data.properties;
                     })
                     .catch(e => {
                         console.log(e);
@@ -131,7 +145,17 @@
             },
             addRow(){
                 this.$router.push('/attributes/create');
-            }
+            },
+            search(value){
+                axios.post('api/attributes/search', value)
+                    .then(res => {
+                        this.attributes = res.data.attributes.data;
+                        this.paginate = res.data.attributes;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
         }
     }
 </script>
