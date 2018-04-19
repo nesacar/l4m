@@ -61,3 +61,8 @@ Route::middleware('auth:api')->resource('properties', 'PropertiesController');
 
 Route::middleware('auth:api')->get('attributes/lists', 'AttributesController@lists');
 Route::middleware('auth:api')->resource('attributes', 'AttributesController');
+
+Route::middleware('auth:api')->post('categories/search', 'CategoriesController@search');
+Route::middleware('auth:api')->get('categories/lists', 'CategoriesController@lists');
+Route::middleware('auth:api')->resource('categories', 'CategoriesController');
+Route::middleware('auth:api')->post('categories/{id}/image', 'CategoriesController@uploadImage');
