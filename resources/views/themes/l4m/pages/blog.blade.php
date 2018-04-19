@@ -88,6 +88,7 @@
           'items' => $items
           ])
         @endcomponent
+        @include('themes.' .env('THEME_NAME', '') . '.partials.newsletter')
       </div>
     
     </div>

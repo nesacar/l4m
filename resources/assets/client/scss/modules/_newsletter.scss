@@ -1,0 +1,44 @@
+.newsletter {
+  text-align: center;
+  width: 100%;
+  max-width: 32 * $base-line;
+  padding: 4 * $base-line 0;
+
+  &_title {
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+
+    input[type="text"] {
+      font-size: 16px;
+      padding: 6px 16px;
+      margin-bottom: 2 * $base-line;
+      background-color: rgba($theme-primary, .12);
+      border: 1px solid transparent;
+      outline: none;
+
+      &:focus {
+        border-color: $theme-primary;
+      }
+    }
+
+    button[type="submit"] {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $theme-primary;
+      color: $text-primary-on-primary;
+      text-transform: uppercase;
+      border: 0;
+
+      &:focus {
+        outline: 3px solid lighten($theme-primary, 46%);
+      }
+    }
+  }
+}
