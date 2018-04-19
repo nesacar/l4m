@@ -1,0 +1,28 @@
+.showcase {
+  background-color: rgba($theme-primary, .06);
+
+  &_title {
+    display: block;
+    text-align: center;
+
+    &::after,
+    &::before {
+      display: none;
+    } 
+  }
+}
+
+.carousel {
+  margin-left: -$column-paddings;
+  margin-right: -$column-paddings;
+
+  &_item {
+    padding-left: $column-paddings;
+    padding-right: $column-paddings;
+    width: 50%;
+
+    @include media-breakpoint-up(md) {
+      width: 25%;
+    }
+  }
+}

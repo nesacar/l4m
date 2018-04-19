@@ -26,13 +26,13 @@
     width: 100%;
     content: "";
     pointer-events: none;
-    background-color: rgba(255, 255, 255, .38);
+    background-color: rgba(255, 255, 255, .21);
     transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-200%,0);
     // transition: transform .6s;
   }
 
   &:hover::after {
-    transition: transform .6s;
+    transition: transform .8s;
     transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,200%,0);
   }
 }

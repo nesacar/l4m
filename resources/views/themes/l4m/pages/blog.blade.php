@@ -44,14 +44,26 @@
     </div>
   </section>
 
-  <section class="container">
-    
-    @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
-      'component' => 'shop.item',
-      'items' => $products
-    ])
-    @endcomponent
+  <section class="showcase">
+    <div class="container">
 
+      <h4 class="section-title showcase_title">featured products</h4>
+
+      <div class="simple-carousel-container">
+        <div class="simple-carousel carousel">
+          @foreach($products as $i => $product)
+          <div class="carousel_item">
+            @component('themes.' . env('THEME_NAME', '') . '.components.shop.item', [
+              'product' => $product,
+              '_index' => $i
+            ])
+            @endcomponent
+          </div>
+          @endforeach
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <section class="container">
