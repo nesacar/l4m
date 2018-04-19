@@ -52,3 +52,6 @@ Route::middleware('auth:api')->post('brands/{id}/image', 'BrandsController@uploa
 Route::middleware('auth:api')->get('collections/lists', 'CollectionsController@lists');
 Route::middleware('auth:api')->resource('collections', 'CollectionsController');
 Route::middleware('auth:api')->post('collections/{id}/image', 'CollectionsController@uploadImage');
+
+Route::middleware('auth:api')->get('properties/lists', 'PropertiesController@lists');
+Route::middleware('auth:api')->resource('properties', 'PropertiesController');
