@@ -58,3 +58,6 @@ Route::middleware('auth:api')->resource('sets', 'SetsController');
 
 Route::middleware('auth:api')->get('properties/lists', 'PropertiesController@lists');
 Route::middleware('auth:api')->resource('properties', 'PropertiesController');
+
+Route::middleware('auth:api')->get('attributes/lists', 'AttributesController@lists');
+Route::middleware('auth:api')->resource('attributes', 'AttributesController');

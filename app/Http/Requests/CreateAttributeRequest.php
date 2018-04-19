@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePropertyRequest extends FormRequest
+class CreateAttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,26 +25,21 @@ class CreatePropertyRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'property_id' => 'required|numeric|min:1',
             'order' => 'required|numeric|min:1',
-            'sets' => 'required|array|min:1',
         ];
     }
 
-    /**
-     * Translation error messages
-     *
-     * @return array
-     */
     public function messages()
     {
         return [
             'title.required' => 'Naziv je obavezan',
+            'property_id.required' => 'Osobina je obavezna',
+            'property_id.numeric' => 'Osobina je obavezna',
+            'property_id.min' => 'Osobina je obavezna',
             'order.required' => 'Redosled je obavezan',
-            'order.numeric' => 'Redosled mora biti broj',
+            'order.numeric' => 'Redosled je obavezan',
             'order.min' => 'Redosled je obavezan',
-            'sets.required' => 'Set je obavezan',
-            'sets.array' => 'et je obavezan',
-            'sets.min' => 'Set je obavezan',
         ];
     }
 }

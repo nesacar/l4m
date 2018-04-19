@@ -35,6 +35,8 @@ class PropertiesController extends Controller
         $property->publish = request('publish')?: false;
         $property->update();
 
+        if(request('sets')){ $property->set()->sync(request('sets')); }
+
         return response()->json([
             'property' => $property
         ]);
@@ -48,8 +50,11 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
+        $sets = $property->set()->pluck('sets.id');
+
         return response()->json([
-            'property' => $property
+            'property' => $property,
+            'sets' => $sets,
         ]);
     }
 
@@ -67,8 +72,12 @@ class PropertiesController extends Controller
         $property->publish = request('publish')?: false;
         $property->update();
 
+        if(request('sets')){ $property->set()->sync(request('sets')); }
+        $sets = $property->set()->pluck('sets.id');
+
         return response()->json([
-            'property' => $property
+            'property' => $property,
+            'sets' => $sets
         ]);
     }
 
@@ -93,10 +102,10 @@ class PropertiesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $property = Property::where('publish', 1)->orderBy('title', 'ASC')->pluck('title', 'id')->prepend('Bez osobine', 0);
+        $properties = Property::where('publish', 1)->orderBy('title', 'ASC')->pluck('title', 'id')->prepend('Bez osobine', 0);
 
         return response()->json([
-            'property' => $property
+            'properties' => $properties
         ]);
     }
 }

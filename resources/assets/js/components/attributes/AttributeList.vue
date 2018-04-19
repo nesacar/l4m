@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Osobine</li>
+                            <li>Atributi</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Osobine</h5>
+                        <h5>Atributi</h5>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -27,15 +27,17 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">naziv</th>
+                            <th scope="col">osobina</th>
                             <th scope="col">publikovano</th>
                             <th scope="col">kreirano</th>
                             <th>akcija</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in properties">
+                        <tr v-for="row in attributes">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
+                            <td>{{ row.property }}</td>
                             <td>{{ row.publish }}</td>
                             <td>{{ row.created_at }}</td>
                             <td>
@@ -64,7 +66,7 @@
     export default {
         data(){
             return {
-                properties: {},
+                attributes: {},
                 paginate: {}
             }
         },
@@ -73,21 +75,21 @@
             'font-awesome-icon': FontAwesomeIcon
         },
         created(){
-            this.getProperties();
+            this.getAttributes();
         },
         methods: {
-            getProperties(){
-                axios.get('api/properties')
+            getAttributes(){
+                axios.get('api/attributes')
                     .then(res => {
-                        this.properties = res.data.properties.data;
-                        this.paginate = res.data.properties;
+                        this.attributes = res.data.attributes.data;
+                        this.paginate = res.data.attributes;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('properties/' + id + '/edit');
+                this.$router.push('attributes/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -100,14 +102,14 @@
                     confirmButtonText: 'Da, obriši!'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/properties/' + row.id)
+                        axios.delete('api/attributes/' + row.id)
                             .then(res => {
-                                this.properties = this.properties.filter(function (item) {
+                                this.attributes = this.attributes.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Osobina je obrisana.',
+                                    'Atribut je obrisan.',
                                     'success'
                                 );
                             })
@@ -118,17 +120,17 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/properties?page=' + index)
+                axios.get('api/attributes?page=' + index)
                     .then(res => {
-                        this.properties = res.data.properties.data;
-                        this.paginate = res.data.properties;
+                        this.attributes = res.data.attributes.data;
+                        this.paginate = res.data.attributes;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             addRow(){
-                this.$router.push('/properties/create');
+                this.$router.push('/attributes/create');
             }
         }
     }

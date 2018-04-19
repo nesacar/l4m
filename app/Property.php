@@ -13,6 +13,10 @@ class Property extends Model
     }
 
     public function set(){
-        return $this->belongsTo(Set::class);
+        return $this->belongsToMany(Set::class);
+    }
+
+    public function attribute(){
+        return $this->hasMany(Attribute::class);
     }
 }

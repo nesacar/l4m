@@ -21,6 +21,16 @@ class CreateSetsTable extends Migration
             $table->boolean('publish')->default(1);
             $table->timestamps();
         });
+
+        Schema::create('property_set', function (Blueprint $table) {
+            $table->integer('property_id')->unsigned()->index();
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
+
+            $table->integer('set_id')->unsigned()->index();
+            $table->foreign('set_id')->references('id')->on('sets')->onDelete('cascade');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -31,5 +41,6 @@ class CreateSetsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('sets');
+        Schema::dropIfExists('property_set');
     }
 }

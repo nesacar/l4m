@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Set extends Model
+class Attribute extends Model
 {
-    protected $fillable = ['title', 'slug', 'short', 'publish'];
+    protected $fillable = ['property_id', 'title', 'slug', 'order', 'extra', 'publish'];
 
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($value);
     }
 
     public function property(){
-        return $this->belongsToMany(Property::class);
+        return $this->belongsTo(Property::class);
     }
 }

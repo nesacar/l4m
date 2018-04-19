@@ -24,11 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
-                                <label for="set">Set</label>
-                                <select name="set" id="set" class="form-control" v-model="property.set_id">
-                                    <option :value="index" v-for="(set, index) in lists">{{ set }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.set_id">{{ error.set_id[0] }}</small>
+                                <label>Set</label>
+                                <select2 :options="sets" :multiple="true" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                                <small class="form-text text-muted" v-if="error != null && error.sets">{{ error.sets[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="title">Naziv</label>
@@ -68,12 +68,13 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
     import Switches from 'vue-switches';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
               property: {},
-              lists: {},
+              sets: {},
               error: null,
               domain : apiHost
           }
@@ -86,6 +87,7 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'switches': Switches,
+            'select2': Select2,
         },
         created(){
             this.getSets();
@@ -94,7 +96,11 @@
             getSets(){
                 axios.get('api/sets/lists')
                     .then(res => {
-                        this.lists = res.data.sets;
+                        this.sets = _.map(res.data.sets, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
@@ -115,6 +121,9 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
+            },
+            input(set){
+                this.property.sets = set;
             },
         }
     }

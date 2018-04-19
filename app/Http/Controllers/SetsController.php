@@ -99,7 +99,7 @@ class SetsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $sets = Set::where('publish', 1)->orderBy('title', 'ASC')->pluck('title', 'id')->prepend('Bez seta', 0);
+        $sets = Set::select('id', 'title')->where('publish', 1)->orderBy('title', 'ASC')->get();
 
         return response()->json([
             'sets' => $sets

@@ -41,6 +41,10 @@ export const router = new VueRouter({
         { path: "/properties/create", component: require('./components/properties/PropertyCreate.vue'), meta: { forAuth: true } },
         { path: "/properties/:id/edit", component: require('./components/properties/PropertyEdit.vue'), meta: { forAuth: true } },
 
+        { path: "/attributes", component: require('./components/attributes/AttributeList.vue'), meta: { forAuth: true } },
+        { path: "/attributes/create", component: require('./components/attributes/AttributeCreate.vue'), meta: { forAuth: true } },
+        { path: "/attributes/:id/edit", component: require('./components/attributes/AttributeEdit.vue'), meta: { forAuth: true } },
+
         // { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAuth: true } },
         // { path: "/products/create", component: require('./components/products/ProductCreate.vue'), meta: { forAuth: true } },
         // { path: "/products/:id/edit", component: require('./components/products/ProductEdit.vue'), meta: { forAuth: true } },
