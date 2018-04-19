@@ -1,3 +1,35 @@
 #footer {
   margin-top: auto;
+  background-color: $theme-primary;
+}
+
+.footer {
+  color: $text-secondary-on-primary;
+
+  &_column {
+    margin-bottom: 4 * $base-line;
+  }
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: $text-primary-on-primary;
+    }
+  }
+
+  &_section-title {
+    color: $text-primary-on-primary;
+    padding: 0;
+    margin-bottom: 2 * $base-line;
+    font-weight: $font-weight-light;
+  }
+
+  .logo {
+    color: rgba(255, 255, 255, .5);
+  }
+
+  &_nav-item {
+    margin-bottom: $base-line;
+  }
 }

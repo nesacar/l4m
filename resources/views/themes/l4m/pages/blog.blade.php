@@ -23,7 +23,7 @@
   }
 </style>
   <section class="container">
-    <h2 class="section-title"><span>latest</span></h2>
+    <h2 class="section-title with-lines"><span>latest</span></h2>
 
     <div class="split-view">
 
@@ -67,7 +67,7 @@
   </section>
 
   <section class="container">
-    <h2 class="section-title"><span>featured</span></h2>
+    <h2 class="section-title with-lines"><span>featured</span></h2>
 
     <div class="split-view">
       <div class="split-view_left-pane">
@@ -94,6 +94,6 @@
 
   </section>
   <section class="container">
-    <h2 class="section-title"><span>categories</span></h2>
+    <h2 class="section-title with-lines"><span>categories</span></h2>
   </section>
 @endsection

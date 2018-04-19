@@ -1,0 +1,20 @@
+.contact-column {
+  padding-left: 6 * $base-line;
+}
+
+.contact-cell {
+  position: relative;
+  margin-bottom: 2 * $base-line;
+}
+
+.contact-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6 * $base-line;
+  transform: translateX(-100%);
+  color: $theme-secondary;
+}

@@ -1,0 +1,12 @@
+.header {
+  border-bottom: 1px solid $border-color-dark;
+
+  &_content {
+    text-align: center;
+  }
+
+  .logo {
+    fill: $theme-secondary;
+    color: $theme-primary;
+  }
+}
