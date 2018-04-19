@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Osobine</li>
+                            <li>Setovi</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Osobine</h5>
+                        <h5>Setovi</h5>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in properties">
+                        <tr v-for="row in sets">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
                             <td>{{ row.publish }}</td>
@@ -64,7 +64,7 @@
     export default {
         data(){
             return {
-                properties: {},
+                sets: {},
                 paginate: {}
             }
         },
@@ -73,21 +73,21 @@
             'font-awesome-icon': FontAwesomeIcon
         },
         created(){
-            this.getBrands();
+            this.getSets();
         },
         methods: {
-            getBrands(){
-                axios.get('api/properties')
+            getSets(){
+                axios.get('api/sets')
                     .then(res => {
-                        this.properties = res.data.properties.data;
-                        this.paginate = res.data.properties;
+                        this.sets = res.data.sets.data;
+                        this.paginate = res.data.sets;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('properties/' + id + '/edit');
+                this.$router.push('sets/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -100,14 +100,14 @@
                     confirmButtonText: 'Da, obriši!'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/brands/' + row.id)
+                        axios.delete('api/sets/' + row.id)
                             .then(res => {
-                                this.properties = this.properties.filter(function (item) {
+                                this.sets = this.sets.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Osobina je obrisana.',
+                                    'Set je obrisan.',
                                     'success'
                                 );
                             })
@@ -118,17 +118,17 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/properties?page=' + index)
+                axios.get('api/sets?page=' + index)
                     .then(res => {
-                        this.properties = res.data.properties.data;
-                        this.paginate = res.data.properties;
+                        this.sets = res.data.sets.data;
+                        this.paginate = res.data.sets;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             addRow(){
-                this.$router.push('/properties/create');
+                this.$router.push('/sets/create');
             }
         }
     }

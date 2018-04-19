@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
-    protected $fillable = ['title', 'slug', 'order', 'extra', 'publish'];
+    protected $fillable = ['set_id', 'title', 'slug', 'order', 'extra', 'publish'];
 
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($value);
+    }
+
+    public function set(){
+        return $this->belongsTo(Set::class);
     }
 }

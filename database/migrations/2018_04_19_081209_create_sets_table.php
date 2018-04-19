@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertiesTable extends Migration
+class CreateSetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('properties', function (Blueprint $table) {
+        Schema::create('sets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('set_id')->unsigned()->index();
             $table->string('title');
             $table->string('slug')->nullable();
-            $table->integer('order')->default(1);
-            $table->string('extra')->nullable();
+            $table->string('short')->nullable();
             $table->boolean('publish')->default(1);
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ class CreatePropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('properties');
+        Schema::dropIfExists('sets');
     }
 }

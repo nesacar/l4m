@@ -336,7 +336,6 @@
             transition: all 0.5s;
           }
         }
-
       }
     }
   }
@@ -441,6 +440,11 @@
 
           &:hover{
             background-color: $tamna;
+          }
+
+          &.divider{
+            height: 1px;
+            background-color: $border;
           }
         }
       }

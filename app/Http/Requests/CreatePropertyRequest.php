@@ -26,6 +26,7 @@ class CreatePropertyRequest extends FormRequest
         return [
             'title' => 'required',
             'order' => 'required|numeric|min:1',
+            'set_id' => 'required|numeric|min:1',
         ];
     }
 
@@ -41,6 +42,9 @@ class CreatePropertyRequest extends FormRequest
             'order.required' => 'Redosled je obavezan',
             'order.numeric' => 'Redosled mora biti broj',
             'order.min' => 'Redosled je obavezan',
+            'set_id.required' => 'Set je obavezan',
+            'set_id.numeric' => 'et je obavezan',
+            'set_id.min' => 'Set je obavezan',
         ];
     }
 }

@@ -53,5 +53,8 @@ Route::middleware('auth:api')->get('collections/lists', 'CollectionsController@l
 Route::middleware('auth:api')->resource('collections', 'CollectionsController');
 Route::middleware('auth:api')->post('collections/{id}/image', 'CollectionsController@uploadImage');
 
+Route::middleware('auth:api')->get('sets/lists', 'SetsController@lists');
+Route::middleware('auth:api')->resource('sets', 'SetsController');
+
 Route::middleware('auth:api')->get('properties/lists', 'PropertiesController@lists');
 Route::middleware('auth:api')->resource('properties', 'PropertiesController');

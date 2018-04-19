@@ -6,8 +6,8 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
-                            <li>Kreiranje osobine</li>
+                            <li><router-link tag="a" :to="'/sets'">Setovi</router-link></li>
+                            <li>Kreiranje seta</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
             <div class="row bela">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Kreiranje osobine</h5>
+                        <h5>Kreiranje seta</h5>
                     </div>
                 </div>
 
@@ -24,30 +24,18 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
-                                <label for="set">Set</label>
-                                <select name="set" id="set" class="form-control" v-model="property.set_id">
-                                    <option :value="index" v-for="(set, index) in lists">{{ set }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.set_id">{{ error.set_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
                                 <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="property.title">
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="set.title">
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="slug" class="form-control" id="order" placeholder="Redosled" v-model="property.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="extra">Dodatak</label>
-                                <input type="text" name="extra" class="form-control" id="extra" placeholder="Dodatak" v-model="property.extra">
-                                <small class="form-text text-muted" v-if="error != null && error.extra">{{ error.extra[0] }}</small>
+                                <label for="short">Opis</label>
+                                <input type="text" name="desc" class="form-control" id="short" placeholder="Opis" v-model="set.short">
+                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label>Publikovano</label><br>
-                                <switches v-model="property.publish" theme="bootstrap" color="primary"></switches>
+                                <switches v-model="set.publish" theme="bootstrap" color="primary"></switches>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
@@ -72,8 +60,7 @@
     export default {
         data(){
           return {
-              property: {},
-              lists: {},
+              set: {},
               error: null,
               domain : apiHost
           }
@@ -87,21 +74,9 @@
             'font-awesome-icon': FontAwesomeIcon,
             'switches': Switches,
         },
-        created(){
-            this.getSets();
-        },
         methods: {
-            getSets(){
-                axios.get('api/sets/lists')
-                    .then(res => {
-                        this.lists = res.data.sets;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             submit(){
-                axios.post('api/properties', this.property)
+                axios.post('api/sets', this.set)
                     .then(res => {
                         swal({
                             position: 'center',
@@ -110,7 +85,7 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        this.$router.push('/properties');
+                        this.$router.push('/sets');
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
