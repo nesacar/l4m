@@ -45,6 +45,7 @@
                     <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
                     <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
                     <li><router-link tag="a" :to="'/attributes'">Atributi</router-link></li>
+                    <li><router-link tag="a" :to="'/sets'">Setovi</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">

@@ -68,7 +68,7 @@ class PostsController extends Controller
      */
     public function update(CreatePostRequest $request, Post $post)
     {
-        $post->update(request()->all());
+        $post->update(request()->except('image'));
         $post->slug = request('slug')?: request('title');
         $post->publish = request('publish')?: false;
         $post->update();
