@@ -114,7 +114,14 @@ class CollectionsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $collections = Collection::select('id', 'title', 'short')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
+        $brand_id = request('brand_id');
+        $collections = Collection::select('id', 'title', 'short')
+            ->where(function($query) use ($brand_id){
+                if($brand_id){
+                    $query->where('brand_id', $brand_id);
+                }
+            })
+            ->where('publish', 1)->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'collections' => $collections,

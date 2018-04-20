@@ -19,4 +19,8 @@ class Attribute extends Model
     public function property(){
         return $this->belongsTo(Property::class);
     }
+
+    public function product(){
+        return $this->belongsToMany(Product::class);
+    }
 }

@@ -12,7 +12,15 @@ class Set extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function getPublishAttribute($value){
+        return $value? 'Da' : 'Ne';
+    }
+
     public function property(){
         return $this->belongsToMany(Property::class);
+    }
+
+    public function product(){
+        return $this->hasMany(Product::class);
     }
 }

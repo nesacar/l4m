@@ -119,6 +119,19 @@ class CategoriesController extends Controller
     }
 
     /**
+     * Three of categories
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function tree(){
+        $categories = Category::tree();
+
+        return response()->json([
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
     * Category search
     *
     * @return \Illuminate\Http\JsonResponse

@@ -109,4 +109,21 @@ class PropertiesController extends Controller
             'properties' => $properties
         ]);
     }
+
+    /**
+     * Property lists related to Set
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listsBySet($set_id){
+        $properties = Property::with(['Set' => function($query) use ($set_id){
+                $query->where('sets.id', $set_id);
+            }])->with(['Attribute' => function($query){
+                $query->where('attributes.publish', 1)->orderBy('attributes.order', 'ASC');
+            }])->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
+
+        return response()->json([
+            'properties' => $properties
+        ]);
+    }
 }
