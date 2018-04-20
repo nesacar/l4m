@@ -30,7 +30,7 @@ export default class Siema {
     this.transformProperty = Siema.webkitOrNot();
 
     // Bind all event handlers for referencability
-    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'mousedownHandler', 'mouseupHandler', 'mouseleaveHandler', 'mousemoveHandler', 'clickHandler'].forEach(method => {
+    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler'].forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -105,15 +105,6 @@ export default class Siema {
       this.selector.addEventListener('touchstart', this.touchstartHandler);
       this.selector.addEventListener('touchend', this.touchendHandler);
       this.selector.addEventListener('touchmove', this.touchmoveHandler);
-
-      // Mouse events
-      this.selector.addEventListener('mousedown', this.mousedownHandler);
-      this.selector.addEventListener('mouseup', this.mouseupHandler);
-      this.selector.addEventListener('mouseleave', this.mouseleaveHandler);
-      this.selector.addEventListener('mousemove', this.mousemoveHandler);
-
-      // Click
-      this.selector.addEventListener('click', this.clickHandler);
     }
   }
 
@@ -126,11 +117,6 @@ export default class Siema {
     this.selector.removeEventListener('touchstart', this.touchstartHandler);
     this.selector.removeEventListener('touchend', this.touchendHandler);
     this.selector.removeEventListener('touchmove', this.touchmoveHandler);
-    this.selector.removeEventListener('mousedown', this.mousedownHandler);
-    this.selector.removeEventListener('mouseup', this.mouseupHandler);
-    this.selector.removeEventListener('mouseleave', this.mouseleaveHandler);
-    this.selector.removeEventListener('mousemove', this.mousemoveHandler);
-    this.selector.removeEventListener('click', this.clickHandler);
   }
 
 
@@ -493,94 +479,6 @@ export default class Siema {
       const offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
       this.sliderFrame.style[this.transformProperty] = `translate3d(${(this.config.rtl ? 1 : -1) * offset}px, 0, 0)`;
     }
-  }
-
-
-  /**
-   * mousedown event handler
-   */
-  mousedownHandler(e) {
-    // Prevent dragging / swiping on inputs, selects and textareas
-    const ignoreSiema = ['TEXTAREA', 'OPTION', 'INPUT', 'SELECT'].indexOf(e.target.nodeName) !== -1;
-    if (ignoreSiema) {
-      return;
-    }
-
-    e.preventDefault();
-    e.stopPropagation();
-    this.pointerDown = true;
-    this.drag.startX = e.pageX;
-  }
-
-
-  /**
-   * mouseup event handler
-   */
-  mouseupHandler(e) {
-    e.stopPropagation();
-    this.pointerDown = false;
-    this.selector.style.cursor = '-webkit-grab';
-    this.enableTransition();
-    if (this.drag.endX) {
-      this.updateAfterDrag();
-    }
-    this.clearDrag();
-  }
-
-
-  /**
-   * mousemove event handler
-   */
-  mousemoveHandler(e) {
-    e.preventDefault();
-    if (this.pointerDown) {
-      // if dragged element is a link
-      // mark preventClick prop as a true
-      // to detemine about browser redirection later on
-      if (e.target.nodeName === 'A') {
-        this.drag.preventClick = true;
-      }
-
-      this.drag.endX = e.pageX;
-      this.selector.style.cursor = '-webkit-grabbing';
-      this.sliderFrame.style.webkitTransition = `all 0ms ${this.config.easing}`;
-      this.sliderFrame.style.transition = `all 0ms ${this.config.easing}`;
-
-      const currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
-      const currentOffset = currentSlide * (this.selectorWidth / this.perPage);
-      const dragOffset = (this.drag.endX - this.drag.startX);
-      const offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
-      this.sliderFrame.style[this.transformProperty] = `translate3d(${(this.config.rtl ? 1 : -1) * offset}px, 0, 0)`;
-    }
-  }
-
-
-  /**
-   * mouseleave event handler
-   */
-  mouseleaveHandler(e) {
-    if (this.pointerDown) {
-      this.pointerDown = false;
-      this.selector.style.cursor = '-webkit-grab';
-      this.drag.endX = e.pageX;
-      this.drag.preventClick = false;
-      this.enableTransition();
-      this.updateAfterDrag();
-      this.clearDrag();
-    }
-  }
-
-
-  /**
-   * click event handler
-   */
-  clickHandler(e) {
-    // if the dragged element is a link
-    // prevent browsers from folowing the link
-    if (this.drag.preventClick) {
-      e.preventDefault();
-    }
-    this.drag.preventClick = false;
   }
 
 
