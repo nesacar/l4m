@@ -4,23 +4,26 @@
   &_title {
     text-align: center;
   }
-}
 
-.carousel {
-  margin-left: -$column-paddings;
-  margin-right: -$column-paddings;
+  &_carousel {
+    margin-left: -$column-paddings;
+    margin-right: -$column-paddings;
+  }
 
   &_item {
     padding-left: $column-paddings;
     padding-right: $column-paddings;
-    width: 50%;
+    // display: inline-block;
+    // width: 50%;
+    // overflow: hidden;
+    // font-size: initial;
 
-    @include media-breakpoint-up(md) {
-      width: 33.3333%;
-    }
+    // @include media-breakpoint-up(md) {
+    //   width: 33.3333%;
+    // }
 
-    @include media-breakpoint-up(lg) {
-      width: 25%;
-    }
+    // @include media-breakpoint-up(lg) {
+    //   width: 25%;
+    // }
   }
 }

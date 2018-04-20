@@ -49,10 +49,9 @@
 
       <h4 class="section-title showcase_title">featured products</h4>
 
-      <div class="simple-carousel-container">
-        <div class="simple-carousel carousel">
+        <div class="showcase_carousel">
           @foreach($products as $i => $product)
-          <div class="carousel_item">
+          <div class="showcase_item">
             @component('themes.' . env('THEME_NAME', '') . '.components.shop.item', [
               'product' => $product,
               '_index' => $i
@@ -61,7 +60,6 @@
           </div>
           @endforeach
         </div>
-      </div>
 
     </div>
   </section>

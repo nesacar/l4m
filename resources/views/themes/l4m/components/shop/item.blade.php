@@ -14,7 +14,7 @@
 
 @endphp
 
-<a href="{{ $href }}" class="shop-item no-link">
+<div data-href="{{ $href }}" class="shop-item no-link">
   @if($hasDiscount)
     <span class="shop-item_discount-tag">{{ $discount }}</span>
   @endif
@@ -37,4 +37,4 @@
       </span>
     </div>
   </div>
-</a>
+</div>
