@@ -1,7 +1,11 @@
 .nav {
-  display: flex;
+  display: none;
   justify-content: center;
   border-top: 1px solid $border-color-dark;
+
+  @include media-breakpoint-up(md) {
+    display: flex;
+  }
 
   &_link {
     position: relative;

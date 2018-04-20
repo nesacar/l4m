@@ -19,8 +19,8 @@
             <p>Receive the latest news vis email</p>
             <form class="footer_newsletter" method="POST">
               <input type="text" name="email" id="nl-email" placeholder="Enter your email" />
-              <button class="with-flare" type="submit">
-                <span class="arrow"></span>
+              <button class="with-flare" aria-label="subscribe to newsletter" type="submit">
+                <span role="presentation" class="arrow"></span>
               </button>
             </form>
           </div>

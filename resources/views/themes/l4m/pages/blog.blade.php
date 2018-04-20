@@ -88,7 +88,8 @@
           'items' => $items
           ])
         @endcomponent
-        @include('themes.' .env('THEME_NAME', '') . '.partials.newsletter')
+        @include('themes.' . env('THEME_NAME', '') . '.partials.newsletter')
+        @include('themes.' . env('THEME_NAME', '') . '.partials.social')
       </div>
     
     </div>
@@ -96,6 +97,6 @@
   </section>
   <section class="container">
     <h2 class="section-title with-lines"><span>categories</span></h2>
-    @include('themes.' . env('THEME_NAME', '') . '.partials.categories')
+    @include('themes.' . env('THEME_NAME', '') . '.partials.categories', ['categories'])
   </section>
 @endsection

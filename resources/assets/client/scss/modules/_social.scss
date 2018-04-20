@@ -1,0 +1,28 @@
+.social {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &_item {
+    margin-left: $base-line;
+    padding: 4px;
+    color: $theme-primary;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    a {
+      display: flex;
+      line-height: 0;
+      color: inherit;
+
+      &:focus {
+        outline: 3px solid lighten($theme-primary, 46%);
+      }
+    }
+  }
+}
