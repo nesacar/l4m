@@ -12,19 +12,22 @@ class Toolbar {
   }
 
   constructor () {
-    const el = document.getElementById('main-nav');
-    this._offsetTop = el.offsetTop;
+    this._el = document.getElementById('main-nav');
+    this._offsetTop = this._el.offsetTop;
     this._ticking = false;
 
     this._onScroll = this._onScroll.bind(this);
+    this._onResize = this._onResize.bind(this);
     this._update = this._update.bind(this);
 
     window.addEventListener('scroll', this._onScroll);
+    window.addEventListener('resize', this._onResize);
     this._update();
   }
 
   _disconnect () {
     window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
   }
 
   _update () {
@@ -50,6 +53,14 @@ class Toolbar {
     }
 
     this._ticking = true;
+  }
+
+  _onResize () {
+    clearTimeout(this._resizeTimer);
+    this._resizeTimer = setTimeout(() => {
+      this._offsetTop = this._el.offsetTop;
+      this._update();
+    }, 250);
   }
 };
 
