@@ -32,6 +32,9 @@ class Toolbar {
 
   _update () {
     this._ticking = false;
+    if (!document.body.classList.contains(Toolbar.HIDDEN_CLASS)) {
+      this.offsetTop = this._el.offsetTop;
+    }
 
     const currentPosition = document.body.scrollTop || document.documentElement.scrollTop;
 
@@ -58,7 +61,9 @@ class Toolbar {
   _onResize () {
     clearTimeout(this._resizeTimer);
     this._resizeTimer = setTimeout(() => {
-      this._offsetTop = this._el.offsetTop;
+      if (!document.body.classList.contains(Toolbar.HIDDEN_CLASS)) {
+        this.offsetTop = this._el.offsetTop;
+      }
       this._update();
     }, 250);
   }
