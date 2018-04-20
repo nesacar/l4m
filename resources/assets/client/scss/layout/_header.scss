@@ -1,8 +1,25 @@
-.header {
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
   border-bottom: 1px solid $border-color-dark;
+  z-index: 100;
+}
 
+.header {
   &_content {
     text-align: center;
+    height: 8 * $base-line;
+
+    @include media-breakpoint-up(sm) {
+      height: 9 * $base-line;
+    }
+
+    @include media-breakpoint-up(md) {
+      height: 12 * $base-line;
+    }
   }
 
   .logo {
