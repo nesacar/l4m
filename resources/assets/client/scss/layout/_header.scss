@@ -1,38 +1,12 @@
 #header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   background-color: white;
-  border-bottom: 1px solid $border-color-dark;
-  z-index: 100;
-  transition: transform .21s;
-
-  &.hidden {
-    transform: translateY(-(#{8 * $base-line}));
-
-    @include media-breakpoint-up(sm) {
-      transform: translateY(-(#{9 * $base-line}));
-    }
-
-    @include media-breakpoint-up(sm) {
-      transform: translateY(-(#{12 * $base-line}));
-    }
-  }
 }
 
 .header {
+  border-bottom: 1px solid $border-color-dark;
+  
   &_content {
     text-align: center;
-    height: 8 * $base-line;
-
-    @include media-breakpoint-up(sm) {
-      height: 9 * $base-line;
-    }
-
-    @include media-breakpoint-up(md) {
-      height: 12 * $base-line;
-    }
   }
 
   .logo {

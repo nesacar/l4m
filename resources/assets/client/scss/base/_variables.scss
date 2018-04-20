@@ -20,9 +20,9 @@ $text-hint-on-dark: rgba(255, 255, 255, .5);
 $text-primary-on-primary: $text-primary-on-dark;
 $text-secondary-on-primary: $text-secondary-on-dark;
 $text-hint-on-primary: $text-hint-on-dark;
-$text-primary-on-secondary: $text-primary-on-light;
-$text-secondary-on-secondary: $text-secondary-on-light;
-$text-hint-on-secondary: $text-hint-on-light;
+$text-primary-on-secondary: $text-primary-on-dark;
+$text-secondary-on-secondary: $text-secondary-on-dark;
+$text-hint-on-secondary: $text-hint-on-dark;
 
 $font-weight-light: 300;
 $font-weight-normal: 400;

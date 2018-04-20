@@ -1,6 +1,6 @@
 class Toolbar {
   static get HIDDEN_CLASS () {
-    return 'hidden';
+    return 'sticky';
   }
 
   static init () {
@@ -12,8 +12,8 @@ class Toolbar {
   }
 
   constructor () {
-    this.el = document.getElementById('header');
-    this._nav = this.el.querySelector('.nav');
+    const el = document.getElementById('main-nav');
+    this._offsetTop = el.offsetTop;
     this._ticking = false;
 
     this._onScroll = this._onScroll.bind(this);
@@ -29,21 +29,15 @@ class Toolbar {
 
   _update () {
     this._ticking = false;
-    const sticky = this._nav.offsetTop;
 
-    const prevPosition = this._position;
     const currentPosition = document.body.scrollTop || document.documentElement.scrollTop;
 
-    if (Math.abs(prevPosition - currentPosition) <= sticky) return;
-
-    if ((currentPosition > prevPosition) && (currentPosition > sticky)) {
-      this.el.classList.add(Toolbar.HIDDEN_CLASS);
+    if (currentPosition >= this._offsetTop) {
+      document.body.classList.add(Toolbar.HIDDEN_CLASS);
     }
     else {
-      this.el.classList.remove(Toolbar.HIDDEN_CLASS);
+      document.body.classList.remove(Toolbar.HIDDEN_CLASS);
     }
-
-    this._position = currentPosition;
   }
 
   _onScroll () {

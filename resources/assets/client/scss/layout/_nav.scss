@@ -1,0 +1,18 @@
+#main-nav {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  background-color: inherit;
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    border-bottom-color: $border-color-dark;
+  }
+
+  .sticky & {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+}
