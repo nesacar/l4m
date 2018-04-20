@@ -40,6 +40,10 @@ class Category extends Model
         return '';
     }
 
+    public static function tree() {
+        return static::with(implode('.', array_fill(0, 1, 'children')))->where('parent', '=', 0)->get();
+    }
+
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($value);
     }
@@ -48,7 +52,16 @@ class Category extends Model
         return $value? 'Da' : 'Ne';
     }
 
-    public function parentCategory(){
-        return $this->hasMany(self::class, 'parent', 'id');
+    public function parent() {
+        return $this->hasOne(Category::class, 'id', 'parent');
     }
+
+    public function children() {
+        return $this->hasMany(Category::class, 'parent', 'id');
+    }
+
+    public function product(){
+        return $this->belongsToMany(Product::class);
+    }
+
 }
