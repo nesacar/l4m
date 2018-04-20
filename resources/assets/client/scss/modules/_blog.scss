@@ -47,6 +47,11 @@
     font-size: 13px;
     padding: 2px 8px;
     min-width: 12 * $base-line;
+    outline: none;
+
+    &:focus {
+      outline: 3px solid lighten($theme-secondary, 21%);
+    }
 
     &:hover {
       text-decoration: none;

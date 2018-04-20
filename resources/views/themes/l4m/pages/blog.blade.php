@@ -96,5 +96,6 @@
   </section>
   <section class="container">
     <h2 class="section-title with-lines"><span>categories</span></h2>
+    @include('themes.' . env('THEME_NAME', '') . '.partials.categories')
   </section>
 @endsection

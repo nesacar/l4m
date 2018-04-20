@@ -13,9 +13,12 @@
 
   a {
     color: inherit;
-
-    &:hover {
+    outline: none;
+    
+    &:hover,
+    &:focus {
       color: $text-primary-on-primary;
+      text-decoration: underline;
     }
   }
 
