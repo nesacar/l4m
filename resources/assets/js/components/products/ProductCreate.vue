@@ -25,7 +25,7 @@
                         <form @submit.prevent="submit()">
                             <div class="form-group">
                                 <label for="set">Set</label>
-                                <select name="set" id="set" class="form-control" v-model="product.set_id">
+                                <select name="set" id="set" class="form-control" v-model="product.set_id" @change="getProperties()">
                                     <option :value="set.id" v-for="set in sets">{{ set.title }}</option>
                                 </select>
                                 <small class="form-text text-muted" v-if="error != null && error.set_id">{{ error.set_id[0] }}</small>
@@ -144,7 +144,21 @@
                                     </ol>
                                 </li>
                             </ol>
-                            <small class="form-text text-muted" v-if="error != null && error.blog_id">{{ error.blog_id[0] }}</small>
+                        </div>
+                    </div>
+
+                    <div class="card" v-if="properties.length > 0">
+                        <div class="form-group">
+                            <label>Osobine i atributi</label>
+                        </div>
+                        <div class="form-group" v-for="property in properties">
+                            <label>{{ property.title }}</label>
+                            <ul class="list-group">
+                                <li class="list-group-item" v-for="attribute in property.attribute">
+                                    <input type="checkbox" :value="attribute.id" v-model="product.attribute_id">
+                                    {{ attribute.title }}
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
@@ -169,12 +183,14 @@
               product: {
                   date: moment().format('YYYY-MM-DD'),
                   time: moment().format('HH:mm'),
-                  category_id: []
+                  category_id: [],
+                  attribute_id: []
               },
               brands: {},
               collections: {},
               categories: {},
               sets: {},
+              properties: {},
               error: null,
               config: {
                   toolbar: [
@@ -272,6 +288,19 @@
                     this.getCollections(this.product.brand_id);
                 }else{
                     this.collections = {};
+                }
+            },
+            getProperties(){
+                if(this.product.set_id > 0){
+                    axios.get('api/properties/' + this.product.set_id + '/set')
+                        .then(res => {
+                            this.properties = res.data.properties;
+                        }).catch(e => {
+                            console.log(e.response);
+                            this.error = e.response.data.errors;
+                        });
+                }else{
+                    this.properties = {};
                 }
             }
         }

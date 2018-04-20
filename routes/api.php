@@ -57,6 +57,7 @@ Route::middleware('auth:api')->get('sets/lists', 'SetsController@lists');
 Route::middleware('auth:api')->resource('sets', 'SetsController');
 
 Route::middleware('auth:api')->get('properties/lists', 'PropertiesController@lists');
+Route::middleware('auth:api')->get('properties/{id}/set', 'PropertiesController@listsBySet');
 Route::middleware('auth:api')->resource('properties', 'PropertiesController');
 
 Route::middleware('auth:api')->post('attributes/search', 'AttributesController@search');
