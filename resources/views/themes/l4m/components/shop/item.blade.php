@@ -8,12 +8,13 @@
   $price = isset($product->price) ? $product->price : 0;
   $discount = $hasDiscount ? $product->discount : 0;
   $img = isset($product->img) ? $product->img : '#';
+  $href = isset($product->href) ? $product->href : '#';
 
   $priceWithDiscount = $price - (($discount / 100) * $price);
 
 @endphp
 
-<div class="shop-item">
+<a href="{{ $href }}" class="shop-item no-link">
   @if($hasDiscount)
     <span class="shop-item_discount-tag">{{ $discount }}</span>
   @endif
@@ -36,4 +37,4 @@
       </span>
     </div>
   </div>
-</div>
+</a>
