@@ -8,6 +8,8 @@ export const store = new Vuex.Store({
         /** auth **/
         user: null,
 
+        admin: false,
+
         /** show nav bars **/
         showRightBar: false,
         hideLeftBar: false,
@@ -40,6 +42,10 @@ export const store = new Vuex.Store({
         /** auth **/
         getUser: state => {
             return state.user;
+        },
+
+        isAdmin: state => {
+            return state.admin;
         },
 
         /** show nav bars **/
@@ -102,6 +108,9 @@ export const store = new Vuex.Store({
         /** auth **/
         changeUser: (state, callback) => {
             state.user = callback;
+            if(state.user.role_id == 1){
+                state.admin = true;
+            }
         },
 
         /** show nav bars **/

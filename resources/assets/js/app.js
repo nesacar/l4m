@@ -76,6 +76,11 @@ router.beforeEach(
                 next({ path: "/login" });
             } else next();
         }
+        else if(to.matched.some(record => record.meta.forAdmin)){
+            if(store.getters.isAdmin){
+                next();
+            } else next({ path: "/home" });
+        }
         else next();
     }
 );

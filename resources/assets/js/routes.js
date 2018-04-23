@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { store } from './store/store';
 
 Vue.use(VueRouter);
 
@@ -12,9 +13,9 @@ export const router = new VueRouter({
         { path: "/register", component: require('./components/auth/Register.vue'), meta: { forVisitors: true } },
         { path: "/logout", component: require('./components/auth/Logout.vue'), meta: { forAuth: true } },
 
-        { path: "/users", component: require('./components/users/UserList.vue'), meta: { forAuth: true } },
-        { path: "/users/create", component: require('./components/users/UserCreate.vue'), meta: { forAuth: true } },
-        { path: "/users/:id/edit", component: require('./components/users/UserEdit.vue'), meta: { forAuth: true } },
+        { path: "/users", component: require('./components/users/UserList.vue'), meta: { forAdmin: true } },
+        { path: "/users/create", component: require('./components/users/UserCreate.vue'), meta: { forAdmin: true } },
+        { path: "/users/:id/edit", component: require('./components/users/UserEdit.vue'), meta: { forAdmin: true } },
         { path: "/users/change-password", component: require('./components/users/UserChangePassword.vue'), meta: { forAuth: true } },
 
         { path: "/blogs", component: require('./components/blogs/BlogList.vue'), meta: { forAuth: true } },
@@ -76,5 +77,5 @@ export const router = new VueRouter({
         // { path: "/architects/:id/edit", component: require('./components/architects/ArchitectEdit.vue'), meta: { forAuth: true } },
     ],
 
-    linkActiveClass: 'active'
+    linkActiveClass: 'active',
 });

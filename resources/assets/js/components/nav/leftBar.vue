@@ -22,7 +22,7 @@
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>
-            <li :class="{ 'active': showUsersItemActive }" :style="{ 'display': showUsersItem ? 'block' : 'none' }">
+            <li :class="{ 'active': showUsersItemActive }" :style="{ 'display': showUsersItem ? 'block' : 'none' }" v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowUsersItemActive()">Korisnici</a>
                 <font-awesome-icon icon="users" />
@@ -90,6 +90,10 @@
             /** auth **/
             user(){
                 return this.$store.getters.getUser;
+            },
+
+            admin(){
+                return this.$store.getters.isAdmin;
             },
 
             /** nav **/
