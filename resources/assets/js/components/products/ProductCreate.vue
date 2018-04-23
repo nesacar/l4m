@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
@@ -120,15 +120,17 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <upload-image-helper
-                            :image="product.image"
-                            :defaultImage="null"
-                            :titleImage="'proizvoda'"
-                            :error="error"
-                            @uploadImage="upload($event)"
-                            @removeRow="remove($event)"
-                    ></upload-image-helper>
+                <div class="col-sm-6">
+                    <div style="max-width: 400px;">
+                        <upload-image-helper
+                                :image="product.image"
+                                :defaultImage="null"
+                                :titleImage="'proizvoda'"
+                                :error="error"
+                                @uploadImage="upload($event)"
+                                @removeRow="remove($event)"
+                        ></upload-image-helper>
+                    </div>
 
                     <div class="card" v-if="categories.length > 0">
                         <div class="form-group">
@@ -147,19 +149,25 @@
                         </div>
                     </div>
 
-                    <div class="card" v-if="properties.length > 0">
-                        <div class="form-group">
-                            <label>Osobine i atributi</label>
+                    <div class="row">
+                        <div class="card col-md-12">
+                            <h3>Osobine i atributi</h3>
                         </div>
-                        <div class="form-group" v-for="property in properties">
-                            <label>{{ property.title }}</label>
-                            <ul class="list-group">
-                                <li class="list-group-item" v-for="attribute in property.attribute">
-                                    <input type="checkbox" :value="attribute.id" v-model="product.attribute_id">
-                                    {{ attribute.title }}
-                                </li>
-                            </ul>
-                        </div>
+                    </div>
+                    <div class="row">
+                        <template v-if="properties.length > 0">
+                            <div class="card col-sm-4" v-for="property in properties">
+                                <div class="form-group">
+                                    <label>{{ property.title }}</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="attribute in property.attribute">
+                                            <input type="checkbox" :value="attribute.id" v-model="product.attribute_id">
+                                            {{ attribute.title }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </template>
                     </div>
 
                 </div>

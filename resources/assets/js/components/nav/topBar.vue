@@ -21,17 +21,13 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                                 <a class="dropdown-item" href="#" @click.prevent="newProduct()">Proizvod</a>
+                                <a class="dropdown-item" href="#" @click.prevent="newBrand()">Brend</a>
                                 <a class="dropdown-item" href="#" @click.prevent="newCollection()">Kolekcija</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" @click.prevent="newPost()">Članak</a>
                                 <a class="dropdown-item" href="#" @click.prevent="newBlog()">Kategorija</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" @click.prevent="newUser()">Korisnik</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"  @click.prevent="newTheme()">Tema</a>
-                                <a class="dropdown-item" href="#"  @click.prevent="newMenu()">Meni</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"  @click.prevent="newGallery()">Galerija</a>
                             </div>
                         </div>
                     </li>
@@ -143,20 +139,14 @@
             newPost(){
                 this.$router.push('/posts/create');
             },
-            newTheme(){
-                this.$router.push('/themes/create');
-            },
-            newMenu(){
-                this.$router.push('/menus/create');
-            },
             newCollection(){
                 this.$router.push('/collections/create');
             },
             newProduct(){
                 this.$router.push('/products/create');
             },
-            newGallery(){
-                this.$router.push('/galleries/create');
+            newBrand(){
+                this.$router.push('/brands/create');
             },
         }
     }

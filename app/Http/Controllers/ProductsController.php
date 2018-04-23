@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Product;
+use App\Set;
 use Illuminate\Http\Request;
 use File;
 
@@ -40,6 +42,7 @@ class ProductsController extends Controller
         if(request('image')){ Product::base64UploadImage($product, request('image')); }
 
         $product->category()->sync(request('category_id'));
+        $product->attribute()->sync(request('attribute_id'));
 
         return response()->json([
             'product' => $product
@@ -55,10 +58,14 @@ class ProductsController extends Controller
     public function show(Product $product)
     {
         $catIds = $product->category()->pluck('categories.id');
+        $attIds = $product->attribute()->pluck('attributes.id');
+        $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
 
         return response()->json([
             'product' => $product,
             'catIds' => $catIds,
+            'attIds' => $attIds,
+            'properties' => $properties,
         ]);
     }
 
@@ -77,12 +84,17 @@ class ProductsController extends Controller
         $product->update();
 
         $product->category()->sync(request('category_id'));
+        $product->attribute()->sync(request('attribute_id'));
 
+        $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
         $catIds = $product->category()->pluck('categories.id');
+        $attIds = $product->attribute()->pluck('attributes.id');
 
         return response()->json([
             'product' => $product,
             'catIds' => $catIds,
+            'attIds' => $attIds,
+            'properties' => $properties,
         ]);
     }
 
