@@ -7,10 +7,13 @@ const OPTIONS = {
   onInit
 };
 
+const INTERVAL = 3000;
+
 const LOADING_CLASS = 'is-loading';
 const LOADED_CLASS = 'has-loaded';
 
 let carousel;
+let interval;
 
 function onInit () {
   this.selector.classList.remove(LOADING_CLASS);
@@ -23,6 +26,22 @@ function next () {
 
 function prev () {
   carousel.prev();
+}
+
+function startAutoPlay () {
+  interval = setInterval(() => {
+    next();
+  }, INTERVAL);
+}
+
+function pauseAutoPlay () {
+  clearInterval(interval);
+}
+
+function addAutoPlay (root) {
+  root.addEventListener('mouseenter', pauseAutoPlay);
+  root.addEventListener('mouseleave', startAutoPlay);
+  startAutoPlay();
 }
 
 function addControls (root) {
@@ -41,8 +60,8 @@ function createCarousel (root) {
   });
 
   addControls(root);
-
-  // TODO Set auto play timer
+  addAutoPlay(root);
+  // TODO Add paggination
 }
 
 export function init () {
