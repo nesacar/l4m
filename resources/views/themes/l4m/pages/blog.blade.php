@@ -23,7 +23,9 @@
   }
 </style>
 
-  @component('themes.' . env('THEME_NAME', '') . '.components.masthead-carousel')
+  @component('themes.' . env('THEME_NAME', '') . '.components.masthead-carousel', [
+    'data' => $carouselData
+  ])
   @endcomponent
 
   <section class="container">

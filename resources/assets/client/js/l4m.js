@@ -9,6 +9,9 @@ export function init () {
   Toolbar.init();
 
   const el = document.querySelector('.showcase_carousel');
+  if (!el) {
+    return;
+  }
   const slider = new Siema({
     selector: el,
     perPage: {

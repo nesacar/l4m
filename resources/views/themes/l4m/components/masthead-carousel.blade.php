@@ -1,28 +1,3 @@
-@php
-
-  $data = [
-    (object)[
-      'label' => 'travel',
-      'img' => 'https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
-      'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
-    ],
-    (object)[
-      'label' => 'travel',
-      'img' => 'https://images.pexels.com/photos/380285/pexels-photo-380285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
-      'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
-    ],
-    (object)[
-      'label' => 'travel',
-      'img' => 'https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
-      'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
-    ],
-  ]
-
-@endphp
-
 <section class="masthead" id="masthead">
   <div class="masthead-carousel-controls">
     <div class="container masthead-carousel-controls_container">

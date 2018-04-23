@@ -79,12 +79,36 @@ function getCategories () {
   ];
 }
 
+function getCarouselData () {
+  return [
+    (object)[
+      'label' => 'travel',
+      'img' => 'https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
+      'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
+    ],
+    (object)[
+      'label' => 'travel',
+      'img' => 'https://images.pexels.com/photos/380285/pexels-photo-380285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
+      'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
+    ],
+    (object)[
+      'label' => 'travel',
+      'img' => 'https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
+      'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
+    ],
+  ];
+}
+
 Route::get('/', function () {
   // tmp data
   $title = 'Luxury 4 Me';
   $products = getProducts();
+  $carouselData = getCarouselData();
 
-  return view('themes.l4m.pages.home', compact('title', 'products'));
+  return view('themes.l4m.pages.home', compact('title', 'products', 'carouselData'));
 });
 
 // filemanager
@@ -96,8 +120,9 @@ Route::get('/blog', function () {
   $items = getItems();
   $products = getProducts();
   $categories = getCategories();
+  $carouselData = getCarouselData();
 
-  return view('themes.l4m.pages.blog', compact('title', 'items', 'products', 'categories'));
+  return view('themes.l4m.pages.blog', compact('title', 'items', 'products', 'categories', 'carouselData'));
 });
 
 Route::get('/shop', function () {

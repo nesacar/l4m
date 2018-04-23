@@ -43,15 +43,15 @@
       }
 
       .masthead_label {
-        transition: opacity .38s, transform .38s;
+        transition: opacity .38s .2s, transform .38s .2s;
       }
 
       .masthead_title {
-        transition: opacity .38s .12s, transform .38s .12s;
+        transition: opacity .38s .28s, transform .38s .28s;
       }
   
       .masthead_desc {
-        transition: opacity .38s .21s, transform .38s .21s;
+        transition: opacity .38s .36s, transform .38s .36s;
       }
     }
   }

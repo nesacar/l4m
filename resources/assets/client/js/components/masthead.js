@@ -2,6 +2,7 @@ import Siema from "./siema";
 
 const OPTIONS = {
   perPage: 1,
+  duration: 400,
   loop: true,
   onInit
 };
@@ -24,16 +25,26 @@ function prev () {
   carousel.prev();
 }
 
-export function init () {
-  const masthead = document.getElementById('masthead');
-  const btnElNext = masthead.querySelector('.masthead-carousel-control--next');
-  const btnElPrev = masthead.querySelector('.masthead-carousel-control--prev');
+function createCarousel (root) {
+  const btnElNext = root.querySelector('.masthead-carousel-control--next');
+  const btnElPrev = root.querySelector('.masthead-carousel-control--prev');
 
   carousel = new Siema({
-    selector: masthead.querySelector('.masthead-carousel'),
+    selector: root.querySelector('.masthead-carousel'),
     ...OPTIONS
   });
 
   btnElNext.addEventListener('click', next);
   btnElPrev.addEventListener('click', prev);
+  // TODO Set auto play timer
+}
+
+export function init () {
+  const root = document.getElementById('masthead');
+
+  if (!root) {
+    return;
+  }
+
+  createCarousel(root);  
 };
