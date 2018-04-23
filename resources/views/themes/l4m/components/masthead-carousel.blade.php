@@ -15,10 +15,10 @@
 
   <div class="{{ $controlsClassName }}">
     <div class="container masthead-carousel-controls_container">
-      <button class="masthead-carousel-control masthead-carousel-control--prev">
+      <button class="masthead-carousel-control masthead-carousel-control--prev" aria-label="previous slide">
         <span class="arrow arrow--left" role="presentation"></span>
       </button>
-      <button class="masthead-carousel-control masthead-carousel-control--next">
+      <button class="masthead-carousel-control masthead-carousel-control--next" aria-label="next slide">
         <span class="arrow arrow--right" role="presentation"></span>
       </button>
     </div>

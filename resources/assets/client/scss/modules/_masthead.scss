@@ -112,6 +112,13 @@
     visibility: hidden;
   }
 
+  // hide controls on small devicees
+  @include media-breakpoint-down(sm) {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
   &:focus {
     outline: 3px solid rgba(255, 255, 255, .5);
   }
