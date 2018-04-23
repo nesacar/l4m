@@ -365,6 +365,8 @@ export default class Siema {
     else {
       this.sliderFrame.style[this.transformProperty] = `translate3d(${offset}px, 0, 0)`;
     }
+
+    this._setActiveSlide();
   }
 
 
@@ -600,5 +602,21 @@ export default class Siema {
       btn.addEventListener('click', () => this.goTo(i));
       this.selector.appendChild(btn);
     }
+  }
+
+  // apply 'active' class to currentSlide
+  _setActiveSlide () {
+    const index = this.currentSlide;
+
+    this.innerElements.forEach((el, i) => {
+      if (i === index) {
+        el.classList.add('active');
+      }
+      else {
+        if (el.classList.contains('active')) {
+          el.classList.remove('active');
+        }
+      }
+    });
   }
 }
