@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class MenusController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
+
     public function index(){
         $menus = Menu::orderBy('created_at', 'DESC')->paginate(3);
 
