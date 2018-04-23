@@ -35,7 +35,6 @@ class BlocksController extends Controller
     public function store(CreateBlockRequest $request)
     {
         $block = Block::create(request()->all());
-        $block->slug = request('slug')?: request('title');
         $block->publish = request('publish')?: false;
         $block->update();
 
@@ -67,7 +66,6 @@ class BlocksController extends Controller
     public function update(CreateBlockRequest $request, Block $block)
     {
         $block->update(request()->all());
-        $block->slug = request('slug')?: request('title');
         $block->publish = request('publish')?: false;
         $block->update();
 

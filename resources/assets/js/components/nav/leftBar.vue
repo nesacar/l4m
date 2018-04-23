@@ -62,7 +62,7 @@
                 <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
                 <font-awesome-icon icon="envelope" />
                 <ul>
-                    <li><router-link tag="a" :to="'/sliders'">Slajder</router-link></li>
+                    <li><router-link tag="a" :to="'/blocks'">Slajder</router-link></li>
                 </ul>
             </li>
             <!--
@@ -151,7 +151,7 @@
 
             /** templates **/
             showTemplatesItem(){
-                return this.$store.getters.getTemplatesItem;
+                return this.$store.getters.getShowTemplatesItem;
             },
             showTemplatesItemActive(){
                 return this.$store.getters.getTemplatesItemActive;

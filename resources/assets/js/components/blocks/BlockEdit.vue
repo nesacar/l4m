@@ -1,0 +1,104 @@
+<template>
+    <div id="place">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="breadcrumbs">
+                        <ul class="list-group list-group-flush">
+                            <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
+                            <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
+                            <li>Izmena šablona</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row bela">
+                <div class="col-md-12">
+                    <div class="card">
+                        <h5>Izmena šablona</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="form-group">
+                            <label>Publikovano</label><br>
+                            <switches v-model="block.publish" theme="bootstrap" color="primary"></switches>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <form @submit.prevent="submit()">
+                            <div class="form-group">
+                                <label for="title">Naslov</label>
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="block.title">
+                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Opis</label>
+                                <input type="text" name="title" class="form-control" id="desc" placeholder="Opis" v-model="block.desc">
+                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Izmeni</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+    import swal from 'sweetalert2';
+    import Switches from 'vue-switches';
+
+    export default {
+        data(){
+          return {
+              block: {},
+              error: null
+          }
+        },
+        components: {
+            'font-awesome-icon': FontAwesomeIcon,
+            'switches': Switches,
+        },
+        created(){
+            this.getBlock();
+        },
+        methods: {
+            getBlock(){
+                axios.get('api/blocks/' + this.$route.params.id)
+                    .then(res => {
+                        this.block = res.data.block;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            submit(){
+                axios.put('api/blocks/' + this.block.id, this.block)
+                    .then(res => {
+                        this.block = res.data.block;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            }
+        }
+    }
+</script>
