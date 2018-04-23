@@ -79,6 +79,8 @@ Route::get('products/{id}/gallery', 'ProductsController@gallery');
 
 Route::post('photos/{id}/destroy', 'PhotosController@destroy');
 
+Route::get('blocks/lists', 'BlocksController@lists');
 Route::resource('blocks', 'BlocksController');
 
 Route::resource('boxes', 'BoxesController');
+Route::post('boxes/{id}/image', 'BoxesController@uploadImage');

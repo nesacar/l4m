@@ -62,7 +62,8 @@
                 <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
                 <font-awesome-icon icon="envelope" />
                 <ul>
-                    <li><router-link tag="a" :to="'/blocks'">Slajder</router-link></li>
+                    <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
+                    <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
                 </ul>
             </li>
             <!--

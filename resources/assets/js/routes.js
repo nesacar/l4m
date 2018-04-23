@@ -72,8 +72,9 @@ export const router = new VueRouter({
         { path: "/blocks/create", component: require('./components/blocks/BlockCreate.vue'), meta: { forAuth: true } },
         { path: "/blocks/:id/edit", component: require('./components/blocks/BlockEdit.vue'), meta: { forAuth: true } },
 
-        // { path: "/architects", component: require('./components/architects/ArchitectList.vue'), meta: { forAuth: true } },
-        // { path: "/architects/:id/edit", component: require('./components/architects/ArchitectEdit.vue'), meta: { forAuth: true } },
+        { path: "/boxes", component: require('./components/boxes/BlockList.vue'), meta: { forAuth: true } },
+        { path: "/boxes/create", component: require('./components/boxes/BlockCreate.vue'), meta: { forAuth: true } },
+        { path: "/boxes/:id/edit", component: require('./components/boxes/BlockEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',

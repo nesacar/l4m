@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Box;
-use App\Http\Requests\CreateBlockRequest;
+use App\Http\Requests\CreateBoxRequest;
+use App\Http\Requests\UploadImageRequest;
 use Illuminate\Http\Request;
 use File;
 
@@ -20,7 +21,7 @@ class BoxesController extends Controller
      */
     public function index()
     {
-        $boxes = Box::select('boxes.id', 'boxes.title', 'boxes.publish', 'boxes.created_at')->with('Block')->orderBy('boxes.created_at', 'DESC')->paginate(50);
+        $boxes = Box::with('Block')->orderBy('boxes.created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'boxes' => $boxes
@@ -33,12 +34,13 @@ class BoxesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateBlockRequest $request)
+    public function store(CreateBoxRequest $request)
     {
-        $box = Box::create(request()->all());
-        $box->slug = request('slug')?: request('title');
+        $box = Box::create(request()->except('image'));
         $box->publish = request('publish')?: false;
         $box->update();
+
+        if(request('image')){ Box::base64UploadImage($box->id, request('image')); }
 
         return response()->json([
             'box' => $box
@@ -65,10 +67,9 @@ class BoxesController extends Controller
      * @param  \App\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateBlockRequest $request, Box $box)
+    public function update(CreateBoxRequest $request, Box $box)
     {
-        $box->update(request()->all());
-        $box->slug = request('slug')?: request('title');
+        $box->update(request()->except('image'));
         $box->publish = request('publish')?: false;
         $box->update();
 
@@ -90,6 +91,21 @@ class BoxesController extends Controller
 
         return response()->json([
             'message' => 'deleted'
+        ]);
+    }
+
+    /**
+     * Upload image
+     *
+     * @param UploadImageRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadImage(UploadImageRequest $request, $id){
+        $image = Box::base64UploadImage($id, request('file'));
+
+        return response()->json([
+            'image' => $image
         ]);
     }
 }
