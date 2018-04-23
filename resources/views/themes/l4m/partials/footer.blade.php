@@ -20,7 +20,7 @@
             <form class="footer_newsletter" method="POST">
               <input type="text" name="email" id="nl-email" placeholder="Enter your email" />
               <button class="with-flare" aria-label="subscribe to newsletter" type="submit">
-                <span role="presentation" class="arrow"></span>
+                <span role="presentation" class="arrow arrow--right"></span>
               </button>
             </form>
           </div>

@@ -27,11 +27,30 @@
 
   &::after {
     top: 0;
-    transform: translateX(-50%) skewX(45deg);
   }
 
   &::before {
     bottom: 0;
-    transform: translateX(-50%) skewX(-45deg);
+  }
+
+  
+  &--left {
+    &::after {
+      transform: translateX(-50%) skewX(-45deg);
+    }
+
+    &::before {
+      transform: translateX(-50%) skewX(45deg);
+    }
+  }
+
+  &--right {
+    &::after {
+      transform: translateX(-50%) skewX(45deg);
+    }
+
+    &::before {
+      transform: translateX(-50%) skewX(-45deg);
+    }
   }
 }

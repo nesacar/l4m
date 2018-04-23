@@ -3,19 +3,19 @@
   $data = [
     (object)[
       'label' => 'travel',
-      'img' => 'https://images.pexels.com/photos/315987/pexels-photo-315987.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      'img' => 'https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
       'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
       'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
     ],
     (object)[
       'label' => 'travel',
-      'img' => 'https://images.pexels.com/photos/273758/pexels-photo-273758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      'img' => 'https://images.pexels.com/photos/380285/pexels-photo-380285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
       'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
       'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
     ],
     (object)[
       'label' => 'travel',
-      'img' => 'https://images.pexels.com/photos/273760/pexels-photo-273760.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      'img' => 'https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
       'title' => 'Bentley - Inspired by the Finest Luxury Yachts',
       'desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil corrupti consectetur facere impedit.'
     ],
@@ -23,7 +23,17 @@
 
 @endphp
 
-<section class="masthead">
+<section class="masthead" id="masthead">
+  <div class="masthead-carousel-controls">
+    <div class="container masthead-carousel-controls_container">
+    <button class="masthead-carousel-control masthead-carousel-control--prev">
+      <span class="arrow arrow--left" role="presentation"></span>
+    </button>
+    <button class="masthead-carousel-control masthead-carousel-control--next">
+      <span class="arrow arrow--right" role="presentation"></span>
+    </button>
+  </div>
+  </div>
   <div class="container masthead-carousel is-loading">
     @foreach($data as $i => $item)
     <div class="masthead-carousel_item">

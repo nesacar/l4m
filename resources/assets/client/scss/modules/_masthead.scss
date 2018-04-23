@@ -1,7 +1,15 @@
 .masthead {
+  position: relative;
   overflow: hidden;
 
   &_image {
+    @include media-breakpoint-down(sm) {
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+
     @include media-breakpoint-down(md) {
       padding-top: 42 * $base-line;
     }
@@ -58,8 +66,65 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    padding: (2 * $base-line) (8 * $base-line);
+    padding: (2 * $base-line) (2 * $base-line);
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     color: $text-primary-on-dark;
+
+    @include media-breakpoint-up(lg) {
+      padding: (2 * $base-line) (8 * $base-line);
+    }
+  }
+}
+
+.masthead-carousel-controls {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  &_container {
+    position: relative;
+    height: 100%;
+  }
+
+  button {
+    pointer-events: auto;
+  }
+}
+
+.masthead-carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+  border: 0;
+  padding: 0;
+  background-color: white;
+
+  &:focus {
+    outline: 3px solid rgba(255, 255, 255, .5);
+  }
+
+  &--prev {
+    left: (2 * $base-line);
+  }
+
+  &--next {
+    right: (2 * $base-line);
+  }
+
+  .arrow {
+    &::before,
+    &::after {
+      background-color: $theme-primary;
+    }
   }
 }
