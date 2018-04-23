@@ -17,6 +17,37 @@
     flex-wrap: nowrap;
   }
 
+  &.has-loaded {
+    .masthead_label,
+    .masthead_title,
+    .masthead_desc {
+      opacity: 0;
+      transform: translateY(64px);
+      transition: opacity .12s, transform .12s;
+    }
+
+    .active {
+      .masthead_label,
+      .masthead_title,
+      .masthead_desc {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .masthead_label {
+        transition: opacity .38s, transform .38s;
+      }
+
+      .masthead_title {
+        transition: opacity .38s .12s, transform .38s .12s;
+      }
+  
+      .masthead_desc {
+        transition: opacity .38s .21s, transform .38s .21s;
+      }
+    }
+  }
+
   &_item {
     position: relative;
     min-width: 100%;
