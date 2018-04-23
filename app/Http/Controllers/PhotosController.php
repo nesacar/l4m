@@ -8,6 +8,10 @@ use File;
 
 class PhotosController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
+
     public function destroy($id){
         $photo = Photo::find($id);
         File::delete($photo->file_path);

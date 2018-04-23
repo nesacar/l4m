@@ -57,6 +57,15 @@
                     <li><router-link tag="a" :to="'/blogs'">Kategorije</router-link></li>
                 </ul>
             </li>
+            <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }">
+                <font-awesome-icon icon="angle-right" />
+                <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
+                <font-awesome-icon icon="envelope" />
+                <ul>
+                    <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
+                    <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
+                </ul>
+            </li>
             <!--
             <li :class="{ 'active': showNewslettersItemActive }" :style="{ 'display': showNewslettersItem ? 'block' : 'none' }">
                 <font-awesome-icon icon="angle-right" />
@@ -141,9 +150,12 @@
                 return this.$store.getters.getNewslettersItemActive;
             },
 
-            /** galleries **/
-            showGalleriesItemActive(){
-                return this.$store.getters.getGalleriesItemActive;
+            /** templates **/
+            showTemplatesItem(){
+                return this.$store.getters.getShowTemplatesItem;
+            },
+            showTemplatesItemActive(){
+                return this.$store.getters.getTemplatesItemActive;
             },
         },
         methods: {
@@ -173,8 +185,8 @@
             },
 
             /** galleries **/
-            changeShowGalleriesItemActive(){
-                this.$store.dispatch('changeGalleriesItemActive');
+            changeShowTemplatesItemActive(){
+                this.$store.dispatch('changeTemplatesItemActive');
             },
         }
     }

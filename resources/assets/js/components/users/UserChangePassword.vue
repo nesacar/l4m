@@ -47,7 +47,7 @@
                     <upload-image-helper
                             :image="user.image"
                             :defaultImage="'img/user-image.png'"
-                            :titleImage="'user'"
+                            :titleImage="'korisnika'"
                             :error="error"
                             @uploadImage="upload($event)"
                             @removeRow="remove($event)"
@@ -74,6 +74,11 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
+        computed: {
+            user_id(){
+                return this.$store.getters.getUser.id;
+            }
+        },
         methods: {
             submit(){
                 axios.post('api/users/change-password', this.user)
@@ -92,7 +97,21 @@
                     });
             },
             upload(image){
-                this.user.image = image[0];
+                axios.post('api/users/' + this.user_id + '/image', {image: image[0]})
+                    .then(res => {
+                        this.user.image = res.data.image;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
         }
     }

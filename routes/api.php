@@ -17,64 +17,70 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->get('users/logout', 'UsersController@logout');
-Route::middleware('auth:api')->get('users/get-users', 'UsersController@getUsers');
-Route::middleware('auth:api')->post('users/change-password', 'UsersController@changePassword');
-Route::middleware('auth:api')->resource('users', 'UsersController');
-Route::middleware('auth:api')->post('users/{id}/image', 'UsersController@uploadImage');
+Route::get('users/logout', 'UsersController@logout');
+Route::get('users/get-users', 'UsersController@getUsers');
+Route::post('users/change-password', 'UsersController@changePassword');
+Route::resource('users', 'UsersController');
+Route::post('users/{id}/image', 'UsersController@uploadImage');
 
-Route::middleware('auth:api')->get('settings/{id}/edit', 'SettingsController@edit');
-Route::middleware('auth:api')->put('settings/{id}', 'SettingsController@update');
+Route::get('settings/{id}/edit', 'SettingsController@edit');
+Route::put('settings/{id}', 'SettingsController@update');
 
-Route::middleware('auth:api')->resource('themes', 'ThemesController');
-Route::middleware('auth:api')->post('themes/{id}/image', 'ThemesController@uploadImage');
+Route::resource('themes', 'ThemesController');
+Route::post('themes/{id}/image', 'ThemesController@uploadImage');
 
-Route::middleware('auth:api')->resource('menus', 'MenusController');
+Route::resource('menus', 'MenusController');
 
-Route::middleware('auth:api')->get('menu-links/lists', 'MenuLinksController@lists');
-Route::middleware('auth:api')->resource('menu-links', 'MenuLinksController');
-Route::middleware('auth:api')->get('menu-links/{id}/sort', 'MenuLinksController@sort');
-Route::middleware('auth:api')->post('menu-links/{id}/order', 'MenuLinksController@saveOrder');
+Route::get('menu-links/lists', 'MenuLinksController@lists');
+Route::resource('menu-links', 'MenuLinksController');
+Route::get('menu-links/{id}/sort', 'MenuLinksController@sort');
+Route::post('menu-links/{id}/order', 'MenuLinksController@saveOrder');
 
-Route::middleware('auth:api')->get('blogs/lists', 'BlogsController@lists');
-Route::middleware('auth:api')->resource('blogs', 'BlogsController');
-Route::middleware('auth:api')->post('blogs/{id}/image', 'BlogsController@uploadImage');
+Route::get('blogs/lists', 'BlogsController@lists');
+Route::resource('blogs', 'BlogsController');
+Route::post('blogs/{id}/image', 'BlogsController@uploadImage');
 
-Route::middleware('auth:api')->post('posts/search', 'PostsController@search');
-Route::middleware('auth:api')->get('posts/lists', 'PostsController@lists');
-Route::middleware('auth:api')->resource('posts', 'PostsController');
-Route::middleware('auth:api')->post('posts/{id}/image', 'PostsController@uploadImage');
+Route::post('posts/search', 'PostsController@search');
+Route::get('posts/lists', 'PostsController@lists');
+Route::resource('posts', 'PostsController');
+Route::post('posts/{id}/image', 'PostsController@uploadImage');
 
-Route::middleware('auth:api')->get('brands/lists', 'BrandsController@lists');
-Route::middleware('auth:api')->resource('brands', 'BrandsController');
-Route::middleware('auth:api')->post('brands/{id}/image', 'BrandsController@uploadImage');
+Route::get('brands/lists', 'BrandsController@lists');
+Route::resource('brands', 'BrandsController');
+Route::post('brands/{id}/image', 'BrandsController@uploadImage');
 
-Route::middleware('auth:api')->get('collections/lists', 'CollectionsController@lists');
-Route::middleware('auth:api')->resource('collections', 'CollectionsController');
-Route::middleware('auth:api')->post('collections/{id}/image', 'CollectionsController@uploadImage');
+Route::get('collections/lists', 'CollectionsController@lists');
+Route::resource('collections', 'CollectionsController');
+Route::post('collections/{id}/image', 'CollectionsController@uploadImage');
 
-Route::middleware('auth:api')->get('sets/lists', 'SetsController@lists');
-Route::middleware('auth:api')->resource('sets', 'SetsController');
+Route::get('sets/lists', 'SetsController@lists');
+Route::resource('sets', 'SetsController');
 
-Route::middleware('auth:api')->get('properties/lists', 'PropertiesController@lists');
-Route::middleware('auth:api')->get('properties/{id}/set', 'PropertiesController@listsBySet');
-Route::middleware('auth:api')->resource('properties', 'PropertiesController');
+Route::get('properties/lists', 'PropertiesController@lists');
+Route::get('properties/{id}/set', 'PropertiesController@listsBySet');
+Route::resource('properties', 'PropertiesController');
 
-Route::middleware('auth:api')->post('attributes/search', 'AttributesController@search');
-Route::middleware('auth:api')->get('attributes/lists', 'AttributesController@lists');
-Route::middleware('auth:api')->resource('attributes', 'AttributesController');
+Route::post('attributes/search', 'AttributesController@search');
+Route::get('attributes/lists', 'AttributesController@lists');
+Route::resource('attributes', 'AttributesController');
 
-Route::middleware('auth:api')->post('categories/search', 'CategoriesController@search');
-Route::middleware('auth:api')->get('categories/lists', 'CategoriesController@lists');
-Route::middleware('auth:api')->get('categories/tree', 'CategoriesController@tree');
-Route::middleware('auth:api')->resource('categories', 'CategoriesController');
-Route::middleware('auth:api')->post('categories/{id}/image', 'CategoriesController@uploadImage');
+Route::post('categories/search', 'CategoriesController@search');
+Route::get('categories/lists', 'CategoriesController@lists');
+Route::get('categories/tree', 'CategoriesController@tree');
+Route::resource('categories', 'CategoriesController');
+Route::post('categories/{id}/image', 'CategoriesController@uploadImage');
 
-Route::middleware('auth:api')->post('products/search', 'ProductsController@search');
-Route::middleware('auth:api')->get('products/lists', 'ProductsController@lists');
-Route::middleware('auth:api')->resource('products', 'ProductsController');
-Route::middleware('auth:api')->post('products/{id}/image', 'ProductsController@uploadImage');
-Route::middleware('auth:api')->post('products/{id}/gallery', 'ProductsController@galleryUpdate');
-Route::middleware('auth:api')->get('products/{id}/gallery', 'ProductsController@gallery');
+Route::post('products/search', 'ProductsController@search');
+Route::get('products/lists', 'ProductsController@lists');
+Route::resource('products', 'ProductsController');
+Route::post('products/{id}/image', 'ProductsController@uploadImage');
+Route::post('products/{id}/gallery', 'ProductsController@galleryUpdate');
+Route::get('products/{id}/gallery', 'ProductsController@gallery');
 
-Route::middleware('auth:api')->post('photos/{id}/destroy', 'PhotosController@destroy');
+Route::post('photos/{id}/destroy', 'PhotosController@destroy');
+
+Route::get('blocks/lists', 'BlocksController@lists');
+Route::resource('blocks', 'BlocksController');
+
+Route::resource('boxes', 'BoxesController');
+Route::post('boxes/{id}/image', 'BoxesController@uploadImage');

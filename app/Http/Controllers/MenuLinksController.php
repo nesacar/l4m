@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class MenuLinksController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
+
     public function index(){
         app()->setLocale('sr');
         $menu = Menu::find(request('id'));

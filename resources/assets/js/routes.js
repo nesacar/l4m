@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { store } from './store/store';
 
 Vue.use(VueRouter);
 
@@ -69,12 +68,13 @@ export const router = new VueRouter({
         { path: "/menu-links/:id/create", component: require('./components/menuLinks/MenuLinkCreate.vue'), meta: { forAuth: true } },
         { path: "/menu-links/:id/edit", component: require('./components/menuLinks/MenuLinkEdit.vue'), meta: { forAuth: true } },
 
-        // { path: "/galleries", component: require('./components/galleries/GalleryList.vue'), meta: { forAuth: true } },
-        // { path: "/galleries/create", component: require('./components/galleries/GalleryCreate.vue'), meta: { forAuth: true } },
-        // { path: "/galleries/:id/edit", component: require('./components/galleries/GalleryEdit.vue'), meta: { forAuth: true } },
-        //
-        // { path: "/architects", component: require('./components/architects/ArchitectList.vue'), meta: { forAuth: true } },
-        // { path: "/architects/:id/edit", component: require('./components/architects/ArchitectEdit.vue'), meta: { forAuth: true } },
+        { path: "/blocks", component: require('./components/blocks/BlockList.vue'), meta: { forAuth: true } },
+        { path: "/blocks/create", component: require('./components/blocks/BlockCreate.vue'), meta: { forAuth: true } },
+        { path: "/blocks/:id/edit", component: require('./components/blocks/BlockEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/boxes", component: require('./components/boxes/BlockList.vue'), meta: { forAuth: true } },
+        { path: "/boxes/create", component: require('./components/boxes/BlockCreate.vue'), meta: { forAuth: true } },
+        { path: "/boxes/:id/edit", component: require('./components/boxes/BlockEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',
