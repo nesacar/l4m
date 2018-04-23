@@ -74,3 +74,7 @@ Route::middleware('auth:api')->post('products/search', 'ProductsController@searc
 Route::middleware('auth:api')->get('products/lists', 'ProductsController@lists');
 Route::middleware('auth:api')->resource('products', 'ProductsController');
 Route::middleware('auth:api')->post('products/{id}/image', 'ProductsController@uploadImage');
+Route::middleware('auth:api')->post('products/{id}/gallery', 'ProductsController@galleryUpdate');
+Route::middleware('auth:api')->get('products/{id}/gallery', 'ProductsController@gallery');
+
+Route::middleware('auth:api')->post('photos/{id}/destroy', 'PhotosController@destroy');

@@ -20,7 +20,6 @@
                     </div>
                 </div>
 
-                <!--
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Gallery images</h5>
@@ -33,7 +32,6 @@
                         </div>
                     </div>
                 </div>
-                -->
 
                 <div class="col-sm-6">
                     <div class="card">
@@ -147,6 +145,10 @@
                         ></upload-image-helper>
                     </div>
 
+                    <div class="card">
+                        <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="showSuccess()"></vue-dropzone>
+                    </div>
+
                     <div class="card" v-if="categories.length > 0">
                         <div class="form-group">
                             <label>Kategorije</label>
@@ -169,6 +171,7 @@
                             <h3>Osobine i atributi</h3>
                         </div>
                     </div>
+
                     <div class="row">
                         <template v-if="properties.length > 0">
                             <div class="card col-sm-4" v-for="property in properties">
@@ -214,6 +217,7 @@
               collections: {},
               categories: {},
               properties: {},
+              photos: {},
               sets: {},
               error: null,
               config: {
@@ -255,6 +259,7 @@
             this.getBrands();
             this.getSets();
             this.getCategories();
+            this.getPhotos();
         },
         methods: {
             getProduct(){
@@ -399,7 +404,30 @@
                 }else{
                     this.properties = {};
                 }
-            }
+            },
+            getPhotos(){
+                axios.get('api/products/' + this.$route.params.id + '/gallery')
+                    .then(res => {
+                        this.photos = res.data.photos;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            deletePhoto(photo){
+                axios.post('api/photos/' + photo.id + '/destroy')
+                    .then(res => {
+                        this.photos = this.photos.filter(function (item) {
+                            return photo.id != item.id;
+                        });
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            showSuccess(){
+                this.getPhotos();
+            },
         }
     }
 </script>

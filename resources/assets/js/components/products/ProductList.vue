@@ -147,6 +147,7 @@
                     });
             },
             search(value){
+                console.log(value);
                 axios.post('api/products/search', value)
                     .then(res => {
                         this.products = res.data.products.data;

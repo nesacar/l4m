@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attribute;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UploadImageRequest;
+use App\Photo;
 use App\Product;
 use App\Set;
 use Illuminate\Http\Request;
@@ -134,26 +135,22 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function search(){
+    public function search(Request $request){
         $category = request('list');
         $text = request('text');
 
-        $products = Product::with('Category', function($query) use ($text,$category){
-            $query->where('categories.parent', 0);
-                if($text != ''){
-                    $query->where('categories.title', 'like', '%'.$text.'%')->orWhere('products.slug', 'like', '%'.$text.'%');
-                }
+        $products = Product::with(['Category' => function($query) use ($category){
                 if($category > 0){
                     $query->where('categories.id', $category);
                 }
-            })
-            ->with('Brand', function($query) use ($text){
-                if($text != ''){
+            }])
+            ->with(['Brand' => function($query) use ($text){
+                if(!empty($text)){
                     $query->where('brands.title', 'like', '%'.$text.'%');
                 }
-            })->with('Collection')
+            }])->with('Collection')
             ->where(function ($query) use ($text){
-                if($text != ''){
+                if(!empty($text)){
                     $query->where('products.title', 'like', '%'.$text.'%')->orWhere('products.slug', 'like', '%'.$text.'%')
                         ->orWhere('products.id', 'like', '%'.$text.'%')->orWhere('products.code', 'like', '%'.$text.'%');
                 }
@@ -162,5 +159,18 @@ class ProductsController extends Controller
         return response()->json([
             'products' => $products
         ]);
+    }
+
+    public function gallery($id){
+        $photos = Product::find($id)->photo;
+
+        return response()->json([
+            'photos' => $photos
+        ]);
+    }
+
+    public function galleryUpdate($id){
+        Photo::saveImage($id, request('file'));
+        return 'done';
     }
 }
