@@ -25,17 +25,23 @@ function prev () {
   carousel.prev();
 }
 
-function createCarousel (root) {
+function addControls (root) {
   const btnElNext = root.querySelector('.masthead-carousel-control--next');
   const btnElPrev = root.querySelector('.masthead-carousel-control--prev');
+  btnElNext.addEventListener('click', next);
+  btnElPrev.addEventListener('click', prev);
+}
+
+function createCarousel (root) {
+  const controls = root.querySelector('.masthead-carousel-controls');
 
   carousel = new Siema({
     selector: root.querySelector('.masthead-carousel'),
     ...OPTIONS
   });
 
-  btnElNext.addEventListener('click', next);
-  btnElPrev.addEventListener('click', prev);
+  addControls(root);
+
   // TODO Set auto play timer
 }
 
@@ -46,5 +52,5 @@ export function init () {
     return;
   }
 
-  createCarousel(root);  
+  createCarousel(root);
 };

@@ -90,10 +90,6 @@
     position: relative;
     height: 100%;
   }
-
-  button {
-    pointer-events: auto;
-  }
 }
 
 .masthead-carousel-control {
@@ -108,6 +104,13 @@
   border: 0;
   padding: 0;
   background-color: white;
+  pointer-events: auto;
+
+  .no-controls & {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+  }
 
   &:focus {
     outline: 3px solid rgba(255, 255, 255, .5);
