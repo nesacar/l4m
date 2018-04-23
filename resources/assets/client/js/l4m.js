@@ -15,4 +15,13 @@ export function init () {
       1028: 4
     }
   });
+  
+  window.masthead = new Siema({
+    selector: document.querySelector('.masthead-carousel'),
+    perPage: 1,
+    loop: true,
+    onInit: function () {
+      this.selector.classList.remove('is-loading')
+    }
+  });
 };

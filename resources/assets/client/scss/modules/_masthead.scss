@@ -1,0 +1,34 @@
+.masthead {
+  overflow: hidden;
+
+  &_image {
+    @include media-breakpoint-down(md) {
+      padding-top: 42 * $base-line;
+    }
+  }
+}
+
+.masthead-carousel {
+  padding: 0;
+  overflow: visible !important;
+
+  &.is-loading {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  &_item {
+    position: relative;
+    min-width: 100%;
+  }
+
+  &_content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: (2 * $base-line) (8 * $base-line);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    color: $text-primary-on-dark;
+  }
+}

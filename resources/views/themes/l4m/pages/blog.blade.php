@@ -22,6 +22,10 @@
     display: none;
   }
 </style>
+
+  @component('themes.' . env('THEME_NAME', '') . '.components.masthead-carousel')
+  @endcomponent
+
   <section class="container">
     <h2 class="section-title with-lines"><span>latest</span></h2>
 
