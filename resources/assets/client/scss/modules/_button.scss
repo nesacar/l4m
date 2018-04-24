@@ -24,4 +24,19 @@
       outline: 3px solid lighten($theme-secondary, 21%);
     }
   }
+
+  &--outline {
+    background-color: transparent;
+    border: 1px solid $theme-primary;
+    color: $theme-primary;
+
+    &:focus {
+      outline: 3px solid lighten($theme-primary, 46%);
+    }
+
+    &:active {
+      background-color: $theme-primary;
+      color: $text-primary-on-primary;
+    }
+  }
 }
