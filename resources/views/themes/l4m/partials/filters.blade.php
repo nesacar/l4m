@@ -1,15 +1,18 @@
-<div class="filters">
+<form method="GET" class="filters">
   <div class="filter">
     <h4 class="filter_name">filter name</h4>
     <ul class="filter-list">
+      @for($i = 0; $i < 5; $i++)
       <li class="filter-list_item">
         @component('themes.' . env('THEME_NAME', '') . '.components.checkbox', [
-          'id' => 'ch-1',
+          'id' => 'ch-' . $i,
           'checked' => false,
-          'value' => 'Filter value'
+          'value' => 'Filter value ' . $i
         ])
         @endcomponent
       </li>
+      @endfor
     </ul>
   </div>
-</div>
+  <button class="btn btn--primary" type="submit">filter</button>
+</form>

@@ -12,14 +12,17 @@
   }
 }
 
+// TODO Add custom scroll bar
 .filter-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 3 * 38px;
+  overflow-y: scroll;
 
   &_item {
     display: flex;
     align-items: center;
-    padding: $base-line 0;
+    height: 38px;
   }
 }

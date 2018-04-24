@@ -31,18 +31,7 @@
     }
 
     button[type="submit"] {
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: $theme-primary;
-      color: $text-primary-on-primary;
-      text-transform: uppercase;
-      border: 0;
-
-      &:focus {
-        outline: 3px solid lighten($theme-primary, 46%);
-      }
+      width: 100%;
     }
   }
 }

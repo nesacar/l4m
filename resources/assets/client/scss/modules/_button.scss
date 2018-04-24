@@ -1,0 +1,27 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 (2 * $base-line);
+  text-transform: uppercase;
+  border: 0;
+
+  &--primary {
+    background-color: $theme-primary;
+    color: $text-primary-on-primary;
+
+    &:focus {
+      outline: 3px solid lighten($theme-primary, 46%);
+    }
+  }
+
+  &--secondary {
+    background-color: $theme-secondary;
+    color: $text-primary-on-secondary;
+
+    &:focus {
+      outline: 3px solid lighten($theme-secondary, 21%);
+    }
+  }
+}

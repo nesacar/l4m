@@ -14,6 +14,10 @@
       padding-top: 42 * $base-line;
     }
   }
+
+  &_title {
+    margin-top: 0;
+  }
 }
 
 .masthead-carousel {
