@@ -25,6 +25,8 @@
       ])
       @endcomponent
 
+      @include('themes.' . env('THEME_NAME', '') . '.partials.pagination')
+
     </div>
 
   </section>
