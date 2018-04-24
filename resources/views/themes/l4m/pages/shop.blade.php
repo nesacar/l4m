@@ -16,12 +16,20 @@
 
       @include('themes.' . env('THEME_NAME', '') . '.partials.breadcrumb')
     
-      <div class="shop-shop">
-        <aside class="shop-shop_filters">
+      <div class="row">
+        <aside class="col-lg-3 filters-container">
           @include('themes.' . env('THEME_NAME', '') . '.partials.filters')
         </aside>
 
-        <div class="shop-shop_items">
+        <div class="col-lg-9">
+          <div>
+            <select name="sort" id="sort">
+              <option value="default" selected>Default</option>
+              <option value="min">Min</option>
+              <option value="max">Max</option>
+            </select>
+          </div>
+
           @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
             'component' => 'shop.item',
             'items' => $products,

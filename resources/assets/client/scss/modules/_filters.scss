@@ -1,3 +1,9 @@
+.filters-container {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
 .filter {
   margin-bottom: 4 * $base-line;
 

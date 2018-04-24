@@ -18,6 +18,10 @@
     pointer-events: auto;
     z-index: 1;
 
+    &:focus ~ .checkbox_background {
+      outline: 3px solid lighten($theme-primary, 46%);
+    }
+
     &:checked ~ .checkbox_background {
       background-color: $theme-primary;
 
