@@ -72,7 +72,7 @@
 
   <section class="container">
     <h2 class="section-title with-lines"><span>featured</span></h2>
-
+    
     <div class="split-view">
       <div class="split-view_left-pane">
         @component('themes.' . env('THEME_NAME', '') . '.components.list', [
@@ -87,11 +87,14 @@
       </div>
       
       <div class="split-view_right-pane">
-        @component('themes.' . env('THEME_NAME', '') . '.components.list', [
-          'component' => 'blog.list-item',
-          'items' => $items
-          ])
-        @endcomponent
+        <div>
+          <h4 class="side-content-title">most viewed posts</h4>
+          @component('themes.' . env('THEME_NAME', '') . '.components.list', [
+            'component' => 'blog.list-item',
+            'items' => $items
+            ])
+          @endcomponent
+        </div>
         @include('themes.' . env('THEME_NAME', '') . '.partials.newsletter')
         @include('themes.' . env('THEME_NAME', '') . '.partials.social')
       </div>

@@ -1,12 +1,17 @@
-.section-title {
-  position: relative;
-  padding: (4 * $base-line) 0;
-  margin: 0;
+%title {
   font-family: $font-family;
   font-size: 16px;
   text-transform: uppercase;
   font-weight: $font-weight-normal;
   letter-spacing: .18em;
+}
+
+.section-title {
+  @extend %title;
+
+  position: relative;
+  padding: (4 * $base-line) 0;
+  margin: 0;
 }
 
 .with-lines {
@@ -38,4 +43,16 @@
       display: none;
     }
   }
+}
+
+.side-content-title {
+  @extend %title;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6 * $base-line;
+  margin-bottom: $base-line;
+  color: $text-primary-on-primary;
+  background-color: $theme-primary;
 }

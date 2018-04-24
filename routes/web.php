@@ -16,22 +16,26 @@ function getItems () {
     (object) [
       "img" => "img src1", 
       "title" => "WC Takes the Ingenieur Back to its Roots",
-      "categorie" => "watches"
+      "categorie" => "watches",
+      "href" => "#"
     ],
     (object) [
       "img" => "img src2", 
       "title" => "Rossato Home Collection:  Masterpieces of elegance conceived",
-      "categorie" => "living"
+      "categorie" => "living",
+      "href" => "#"
     ],
     (object) [
       "img" => "img src3", 
       "title" => "Groove Innovative bed system",
-      "categorie" => "living"
+      "categorie" => "living",
+      "href" => "#"
     ],
     (object) [
       "img" => "img src4", 
       "title" => "Tom Ford Spring line - Look Like a Movie Star",
-      "categorie" => "fasion"
+      "categorie" => "fasion",
+      "href" => "#"
       ]
   ];
 }

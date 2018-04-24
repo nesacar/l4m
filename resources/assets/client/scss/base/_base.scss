@@ -21,6 +21,19 @@ body {
   line-height: 1.45;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: initial;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
 p {
   margin-bottom: 1.3em;
 }
