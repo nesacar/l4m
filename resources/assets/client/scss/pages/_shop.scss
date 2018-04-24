@@ -30,3 +30,16 @@
     }
   }
 }
+
+.shop-shop {
+  display: flex;
+
+  &_items {
+    flex-grow: 1;
+  }
+
+  &_filters {
+    width: 25.8333%;
+    padding-right: 4 * $base-line;
+  }
+}

@@ -16,14 +16,23 @@
 
       @include('themes.' . env('THEME_NAME', '') . '.partials.breadcrumb')
     
-      @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
-        'component' => 'shop.item',
-        'items' => $products,
-        'options' => (object)[
-          'shop' => true
-        ]
-      ])
-      @endcomponent
+      <div class="shop-shop">
+        <aside class="shop-shop_filters">
+          @include('themes.' . env('THEME_NAME', '') . '.partials.filters')
+        </aside>
+
+        <div class="shop-shop_items">
+          @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
+            'component' => 'shop.item',
+            'items' => $products,
+            'options' => (object)[
+              'shop' => true
+            ]
+          ])
+          @endcomponent
+        </div>
+        
+      </div>
 
       @include('themes.' . env('THEME_NAME', '') . '.partials.pagination')
 
