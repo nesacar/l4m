@@ -47,7 +47,7 @@
 
 .side-content-title {
   @extend %title;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,4 +55,21 @@
   margin-bottom: $base-line;
   color: $text-primary-on-primary;
   background-color: $theme-primary;
+}
+
+.display-1 {
+  margin-top: 0;
+  font-size: 3.157em;
+}
+
+.display-2 {
+  font-size: 2.369em;
+}
+
+.display-3 {
+  font-size: 1.777em;
+}
+
+.display-4 {
+  font-size: 1.333em;
 }

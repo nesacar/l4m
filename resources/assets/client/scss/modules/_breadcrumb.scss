@@ -1,0 +1,30 @@
+.breadcrumb {
+  list-style: none;
+  padding: (2 * $base-line) 0;
+  margin: 0;
+  display: flex;
+}
+
+.breadcrumb-item {
+  color: $text-primary-on-light;
+  
+  a {
+    color: $text-secondary-on-light;
+
+    &:hover,
+    &:focus {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  & + & {
+    padding-left: .5rem;
+
+    &::before {
+      display: inline-block;
+      padding-right: .5rem;
+      content: "/";
+    }
+  }
+}
