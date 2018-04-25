@@ -10,7 +10,7 @@
   </div>
   <div id="main-nav">
     <div class="container">
-      @include('themes.'.env('THEME_NAME', '').'.partials.nav')
+      @include('themes.'. 'l4m' .'.partials.nav')
     </div>
   </div>
 </header>

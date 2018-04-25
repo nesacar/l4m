@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use File;
 
 class Product extends Model
@@ -11,6 +13,28 @@ class Product extends Model
         'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'tmb', 'price',
         'price_outlet', 'views', 'amount', 'color', 'discount', 'sold', 'publish_at', 'publish'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('category', function (Builder $builder) {
+            $builder->with(['category' => function($query){
+                $query->where('publish', 1)->orderBy('parent', 'ASC');
+            }]);
+        });
+
+        static::addGlobalScope('brand', function (Builder $builder) {
+            $builder->with(['brand' => function($query){
+                $query->where('publish', 1)->orderBy('order', 'ASC');
+            }]);
+        });
+    }
 
     public static function base64UploadImage($product, $image){
         if(!is_object($product)) $product = self::find($product);
@@ -47,9 +71,24 @@ class Product extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
-//    public function getPublishAttribute($value){
-//        return $value? 'Da' : 'Ne';
-//    }
+    public static function getHome($limit = 4){
+        return Product::published()->inRandomOrder()->take($limit)->get();
+    }
+
+    public function getLink(){
+        $str = 'shop/';
+        if(count($this->category)>0){
+            foreach ($this->category as $category){
+                $str .= $category->slug . '/';
+            }
+        }
+        $str .= $this->slug . '/' . $this->id;
+        return url($str);
+    }
+
+    public function scopePublished($query){
+        $query->where('publish', 1)->where('publish_at', '<=', Carbon::now()->format('Y-m-d H:00'));
+    }
 
     public function brand(){
         return $this->belongsTo(Brand::class);
@@ -77,5 +116,9 @@ class Product extends Model
 
     public function photo(){
         return $this->hasMany(Photo::class);
+    }
+
+    public function tag(){
+        return $this->belongsToMany(Tag::class);
     }
 }

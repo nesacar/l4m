@@ -24,7 +24,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['Category', 'Brand', 'Collection'])->orderBy('.products.id', 'DESC')->paginate(50);
+        $products = Product::with(['Category', 'Brand', 'Collection'])->orderBy('products.id', 'DESC')->paginate(50);
 
         return response()->json([
             'products' => $products
@@ -44,10 +44,11 @@ class ProductsController extends Controller
         $product->publish = request('publish')?: false;
         $product->update();
 
-        if(request('image')){ Product::base64UploadImage($product, request('image')); }
+        if(request('image')) Product::base64UploadImage($product, request('image'));
 
-        $product->category()->sync(request('category_id'));
-        $product->attribute()->sync(request('attribute_id'));
+        $product->category()->sync(request('cat_ids'));
+        $product->attribute()->sync(request('att_ids'));
+        $product->tag()->sync(request('tag_ids'));
 
         return response()->json([
             'product' => $product
@@ -64,12 +65,14 @@ class ProductsController extends Controller
     {
         $catIds = $product->category()->pluck('categories.id');
         $attIds = $product->attribute()->pluck('attributes.id');
+        $tagIds = $product->tag()->pluck('tags.id');
         $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
 
         return response()->json([
             'product' => $product,
-            'catIds' => $catIds,
-            'attIds' => $attIds,
+            'cat_ids' => $catIds,
+            'att_ids' => $attIds,
+            'tag_ids' => $tagIds,
             'properties' => $properties,
         ]);
     }
@@ -88,17 +91,20 @@ class ProductsController extends Controller
         $product->publish = request('publish')?: false;
         $product->update();
 
-        $product->category()->sync(request('category_id'));
-        $product->attribute()->sync(request('attribute_id'));
+        $product->category()->sync(request('cat_ids'));
+        $product->attribute()->sync(request('att_ids'));
+        $product->tag()->sync(request('tag_ids'));
 
         $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
         $catIds = $product->category()->pluck('categories.id');
         $attIds = $product->attribute()->pluck('attributes.id');
+        $tagIds = $product->tag()->pluck('tags.id');
 
         return response()->json([
             'product' => $product,
-            'catIds' => $catIds,
-            'attIds' => $attIds,
+            'cat_ids' => $catIds,
+            'att_ids' => $attIds,
+            'tag_ids' => $tagIds,
             'properties' => $properties,
         ]);
     }

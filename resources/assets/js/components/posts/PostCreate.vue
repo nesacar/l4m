@@ -74,6 +74,12 @@
                                 <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label>Tags</label>
+                                <select2 :options="tags" :multiple="true" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
                                 <label>Publikovano</label><br>
                                 <switches v-model="post.publish" theme="bootstrap" color="primary"></switches>
                             </div>
@@ -107,6 +113,7 @@
     import Switches from 'vue-switches';
     import Ckeditor from 'vue-ckeditor2';
     import moment from 'moment';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
@@ -116,7 +123,8 @@
                   time: moment().format('HH:mm'),
                   desc: null,
                   publish: false,
-                  blog_id: 0
+                  blog_id: 0,
+                  tag_ids: []
               },
               lists: {},
               error: null,
@@ -145,10 +153,12 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
-            'ckeditor': Ckeditor
+            'ckeditor': Ckeditor,
+            'select2': Select2,
         },
         created(){
             this.getList();
+            this.getTags();
         },
         methods: {
             submit(){
@@ -181,7 +191,23 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
-            }
+            },
+            getTags(){
+                axios.get('api/tags/lists')
+                    .then(res => {
+                        this.tags = _.map(res.data.tags, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                    }).catch(e => {
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
+            },
+            input(tag){
+                this.post.tag_ids = tag;
+            },
         }
     }
 </script>

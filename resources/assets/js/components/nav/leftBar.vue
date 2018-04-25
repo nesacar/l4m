@@ -22,6 +22,15 @@
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>
+            <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }">
+                <font-awesome-icon icon="angle-right" />
+                <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
+                <font-awesome-icon icon="th-large" />
+                <ul>
+                    <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
+                    <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
+                </ul>
+            </li>
             <li :class="{ 'active': showUsersItemActive }" :style="{ 'display': showUsersItem ? 'block' : 'none' }" v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowUsersItemActive()">Korisnici</a>
@@ -29,10 +38,6 @@
                 <ul>
                     <li><router-link tag="a" :to="'/users'">Pregled korisnika</router-link></li>
                 </ul>
-            </li>
-            <li>
-                <font-awesome-icon icon="images" />
-                <a :href="domain + 'filemanager/show'" target="_blank">File manager</a>
             </li>
             <li :class="{ 'active': showProductsItemActive }" :style="{ 'display': showProductsItem ? 'block' : 'none' }">
                 <font-awesome-icon icon="angle-right" />
@@ -57,14 +62,13 @@
                     <li><router-link tag="a" :to="'/blogs'">Kategorije</router-link></li>
                 </ul>
             </li>
-            <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }">
-                <font-awesome-icon icon="angle-right" />
-                <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
-                <font-awesome-icon icon="envelope" />
-                <ul>
-                    <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
-                    <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
-                </ul>
+            <li>
+                <font-awesome-icon icon="images" />
+                <a :href="domain + 'filemanager/show'" target="_blank">File manager</a>
+            </li>
+            <li>
+                <font-awesome-icon icon="tags" />
+                <router-link tag="a" :to="'/tags'">Tagovi</router-link>
             </li>
             <!--
             <li :class="{ 'active': showNewslettersItemActive }" :style="{ 'display': showNewslettersItem ? 'block' : 'none' }">

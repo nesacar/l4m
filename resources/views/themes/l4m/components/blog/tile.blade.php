@@ -13,23 +13,20 @@
   $asymmetricClass = (($isAsymmetric && $isOdd) ? ' blog-tile--reverse' : '');
   $className = 'blog-tile' . $horizontalClass . $asymmetricClass;
 
-  $imageUrl = isset($item->img) ? url($item->img) : 'TODO set placeholder image or remove data-src?';
-  $title = isset($item->title) ? $item->title : 'Tile title';
-  $categorie = isset($item->categorie) ? $item->categorie : 'Categorie';
-  $href = isset($item->href) ? $item->href : '#';
+  $imageUrl = isset($item->image) ? url($item->image) : 'TODO set placeholder image or remove data-src?';
 
 @endphp
 
 <div class="{{ $className }}">
-  <a class="blog-tile_image" href="{{ $href }}">
-    <div class="image image--standard demo-img" data-src="{{ $imageUrl }}"></div>
+  <a class="blog-tile_image" href="{{ $item->getLink()  }}">
+    <div class="image image--standard lazy-image" data-src="{{ $imageUrl }}"></div>
   </a>
 
   <div class="blog-tile_content">
     <div class="blog-tile_label">
-      <a class="blog-tile_categorie with-flare" href="{{ url('categories/'.$categorie) }}">{{ $categorie }}</a>
+      <a class="blog-tile_categorie with-flare" href="{{ url($item->blog->slug) }}">{{ $item->blog->title }}</a>
     </div>
-    <h4 class="blog-tile_title"><a href="{{ $href }}">{{ $title }}</a></h4>
-    <p class="with-trunk">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi placeat adipisci consequatur laboriosam eos ducimus sint eligendi nemo impedit maiores iure ut, quasi repellat eius, atque iusto. Exercitationem, voluptatem rem.</p>
+    <h4 class="blog-tile_title"><a href="{{ url($item->blog->slug . '/' . $item->slug . '/' . $item->id) }}">{{ $item->title }}</a></h4>
+    <p class="with-trunk">{{ $item->short }}</p>
   </div>
 </div>

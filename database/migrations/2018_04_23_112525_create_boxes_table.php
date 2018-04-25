@@ -15,6 +15,9 @@ class CreateBoxesTable extends Migration
     {
         Schema::create('boxes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('category_id')->nullable()->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+
             $table->integer('block_id')->unsigned()->index();
             $table->foreign('block_id')->references('id')->on('blocks')->onDelete('cascade');
 

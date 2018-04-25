@@ -25,15 +25,15 @@
   </div>
 
   <div class="container masthead-carousel is-loading">
-    @foreach($data as $i => $item)
+    @foreach($data as $item)
     <div class="masthead-carousel_item">
       <div class="image image--ultra-wide masthead_image">
-        <img src="{{ $item->img}}" />
+        <img src="{{ url($item->image) }}" />
       </div>
       <div class="masthead-carousel_content">
-        <div class="masthead_label">{{ $item->label }}</div>
+        <div class="masthead_label">{{ $item->blog->title }}</div>
         <h3 class="masthead_title">{{ $item->title }}</h3>
-        <p class="masthead_desc">{{ $item->desc }}</p>
+        <p class="masthead_desc">{{ $item->short }}</p>
       </div>
     </div>
     @endforeach

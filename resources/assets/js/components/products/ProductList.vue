@@ -30,8 +30,8 @@
                                 <th scope="col">id</th>
                                 <th scope="col">naslov</th>
                                 <th scope="col">kategorija</th>
-                                <th scope="col">publikovano</th>
-                                <th scope="col">kreirano</th>
+                                <th scope="col">vidljivo</th>
+                                <th scope="col">vidljivo od</th>
                                 <th>akcija</th>
                             </tr>
                             </thead>
@@ -41,7 +41,7 @@
                                 <td>{{ row.title }}</td>
                                 <td v-if="row.category.length > 0">{{ row.category[0].title }}</td><td v-else>/</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
-                                <td>{{ row.created_at }}</td>
+                                <td>{{ row.publish_at }}</td>
                                 <td>
                                     <router-link tag="a" :to="'products/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />

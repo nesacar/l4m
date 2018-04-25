@@ -27,7 +27,7 @@
                         <div id="gallery" v-if="photos">
                             <div v-for="photo in photos" class="photo">
                                 <font-awesome-icon icon="times" @click="deletePhoto(photo)" />
-                                <img :src="photo.file_path_small" class="img-thumbnail" alt="post.title">
+                                <img :src="photo.file_path_small" class="img-thumbnail" alt="product.title">
                             </div>
                         </div>
                     </div>
@@ -124,6 +124,12 @@
                                 <small class="form-text text-muted" v-if="error != null && error.amount">{{ error.amount[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label>Tags</label>
+                                <select2 :options="tags" :value="product.tag_ids" :multiple="true" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
                                 <label>Publikovano</label><br>
                                 <switches v-model="product.publish" theme="bootstrap" color="primary"></switches>
                             </div>
@@ -152,13 +158,13 @@
                     <div class="card" v-if="categories.length > 0">
                         <div class="form-group">
                             <label>Kategorije</label>
-                            <small class="form-text text-muted" v-if="error != null && error.category_id">{{ error.category_id[0] }}</small>
+                            <small class="form-text text-muted" v-if="error != null && error.cat_ids">{{ error.cat_ids[0] }}</small>
                             <ol class="sortable" style="margin-left: -15px;">
                                 <li :id="`list_${cat.id}`" v-for="cat in categories">
-                                    <div><input type="checkbox" v-model="product.category_id" :value="cat.id"> {{ cat.title }}</div>
+                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id"> {{ cat.title }}</div>
                                     <ol class="sortable" v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
-                                            <div><input type="checkbox" v-model="product.category_id" :value="cat2.id"> {{ cat2.title }}</div>
+                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
                                         </li>
                                     </ol>
                                 </li>
@@ -179,7 +185,7 @@
                                     <label>{{ property.title }}</label>
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="attribute in property.attribute">
-                                            <input type="checkbox" v-model="product.attribute_id" :value="attribute.id">
+                                            <input type="checkbox" v-model="product.att_ids" :value="attribute.id">
                                             {{ attribute.title }}
                                         </li>
                                     </ul>
@@ -205,13 +211,15 @@
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
     import moment from 'moment';
-    import sync from '../../common';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
               product: {
-                  category_id: []
+                  cat_ids: [],
+                  att_ids: [],
+                  tag_ids: [],
               },
               brands: {},
               collections: {},
@@ -219,6 +227,7 @@
               properties: {},
               photos: {},
               sets: {},
+              tags: {},
               error: null,
               config: {
                   toolbar: [
@@ -252,12 +261,14 @@
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
             'ckeditor': Ckeditor,
-            'vue-dropzone': vue2Dropzone
+            'vue-dropzone': vue2Dropzone,
+            'select2': Select2,
         },
         created(){
             this.getProduct();
             this.getBrands();
             this.getSets();
+            this.getTags();
             this.getCategories();
             this.getPhotos();
         },
@@ -269,9 +280,9 @@
                         this.product.date = moment(res.data.product.publish_at).format('YYYY-MM-DD');
                         this.product.time = moment(res.data.product.publish_at).format('HH:mm:ss');
                         this.properties = res.data.properties;
-                        this.product.category_id = res.data.catIds;
-                        this.product.attribute_id = res.data.attIds;
-                        console.log(this.product.attribute_id);
+                        this.product.cat_ids = res.data.cat_ids;
+                        this.product.att_ids = res.data.att_ids;
+                        this.product.tag_ids = res.data.tag_ids;
                         this.getCollections(this.product.brand_id);
                     })
                     .catch(e => {
@@ -288,8 +299,9 @@
                         this.product.date = moment(res.data.product.publish_at).format('YYYY-MM-DD');
                         this.product.time = moment(res.data.product.publish_at).format('HH:mm:ss');
                         this.properties = res.data.properties;
-                        this.product.category_id = res.data.catIds;
-                        this.product.attribute_id = res.data.attIds;
+                        this.product.cat_ids = res.data.cat_ids;
+                        this.product.att_ids = res.data.att_ids;
+                        this.product.tag_ids = res.data.tag_ids;
                         this.getCollections(this.product.brand_id);
                         swal({
                             position: 'center',
@@ -396,7 +408,7 @@
                     axios.get('api/properties/' + this.product.set_id + '/set')
                         .then(res => {
                             this.properties = res.data.properties;
-                            this.product.attribute_id = [];
+                            this.product.att_ids = [];
                         }).catch(e => {
                             console.log(e.response);
                             this.error = e.response.data.errors;
@@ -427,6 +439,22 @@
             },
             showSuccess(){
                 this.getPhotos();
+            },
+            getTags(){
+                axios.get('api/tags/lists')
+                    .then(res => {
+                        this.tags = _.map(res.data.tags, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                    }).catch(e => {
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
+            },
+            input(tag){
+                this.product.tag_ids = tag;
             },
         }
     }

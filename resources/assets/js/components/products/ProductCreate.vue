@@ -111,6 +111,12 @@
                                 <small class="form-text text-muted" v-if="error != null && error.amount">{{ error.amount[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label>Tags</label>
+                                <select2 :options="tags" :multiple="true" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
                                 <label>Publikovano</label><br>
                                 <switches v-model="product.publish" theme="bootstrap" color="primary"></switches>
                             </div>
@@ -135,13 +141,13 @@
                     <div class="card" v-if="categories.length > 0">
                         <div class="form-group">
                             <label>Kategorije</label>
-                            <small class="form-text text-muted" v-if="error != null && error.category_id">{{ error.category_id[0] }}</small>
+                            <small class="form-text text-muted" v-if="error != null && error.cat_ids">{{ error.cat_ids[0] }}</small>
                             <ol class="sortable" style="margin-left: -15px;">
                                 <li :id="`list_${cat.id}`" v-for="cat in categories">
-                                    <div><input type="checkbox" v-model="product.category_id" :value="cat.id"> {{ cat.title }}</div>
+                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id"> {{ cat.title }}</div>
                                     <ol class="sortable" v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
-                                            <div><input type="checkbox" v-model="product.category_id" :value="cat2.id"> {{ cat2.title }}</div>
+                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
                                         </li>
                                     </ol>
                                 </li>
@@ -161,7 +167,7 @@
                                     <label>{{ property.title }}</label>
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="attribute in property.attribute">
-                                            <input type="checkbox" :value="attribute.id" v-model="product.attribute_id">
+                                            <input type="checkbox" :value="attribute.id" v-model="product.att_ids">
                                             {{ attribute.title }}
                                         </li>
                                     </ul>
@@ -184,6 +190,7 @@
     import Switches from 'vue-switches';
     import Ckeditor from 'vue-ckeditor2';
     import moment from 'moment';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
@@ -191,13 +198,15 @@
               product: {
                   date: moment().format('YYYY-MM-DD'),
                   time: moment().format('HH:mm'),
-                  category_id: [],
-                  attribute_id: []
+                  cat_ids: [],
+                  att_ids: [],
+                  tag_ids: [],
               },
               brands: {},
               collections: {},
               categories: {},
               sets: {},
+              tags: {},
               properties: {},
               error: null,
               config: {
@@ -225,12 +234,14 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
-            'ckeditor': Ckeditor
+            'ckeditor': Ckeditor,
+            'select2': Select2,
         },
         created(){
             this.getBrands();
             this.getSets();
             this.getCategories();
+            this.getTags();
         },
         methods: {
             submit(){
@@ -310,7 +321,23 @@
                 }else{
                     this.properties = {};
                 }
-            }
+            },
+            getTags(){
+                axios.get('api/tags/lists')
+                    .then(res => {
+                        this.tags = _.map(res.data.tags, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                    }).catch(e => {
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
+            },
+            input(tag){
+                this.product.tag_ids = tag;
+            },
         }
     }
 </script>

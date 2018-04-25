@@ -1,11 +1,11 @@
-<a class="blog-list-item" href="{{ $item->href }}">
+<a class="blog-list-item" href="{{ $item->getLink() }}">
   <div class="blog-list-item_start-image">
-    <div class="image image--standard demo-img"
-      data-src="{{ isset($item->img) ? url($item->img) : 'TODO set placeholder or remove data-src?' }}"
+    <div class="image image--standard lazy-image"
+      data-src="{{ isset($item->image) ? url($item->image) : 'TODO set placeholder or remove data-src?' }}"
     ></div>
   </div>
   <div>
-    <div class="blog-list-item_label">{{ isset($item->categorie) ? $item->categorie : 'Label' }}</div>
-    <div class="blog-list-item_title with-trunk">{{ isset($item->title) ? $item->title : 'Title' }}</div>
+    <div class="blog-list-item_label">{{ $item->blog->title }}</div>
+    <div class="blog-list-item_title with-trunk">{{ $item->title }}</div>
   </div>
 </a>

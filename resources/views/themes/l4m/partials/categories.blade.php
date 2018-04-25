@@ -1,10 +1,10 @@
 <div class="categorie">
-  @foreach($categories as $i => $categorie)
-    <a class="categorie_item with-flare" href="{{ $categorie->href }}">
+  @foreach($categories as $category)
+    <a class="categorie_item with-flare" href="{{ url($category->slug) }}">
       <div class="image categorie_image lazy-image"
-        data-src="{{ $categorie->img }}"
+        data-src="{{ url($category->box_image) }}"
       ></div>
-      <div class="categorie_name">{{ $categorie->text }}</div>
+      <div class="categorie_name">{{ $category->title }}</div>
     </a>
   @endforeach
 </div>

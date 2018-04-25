@@ -7,7 +7,7 @@ use File;
 
 class Box extends Model
 {
-    protected $fillable = ['block_id', 'title', 'subtitle', 'button', 'link', 'image', 'order', 'publish'];
+    protected $fillable = ['category_id', 'block_id', 'title', 'subtitle', 'button', 'link', 'image', 'order', 'publish'];
 
     public static function base64UploadImage($box_id, $image){
         $box = self::find($box_id);
@@ -42,5 +42,9 @@ class Box extends Model
 
     public function block(){
         return $this->belongsTo(Block::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }

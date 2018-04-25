@@ -115,6 +115,12 @@
                                         <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.body[0] }}</small>
                                     </div>
                                     <div class="form-group">
+                                        <label>Tags</label>
+                                        <select2 :options="tags" :multiple="true" :value="post.tag_ids" @input="input($event)">
+                                            <option value="0" disabled>select one</option>
+                                        </select2>
+                                    </div>
+                                    <div class="form-group">
                                         <button class="btn btn-primary" type="submit">Izmeni</button>
                                     </div>
                                 </form>
@@ -137,14 +143,18 @@
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
     import moment from 'moment';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
-              post: {},
+              post: {
+                  tag_ids: []
+              },
               error: null,
               lists: {},
               photos: {},
+              tags: {},
               config: {
                   toolbar: [
                       [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
@@ -172,7 +182,7 @@
                 return this.$store.getters.getUser;
             },
             publish_at(){
-                return  moment(this.post.date).format('YYYY-MM-DD') + ' ' + moment(res.data.post.publish_at).format('HH:mm:ss')
+                return this.post.date + ' ' + this.post.time + ':00';
             }
         },
         components: {
@@ -180,12 +190,13 @@
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
             'ckeditor': Ckeditor,
-            'vue-dropzone': vue2Dropzone
+            'vue-dropzone': vue2Dropzone,
+            'select2': Select2,
         },
         created(){
             this.getPost();
             this.getList();
-            //this.getPhotos();
+            this.getTags();
         },
         methods: {
             getPost(){
@@ -193,7 +204,8 @@
                     .then(res => {
                         this.post = res.data.post;
                         this.post.date = moment(res.data.post.publish_at).format('YYYY-MM-DD');
-                        this.post.time = moment(res.data.post.publish_at).format('HH:mm:ss');
+                        this.post.time = moment(res.data.post.publish_at).format('HH:mm');
+                        this.post.tag_ids = res.data.tag_ids;
                     })
                     .catch(e => {
                         console.log(e);
@@ -207,7 +219,8 @@
                     .then(res => {
                         this.post = res.data.post;
                         this.post.date = moment(res.data.post.publish_at).format('YYYY-MM-DD');
-                        this.post.time = moment(res.data.post.publish_at).format('HH:mm:ss');
+                        this.post.time = moment(res.data.post.publish_at).format('HH:mm');
+                        this.post.tag_ids = res.data.tag_ids;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -253,9 +266,9 @@
                         console.log(res);
                         this.photos = res.data.photos;
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             deletePhoto(photo){
                 axios.post('api/photos/' + photo.id + '/destroy')
@@ -271,7 +284,23 @@
             },
             showSuccess(){
                 this.getPhotos();
-            }
+            },
+            getTags(){
+                axios.get('api/tags/lists')
+                    .then(res => {
+                        this.tags = _.map(res.data.tags, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                    }).catch(e => {
+                    console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            input(tag){
+                this.post.tag_ids = tag;
+            },
         }
     }
 </script>
