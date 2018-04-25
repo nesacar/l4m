@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent')->default(0);
             $table->integer('level')->default(1);
             $table->string('image')->nullable();
+            $table->string('box_image')->nullable();
             $table->boolean('publish')->default(1);
             $table->timestamps();
         });

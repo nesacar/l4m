@@ -1,17 +1,17 @@
-@extends('themes.'.env('THEME_NAME', '').'.index')
+@extends('themes.' .  $theme .'.index')
 
-@section('title'){{ $title }}@endsection
+@section('title') Luxury 4 Me @endsection
 
 @section('content')
 
-  @component('themes.' . env('THEME_NAME', '') . '.components.masthead-carousel', [
-    'data' => $carouselData
+  @component('themes.' . $theme . '.components.masthead-carousel', [
+    'data' => $slider
   ])
   @endcomponent
 
   <section class="container">
 
-    @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
+    @component('themes.' . $theme . '.components.shop.grid', [
       'component' => 'shop.item',
       'items' => $products
     ])

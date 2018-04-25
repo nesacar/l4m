@@ -72,9 +72,13 @@ export const router = new VueRouter({
         { path: "/blocks/create", component: require('./components/blocks/BlockCreate.vue'), meta: { forAuth: true } },
         { path: "/blocks/:id/edit", component: require('./components/blocks/BlockEdit.vue'), meta: { forAuth: true } },
 
-        { path: "/boxes", component: require('./components/boxes/BlockList.vue'), meta: { forAuth: true } },
-        { path: "/boxes/create", component: require('./components/boxes/BlockCreate.vue'), meta: { forAuth: true } },
-        { path: "/boxes/:id/edit", component: require('./components/boxes/BlockEdit.vue'), meta: { forAuth: true } },
+        { path: "/boxes", component: require('./components/boxes/BoxList.vue'), meta: { forAuth: true } },
+        { path: "/boxes/create", component: require('./components/boxes/BoxCreate.vue'), meta: { forAuth: true } },
+        { path: "/boxes/:id/edit", component: require('./components/boxes/BoxEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/tags", component: require('./components/tags/TagList.vue'), meta: { forAuth: true } },
+        { path: "/tags/create", component: require('./components/tags/TagCreate.vue'), meta: { forAuth: true } },
+        { path: "/tags/:id/edit", component: require('./components/tags/TagEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',

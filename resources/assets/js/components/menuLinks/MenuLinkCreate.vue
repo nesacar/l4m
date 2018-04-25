@@ -22,14 +22,14 @@
 
                 <div class="col-md-4">
                     <div class="card">
-                        <h5>Generalne informacije</h5>
-                        <hr>
+                        <div class="form-group">
+                            <label>Publikovano</label><br>
+                            <switches v-model="link.publish" theme="bootstrap" color="primary"></switches>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="card">
-                        <h5>Jezičke informacije</h5>
-                        <hr>
                         <form @submit.prevent="submit()">
                             <div class="form-group">
                                 <label for="title">Naziv</label>
@@ -45,6 +45,11 @@
                                 <label for="desc">Opis</label>
                                 <input type="text" name="Description" class="form-control" id="desc" placeholder="Opis" v-model="link.desc">
                                 <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="order">Redosled</label>
+                                <input type="text" name="Description" class="form-control" id="order" placeholder="Redosled" v-model="link.order">
+                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="sufix">Sufix</label>

@@ -24,6 +24,8 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->string('image')->nullable();
             $table->timestamp('publish_at')->useCurrent();
+            $table->integer('views')->default(0);
+            $table->boolean('slider')->default(0);
             $table->boolean('publish')->default(1);
             $table->timestamps();
         });

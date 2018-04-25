@@ -45,6 +45,10 @@ Route::get('posts/lists', 'PostsController@lists');
 Route::resource('posts', 'PostsController');
 Route::post('posts/{id}/image', 'PostsController@uploadImage');
 
+Route::post('tags/search', 'TagsController@search');
+Route::get('tags/lists', 'TagsController@lists');
+Route::resource('tags', 'TagsController');
+
 Route::get('brands/lists', 'BrandsController@lists');
 Route::resource('brands', 'BrandsController');
 Route::post('brands/{id}/image', 'BrandsController@uploadImage');

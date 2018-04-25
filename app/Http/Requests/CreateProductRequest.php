@@ -26,7 +26,7 @@ class CreateProductRequest extends FormRequest
         return [
             'title' => 'required',
             'code' => 'required',
-            'category_id' => 'required|array|min:1',
+            'cat_ids' => 'required|array|min:1',
             'brand_id' => 'required|numeric|min:1',
             'set_id' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
@@ -43,9 +43,9 @@ class CreateProductRequest extends FormRequest
         return [
             'title.required' => 'Naziv je obavezan',
             'code.required' => 'Šifra je obavezna',
-            'category_id.required' => 'Kategorija je obavezna',
-            'category_id.array' => 'Kategorija je obavezna',
-            'category_id.min' => 'Kategorija je obavezna',
+            'cat_ids.required' => 'Kategorija je obavezna',
+            'cat_ids.array' => 'Kategorija je obavezna',
+            'cat_ids.min' => 'Kategorija je obavezna',
             'brand_id.required' => 'Brend je obavezan',
             'brand_id.numeric' => 'Brend je obavezan',
             'brand_id.min' => 'Brend je obavezan',

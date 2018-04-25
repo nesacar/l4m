@@ -14,6 +14,13 @@
 
             <div class="row">
                 <div class="col-md-12">
+                    <div class="card">
+                        <h5>Meni</h5>
+                        <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
+                    </div>
+                </div>
+
+                <div class="col-md-12">
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -129,6 +136,9 @@
             },
             sortRow(id){
                 this.$router.push('/menus/' + id + '/sort');
+            },
+            addRow(){
+                this.$router.push('/menus/create');
             }
         }
     }

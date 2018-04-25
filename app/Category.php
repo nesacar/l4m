@@ -7,7 +7,7 @@ use File;
 
 class Category extends Model
 {
-    protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'publish'];
+    protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'box_image', 'publish'];
 
     public static function base64UploadImage($category_id, $image){
         $category = self::find($category_id);
@@ -40,8 +40,8 @@ class Category extends Model
         return '';
     }
 
-    public static function tree() {
-        return static::with(implode('.', array_fill(0, 1, 'children')))->where('parent', '=', 0)->get();
+    public static function getFooterCategories(){
+        return self::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
     }
 
     public function setSlugAttribute($value){
@@ -52,7 +52,11 @@ class Category extends Model
         return $value? 'Da' : 'Ne';
     }
 
-    public function parent() {
+    public static function tree() {
+        return static::with(implode('.', array_fill(0, 1, 'children')))->where('parent', 0)->get();
+    }
+
+    public function parentCategory() {
         return $this->hasOne(Category::class, 'id', 'parent');
     }
 

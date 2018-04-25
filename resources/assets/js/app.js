@@ -55,10 +55,11 @@ import faAmountUp from '@fortawesome/fontawesome-free-solid/faSortAmountUp';
 import faImages from '@fortawesome/fontawesome-free-solid/faImages';
 import faRandom from '@fortawesome/fontawesome-free-solid/faRandom';
 import faThLarge from '@fortawesome/fontawesome-free-solid/faThLarge';
+import faTags from '@fortawesome/fontawesome-free-solid/faTags';
 
 fontawesome.library.add(
     faPlus, faEnvelope, faBell, faCommentAlt, faChevronCircleDown, faCogs, faAngleRight, faHome, faUsers, faPaste, faShoppingCart, faAlignJustify, faPencilAlt, faTimes,
-    faLink, faBars, faAmountUp, faImages, faRandom, faThLarge
+    faLink, faBars, faAmountUp, faImages, faRandom, faThLarge, faTags
 );
 
 Vue.use(Auth);

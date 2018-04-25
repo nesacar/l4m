@@ -22,8 +22,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::select('posts.id', 'posts.title', 'posts.publish', 'posts.created_at', 'blogs.title as blog')
-            ->join('blogs', 'posts.blog_id', '=', 'blogs.id')->orderBy('posts.created_at', 'DESC')->paginate(50);
+        $posts = Post::select('posts.id', 'posts.title', 'posts.publish', 'posts.publish_at', 'blogs.title as blog')
+            ->join('blogs', 'posts.blog_id', '=', 'blogs.id')->orderBy('posts.publish_at', 'DESC')->paginate(50);
 
         return response()->json([
             'posts' => $posts
@@ -43,6 +43,8 @@ class PostsController extends Controller
         $post->publish = request('publish')?: false;
         $post->update();
 
+        if(request('tag_ids')) $post->tag()->sync(request('tag_ids'));
+
         if(request('image')){ Post::base64UploadImage($post->id, request('image')); }
 
         return response()->json([
@@ -58,8 +60,11 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        $postIds = $post->tag()->pluck('tags.id');
+
         return response()->json([
-            'post' => $post
+            'post' => $post,
+            'tag_ids' => $postIds,
         ]);
     }
 
@@ -77,8 +82,13 @@ class PostsController extends Controller
         $post->publish = request('publish')?: false;
         $post->update();
 
+        $post->tag()->sync(request('tag_ids'));
+
+        $postIds = $post->tag()->pluck('tags.id');
+
         return response()->json([
-            'post' => $post
+            'post' => $post,
+            'tag_ids' => $postIds,
         ]);
     }
 
@@ -127,7 +137,7 @@ class PostsController extends Controller
     public function search(){
         $blog = request('list');
         $text = request('text');
-        $posts = Post::select('posts.id', 'posts.title', 'posts.publish', 'posts.created_at', 'blogs.title as blog')
+        $posts = Post::select('posts.id', 'posts.title', 'posts.publish', 'posts.publish_at', 'blogs.title as blog')
             ->join('blogs', 'posts.blog_id', '=', 'blogs.id')
             ->where(function ($query) use ($blog){
                 if($blog > 0){
@@ -139,7 +149,7 @@ class PostsController extends Controller
                     $query->where('posts.title', 'like', '%'.$text.'%')->orWhere('posts.slug', 'like', '%'.$text.'%');
                 }
             })
-            ->orderBy('posts.created_at', 'DESC')->groupBy('posts.id')->paginate(50);
+            ->orderBy('posts.publish_at', 'DESC')->groupBy('posts.id')->paginate(50);
 
         return response()->json([
             'posts' => $posts,

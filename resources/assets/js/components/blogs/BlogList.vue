@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Kategorije članaka</li>
+                            <li>Članci</li>
                         </ul>
                     </div>
                 </div>

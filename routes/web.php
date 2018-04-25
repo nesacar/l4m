@@ -106,28 +106,32 @@ function getCarouselData () {
   ];
 }
 
-Route::get('/', function () {
-  // tmp data
-  $title = 'Luxury 4 Me';
-  $products = getProducts();
-  $carouselData = getCarouselData();
-
-  return view('themes.l4m.pages.home', compact('title', 'products', 'carouselData'));
-});
+//Route::get('/', function () {
+//  // tmp data
+//  $title = 'Luxury 4 Me';
+//  $products = getProducts();
+//  $carouselData = getCarouselData();
+//
+//  return view('themes.l4m.pages.home', compact('title', 'products', 'carouselData'));
+//});
 
 // filemanager
 Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
 
-Route::get('/blog', function () {
-  // tmp data
-  $title = 'Luxury 4 Me - Blog';
-  $items = getItems();
-  $products = getProducts();
-  $categories = getCategories();
-  $carouselData = getCarouselData();
+Route::get('/', 'PagesController@index');
+Route::get('blog', 'PagesController@blog');
 
-  return view('themes.l4m.pages.blog', compact('title', 'items', 'products', 'categories', 'carouselData'));
-});
+//Route::get('/blog', function () {
+//  // tmp data
+//  $theme = 'l4m';
+//  $title = 'Luxury 4 Me - Blog';
+//  $items = getItems();
+//  $products = getProducts();
+//  $categories = getCategories();
+//  $carouselData = $slider = getCarouselData();
+//
+//  return view('themes.l4m.pages.blog', compact('title', 'items', 'products', 'categories', 'carouselData', 'theme', 'slider'));
+//});
 
 Route::get('/shop', function () {
   // tmp data

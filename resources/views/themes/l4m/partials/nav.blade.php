@@ -1,4 +1,4 @@
-@include('themes.'.env('THEME_NAME', '').'.components.nav', [
+@include('themes.'. 'l4m' .'.components.nav', [
   'links' => [
     (object)[ 'href' => '/', 'text' => 'home' ],
     (object)[ 'href' => 'fashion', 'text' => 'fashion' ],

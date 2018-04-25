@@ -20,7 +20,7 @@
 
 @endphp
 
-@component('themes.'.env('THEME_NAME', '').'.components.social', [
+@component('themes.'. $theme .'.components.social', [
   'items' => $items
 ])
 @endcomponent
