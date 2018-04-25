@@ -16,10 +16,17 @@
     justify-content: center;
     height: 32px;
     margin: 0;
-    padding: 0 (2 * $base-line);
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: border-bottom-color .12s;
+
+    @include media-breakpoint-up(md) {
+      padding: 0 $base-line;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding: 0 (2 * $base-line);
+    }
   }
 
   &_content {
@@ -37,4 +44,32 @@
 #latest-tab-3:checked ~ #latest-content-3,
 #latest-tab-4:checked ~ #latest-content-4 {
   display: block;
+
+  .shop-item {
+    animation: slide-in .38s;
+    animation-fill-mode: both;
+  }
+
+  .shop-item:nth-child(1) {
+    animation-delay: 0;
+  }
+
+  .shop-item:nth-child(2) {
+    animation-delay: .06s;
+  }
+
+  .shop-item:nth-child(3) {
+    animation-delay: .12s;
+  }
+
+  .shop-item:nth-child(4) {
+    animation-delay: .18s;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(45px);
+    opacity: 0;
+  }
 }
