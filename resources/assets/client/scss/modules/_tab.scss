@@ -1,0 +1,40 @@
+.tab {
+  &_control {
+    opacity: 0;
+    height: 0;
+    width: 0;
+
+    &:focus + label,
+    &:checked + label {
+      border-bottom-color: $theme-secondary;
+    }
+  }
+
+  &_label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin: 0;
+    padding: 0 (2 * $base-line);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color .12s;
+  }
+
+  &_content {
+    display: none;
+    margin: (4 * $base-line) 0;
+  }
+}
+
+#featured-tab-1:checked ~ #featured-content-1,
+#featured-tab-2:checked ~ #featured-content-2,
+#featured-tab-3:checked ~ #featured-content-3,
+#featured-tab-4:checked ~ #featured-content-4,
+#latest-tab-1:checked ~ #latest-content-1,
+#latest-tab-2:checked ~ #latest-content-2,
+#latest-tab-3:checked ~ #latest-content-3,
+#latest-tab-4:checked ~ #latest-content-4 {
+  display: block;
+}
