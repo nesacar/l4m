@@ -11,10 +11,7 @@
 
   <section class="container">
 
-    @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
-      'component' => 'shop.item',
-      'items' => $products
-    ])
+    @component('themes.' . env('THEME_NAME', '') . '.components.tab-list')
     @endcomponent
 
   </section>
