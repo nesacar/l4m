@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Block;
 use App\Category;
 use App\Post;
 use App\Product;
@@ -22,8 +23,8 @@ class PagesController extends Controller
     public function index(){
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
-        $products = Product::getHome();
-        $slider = Post::getSlider();
+        $products = Product::getHomeLatest();
+        $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
         return view('themes.'.$this->theme.'.pages.home', compact('products', 'slider', 'posts', 'mostView', 'categories'));
@@ -33,13 +34,13 @@ class PagesController extends Controller
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
         $products = Product::getHome();
-        $slider = Post::getSlider();
+        $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
         return view('themes.'.$this->theme.'.pages.blog', compact('products', 'slider', 'posts', 'mostView', 'categories'));
     }
 
     public function proba(){
-        return Category::first()->product;
+        //
     }
 }
