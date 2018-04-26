@@ -68,4 +68,8 @@ class Category extends Model
         return $this->belongsToMany(Product::class);
     }
 
+    public function products4(){
+        return $this->belongsToMany(Product::class)->limit(4);
+    }
+
 }

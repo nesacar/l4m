@@ -31,9 +31,9 @@
         <img src="{{ url($item->image) }}" />
       </div>
       <div class="masthead-carousel_content">
-        <div class="masthead_label">{{ $item->blog->title }}</div>
+        <div class="masthead_label">{{ $item->category->title }}</div>
         <h3 class="masthead_title">{{ $item->title }}</h3>
-        <p class="masthead_desc">{{ $item->short }}</p>
+        <p class="masthead_desc">{{ $item->subtitle }}</p>
       </div>
     </div>
     @endforeach

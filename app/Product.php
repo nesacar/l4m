@@ -87,9 +87,10 @@ class Product extends Model
     }
 
     public static function getHomeLatest(){
-        return Category::with(['product' => function($query){
-            $query->published()->limit(1);
-        }])->where('publish', 1)->where('parent', 0)->orderBy('order', 'ASC')->get();
+        return Category::where('publish', 1)->where('parent', 0)->get()->map(function($category){
+            $category->products4;
+            return $category;
+        });
     }
 
     public function scopePublished($query){

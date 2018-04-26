@@ -1,3 +1,4 @@
+
 <a href="{{ $product->getLink() }}" class="shop-item no-link">
   @if($product->discount)
     <span class="shop-item_discount-tag">{{ $product->discount }}</span>
