@@ -24,16 +24,12 @@
         <div class="col-lg-9">
           <div class="shop-results_header">
             <div class="shop-results_count">Showing 1-20 of 33 results</div>
-            @component('themes.' . env('THEME_NAME', '') . '.components.select',
-            [
-              'name' => 'sort',
-              'id' => 'sort'
-            ])
+            @select([ 'name' => 'sort', 'id' => 'sort' ])
               <option value="a-z" selected>Naziv proizvoda A-Z</option>
               <option value="z-a">Naziv proizvoda Z-A</option>
               <option value="ascending">Cena rastuce</option>
               <option value="descending">Cena opadajuce</option>
-            @endcomponent
+            @endselect
           </div>
 
           @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
@@ -48,13 +44,9 @@
         
       </div>
 
-      @if(false)
-      {{-- @include('themes.' . env('THEME_NAME', '') . '.partials.pagination') --}}
-      @else
       <nav aria-label="Shop navigation">
         {{ $products->links() }}
       </nav>
-      @endif
 
     </div>
 

@@ -4,12 +4,12 @@
     <ul class="filter-list with-scrollbar">
       @for($i = 0; $i < 5; $i++)
       <li class="filter-list_item">
-        @component('themes.' . env('THEME_NAME', '') . '.components.checkbox', [
+        @checkbox([
           'id' => 'ch-' . $i,
           'checked' => false,
           'value' => 'Filter value ' . $i
         ])
-        @endcomponent
+        @endcheckbox
       </li>
       @endfor
     </ul>

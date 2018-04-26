@@ -6,4 +6,6 @@
     </svg>
   </div>
 </div>
-<label class="checkbox_label" title="{{ $value }}" for="{{ $id }}">{{ $value }}</label>
+<label class="checkbox_label" title="{{ $value }}" for="{{ $id }}">
+  {{ $value }}
+</label>
