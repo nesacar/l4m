@@ -37,6 +37,7 @@ class ShopBarsController extends Controller
     {
         $shopBar = new ShopBar();
         $shopBar->title = request('title');
+        $shopBar->template = request('template');
         $shopBar->category_id = request('category_id');
         $shopBar->publish = request('publish') ?: false;
         $shopBar->save();
@@ -74,6 +75,7 @@ class ShopBarsController extends Controller
     public function update(CreateShopBarRequest $request, ShopBar $shopBar)
     {
         $shopBar->title = request('title');
+        $shopBar->template = request('template');
         $shopBar->category_id = request('category_id');
         $shopBar->publish = request('publish') ?: false;
         $shopBar->update();

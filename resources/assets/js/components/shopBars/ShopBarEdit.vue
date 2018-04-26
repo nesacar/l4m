@@ -24,6 +24,13 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
+                                <label>Strana</label>
+                                <select class="form-control" v-model="shopBar.template">
+                                    <option value="home">Početna</option>
+                                    <option value="blog">Blog</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="category">Kategorija</label>
                                 <select name="category" id="category" class="form-control" v-model="shopBar.category_id">
                                     <option :value="index" v-for="(set, index) in categories">{{ set }}</option>

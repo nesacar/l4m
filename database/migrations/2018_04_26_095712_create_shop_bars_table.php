@@ -17,6 +17,7 @@ class CreateShopBarsTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->nullable()->unsigned();
             $table->string('title');
+            $table->string('template')->default('home');
             $table->boolean('publish')->default(1);
             $table->timestamps();
         });

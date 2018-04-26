@@ -24,14 +24,16 @@ class CreateShopBarRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required'
+            'title' => 'required',
+            'template' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'Naziv je obavezan'
+            'title.required' => 'Naziv je obavezan',
+            'template.required' => 'Strana je obavezna',
         ];
     }
 }

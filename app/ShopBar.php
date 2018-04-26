@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ShopBar extends Model
 {
-    protected $fillable = ['category_id', 'title', 'order', 'publish'];
+    protected $fillable = ['category_id', 'title', 'template', 'order', 'publish'];
 
     public function sync(){
         $this->product()->sync([]);

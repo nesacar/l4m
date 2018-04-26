@@ -28,7 +28,7 @@
                             <th scope="col">naziv</th>
                             <th scope="col">kategorija</th>
                             <th scope="col">publikovano</th>
-                            <th scope="col">kreirano</th>
+                            <th scope="col">strana</th>
                             <th>akcija</th>
                         </tr>
                         </thead>
@@ -38,7 +38,7 @@
                             <td>{{ row.title }}</td>
                             <td>{{ row.category.title }}</td>
                             <td>{{ row.publish }}</td>
-                            <td>{{ row.created_at }}</td>
+                            <td>{{ row.template }}</td>
                             <td>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>
                                 <font-awesome-icon icon="times" @click="deleteRow(row)" />
