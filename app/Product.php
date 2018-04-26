@@ -86,6 +86,12 @@ class Product extends Model
         return url($str);
     }
 
+    public static function getHomeLatest(){
+        return Category::with(['product' => function($query){
+            $query->published()->limit(1);
+        }])->where('publish', 1)->where('parent', 0)->orderBy('order', 'ASC')->get();
+    }
+
     public function scopePublished($query){
         $query->where('publish', 1)->where('publish_at', '<=', Carbon::now()->format('Y-m-d H:00'));
     }

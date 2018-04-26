@@ -22,7 +22,7 @@ class PagesController extends Controller
     public function index(){
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
-        $products = Product::getHome();
+        $products = Product::getHomeLatest();
         $slider = Post::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
@@ -40,6 +40,6 @@ class PagesController extends Controller
     }
 
     public function proba(){
-        //return $categories = Category::with('parentCategory')->orderBy('order', 'ASC')->paginate(50);
+        return Category::first()->product;
     }
 }

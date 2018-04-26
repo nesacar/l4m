@@ -15,7 +15,7 @@
     @component('themes.' . $theme . '.components.' . $component, [
       'product' => $item,
       'options' => isset($options) ? $options : null,
-      '_index' => $item->id
+      '_index' => $options->id
     ])
     @endcomponent
   @endforeach

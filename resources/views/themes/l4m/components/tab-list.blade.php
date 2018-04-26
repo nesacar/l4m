@@ -1,6 +1,6 @@
 @php
 
-  $list = (object)[
+  $listX = (object)[
     "Fashion" => [
       (object)[
         "name" => "Lank1",
@@ -143,7 +143,7 @@
   <div class="tab_content" id={{ $id . '-content-' . $index }}>
     @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
       'component' => 'shop.item',
-      'items' => $items,
+      'items' => $list,
       'options' => isset($options) ? $options : null,
     ])
     @endcomponent

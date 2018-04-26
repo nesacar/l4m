@@ -12,6 +12,7 @@
   <section class="container">
     <h2 class="display-3" style="text-align:center;">Featured Products</h2>
     @component('themes.' . env('THEME_NAME', '') . '.components.tab-list', [
+      'list' => $products,
       'options' => (object)[
         'id' => 'featured'
       ]
@@ -22,6 +23,7 @@
   <section class="container">
     <h2 class="display-3" style="text-align:center;">Latest Products</h2>
     @component('themes.' . env('THEME_NAME', '') . '.components.tab-list', [
+      'list' => $products,
       'options' => (object)[
         'id' => 'latest'
       ]
