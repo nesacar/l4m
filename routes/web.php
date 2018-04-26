@@ -43,33 +43,30 @@ function getItems () {
 function getProducts () {
   return [
     (object)[
-      "name" => "balmoral",
-      "brand" => "Chesterfield",
+      "title" => "balmoral",
+      "brand" => (object)[ "title" => "Chesterfield"],
       "price" => 500,
-      "img" => "https://pictures.kare-design.com/8/KARE-83143-250x250.jpg",
-      "href" => "#",
-      "discount" => 10
+      "image" => "https://pictures.kare-design.com/8/KARE-83143-250x250.jpg",
+      "discount" => 10,
+      "price_outlet" => 450
     ],
     (object)[
-      "name" => "bluza consuella",
-      "brand" => "BOSS",
+      "title" => "bluza consuella",
+      "brand" => (object)[ "title" => "BOSS"],
       "price" => 595,
-      "img" => "https://pictures.kare-design.com/8/KARE-83090-250x250.jpg",
-      "href" => "#"
+      "image" => "https://pictures.kare-design.com/8/KARE-83090-250x250.jpg",
     ],
     (object)[
-      "name" => "skirt",
-      "brand" => "BOSS",
+      "title" => "skirt",
+      "brand" => (object)[ "title" => "BOSS"],
       "price" => 500,
-      "img" => "https://pictures.kare-design.com/8/KARE-83292-250x250.jpg",
-      "href" => "#"
+      "image" => "https://pictures.kare-design.com/8/KARE-83292-250x250.jpg",
     ],
     (object)[
-      "name" => "kaput w casilie",
-      "brand" => "BOSS",
+      "title" => "kaput w casilie",
+      "brand" => (object)[ "title" => "BOSS"],
       "price" => 595,
-      "img" => "https://pictures.kare-design.com/8/KARE-82772-250x250.jpg",
-      "href" => "#"
+      "image" => "https://pictures.kare-design.com/8/KARE-82772-250x250.jpg",
     ]
   ];
 }
@@ -136,10 +133,9 @@ Route::get('blog', 'PagesController@blog');
 Route::get('/shop', function () {
   // tmp data
   $title = 'Luxury 4 Me - Shop';
-  $items = getItems();
-  $products = getProducts();
+  $products = \App\Product::paginate(20);
 
-  return view('themes.l4m.pages.shop', compact('title', 'items', 'products'));
+  return view('themes.l4m.pages.shop', compact('title', 'products'));
 });
 
 Route::get('/admin', function () {

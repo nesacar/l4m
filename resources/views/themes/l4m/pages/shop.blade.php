@@ -42,7 +42,13 @@
         
       </div>
 
-      @include('themes.' . env('THEME_NAME', '') . '.partials.pagination')
+      @if(false)
+      {{-- @include('themes.' . env('THEME_NAME', '') . '.partials.pagination') --}}
+      @else
+      <nav aria-label="Shop navigation">
+        {{ $products->links() }}
+      </nav>
+      @endif
 
     </div>
 
