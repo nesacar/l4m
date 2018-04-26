@@ -36,8 +36,26 @@
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label>Proizvodi</label>
-                                <select2 :options="products" :value="shopBar.prod_ids" :multiple="true" @input="input($event)">
+                                <label>Proizvod 1</label>
+                                <select2 :options="products" v-model="prod_id1">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Proizvod 2</label>
+                                <select2 :options="products" v-model="prod_id2">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Proizvod 3</label>
+                                <select2 :options="products" v-model="prod_id3">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Proizvod 4</label>
+                                <select2 :options="products" v-model="prod_id4">
                                     <option value="0" disabled>select one</option>
                                 </select2>
                             </div>
@@ -72,6 +90,10 @@
               shopBar: {
                   prod_ids: []
               },
+              prod_id1: 0,
+              prod_id2: 0,
+              prod_id3: 0,
+              prod_id4: 0,
               categories: {},
               products: {},
               error: null,
@@ -107,8 +129,11 @@
                 axios.get('api/shop-bars/' + this.$route.params.id)
                     .then(res => {
                         this.shopBar = res.data.shopBar;
-                        this.shopBar.prod_ids = res.data.prod_ids;
-                        console.log(this.shopBar.prod_ids);
+                        let ids = res.data.prod_ids;
+                        this.prod_id1 = ids[0];
+                        this.prod_id2 = ids[1];
+                        this.prod_id3 = ids[2];
+                        this.prod_id4 = ids[3];
                     })
                     .catch(e => {
                         console.log(e);
@@ -129,10 +154,15 @@
                     });
             },
             submit(){
+                this.doMagic();
                 axios.put('api/shop-bars/' + this.shopBar.id, this.shopBar)
                     .then(res => {
                         this.shopBar = res.data.shopBar;
-                        this.shopBar.prod_ids = res.data.prod_ids;
+                        let ids = res.data.prod_ids;
+                        this.prod_id1 = ids[0];
+                        this.prod_id2 = ids[1];
+                        this.prod_id3 = ids[2];
+                        this.prod_id4 = ids[3];
                         swal({
                             position: 'center',
                             type: 'success',
@@ -148,6 +178,13 @@
             },
             input(product){
                 this.shopBar.prod_ids = product;
+            },
+            doMagic(){
+                this.shopBar.prod_ids = [];
+                this.shopBar.prod_ids.push(this.prod_id1);
+                this.shopBar.prod_ids.push(this.prod_id2);
+                this.shopBar.prod_ids.push(this.prod_id3);
+                this.shopBar.prod_ids.push(this.prod_id4);
             },
         }
     }
