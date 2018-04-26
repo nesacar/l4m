@@ -14,5 +14,15 @@
       @endfor
     </ul>
   </div>
+  <div class="filter">
+    <h4 class="filter_name">price</h4>
+    @doubleslider([
+      'id' => 'price',
+      'min' => 0,
+      'max' => 75,
+      'range' => 100
+    ])
+    @enddoubleslider
+  </div>
   <button class="btn btn--primary" type="submit">filter</button>
 </form>

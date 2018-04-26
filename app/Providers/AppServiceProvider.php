@@ -26,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
       Blade::component('themes.' . env('THEME_NAME', '') . '.components.select', 'select');
       Blade::component('themes.' . env('THEME_NAME', '') . '.components.checkbox');
+      Blade::component('themes.' . env('THEME_NAME', '') . '.components.double-slider', 'doubleslider');
     }
 }

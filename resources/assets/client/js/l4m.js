@@ -3,11 +3,16 @@ import * as Masthead from './components/masthead';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
 
+import DoubleSlider from './components/double-slider';
+
 export function init () {
   LazyImages.init();
   Masthead.init();
   Toolbar.init();
 
+  const price = document.getElementById('price');
+  const ds = new DoubleSlider(price);
+  
   const el = document.querySelector('.showcase_carousel');
   if (!el) {
     return;
