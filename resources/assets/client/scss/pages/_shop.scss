@@ -30,3 +30,12 @@
     }
   }
 }
+
+.shop-results {
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2 * $base-line;
+    color: $text-secondary-on-light;
+  }
+}

@@ -22,12 +22,18 @@
         </aside>
 
         <div class="col-lg-9">
-          <div>
-            <select name="sort" id="sort">
-              <option value="default" selected>Default</option>
-              <option value="min">Min</option>
-              <option value="max">Max</option>
-            </select>
+          <div class="shop-results_header">
+            <div class="shop-results_count">Showing 1-20 of 33 results</div>
+            @component('themes.' . env('THEME_NAME', '') . '.components.select',
+            [
+              'name' => 'sort',
+              'id' => 'sort'
+            ])
+              <option value="a-z" selected>Naziv proizvoda A-Z</option>
+              <option value="z-a">Naziv proizvoda Z-A</option>
+              <option value="ascending">Cena rastuce</option>
+              <option value="descending">Cena opadajuce</option>
+            @endcomponent
           </div>
 
           @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
