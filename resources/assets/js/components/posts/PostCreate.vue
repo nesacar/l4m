@@ -201,9 +201,9 @@
                             return object;
                         });
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             input(tag){
                 this.post.tag_ids = tag;

@@ -79,6 +79,10 @@ export const router = new VueRouter({
         { path: "/tags", component: require('./components/tags/TagList.vue'), meta: { forAuth: true } },
         { path: "/tags/create", component: require('./components/tags/TagCreate.vue'), meta: { forAuth: true } },
         { path: "/tags/:id/edit", component: require('./components/tags/TagEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAuth: true } },
+        { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAuth: true } },
+        { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',
