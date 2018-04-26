@@ -10,9 +10,11 @@ export function init () {
   Masthead.init();
   Toolbar.init();
 
-  const price = document.getElementById('price');
-  const ds = new DoubleSlider(price);
-  
+  const sl = document.getElementById('price');
+  if (sl) {
+    window.price = new DoubleSlider(sl);
+  }
+
   const el = document.querySelector('.showcase_carousel');
   if (!el) {
     return;

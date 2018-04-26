@@ -13,34 +13,12 @@ class DoubleSlider {
     this._addEventListeners = this._addEventListeners.bind(this);
     this._removeEventListeners = this._removeEventListeners.bind(this);
 
-    this._init();
-    this._setInitialState();
+    // Order matters
     this._cacheDOM();
-    this._render();
+    this._setInitialState();
+    this._bindEvents();
   }
-
-  _init () {
-    window.addEventListener('resize', this._onResize);
-    this.el.addEventListener('touchstart', this._onStart);
-    this.el.addEventListener('mousedown', this._onStart);
-  }
-
-  _normalizeValue (name, value, range) {
-    return Utils.hasValue(value) ? (value / range) : this._state['name'];
-  }
-
-  _setInitialState () {
-    this._gBCR = this.el.getBoundingClientRect();
-    const { width } = this._gBCR;
-    const { min, max, range } = this.el.dataset;
-
-    this._state = {
-      min: this._normalizeValue('min', parseInt(min), parseInt(range)),
-      max: this._normalizeValue('max', parseInt(max), parseInt(range)),
-      range: parseInt(range),
-    };
-  }
-
+  
   _cacheDOM () {
     const parrent = this.el.parentElement;
 
@@ -53,6 +31,25 @@ class DoubleSlider {
       min: parrent.querySelector('[data-outputs="min"]'),
       max: parrent.querySelector('[data-outputs="max"]'),
     };
+  }
+
+  _setInitialState () {
+    this._state = {};
+    this._gBCR = this.el.getBoundingClientRect();
+    const { min, max, range } = this.el.dataset;
+
+    this._state.range = parseInt(range);
+
+    this.setState({
+      min: this.normalize(parseInt(min)),
+      max: this.normalize(parseInt(max)),
+    });
+  }
+  
+  _bindEvents () {
+    window.addEventListener('resize', this._onResize);
+    this.el.addEventListener('touchstart', this._onStart);
+    this.el.addEventListener('mousedown', this._onStart);
   }
 
   _addEventListeners () {
@@ -73,7 +70,7 @@ class DoubleSlider {
     document.removeEventListener('mouseup', this._onEnd);
   }
 
-  // event handlerse
+  // Event handlers
   _onStart (evt) {
     if (this._eventTarget) {
       return;
@@ -136,7 +133,7 @@ class DoubleSlider {
       return;
     }
 
-    this._setState({
+    this.setState({
       [this._knob]: this._currentX / this._gBCR.width
     });
   }
@@ -152,43 +149,47 @@ class DoubleSlider {
     this.track.style.transform =
       `translateX(${min * width}px) scaleX(${max - min})`;
 
-    this.outputs.min.value = Math.round(range * min);
-    this.outputs.max.value = Math.round(range * max);
+    this.outputs.min.value = this.denormalize(min);
+    this.outputs.max.value = this.denormalize(max);
   }
 
-  _setState (obj) {
+  _checkRange (value, key) {
+    const range = {
+      min: {
+        MINIMUM: 0,
+        MAXIMUM: this._state.max,
+      },
+      max: {
+        MINIMUM: this._state.min,
+        MAXIMUM: 1,
+      },
+    };
+
+    if (key.toLowerCase() === 'range') {
+      return value;
+    }
+
+    if (value < range[key].MINIMUM) {
+      return Math.max(value, range[key].MINIMUM);
+    }
+    else if (value > range[key].MAXIMUM) {
+      return Math.min(value, range[key].MAXIMUM);
+    }
+    return value;
+  }
+
+  setState (obj) {
     let nextState = Utils.mapOverObject(obj, this._checkRange);
     this._state = Object.assign({}, this._state, nextState);
     this._render();
   }
 
-  // ugliest func ever
-  _checkRange (value, key) {
-    if (key === 'min') {
-      if (value < 0) {
-        return 0;
-      }
-      else if (value > this._state.max) {
-        return this._state.max;
-      }
-      else {
-        return value;
-      }
-    }
-    else if (key === 'max') {
-      if (value > 1) {
-        return 1;
-      }
-      else if (value < this._state.min) {
-        return this._state.min;
-      }
-      else {
-        return value;
-      }
-    }
-    else {
-      return value;
-    }
+  normalize (value) {
+    return (value / this._state.range);
+  }
+
+  denormalize (value) {
+    return Math.round(this._state.range * value);
   }
 }
 

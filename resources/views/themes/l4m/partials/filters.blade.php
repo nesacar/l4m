@@ -20,7 +20,7 @@
       'id' => 'price',
       'min' => 0,
       'max' => 75,
-      'range' => 100
+      'range' => 100,
     ])
     @enddoubleslider
   </div>
