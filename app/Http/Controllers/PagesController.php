@@ -22,7 +22,7 @@ class PagesController extends Controller
     public function index(){
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
-        $products = Product::getHomeLatest();
+        $products = Product::getHome();
         $slider = Post::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
