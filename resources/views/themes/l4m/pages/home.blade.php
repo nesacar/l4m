@@ -20,12 +20,12 @@
     @endcomponent
   </section>
 
-  <div class="container">
+  <section class="container categorie-container">
     @include('themes.' . env('THEME_NAME', '') . '.partials.categories', [
       'categories',
       'options' => (object)[ 'big' => true ]
       ])
-  </div>
+  </section>
 
   <section class="container">
     <h2 class="display-3" style="text-align:center;">Latest Products</h2>
