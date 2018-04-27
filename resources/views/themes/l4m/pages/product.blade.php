@@ -28,13 +28,17 @@
           </div>
           <p class="product_description">{{ $product->short }}</p>
           <div class="product_options">
-            <label for="count">Quantity:</label>
-            @counter([ 'name' => 'quantity', 'id' => 'quantity', 'value' => 1 ])
-            @endcounter
-            <label for="size">Size:</label>
-            @select([ 'name' => 'size', 'id' => 'size' ])
-              <option value="onesize" selected>one size</option>
-            @endselect
+            <span>
+              <label for="count">Quantity:</label>
+              @counter([ 'name' => 'quantity', 'id' => 'quantity', 'value' => 1 ])
+              @endcounter
+            </span>
+            <span>
+              <label for="size">Size:</label>
+              @select([ 'name' => 'size', 'id' => 'size' ])
+                <option value="onesize" selected>one size</option>
+              @endselect
+            </span>
           </div>
           <div class="product_actions">
             <button class="btn btn--primary btn--block">add to cart</button>
