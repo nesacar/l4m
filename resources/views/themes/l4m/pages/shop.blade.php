@@ -24,7 +24,7 @@
         <div class="col-lg-9">
           <div class="shop-results_header">
             <div class="shop-results_count">Showing 1-20 of 33 results</div>
-            @select([ 'name' => 'sort', 'id' => 'sort' ])
+            @select([ 'name' => 'sort', 'id' => 'sort', 'form' => 'filters' ])
               <option value="a-z" selected>Naziv proizvoda A-Z</option>
               <option value="z-a">Naziv proizvoda Z-A</option>
               <option value="ascending">Cena rastuce</option>

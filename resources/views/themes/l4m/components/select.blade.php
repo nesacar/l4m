@@ -1,6 +1,6 @@
 <div class="select">
   <div class="select_field">
-    <select class="select_input" name="{{ $name }}" id="{{ $id }}">
+    <select class="select_input" name="{{ $name }}" id="{{ $id }}" @if(isset($form)) form="{{ $form }}" @endif>
       {{ $slot }}
     </select>
   </div>

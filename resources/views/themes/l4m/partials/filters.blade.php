@@ -1,4 +1,4 @@
-<form method="GET" class="filters">
+<form method="GET" class="filters" id="filters">
   <div class="filter">
     <h4 class="filter_name">filter name</h4>
     <ul class="filter-list with-scrollbar">
