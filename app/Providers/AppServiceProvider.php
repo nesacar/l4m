@@ -24,8 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-      Blade::component('themes.' . env('THEME_NAME', '') . '.components.select', 'select');
-      Blade::component('themes.' . env('THEME_NAME', '') . '.components.checkbox');
-      Blade::component('themes.' . env('THEME_NAME', '') . '.components.double-slider', 'doubleslider');
+      $components = 'themes.' . env('THEME_NAME', '') . '.components.';
+      $partials = 'themes.' . env('THEME_NAME', '') . '.partials.';
+
+      Blade::component($components . 'select', 'select');
+      Blade::component($components . 'checkbox', 'checkbox');
+      Blade::component($components . 'double-slider', 'doubleslider');
+      Blade::component($components . 'image-box', 'imagebox');
+
+      Blade::include($partials . 'social', 'social');
     }
 }

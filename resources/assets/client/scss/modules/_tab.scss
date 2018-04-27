@@ -1,3 +1,9 @@
+.tabs {
+  &--center {
+    text-align: center;
+  }
+}
+
 .tab {
   &_control {
     opacity: 0;
@@ -32,6 +38,7 @@
   &_content {
     display: none;
     margin: (4 * $base-line) 0;
+    text-align: left;
   }
 }
 
@@ -72,4 +79,10 @@
     transform: translateY(45px);
     opacity: 0;
   }
+}
+
+#desc-tab:checked ~ #desc-content,
+#info-tab:checked ~ #info-content,
+#reviews-tab:checked ~ #reviews-content {
+  display: block;
 }

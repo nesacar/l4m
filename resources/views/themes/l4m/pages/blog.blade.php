@@ -95,7 +95,7 @@
           @endcomponent
         </div>
         @include('themes.' . $theme . '.partials.newsletter')
-        @include('themes.' . $theme . '.partials.social')
+        @social()
       </div>
     
     </div>

@@ -140,7 +140,10 @@ Route::get('/shop', function () {
 
 Route::get('/product', function () {
   $title = 'Product';
-  return view('themes.l4m.pages.product', compact('title'));
+  $product = \App\Product::first();
+  $products = \App\Product::paginate(4);
+
+  return view('themes.l4m.pages.product', compact('title', 'product', 'products'));
 });
 
 Route::get('/admin', function () {
