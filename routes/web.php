@@ -147,3 +147,5 @@ Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('proba', 'PagesController@proba');
+
+Route::get('shop/{slug}', 'PagesController@shopCategory');

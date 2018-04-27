@@ -71,6 +71,15 @@
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
+                    <upload-image-helper
+                            :image="brand.logo"
+                            :defaultImage="null"
+                            :titleImage="'logoa'"
+                            :error="error"
+                            @uploadImage="uploadLogo($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
                 </div>
             </div>
         </div>
@@ -138,6 +147,9 @@
             },
             upload(image){
                 this.brand.image = image[0];
+            },
+            uploadLogo(image){
+                this.brand.logo = image[0];
             },
         }
     }

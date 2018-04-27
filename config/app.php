@@ -162,10 +162,9 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-        Dimsav\Translatable\TranslatableServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
-        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
+        Devfactory\Imagecache\ImagecacheServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -228,7 +227,7 @@ return [
         'Form' => Illuminate\Html\FormFacade::class,
         'HTML' => Illuminate\Html\HtmlFacade::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
-        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'Imagecache' => Devfactory\Imagecache\Facades\ImagecacheFacade::class,
     ],
 
 ];

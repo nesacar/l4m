@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\SearchableTraits;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,6 +10,8 @@ use File;
 
 class Product extends Model
 {
+    use SearchableTraits;
+
     protected $fillable = [
         'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'tmb', 'price',
         'price_outlet', 'views', 'amount', 'color', 'discount', 'sold', 'publish_at', 'publish'
@@ -34,6 +37,24 @@ class Product extends Model
                 $query->where('publish', 1)->orderBy('order', 'ASC');
             }]);
         });
+
+        static::addGlobalScope('attribute', function (Builder $builder) {
+            $builder->with(['attribute' => function($query){
+                $query->where('publish', 1)->orderBy('order', 'ASC')->pluck('id');
+            }]);
+        });
+    }
+
+    public function setSlugAttribute($value){
+        $this->attributes['slug'] = $this->attributes['slug']? str_slug($this->attributes['slug']) : str_slug($this->attributes['title']);
+    }
+
+    public function setPublishAttribute($value){
+        $this->attributes['publish'] = $value?: false;
+    }
+
+    public function getTmbAttribute(){
+        return \Imagecache::get($this->attributes['image'], '63x84')->src;
     }
 
     public static function base64UploadImage($product, $image){
@@ -65,10 +86,6 @@ class Product extends Model
             return $r[0];
         }
         return '';
-    }
-
-    public function setSlugAttribute($value){
-        $this->attributes['slug'] = str_slug($value);
     }
 
     public static function getHome($limit = 4){
@@ -119,6 +136,10 @@ class Product extends Model
 
     public function attribute(){
         return $this->belongsToMany(Attribute::class);
+    }
+
+    public function attributeWithIds(){
+        return $this->belongsToMany(Attribute::class)->value('id')->toArray();
     }
 
     public function photo(){

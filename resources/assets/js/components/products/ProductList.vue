@@ -28,7 +28,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">id</th>
-                                <th scope="col">naslov</th>
+                                <th scope="col">naziv</th>
+                                <th scope="col">šifra</th>
+                                <th scope="col">slika</th>
                                 <th scope="col">kategorija</th>
                                 <th scope="col">vidljivo</th>
                                 <th scope="col">vidljivo od</th>
@@ -39,6 +41,8 @@
                             <tr v-for="row in products">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
+                                <td>{{ row.code }}</td>
+                                <td><img :src="row.tmb" :alt="row.title"></td>
                                 <td v-if="row.category.length > 0">{{ row.category[0].title }}</td><td v-else>/</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
@@ -150,6 +154,7 @@
                 console.log(value);
                 axios.post('api/products/search', value)
                     .then(res => {
+                        console.log(res.data.products);
                         this.products = res.data.products.data;
                         this.paginate = res.data.products;
                     })

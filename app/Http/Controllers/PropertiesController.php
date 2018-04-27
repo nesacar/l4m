@@ -20,7 +20,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::select('id', 'title', 'order', 'publish', 'created_at')->orderBy('order', 'ASC')->paginate(50);
+        $properties = Property::with('set')->orderBy('order', 'ASC')->paginate(50);
 
         return response()->json([
             'properties' => $properties
@@ -36,9 +36,6 @@ class PropertiesController extends Controller
     public function store(CreatePropertyRequest $request)
     {
         $property = Property::create(request()->all());
-        $property->slug = request('slug')?: request('title');
-        $property->publish = request('publish')?: false;
-        $property->update();
 
         if(request('sets')){ $property->set()->sync(request('sets')); }
 
@@ -73,9 +70,6 @@ class PropertiesController extends Controller
     public function update(CreatePropertyRequest $request, Property $property)
     {
         $property->update(request()->all());
-        $property->slug = request('slug')?: request('title');
-        $property->publish = request('publish')?: false;
-        $property->update();
 
         if(request('sets')){ $property->set()->sync(request('sets')); }
         $sets = $property->set()->pluck('sets.id');

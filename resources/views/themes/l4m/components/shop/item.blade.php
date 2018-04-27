@@ -5,7 +5,7 @@
   @endif
   <div class="shop-item_image">
     <div class="image image--portrait lazy-image"
-      data-src="{{ url($product->image) }}"
+      data-src="{{ url(\Imagecache::get($product->image, '215x287')->src) }}"
     ></div>
   </div>
   <div class="shop-item_content">

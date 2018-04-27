@@ -19,8 +19,8 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::select('attributes.id', 'attributes.title', 'attributes.order', 'attributes.publish', 'attributes.created_at', 'properties.title as property')
-            ->join('properties', 'attributes.property_id', '=', 'properties.id')->orderBy('attributes.order', 'ASC')->groupBy('attributes.id')->paginate(50);
+        $attributes = Attribute::with(['property' => function($query){ $query->with(['set' => function($q){ $q->select('title'); }]); }])
+            ->orderBy('attributes.id', 'DESC')->groupBy('attributes.id')->paginate(50);
 
         return response()->json([
             'attributes' => $attributes
@@ -36,9 +36,6 @@ class AttributesController extends Controller
     public function store(CreateAttributeRequest $request)
     {
         $attribute = Attribute::create(request()->all());
-        $attribute->slug = request('slug')?: request('title');
-        $attribute->publish = request('publish')?: false;
-        $attribute->update();
 
         return response()->json([
             'attribute' => $attribute
@@ -68,9 +65,6 @@ class AttributesController extends Controller
     public function update(CreateAttributeRequest $request, Attribute $attribute)
     {
         $attribute->update(request()->all());
-        $attribute->slug = request('slug')?: request('title');
-        $attribute->publish = request('publish')?: false;
-        $attribute->update();
 
         return response()->json([
             'attribute' => $attribute,
@@ -113,8 +107,7 @@ class AttributesController extends Controller
     public function search(){
         $text = request('text');
         $property_id = request('list')?: false;
-        $attributes = Attribute::select('attributes.id', 'attributes.title', 'attributes.order', 'attributes.publish', 'attributes.created_at', 'properties.title as property')
-            ->join('properties', 'attributes.property_id', '=', 'properties.id')
+        $attributes = Attribute::with(['property' => function($query){ $query->with(['set' => function($q){ $q->select('title'); }]); }])
             ->where(function ($query) use ($text){
                 if($text != ''){
                     $query->where('attributes.title', 'like', '%'.$text.'%')->orWhere('attributes.slug', 'like', '%'.$text.'%');
@@ -125,7 +118,7 @@ class AttributesController extends Controller
                     $query->where('attributes.property_id', $property_id);
                 }
             })
-            ->groupBy('attributes.id')->orderBy('attributes.created_at', 'DESC')->paginate(50);
+            ->groupBy('attributes.id')->orderBy('attributes.id', 'DESC')->paginate(50);
 
         return response()->json([
             'attributes' => $attributes,

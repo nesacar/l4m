@@ -28,7 +28,8 @@
                             <th scope="col">id</th>
                             <th scope="col">naziv</th>
                             <th scope="col">publikovano</th>
-                            <th scope="col">kreirano</th>
+                            <th scope="col">setovi</th>
+                            <th scope="col">broj atributa</th>
                             <th>akcija</th>
                         </tr>
                         </thead>
@@ -36,8 +37,9 @@
                         <tr v-for="row in properties">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
-                            <td>{{ row.publish }}</td>
-                            <td>{{ row.created_at }}</td>
+                            <td>{{ row.publish? 'Da' : 'Ne' }}</td>
+                            <td v-if="row.set">[<template v-for="set in row.set">{{ set.title }}</template>]</td><td v-else>/</td>
+                            <td>{{ row.attribute.length }}</td>
                             <td>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>
                                 <font-awesome-icon icon="times" @click="deleteRow(row)" />

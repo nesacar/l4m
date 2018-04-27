@@ -11,6 +11,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'user_id' => 1,
         'brand_id' => 1,
         'collection_id' => null,
+        'set_id' => 1,
         'title' => $title,
         'slug' => str_slug($title),
         'short' => $faker->paragraph,

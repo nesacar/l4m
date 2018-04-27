@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "21bd6acf716be62fd4b448a03a599c25",
+    "content-hash": "a4d1262c1038ca0db59588b8c1522109",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -242,38 +242,28 @@
             "time": "2018-04-23T19:33:40+00:00"
         },
         {
-            "name": "dimsav/laravel-translatable",
-            "version": "v9.0",
+            "name": "devfactory/imagecache",
+            "version": "3.0.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dimsav/laravel-translatable.git",
-                "reference": "a174b327342e882df7df9d971cf36ae678c16088"
+                "url": "https://github.com/DevFactoryCH/imagecache.git",
+                "reference": "73783d14f40d01d8bdb2385256d244521340b92b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/a174b327342e882df7df9d971cf36ae678c16088",
-                "reference": "a174b327342e882df7df9d971cf36ae678c16088",
+                "url": "https://api.github.com/repos/DevFactoryCH/imagecache/zipball/73783d14f40d01d8bdb2385256d244521340b92b",
+                "reference": "73783d14f40d01d8bdb2385256d244521340b92b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.6.*",
+                "illuminate/support": "~5.0",
+                "intervention/image": "~2.1",
                 "php": ">=5.4.0"
             },
-            "require-dev": {
-                "orchestra/testbench": "3.6.*",
-                "phpunit/phpunit": "~7.0"
-            },
             "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Dimsav\\Translatable\\TranslatableServiceProvider"
-                    ]
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "Dimsav\\Translatable\\": "src/Translatable/"
+                    "Devfactory\\Imagecache\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -282,19 +272,12 @@
             ],
             "authors": [
                 {
-                    "name": "Dimitrios Savvopoulos",
-                    "email": "ds@dimsav.com",
-                    "homepage": "http://dimsav.com"
+                    "name": "DevFactory Sarl",
+                    "email": "developer@devfactory.ch"
                 }
             ],
-            "description": "A Laravel package for multilingual models",
-            "keywords": [
-                "database",
-                "language",
-                "laravel",
-                "translation"
-            ],
-            "time": "2018-02-10T14:10:41+00:00"
+            "description": "Laravel package for generating thumbnails of images and caching them in your public files folder.",
+            "time": "2018-01-12T08:28:40+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1142,16 +1125,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.17",
+            "version": "v5.6.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0f787c763ae8fb9fae0c8c809830ba4fa81e2d9d"
+                "reference": "088f286d0b5145275ced93799e23980a81898d10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0f787c763ae8fb9fae0c8c809830ba4fa81e2d9d",
-                "reference": "0f787c763ae8fb9fae0c8c809830ba4fa81e2d9d",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/088f286d0b5145275ced93799e23980a81898d10",
+                "reference": "088f286d0b5145275ced93799e23980a81898d10",
                 "shasum": ""
             },
             "require": {
@@ -1277,7 +1260,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-04-17T12:51:04+00:00"
+            "time": "2018-04-26T13:25:23+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1459,7 +1442,7 @@
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -1670,68 +1653,6 @@
                 "server"
             ],
             "time": "2017-12-23T23:33:42+00:00"
-        },
-        {
-            "name": "mcamara/laravel-localization",
-            "version": "1.3.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "6cd1756bce568248b58d04878e5e1caf6096e673"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/6cd1756bce568248b58d04878e5e1caf6096e673",
-                "reference": "6cd1756bce568248b58d04878e5e1caf6096e673",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "~5.2||~5.3||~5.4||~5.5||~5.6",
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "orchestra/testbench-browser-kit": "~3.4",
-                "phpunit/phpunit": "6.0.*"
-            },
-            "suggest": {
-                "ext-intl": "*"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Mcamara\\LaravelLocalization\\LaravelLocalizationServiceProvider"
-                    ],
-                    "aliases": {
-                        "LaravelLocalization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization"
-                    }
-                }
-            },
-            "autoload": {
-                "classmap": [],
-                "psr-0": {
-                    "Mcamara\\LaravelLocalization": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Cámara",
-                    "email": "mcamara88@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Easy localization for Laravel",
-            "homepage": "https://github.com/mcamara/laravel-localization",
-            "keywords": [
-                "laravel",
-                "localization",
-                "php"
-            ],
-            "time": "2018-04-25T17:16:00+00:00"
         },
         {
             "name": "monolog/monolog",

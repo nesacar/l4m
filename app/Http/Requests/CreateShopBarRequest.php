@@ -26,7 +26,6 @@ class CreateShopBarRequest extends FormRequest
         return [
             'title' => 'required',
             'template' => 'required',
-            'category_id' => 'required',
         ];
     }
 
@@ -35,7 +34,6 @@ class CreateShopBarRequest extends FormRequest
         return [
             'title.required' => 'Naziv je obavezan',
             'template.required' => 'Strana je obavezna',
-            'category_id.required' => 'Kategorija je obavezna',
         ];
     }
 }

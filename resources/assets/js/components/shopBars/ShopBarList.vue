@@ -38,7 +38,7 @@
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
                             <td>{{ row.desc }}</td>
-                            <td>{{ row.category.title }}</td>
+                            <td v-if="row.category">{{ row.category.title }}</td><td v-else>/</td>
                             <td>{{ row.publish }}</td>
                             <td>{{ row.template }}</td>
                             <td>

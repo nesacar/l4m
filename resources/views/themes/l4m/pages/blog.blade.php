@@ -53,7 +53,7 @@
       <h4 class="section-title showcase_title">featured products</h4>
 
         <div class="showcase_carousel">
-          @foreach($products as $i => $product)
+          @foreach($featuredProducts->first()->product as $i => $product)
           <div class="showcase_item">
             @component('themes.' . $theme . '.components.shop.item', [
               'product' => $product,

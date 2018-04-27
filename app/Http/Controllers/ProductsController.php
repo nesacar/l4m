@@ -24,7 +24,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['Category', 'Brand', 'Collection'])->orderBy('products.id', 'DESC')->paginate(50);
+        $products = Product::with(['category' => function($query){
+            $query->orderBy('parent', 'DESC')->first();
+        }])->orderBy('id', 'DESC')->paginate(50);
 
         return response()->json([
             'products' => $products
@@ -40,9 +42,6 @@ class ProductsController extends Controller
     public function store(CreateProductRequest $request)
     {
         $product = Product::create(request()->except('image'));
-        $product->slug = request('slug')?: request('title');
-        $product->publish = request('publish')?: false;
-        $product->update();
 
         if(request('image')) Product::base64UploadImage($product, request('image'));
 
@@ -63,9 +62,9 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        $catIds = $product->category()->pluck('categories.id');
-        $attIds = $product->attribute()->pluck('attributes.id');
-        $tagIds = $product->tag()->pluck('tags.id');
+        $catIds = $product->category->pluck('id');
+        $attIds = $product->attribute->pluck('id');
+        $tagIds = $product->tag()->pluck('id');
         $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
 
         return response()->json([
@@ -87,18 +86,15 @@ class ProductsController extends Controller
     public function update(CreateProductRequest $request, Product $product)
     {
         $product->update(request()->except('image'));
-        $product->slug = request('slug')?: request('title');
-        $product->publish = request('publish')?: false;
-        $product->update();
 
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
 
         $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
-        $catIds = $product->category()->pluck('categories.id');
-        $attIds = $product->attribute()->pluck('attributes.id');
-        $tagIds = $product->tag()->pluck('tags.id');
+        $catIds = $product->category->pluck('categories.id');
+        $attIds = $product->attribute->pluck('attributes.id');
+        $tagIds = $product->tag->pluck('tags.id');
 
         return response()->json([
             'product' => $product,
@@ -149,22 +145,18 @@ class ProductsController extends Controller
         $category = request('list');
         $text = request('text');
 
-        $products = Product::with(['Category' => function($query) use ($category){
+        $products = Product::select('products.*')->join('category_product', 'products.id', '=', 'category_product.product_id')->join('categories', 'category_product.category_id', '=', 'categories.id')
+            ->where(function($query) use ($category){
                 if($category > 0){
                     $query->where('categories.id', $category);
                 }
-            }])
-            ->with(['Brand' => function($query) use ($text){
-                if(!empty($text)){
-                    $query->where('brands.title', 'like', '%'.$text.'%');
-                }
-            }])->with('Collection')
+            })
             ->where(function ($query) use ($text){
                 if(!empty($text)){
                     $query->where('products.title', 'like', '%'.$text.'%')->orWhere('products.slug', 'like', '%'.$text.'%')
                         ->orWhere('products.id', 'like', '%'.$text.'%')->orWhere('products.code', 'like', '%'.$text.'%');
                 }
-            })->orderBy('products.id', 'DESC')->paginate(50);
+            })->groupBy('products.id')->orderBy('products.id', 'DESC')->paginate(50);
 
         return response()->json([
             'products' => $products
