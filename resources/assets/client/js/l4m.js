@@ -6,6 +6,8 @@ import Toolbar from './components/toolbar';
 import DoubleSlider from './components/double-slider';
 import Counter from './components/counter';
 
+window.Counter = Counter;
+
 export function init () {
   LazyImages.init();
   Masthead.init();

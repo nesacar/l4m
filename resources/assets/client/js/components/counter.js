@@ -1,11 +1,15 @@
 class Counter {
+  static isValidInput(n) {
+    // Positive numbers or empty string
+    const reg = /^\d*\.?\d*$/;
+    return reg.test(n);
+  }
+
   set value(newValue) {
     // Ignore non numeric values
-    if (isNaN(newValue)) {
-      return;
-    }
-
-    this._value = newValue;
+    this._value = Counter.isValidInput(newValue)
+      ? newValue
+      : this._value || 0;
     this._update();
   }
 
@@ -18,16 +22,30 @@ class Counter {
     this._input = this.root.querySelector('input.counter_value');
     this._buttons = this.root.querySelectorAll('button.counter_control');
 
+    this._onBlur = this._onBlur.bind(this);
     this._onClick = this._onClick.bind(this);
+    this._onInput = this._onInput.bind(this);
 
     this._buttons.forEach(button => {
       button.addEventListener('click', this._onClick);
     });
 
-    const initialValue = this._input.value;
+    this._input.addEventListener('blur', this._onBlur);
+    this._input.addEventListener('input', this._onInput);
 
-    this._value = isNaN(initialValue) ? 0 : parseInt(this._input.value);
-    this._update();
+    this.value = this._input.value;
+  }
+
+  _onBlur(evt) {
+    const input = this._input.value;
+
+    if (input === '') {
+      this.value = 0;
+    }
+  }
+
+  _onInput(evt) {
+    this.value = this._input.value;
   }
 
   _onClick(evt) {
@@ -47,11 +65,11 @@ class Counter {
   }
 
   increment() {
-    this.value = this._value + 1;
+    this.value = parseInt(this._value) + 1;
   }
 
   decrement() {
-    this.value = this._value - 1;
+    this.value = parseInt(this._value) - 1;
   }
 
   _update() {
