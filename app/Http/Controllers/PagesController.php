@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Block;
 use App\Category;
 use App\Post;
@@ -41,9 +42,10 @@ class PagesController extends Controller
 
     public function shopCategory($slug){
         $category = Category::whereSlug($slug)->first();
-        $products = $category->product()->paginate(15);
+        $products = Product::search($category);
+        $data = Product::getMaxPrice($category);
 
-        return view('themes.'.$this->theme.'.pages.shop', compact('category', 'products'));
+        return view('themes.'.$this->theme.'.pages.shop', compact('category', 'products', 'data'));
     }
 
     public function proba(){

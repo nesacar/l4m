@@ -23,21 +23,18 @@
 
         <div class="col-lg-9">
           <div class="shop-results_header">
-            <div class="shop-results_count">Showing 1-20 of 33 results</div>
+            <div class="shop-results_count">Showing 1-15 of {{ $data['count'] }} results</div>
             @select([ 'name' => 'sort', 'id' => 'sort' ])
-              <option value="a-z" selected>Naziv proizvoda A-Z</option>
-              <option value="z-a">Naziv proizvoda Z-A</option>
-              <option value="ascending">Cena rastuce</option>
-              <option value="descending">Cena opadajuce</option>
+              <option value="1" selected>Najnovije</option>
+              <option value="2">Cena rastuce</option>
+              <option value="3">Cena opadajuce</option>
             @endselect
           </div>
 
           @component('themes.' . $theme . '.components.shop.grid', [
             'component' => 'shop.item',
             'items' => $products,
-            'options' => (object)[
-              'shop' => true
-            ]
+            'options' => (object)[ 'shop' => true ]
           ])
           @endcomponent
         </div>

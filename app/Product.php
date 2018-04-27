@@ -3,10 +3,10 @@
 namespace App;
 
 use App\Traits\SearchableTraits;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use File;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Request;
 
 class Product extends Model
 {
@@ -17,13 +17,18 @@ class Product extends Model
         'price_outlet', 'views', 'amount', 'color', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
+    protected static $selectable = ['id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
+
+    protected static $searchable = ['filters', 'price', 'sort'];
+
+    protected static $paginate = 15;
+
     /**
      * The "booting" method of the model.
      *
      * @return void
      */
-    protected static function boot()
-    {
+    protected static function boot(){
         parent::boot();
 
         static::addGlobalScope('category', function (Builder $builder) {
@@ -110,8 +115,15 @@ class Product extends Model
         });
     }
 
-    public function scopePublished($query){
-        $query->where('publish', 1)->where('publish_at', '<=', Carbon::now()->format('Y-m-d H:00'));
+    public static function getMaxPrice($category=false){
+        $query = self::select('price')->withoutGlobalScopes();
+        if($category) $query->categoryFilter($category->id);
+        $data = $query->orderBy('price', 'DESC')->get();
+
+        $min = request('price') && count(request('price') == 2)? request('price')[0] : 0;
+        $max = request('price') && count(request('price') == 2)? request('price')[1] : $data[0]->price;
+
+        return ['count' => count($data), 'range' => $data[0]->price, 'min' => $min, 'max' => $max];
     }
 
     public function brand(){
@@ -136,10 +148,6 @@ class Product extends Model
 
     public function attribute(){
         return $this->belongsToMany(Attribute::class);
-    }
-
-    public function attributeWithIds(){
-        return $this->belongsToMany(Attribute::class)->value('id')->toArray();
     }
 
     public function photo(){
