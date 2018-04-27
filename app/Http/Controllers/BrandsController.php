@@ -42,6 +42,7 @@ class BrandsController extends Controller
         $brand->update();
 
         if(request('image')){ Brand::base64UploadImage($brand->id, request('image')); }
+        if(request('logo')){ Brand::base64UploadLogoImage($brand->id, request('image')); }
 
         return response()->json([
             'brand' => $brand
@@ -105,6 +106,21 @@ class BrandsController extends Controller
      */
     public function uploadImage(UploadImageRequest $request, $id){
         $image = Brand::base64UploadImage($id, request('file'));
+
+        return response()->json([
+            'image' => $image
+        ]);
+    }
+
+    /**
+     * Upload brand image
+     *
+     * @param UploadImageRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadLogoImage(UploadImageRequest $request, $id){
+        $image = Brand::base64UploadLogoImage($id, request('file'));
 
         return response()->json([
             'image' => $image

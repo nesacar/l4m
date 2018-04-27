@@ -62,7 +62,14 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-
+                    <div class="card">
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="attribute in property.attribute">
+                                <span>{{ attribute.title }}</span>
+                                <router-link tag="a" :to="'/attributes/' + attribute.id + '/edit'" class="btn btn-primary">Izmeni</router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -154,3 +161,13 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .list-group-item{
+        display: flex;
+
+        span{
+            flex: 1;
+        }
+    }
+</style>

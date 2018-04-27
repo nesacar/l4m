@@ -1,10 +1,6 @@
 <nav class="nav">
   @foreach($links as $i => $link)
-  @php
-
-    $className = 'nav_link' . (Request::is($link->href) ? ' nav_link--active' : '');
-
-  @endphp
-    <a class="{{ $className }}" href="{{ url($link->href) }}">{{ $link->text}}</a>
+      @php $className = $link->sufix . (Request::is($link->link) ? ' ' . $link->sufix . '--active' : ''); @endphp
+      <a class="{{ $className }}" href="{{ url($link->link) }}">{{ $link->title}}</a>
   @endforeach
 </nav>

@@ -1,6 +1,6 @@
-@extends('themes.' . env('THEME_NAME', '') . '.index')
+@extends('themes.' . $theme . '.index')
 
-@section('title'){{ $title }}@endsection
+@section('title') Luxury 4 Me - Shop @endsection
 
 @section('content')
 
@@ -8,17 +8,17 @@
 
     <h1 class="display-3 shop-title">fashion</h1>
 
-      @component('themes.' .env('THEME_NAME', '') . '.components.shop.header', [
+      @component('themes.' . $theme . '.components.shop.header', [
         'img' => 'http://www.joyline-global.com/storefiles/gallery/Homepage%20Banner/cd4cb4fb-52f1-4cc3-a1a7-88a6ae382ca5home%20page%20banner%20new.png',
         'name' => 'Fashion'
       ])
       @endcomponent
 
-      @include('themes.' . env('THEME_NAME', '') . '.partials.breadcrumb')
+      @include('themes.' . $theme . '.partials.breadcrumb')
     
       <div class="row">
         <aside class="col-lg-3 filters-container">
-          @include('themes.' . env('THEME_NAME', '') . '.partials.filters')
+          @include('themes.' . $theme . '.partials.filters')
         </aside>
 
         <div class="col-lg-9">
@@ -32,7 +32,7 @@
             @endselect
           </div>
 
-          @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
+          @component('themes.' . $theme . '.components.shop.grid', [
             'component' => 'shop.item',
             'items' => $products,
             'options' => (object)[

@@ -10,7 +10,7 @@
   </div>
   <div id="main-nav">
     <div class="container">
-      @include('themes.'. 'l4m' .'.partials.nav')
+      @include('themes.'. $theme .'.components.nav', ['links' => $menu])
     </div>
   </div>
 </header>

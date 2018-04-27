@@ -71,6 +71,15 @@
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
+                    <upload-image-helper
+                            :image="brand.logo"
+                            :defaultImage="null"
+                            :titleImage="'logoa'"
+                            :error="error"
+                            @uploadImage="uploadLogo($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
                 </div>
             </div>
         </div>
@@ -166,6 +175,23 @@
                     console.log(e);
                     this.error = e.response.data.errors;
                 });
+            },
+            uploadLogo(image){
+                axios.post('api/brands/' + this.brand.id + '/logo-image', { file: image[0] })
+                    .then(res => {
+                        this.brand.logo = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
         }
     }
