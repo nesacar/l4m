@@ -138,6 +138,11 @@ Route::get('/shop', function () {
   return view('themes.l4m.pages.shop', compact('title', 'products'));
 });
 
+Route::get('/product', function () {
+  $title = 'Product';
+  return view('themes.l4m.pages.product', compact('title'));
+});
+
 Route::get('/admin', function () {
     return view('layouts.admin-app');
 });
