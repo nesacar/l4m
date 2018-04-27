@@ -1,14 +1,16 @@
-<div class="row">
+<div class="row image-box">
   <div class="col-lg-2">
-    @for($i = 0; $i < 3; $i++)
-    <div class="shop-item_image" style="margin-bottom: 16px;">
-      <div class="image image--portrait">
-        <img src="{{ $image }}">
+    <div class="image-box_thumbnails">
+      @for($i = 0; $i < 5; $i++)
+      <div class="image-box_thumbnail">
+        <div class="image image--portrait">
+          <img src="{{ $image }}">
+        </div>
       </div>
+      @endfor
     </div>
-    @endfor
   </div>
-  <div class="col-lg-10">
+  <div class="col-lg-10 image-box_image">
     <div class="shop-item_image">
       <div class="image image--portrait">
         <img src="{{ $image }}">

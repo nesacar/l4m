@@ -27,13 +27,15 @@
             </span>
           </div>
           <p class="product_description">{{ $product->short }}</p>
-          <button class="btn btn--primary btn--block">add to cart</button>
           <div class="product_actions">
-            <button class="btn btn--outline">
-              <svg class="icon">
-                <use xlink:href="#star-border">
-              </svg>
-            </button>
+          <button class="btn btn--primary btn--block">add to cart</button>
+          <button class="btn btn--outline">
+            <svg class="icon">
+              <use xlink:href="#star-border">
+            </svg>
+          </button>
+          </div>
+          <div class="product_social">
             @social()
           </div>
           <div class="product_id">Item id: {{ $product->id }}</div>
@@ -42,7 +44,7 @@
       </div>
     </div>
 
-    <div class="tabs tabs--center product_details">
+    <div class="tabs tabs--center product_info">
       <input class="tab_control" type="radio" name="product-details" id="desc-tab" checked>
       <label class="tab_label" for="desc-tab">DESCRIPTION</label>
       <input class="tab_control" type="radio" name="product-details" id="info-tab">
@@ -61,6 +63,7 @@
       </div>
     </div>
   </section>
+  
   <section class="showcase">
     <div class="container">
 

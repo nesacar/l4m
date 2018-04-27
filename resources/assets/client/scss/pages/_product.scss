@@ -1,10 +1,21 @@
 .product {
   margin-bottom: 4 * $base-line;
 
+  &_details {
+    @include media-breakpoint-up(lg) {
+      padding-left: (4 * $base-line);
+    }
+  }
+
   &_name {
     font-family: $font-family;
     font-weight: $font-weight-normal;
     text-transform: uppercase;
+    margin-top: 4 * $base-line;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 0;
+    }
   }
 
   &_brand {
@@ -25,6 +36,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    > * {
+      margin-right: 2 * $base-line;
+    }
+
+    > :last-child() {
+      margin-right: 0;
+    }
+  }
+
+  &_social {
     margin: (2 * $base-line) 0 (4 * $base-line);
   }
 
@@ -33,7 +55,7 @@
     color: $text-secondary-on-light;
   }
 
-  &_details {
+  &_info {
     margin-top: 4 * $base-line;
   }
 }
