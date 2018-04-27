@@ -29,6 +29,7 @@
                 <ul>
                     <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
                     <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
+                    <li><router-link tag="a" :to="'/shop-bars'">ShopBars</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showUsersItemActive }" :style="{ 'display': showUsersItem ? 'block' : 'none' }" v-if="admin">

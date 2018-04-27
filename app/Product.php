@@ -128,4 +128,8 @@ class Product extends Model
     public function tag(){
         return $this->belongsToMany(Tag::class);
     }
+
+    public function shopBar(){
+        return $this->belongsToMany(ShopBar::class)->withPivot('order');
+    }
 }

@@ -8,6 +8,7 @@ use App\Post;
 use App\Product;
 use App\Property;
 use App\Setting;
+use App\ShopBar;
 use App\Tag;
 use App\Theme;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ class PagesController extends Controller
     }
 
     public function proba(){
-        //
+        $shopBar = ShopBar::first();
+        $shopBar['prod_ids'] = \DB::table('product_shop_bar')->where('product_shop_bar.shop_bar_id', $shopBar->id)->orderBy('order', 'ASC')->pluck('product_shop_bar.product_id');
+        return $shopBar;
     }
 }

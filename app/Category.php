@@ -72,4 +72,7 @@ class Category extends Model
         return $this->belongsToMany(Product::class)->limit(4);
     }
 
+    public function shopBar(){
+        return $this->hasMany(ShopBar::class);
+    }
 }

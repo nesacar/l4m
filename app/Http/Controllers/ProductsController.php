@@ -183,4 +183,12 @@ class ProductsController extends Controller
         Photo::saveImage($id, request('file'));
         return 'done';
     }
+
+    public function lists(){
+        $products = Product::select('id', 'code')->where('publish', 1)->orderBy('title', 'ASC')->get();
+
+        return response()->json([
+            'products' => $products
+        ]);
+    }
 }
