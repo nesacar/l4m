@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
       Blade::component($components . 'select', 'select');
       Blade::component($components . 'checkbox', 'checkbox');
+      Blade::component($components . 'counter', 'counter');
       Blade::component($components . 'double-slider', 'doubleslider');
       Blade::component($components . 'image-box', 'imagebox');
 
