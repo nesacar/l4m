@@ -2,7 +2,7 @@
   <div class="header">
     <div class="container header_content">
       <a class="logo-container" href="/">
-        <svg class="logo" role="presentation">
+        <svg class="logo" role="presentation" aria-label="luxury 4 me">
           <use xlink:href="#logo">
         </svg>
       </a>

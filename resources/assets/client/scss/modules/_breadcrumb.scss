@@ -1,8 +1,9 @@
 .breadcrumb {
   list-style: none;
-  padding: (2 * $base-line) 0;
+  padding: (2 * $base-line) 0 (4 * $base-line);
   margin: 0;
   display: flex;
+  font-size: 12px;
 }
 
 .breadcrumb-item {

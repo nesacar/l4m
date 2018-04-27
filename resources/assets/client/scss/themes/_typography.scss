@@ -12,6 +12,16 @@
   position: relative;
   padding: (4 * $base-line) 0;
   margin: 0;
+  text-align: center;
+}
+
+.section-title--serif {
+  font-family: $font-family-header;
+  position: relative;
+  padding: (4 * $base-line) 0;
+  margin: 0;
+  text-align: center;
+  font-weight: $font-weight-normal;
 }
 
 .with-lines {

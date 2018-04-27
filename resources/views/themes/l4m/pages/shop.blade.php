@@ -24,11 +24,12 @@
         <div class="col-lg-9">
           <div class="shop-results_header">
             <div class="shop-results_count">Showing 1-15 of {{ $data['count'] }} results</div>
-            @select([ 'name' => 'sort', 'id' => 'sort' ])
+            @select([ 'name' => 'sort', 'id' => 'sort', 'form' => 'filters' ])
               <option value="1" selected>Najnovije</option>
               <option value="2">Cena rastuce</option>
               <option value="3">Cena opadajuce</option>
             @endselect
+
           </div>
 
           @component('themes.' . $theme . '.components.shop.grid', [

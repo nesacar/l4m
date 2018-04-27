@@ -1,10 +1,6 @@
 .showcase {
   background-color: rgba($theme-primary, .06);
 
-  &_title {
-    text-align: center;
-  }
-
   &_carousel {
     margin-left: -$column-paddings;
     margin-right: -$column-paddings;

@@ -74,25 +74,22 @@
 
 // Select
 .select {
+  position: relative;
   display: inline-flex;
   color: inherit;
 
-  &_field {
-    position: relative;
-
-    &:after {
-      position: absolute;
-      top: 0.75em;
-      right: 0.5em;
-      width: 0;
-      height: 0;
-      padding: 0;
-      content: '';
-      border-left: 0.25em solid transparent;
-      border-right: 0.25em solid transparent;
-      border-top: 0.375em solid currentColor;
-      pointer-events: none;
-    }
+  &:after {
+    position: absolute;
+    top: 0.75em;
+    right: 0.5em;
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: 0.25em solid transparent;
+    border-right: 0.25em solid transparent;
+    border-top: 0.375em solid currentColor;
+    pointer-events: none;
   }
 
   &_input {

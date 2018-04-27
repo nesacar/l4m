@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div class="tabs tabs--center">
   @foreach($bars as $index => $items)
     <input class="tab_control" type="radio" name="{{ $options->id }}" id="{{ $options->id . '-tab-' . $index }}" @if($loop->first) checked @endif>
     <label class="tab_label" for="{{ $options->id . '-tab-' . $index }}">{{ $items->category->title }}</label>

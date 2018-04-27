@@ -1,0 +1,59 @@
+.image-box {
+  @include media-breakpoint-down(md) {
+    flex-direction: column-reverse;
+  }
+
+  &_thumbnails {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    margin-left: -($base-line);
+    margin-right: -($base-line);
+    padding-bottom: 2 * $base-line;
+    
+    @include media-breakpoint-up(lg) {
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $theme-primary;
+    }
+  }
+
+  &_thumbnail {
+    flex-shrink: 0;
+    width: 25%;
+    padding: 0 $base-line;
+    opacity: .5;
+    transition: opacity .12s;
+
+    &:hover,
+    &--active {
+      opacity: 1;
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 100%;
+      margin-bottom: 2 * $base-line;
+      padding: 0;
+    }
+
+    > .image {
+      border: 1px solid $border-color;
+    } 
+  }
+
+  &_image {
+    margin-bottom: 2 * $base-line;
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+    }
+  }
+}
