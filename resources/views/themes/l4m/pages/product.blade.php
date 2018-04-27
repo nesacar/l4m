@@ -27,13 +27,19 @@
             </span>
           </div>
           <p class="product_description">{{ $product->short }}</p>
+          <div class="product_options">
+            <label for="size">Size:</label>
+            @select([ 'name' => 'size', 'id' => 'size' ])
+              <option value="onesize" selected>one size</option>
+            @endselect
+          </div>
           <div class="product_actions">
-          <button class="btn btn--primary btn--block">add to cart</button>
-          <button class="btn btn--outline">
-            <svg class="icon">
-              <use xlink:href="#star-border">
-            </svg>
-          </button>
+            <button class="btn btn--primary btn--block">add to cart</button>
+            <button class="btn btn--outline">
+              <svg class="icon">
+                <use xlink:href="#star-border">
+              </svg>
+            </button>
           </div>
           <div class="product_social">
             @social()
@@ -63,7 +69,7 @@
       </div>
     </div>
   </section>
-  
+
   <section class="showcase">
     <div class="container">
 
