@@ -35,7 +35,7 @@
           </div>
           <div class="product_actions">
             <button class="btn btn--primary btn--block">add to cart</button>
-            <button class="btn btn--outline">
+            <button class="btn btn--outline" aria-label="add to favorites">
               <svg class="icon">
                 <use xlink:href="#star-border">
               </svg>
