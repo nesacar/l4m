@@ -35,12 +35,7 @@ class ShopBarsController extends Controller
      */
     public function store(CreateShopBarRequest $request)
     {
-        $shopBar = new ShopBar();
-        $shopBar->title = request('title');
-        $shopBar->template = request('template');
-        $shopBar->category_id = request('category_id');
-        $shopBar->publish = request('publish') ?: false;
-        $shopBar->save();
+        $shopBar = ShopBar::create(request()->all());
 
         $shopBar->sync();
 
@@ -74,11 +69,7 @@ class ShopBarsController extends Controller
      */
     public function update(CreateShopBarRequest $request, ShopBar $shopBar)
     {
-        $shopBar->title = request('title');
-        $shopBar->template = request('template');
-        $shopBar->category_id = request('category_id');
-        $shopBar->publish = request('publish') ?: false;
-        $shopBar->update();
+        $shopBar->update(request()->all());
 
         $shopBar->sync();
 

@@ -1,20 +1,14 @@
-@php
-
-  $id = $options->id;
-
-@endphp
-
 <div style="text-align: center;">
-  @foreach($products as $index => $items)
-    <input class="tab_control" type="radio" name="{{ $id }}" id="{{ $id . '-tab-' . $index }}" @if($loop->first) checked @endif>
-    <label class="tab_label" for="{{ $id . '-tab-' . $index }}">{{ $items->title }}</label>
+  @foreach($bars as $index => $items)
+    <input class="tab_control" type="radio" name="{{ $options->id }}" id="{{ $options->id . '-tab-' . $index }}" @if($loop->first) checked @endif>
+    <label class="tab_label" for="{{ $options->id . '-tab-' . $index }}">{{ $items->category->title }}</label>
   @endforeach
 
-  @foreach($products as $index => $items)
-  <div class="tab_content" id={{ $id . '-content-' . $index }}>
+  @foreach($bars as $index => $items)
+  <div class="tab_content" id={{ $options->id . '-content-' . $index }}>
     @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
       'component' => 'shop.item',
-      'items' => $items->products4,
+      'items' => $items->product,
       'options' => isset($options) ? $options : null,
     ])
     @endcomponent

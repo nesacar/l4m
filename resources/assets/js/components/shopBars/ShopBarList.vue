@@ -26,6 +26,7 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">naziv</th>
+                            <th scope="col">opis</th>
                             <th scope="col">kategorija</th>
                             <th scope="col">publikovano</th>
                             <th scope="col">strana</th>
@@ -36,6 +37,7 @@
                         <tr v-for="row in shopBars">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
+                            <td>{{ row.desc }}</td>
                             <td>{{ row.category.title }}</td>
                             <td>{{ row.publish }}</td>
                             <td>{{ row.template }}</td>
