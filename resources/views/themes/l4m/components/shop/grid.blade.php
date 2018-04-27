@@ -11,11 +11,13 @@
 @endphp
 
 <section class="{{ $className }}">
-  @foreach($items as $item)
+  {{-- {{dd($items)}} --}}
+  @foreach($items as $index => $item)
+
     @component('themes.' . $theme . '.components.' . $component, [
       'product' => $item,
       'options' => isset($options) ? $options : null,
-      '_index' => $options->id
+      '_index' => $index
     ])
     @endcomponent
   @endforeach

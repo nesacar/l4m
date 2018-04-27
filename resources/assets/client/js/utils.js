@@ -7,6 +7,22 @@ const preloadImage = url => {
   });
 };
 
+const mapOverObject = (obj, fn) => {
+  const res = {};
+
+  Object.keys(obj).forEach(key => {
+    res[key] = fn(obj[key], key);
+  });
+
+  return res;
+};
+
+const hasValue = (value) => {
+  return value !== null && value !== undefined;
+};
+
 export {
-  preloadImage
-}
+  preloadImage,
+  mapOverObject,
+  hasValue,
+};

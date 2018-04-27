@@ -1,18 +1,28 @@
 <form method="GET" class="filters">
   <div class="filter">
     <h4 class="filter_name">filter name</h4>
-    <ul class="filter-list">
+    <ul class="filter-list with-scrollbar">
       @for($i = 0; $i < 5; $i++)
       <li class="filter-list_item">
-        @component('themes.' . env('THEME_NAME', '') . '.components.checkbox', [
+        @checkbox([
           'id' => 'ch-' . $i,
           'checked' => false,
           'value' => 'Filter value ' . $i
         ])
-        @endcomponent
+        @endcheckbox
       </li>
       @endfor
     </ul>
+  </div>
+  <div class="filter">
+    <h4 class="filter_name">price</h4>
+    @doubleslider([
+      'id' => 'price',
+      'min' => 0,
+      'max' => 75,
+      'range' => 100,
+    ])
+    @enddoubleslider
   </div>
   <button class="btn btn--primary" type="submit">filter</button>
 </form>

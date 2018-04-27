@@ -71,3 +71,49 @@
     text-overflow: ellipsis;
   }
 }
+
+// Select
+.select {
+  display: inline-flex;
+  color: inherit;
+
+  &_field {
+    position: relative;
+
+    &:after {
+      position: absolute;
+      top: 0.75em;
+      right: 0.5em;
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 0.25em solid transparent;
+      border-right: 0.25em solid transparent;
+      border-top: 0.375em solid currentColor;
+      pointer-events: none;
+    }
+  }
+
+  &_input {
+    font-family: inherit;
+    background-color: transparent;
+    width: 100%;
+    padding: 4px 25px 4px 0;
+    font-size: 14px;
+    color: inherit;
+    border: none;
+    border-bottom: 1px solid $border-color;
+    appearance: none;
+
+    &:focus {
+      color: $theme-primary;
+      outline: none;
+      border-bottom-color: $theme-primary;
+    }
+    
+    option {
+      color: $text-primary-on-light;
+    }
+  }
+}
