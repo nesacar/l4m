@@ -43,6 +43,16 @@
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label for="desc">Pomoćni opis</label>
+                                <input type="text" name="desc" class="form-control" id="desc" placeholder="Pomoćni opis" v-model="shopBar.desc">
+                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="order">Redosled</label>
+                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="shopBar.order">
+                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label>Proizvod 1</label>
                                 <select2 :options="products" v-model="prod_id1">
                                     <option value="0" disabled>select one</option>

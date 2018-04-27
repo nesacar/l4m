@@ -11,15 +11,16 @@
 
   <section class="container">
     <h2 class="display-3" style="text-align:center;">Featured Products</h2>
-    @include('themes.' . env('THEME_NAME', '') . '.partials.tab-list', [
+    @include('themes.' . $theme . '.partials.tab-list', [
       'options' => (object)[
         'id' => 'featured'
-      ]
+      ],
+      'bars' => $featuredProducts
     ])
   </section>
 
   <section class="container categorie-container">
-    @include('themes.' . env('THEME_NAME', '') . '.partials.categories', [
+    @include('themes.' . $theme . '.partials.categories', [
       'categories',
       'options' => (object)[ 'big' => true ]
       ])
@@ -27,10 +28,11 @@
 
   <section class="container">
     <h2 class="display-3" style="text-align:center;">Latest Products</h2>
-    @include('themes.' . env('THEME_NAME', '') . '.partials.tab-list', [
+    @include('themes.' . $theme . '.partials.tab-list', [
       'options' => (object)[
         'id' => 'latest'
-      ]
+      ],
+      'bars' => $latestProducts
     ])
   </section>
 

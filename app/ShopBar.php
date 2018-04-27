@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ShopBar extends Model
 {
-    protected $fillable = ['category_id', 'title', 'template', 'order', 'publish'];
+    protected $fillable = ['category_id', 'title', 'desc', 'template', 'order', 'order', 'publish'];
 
     public function sync(){
         $this->product()->sync([]);
@@ -18,6 +18,22 @@ class ShopBar extends Model
                 $this->product()->attach($id, ['order' => ++$index]);
             }
         }
+    }
+
+    public static function getLatest(){
+        return self::with('category')->where('template', 'home')->where('desc', 'Latest')->orderBy('order', 'ASC')->with(['product' => function($query){
+            $query->orderBy('pivot_order', 'ASC');
+        }])->get();
+    }
+
+    public static function getFeatured(){
+        return self::with('category')->where('template', 'home')->where('desc', 'Featured')->orderBy('order', 'ASC')->with(['product' => function($query){
+            $query->orderBy('pivot_order', 'ASC');
+        }])->get();
+    }
+
+    public function setPublishAttribute($value){
+        $this->attributes['publish'] = $value ?: false;
     }
 
     public function category(){
