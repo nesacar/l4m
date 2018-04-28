@@ -6,7 +6,7 @@
 
   <section class="container">
 
-    <h1 class="display-3 shop-title">fashion</h1>
+    <h1 class="display-3 shop-title">{{ $category->title }}</h1>
 
       @component('themes.' . $theme . '.components.shop.header', [
         'img' => 'http://www.joyline-global.com/storefiles/gallery/Homepage%20Banner/cd4cb4fb-52f1-4cc3-a1a7-88a6ae382ca5home%20page%20banner%20new.png',
@@ -25,16 +25,16 @@
           <div class="shop-results_header">
             <div class="shop-results_count">Showing 1-15 of {{ $data['count'] }} results</div>
             @select([ 'name' => 'sort', 'id' => 'sort', 'form' => 'filters' ])
-              <option value="1" selected>Najnovije</option>
-              <option value="2">Cena rastuce</option>
-              <option value="3">Cena opadajuce</option>
+              <option value="1" {{ request('sort') == 1? 'selected' : '' }}>Najnovije</option>
+              <option value="2" {{ request('sort') == 2? 'selected' : '' }}>Cena rastuce</option>
+              <option value="3" {{ request('sort') == 3? 'selected' : '' }}>Cena opadajuce</option>
             @endselect
 
           </div>
 
           @component('themes.' . $theme . '.components.shop.grid', [
             'component' => 'shop.item',
-            'items' => $products,
+            'items' => $results['products'],
             'options' => (object)[ 'shop' => true ]
           ])
           @endcomponent
@@ -43,11 +43,27 @@
       </div>
 
       <nav aria-label="Shop navigation">
-        {{ $products->links() }}
+        {{ $results['products']->links() }}
       </nav>
 
     </div>
 
   </section>
 
+@endsection
+
+@section('scripts')
+  <script>
+    var form =  document.getElementById('filters');
+
+    document.querySelectorAll('input[type=checkbox]').forEach(function(el){
+        el.addEventListener('click', function(){
+            form.submit();
+        });
+    });
+
+    document.getElementById('sort').addEventListener('change', function () {
+        form.submit();
+    });
+  </script>
 @endsection

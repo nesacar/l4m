@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Attribute;
 use App\Block;
 use App\Category;
+use App\Collection;
 use App\Post;
 use App\Product;
+use App\Set;
 use App\ShopBar;
 use App\Theme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -41,14 +44,19 @@ class PagesController extends Controller
     }
 
     public function shopCategory($slug){
+        //return request()->all();
         $category = Category::whereSlug($slug)->first();
-        $products = Product::search($category);
+        return $results = Product::search($category);
         $data = Product::getMaxPrice($category);
+        $properties = Set::first()->property;
 
-        return view('themes.'.$this->theme.'.pages.shop', compact('category', 'products', 'data'));
+        return view('themes.'.$this->theme.'.pages.shop', compact('category', 'data', 'properties', 'results'));
     }
 
     public function proba(){
-        return Product::search();
+
+           return DB::table('attribute_product')
+               ->where('attribute_id', 4)->orWhere('attribute_id', 11)->pluck('product_id');
+
     }
 }

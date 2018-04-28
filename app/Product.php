@@ -3,10 +3,12 @@
 namespace App;
 
 use App\Traits\SearchableTraits;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
+use DB;
 
 class Product extends Model
 {
@@ -17,7 +19,7 @@ class Product extends Model
         'price_outlet', 'views', 'amount', 'color', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
-    protected static $selectable = ['id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
+    protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
     protected static $searchable = ['filters', 'price', 'sort'];
 
@@ -116,14 +118,18 @@ class Product extends Model
     }
 
     public static function getMaxPrice($category=false){
-        $query = self::select('price')->withoutGlobalScopes();
+        $query = self::select('products.price')->withoutGlobalScopes();
         if($category) $query->categoryFilter($category->id);
-        $data = $query->orderBy('price', 'DESC')->get();
+        $data = $query->where('products.publish', 1)->where('products.publish_at', '<=', Carbon::now()->format('Y-m-d H:00'))->groupBy('products.id')->orderBy('products.price', 'DESC')->first();
 
-        $min = request('price') && count(request('price') == 2)? request('price')[0] : 0;
-        $max = request('price') && count(request('price') == 2)? request('price')[1] : $data[0]->price;
+        $min = self::getPass()? request('price')[0] : 0;
+        $max = self::getPass()? request('price')[1] : $data->price;
 
-        return ['count' => count($data), 'range' => $data[0]->price, 'min' => $min, 'max' => $max];
+        return ['count' => count($data), 'range' => $data->price, 'min' => $min, 'max' => $max];
+    }
+
+    public static function getPass(){
+        return request('price') && count(request('price') == 2);
     }
 
     public function brand(){

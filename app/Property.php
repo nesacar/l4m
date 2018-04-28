@@ -27,6 +27,6 @@ class Property extends Model
     }
 
     public function attribute(){
-        return $this->hasMany(Attribute::class);
+        return $this->hasMany(Attribute::class)->orderBy('order', 'ASC');
     }
 }

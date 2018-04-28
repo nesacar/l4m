@@ -14,5 +14,5 @@
     <div class="double-slider_control-knob"></div>
   </div>
 </div>
-<input class="double-slider_output" data-outputs="min" type="hidden" name="{{ $id.'_min' }}" value="{{ $min }}">
-<input class="double-slider_output" data-outputs="max" type="hidden" name="{{ $id.'_max' }}" value="{{ $max }}">
+<input class="double-slider_output" data-outputs="min" type="hidden" name="{{ $id }}[]" value="{{ $min }}">
+<input class="double-slider_output" data-outputs="max" type="hidden" name="{{ $id }}[]" value="{{ $max }}">

@@ -6,19 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>@yield('title')</title>
   <link rel="stylesheet" href="{{ url('themes/' . $theme . '/css/main.css') }}">
+  @yield('styles')
 </head>
 <body>
   @include('themes.' . $theme . '.partials.graphics')
   @include('themes.' . $theme . '.partials.header')
 
   <div class="content">
-
     @yield('content')
-
   </div>
 
   @include('themes.' . $theme . '.partials.footer')
 
   <script src="{{ url('themes/' . $theme . '/js/index.js')}}"></script>
+  @yield('scripts')
 </body>
 </html>

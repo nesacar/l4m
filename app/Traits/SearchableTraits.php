@@ -2,9 +2,11 @@
 
 namespace App\Traits;
 
+use App\Attribute;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use DB;
 
 trait SearchableTraits
 {
@@ -18,7 +20,17 @@ trait SearchableTraits
         }
         if($category){ $products->categoryFilter($category->id); }
 
-        return $products->select(self::$selectable)->published()->paginate(self::$paginate);
+        if(in_array('filters', self::$searchable)){
+            $filteredIds = $products->select('id')->published()->pluck('id');
+            $att_ids = Attribute::select('attributes.id')->join('attribute_product', 'attributes.id', '=', 'attribute_product.attribute_id')
+                ->whereIn('attribute_product.product_id', $filteredIds)->groupBy('attributes.id')->pluck('attributes.id')->toArray();
+
+            return array(
+                'att_ids' => $att_ids,
+                'products' => $products->select(array_merge(self::$selectable, [DB::raw('count(*) as broj')]))->published()->groupBy('products.id')->paginate(self::$paginate),
+            );
+        }
+        return $products->select(self::$selectable)->published()->groupBy('products.id')->paginate(self::$paginate);
     }
 
     public function scopeFilters(Builder $query, $ids){
