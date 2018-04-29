@@ -2,17 +2,17 @@
 
 namespace App;
 
-use App\Traits\SearchableTraits;
+use App\Traits\SearchableProductTraits;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use File;
+//use File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
-use DB;
+//use DB;
 
 class Product extends Model
 {
-    use SearchableTraits;
+    use SearchableProductTraits;
 
     protected $fillable = [
         'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'tmb', 'price',

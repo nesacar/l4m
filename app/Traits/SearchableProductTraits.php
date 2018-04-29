@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
-trait SearchableTraits
+trait SearchableProductTraits
 {
 
     protected static function search($category = false)
