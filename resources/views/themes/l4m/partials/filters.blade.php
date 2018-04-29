@@ -6,7 +6,7 @@
                 @if(count($property->attribute))
                     <ul class="filter-list with-scrollbar">
                         @foreach($property->attribute as $attribute)
-                            @if(in_array($attribute->id, $results['att_ids']))
+                            @if(in_array($attribute->id, $data['attIds']))
                                 <li class="filter-list_item">
                                     @checkbox([
                                       'id' => 'ch-' . $attribute->id,

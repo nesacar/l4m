@@ -21,7 +21,7 @@ class Product extends Model
 
     protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
-    protected static $searchable = ['filters', 'price', 'sort'];
+    protected static $searchable = ['filters', 'price'];
 
     protected static $paginate = 15;
 
@@ -115,21 +115,6 @@ class Product extends Model
             $category->products4;
             return $category;
         });
-    }
-
-    public static function getMaxPrice($category=false){
-        $query = self::select('products.price')->withoutGlobalScopes();
-        if($category) $query->categoryFilter($category->id);
-        $data = $query->where('products.publish', 1)->where('products.publish_at', '<=', Carbon::now()->format('Y-m-d H:00'))->groupBy('products.id')->orderBy('products.price', 'DESC')->first();
-
-        $min = self::getPass()? request('price')[0] : 0;
-        $max = self::getPass()? request('price')[1] : $data->price;
-
-        return ['count' => count($data), 'range' => $data->price, 'min' => $min, 'max' => $max];
-    }
-
-    public static function getPass(){
-        return request('price') && count(request('price') == 2);
     }
 
     public function brand(){

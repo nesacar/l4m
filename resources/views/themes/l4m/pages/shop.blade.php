@@ -34,7 +34,7 @@
 
           @component('themes.' . $theme . '.components.shop.grid', [
             'component' => 'shop.item',
-            'items' => $results['products'],
+            'items' => $data['products'],
             'options' => (object)[ 'shop' => true ]
           ])
           @endcomponent
@@ -43,7 +43,7 @@
       </div>
 
       <nav aria-label="Shop navigation">
-        {{ $results['products']->links() }}
+        {{ $data['products']->links() }}
       </nav>
 
     </div>

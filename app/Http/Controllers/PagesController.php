@@ -18,11 +18,13 @@ class PagesController extends Controller
 {
     protected $theme;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->theme = Theme::getTheme();
     }
 
-    public function index(){
+    public function index()
+    {
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
         $latestProducts = ShopBar::getLatest();
@@ -30,33 +32,37 @@ class PagesController extends Controller
         $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
-        return view('themes.'.$this->theme.'.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
+        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
     }
 
-    public function blog(){
+    public function blog()
+    {
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
         $featuredProducts = ShopBar::getFeatured('blog');
         $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
-        return view('themes.'.$this->theme.'.pages.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
+        return view('themes.' . $this->theme . '.pages.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
     }
 
-    public function shopCategory($slug){
+    public function shopCategory($slug)
+    {
         //return request()->all();
         $category = Category::whereSlug($slug)->first();
-        return $results = Product::search($category);
-        $data = Product::getMaxPrice($category);
+        $data = Product::search($category);
         $properties = Set::first()->property;
 
-        return view('themes.'.$this->theme.'.pages.shop', compact('category', 'data', 'properties', 'results'));
+        return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
     }
 
-    public function proba(){
-
-           return DB::table('attribute_product')
-               ->where('attribute_id', 4)->orWhere('attribute_id', 11)->pluck('product_id');
-
+    public function proba()
+    {
+        $ids = [4,11,13];
+        return Product::withoutGlobalScopes()->whereHas('attribute', function($q) use($ids) {
+            $q->whereIn('attributes.id', $ids)
+                ->groupBy('products.id')
+                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
+        })->get();
     }
 }
