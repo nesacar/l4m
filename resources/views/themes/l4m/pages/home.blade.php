@@ -36,13 +36,13 @@
     ])
   </section>
 
-  {{-- <section class="container">
-    <h2 class="display-3" style="text-align: center;">Discover More</h2>
-    @component('themes.' . env('THEME_NAME', '') . '.components.grid', [
-      'component' => 'blog.tile',
-      'items' => 'TODO Pass blog posts!'
-    ])
-    @endcomponent
-  </section> --}}
+   {{--<section class="container">--}}
+    {{--<h2 class="display-3" style="text-align: center;">Discover More</h2>--}}
+    {{--@component('themes.' . env('THEME_NAME', '') . '.components.grid', [--}}
+      {{--'component' => 'blog.tile',--}}
+      {{--'items' => 'TODO Pass blog posts!'--}}
+    {{--])--}}
+    {{--@endcomponent--}}
+  {{--</section>--}}
 
 @endsection

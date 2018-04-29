@@ -26,13 +26,12 @@ class PagesController extends Controller
     public function index()
     {
         $posts = Post::getLatest();
-        $mostView = Post::getMostView();
         $latestProducts = ShopBar::getLatest();
         $featuredProducts = ShopBar::getFeatured();
         $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
-        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
+        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories'));
     }
 
     public function blog()
@@ -48,7 +47,6 @@ class PagesController extends Controller
 
     public function shopCategory($slug)
     {
-        //return request()->all();
         $category = Category::whereSlug($slug)->first();
         $data = Product::search($category);
         $properties = Set::first()->property;
