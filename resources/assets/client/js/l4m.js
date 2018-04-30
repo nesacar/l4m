@@ -3,20 +3,14 @@ import * as Masthead from './components/masthead';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
 
-import Counter from './components/counter';
-
-window.Counter = Counter;
+import ImageZoomer from './components/image-zoomer';
 
 export function init () {
   LazyImages.init();
   Masthead.init();
   Toolbar.init();
 
-  // Testing Counter
-  const ct = document.getElementById('counter-test');
-  if (ct) {
-    window.counter = new Counter(ct);
-  }
+  ImageZoomer.init();
 
   // Testing Siema
   const el = document.querySelector('.showcase_carousel');

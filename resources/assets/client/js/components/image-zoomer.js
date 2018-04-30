@@ -1,5 +1,10 @@
 class ImageZoomer {
   static init () {
+    const zoomer = document.querySelector('.zoomer');
+
+    if (!zoomer) {
+      return;
+    }
     new ImageZoomer();
   }
 
@@ -13,10 +18,10 @@ class ImageZoomer {
     this._onEnd = this._onEnd.bind(this);
     this._update = this._update.bind(this);
 
-    this.target.onload = () => {
+    this.target.addEventListener('load', () => {
       this.targetBCR = this.target.getBoundingClientRect();
       this.initCanvas();
-    }
+    });
 
     this.x = 0;
     this.y = 0;
@@ -73,6 +78,11 @@ class ImageZoomer {
     const targetX = (this.x - this.targetBCR.left) / this.targetBCR.width;
     const targetY = (this.y - this.targetBCR.top) / this.targetBCR.height;
     const imageScale = 3;
+    
+    // this.ctx.drowImage(this.target,
+    //   0, 0,
+
+    // );
   }
 
   _addEventListeners () {

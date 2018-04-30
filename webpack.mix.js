@@ -24,7 +24,13 @@ mix.sass('resources/assets/sass/app.scss', 'public/css')
   .sass('resources/assets/client/scss/main.scss', 'public/themes/l4m/css')
   .options({
     postCss: [
-      require('postcss-css-variables')()
+      require('autoprefixer')({
+        "browsers": [
+          "> 1%",
+          "last 2 versions",
+          "IE 10"
+        ]
+      })
     ]
   })
   .purgeCss();

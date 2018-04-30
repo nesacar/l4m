@@ -2,11 +2,11 @@
   <div class="container footer">
     <div class="footer_content">
       <div style="text-align: center;">
-        <span class="logo-container">
+        <div class="logo-container">
           <svg class="logo" role="presentation">
             <use xlink:href="#logo">
           </svg>
-        </span>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-4">
