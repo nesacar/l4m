@@ -3,7 +3,6 @@ import * as Masthead from './components/masthead';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
 
-import DoubleSlider from './components/double-slider';
 import Counter from './components/counter';
 
 window.Counter = Counter;

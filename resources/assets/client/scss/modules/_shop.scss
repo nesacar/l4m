@@ -45,7 +45,7 @@
   &_price-tag {
     &::after {
       display: inline;
-      content: "RSD";
+      content: " RSD";
     }
 
     &--invalid {
