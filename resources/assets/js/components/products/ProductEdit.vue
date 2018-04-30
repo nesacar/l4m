@@ -22,12 +22,12 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Gallery images</h5>
+                        <h5>Galerija slika</h5>
                         <hr>
                         <div id="gallery" v-if="photos">
                             <div v-for="photo in photos" class="photo">
                                 <font-awesome-icon icon="times" @click="deletePhoto(photo)" />
-                                <img :src="photo.file_path_small" class="img-thumbnail" alt="product.title">
+                                <img :src="photo.file_path" class="img-thumbnail" alt="product.title">
                             </div>
                         </div>
                     </div>
@@ -180,6 +180,16 @@
 
                     <div class="row">
                         <template v-if="properties.length > 0">
+                            <div class="card col-sm-4" v-if="product.set_id == 1">
+                                <div class="form-group">
+                                    <label>Vodootpornost</label>
+                                    <input type="text" class="form-control" name="water" v-model="product.water">
+                                </div>
+                                <div class="form-group">
+                                    <label>Prečnik sata</label>
+                                    <input type="text" class="form-control" name="diameter" v-model="product.diameter">
+                                </div>
+                            </div>
                             <div class="card col-sm-4" v-for="property in properties">
                                 <div class="form-group">
                                     <label>{{ property.title }}</label>
