@@ -53,6 +53,6 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
-        return Theme::getRandomaArray(8);
+        return Product::with('attribute', 'tag')->find(206);
     }
 }

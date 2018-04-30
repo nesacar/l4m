@@ -12,6 +12,10 @@ require('laravel-mix-purgecss');
  |
  */
 
+mix.options({
+    processCssUrls: false // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
   .js('resources/assets/client/js/index.js', 'public/themes/l4m/js');
 
