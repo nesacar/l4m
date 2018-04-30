@@ -19,6 +19,8 @@ class Product extends Model
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
+    protected $dates = ['publish_at'];
+
     protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
     protected static $searchable = ['filters', 'price'];
@@ -115,6 +117,14 @@ class Product extends Model
             $category->products4;
             return $category;
         });
+    }
+
+    public static function getRelated($product, $category, $limit=6){
+        return $category->product()->where('products.id', '<>', $product->id)->withoutGlobalScope('attribute')->published()->inRandomOrder()->limit($limit)->get();
+    }
+
+    public function getPublishAtAttribute(){
+        return Carbon::parse($this->attributes['publish_at'])->format('d-m-Y H:00');
     }
 
     public function brand(){

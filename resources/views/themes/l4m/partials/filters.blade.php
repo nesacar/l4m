@@ -1,7 +1,8 @@
 <form method="GET" class="filters" id="filters">
-    <div class="filter">
-        @if(count($properties)>0)
-            @foreach($properties as $property)
+
+    @if(count($properties)>0)
+        @foreach($properties as $property)
+            <div class="filter">
                 <h4 class="filter_name">{{ $property->title }}</h4>
                 @if(count($property->attribute))
                     <ul class="filter-list with-scrollbar">
@@ -18,10 +19,11 @@
                             @endif
                         @endforeach
                     </ul>
-                @endif
-            @endforeach
-        @endif
-    </div>
+            </div>
+            @endif
+        @endforeach
+    @endif
+
     <div class="filter">
         <h4 class="filter_name">cena</h4>
         @doubleslider([

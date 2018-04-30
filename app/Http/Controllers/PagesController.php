@@ -45,15 +45,6 @@ class PagesController extends Controller
         return view('themes.' . $this->theme . '.pages.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
     }
 
-    public function shopCategory($slug)
-    {
-        $category = Category::whereSlug($slug)->first();
-        $data = Product::search($category);
-        $properties = Set::first()->property;
-
-        return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
-    }
-
     public function proba()
     {
 //        $ids = [4,11,13];

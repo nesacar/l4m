@@ -15,25 +15,17 @@ class Photo extends Model
         $folderPath = public_path('storage/uploads/galleries/' . $folderName);
         if(!File::exists($folderPath)) {
             File::makeDirectory($folderPath, 0775, true, true);
-            if(!File::exists($folderPath . '/tmb')) {
-                File::makeDirectory($folderPath . '/tmb', 0775, true, true);
-            }
         }
 
         if(isset($image)){
             $imageName = $folderName . '-' .  str_random(4) . '.' . $image->getClientOriginalExtension();
             $imagePath = 'storage/uploads/galleries/'.$folderName.'/'.$imageName;
-            $imagePathTmb = 'storage/uploads/galleries/'.$folderName.'/tmb/'.$imageName;
             $image->move(public_path('storage/uploads/galleries/' . $folderName . '/'), $imageName);
-            File::copy(public_path('storage/uploads/galleries/' . $folderName . '/'. $imageName), public_path('storage/uploads/galleries/' . $folderName . '/tmb/'. $imageName));
-
-            self::cropImage($imagePathTmb, 150);
 
             $photo = new Photo();
             $photo->product_id = $product_id;
             $photo->file_name = $imageName;
             $photo->file_path = $imagePath;
-            $photo->file_path_small = $imagePathTmb;
             $photo->publish = 1;
             $photo->save();
         }
@@ -46,6 +38,10 @@ class Photo extends Model
         \Image::make($image)->resize($width, null, function ($constraint) {
             $constraint->aspectRatio();
         })->save($image);
+    }
+
+    public function getFilePathSmallAttribute(){
+        return \Imagecache::get($this->attributes['file_path'], '63x84')->src;
     }
 
     public function product(){
