@@ -77,12 +77,19 @@ class ImageZoomer {
   _update () {
     const targetX = (this.x - this.targetBCR.left) / this.targetBCR.width;
     const targetY = (this.y - this.targetBCR.top) / this.targetBCR.height;
-    const imageScale = 3;
-    
-    // this.ctx.drowImage(this.target,
-    //   0, 0,
+    const imageScale = 2;
+    const scaledTargetWidth = this.targetBCR.width * imageScale;
+    const scaledTargetHeight = this.targetBCR.height * imageScale;
 
-    // );
+    this.ctx.drawImage(this.target,
+      (-targetX * scaledTargetWidth) / 2, (-targetY * scaledTargetHeight) / 2,
+      scaledTargetWidth, scaledTargetHeight);
+
+    if (!this.trackingTouch) {
+      return;
+    }
+
+    requestAnimationFrame(this._update)
   }
 
   _addEventListeners () {
