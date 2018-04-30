@@ -1,4 +1,4 @@
-<form method="GET" class="filters" id="filters">
+<form method="GET" class="filters filters--loading" id="filters">
   @if(count($properties)>0)
       @foreach($properties as $property)
           <div class="filter">

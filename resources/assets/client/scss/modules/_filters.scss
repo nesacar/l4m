@@ -6,6 +6,16 @@
   }
 }
 
+.filters {
+  &--has-loaded {
+    animation: fade-in .21s;
+  }
+
+  &--loading {
+    opacity: 0;
+  }
+}
+
 .filter {
   margin-bottom: 4 * $base-line;
 

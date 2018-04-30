@@ -1,9 +1,5 @@
 import DoubleSlider from './components/double-slider';
 
-// document.getElementById('sort').addEventListener('change', function () {
-//     form.submit();
-// });
-
 /**
  * Instantiate all the sliders.
  */
@@ -34,7 +30,8 @@ function _removeEmptyFilters (el) {
 }
 
 /**
- * Checks if element has any children.
+ * Convenience funtion that checks if element has
+ * any children.
  * 
  * @param {Element} element - DOM Element to test if it's empty.
  * @return {Boolean}
@@ -44,11 +41,22 @@ function _isEmptyElement (element) {
 }
 
 (function () {
-  const form =  document.getElementById('filters');
-  form.addEventListener('change', function () {
-    this.submit();
-  });
+  /**
+   * Convenience function that submits the form.
+   */
+  function submitForm () {
+    form.submit();
+  }
 
+  const form =  document.getElementById('filters');
+  form.addEventListener('change', submitForm);
+  document.getElementById('sort')
+    addEventListener('change', submitForm);
+  
   _initSliders(form);
   _removeEmptyFilters(form);
+
+  // Prevent content flashes
+  form.classList.remove('filters--loading');
+  form.classList.add('filters--has-loaded');
 }());
