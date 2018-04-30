@@ -9,8 +9,8 @@
     <h1 class="display-3 shop-title">{{ $category->title }}</h1>
 
       @component('themes.' . $theme . '.components.shop.header', [
-        'img' => 'http://www.joyline-global.com/storefiles/gallery/Homepage%20Banner/cd4cb4fb-52f1-4cc3-a1a7-88a6ae382ca5home%20page%20banner%20new.png',
-        'name' => 'Fashion'
+        'img' => $category->image,
+        'name' => $category->title
       ])
       @endcomponent
 
