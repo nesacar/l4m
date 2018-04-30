@@ -19,9 +19,11 @@
     </div>
   </div>
   <div class="col-lg-10 image-box_image">
-    <div class="shop-item_image">
-      <div class="image image--portrait lazy-image" data-src="{{ url($image) }}">
+    <div class="shop-item_image" style="position: relative;">
+      <div class="image image--portrait">
+        <img src="{{ url($image) }}" class="zoomer-target" draggable="false"/>
       </div>
+      <canvas class="zoomer"></canvas>
     </div>
   </div>
 </div>

@@ -1,0 +1,18 @@
+.zoomer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: violet;
+  opacity: .5;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .12s;
+}
+
+.zoomer-target {
+  user-select: none;
+  cursor: zoom-in;
+}
