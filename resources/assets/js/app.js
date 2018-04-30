@@ -28,6 +28,7 @@ Vue.component('font-awesome-icon', require('@fortawesome/vue-fontawesome'));
 Vue.component('upload-pdf-helper', require('./components/helper/UploadPdfHelper.vue'));
 Vue.component('upload-pdf-helper', require('./components/helper/UploadPdfHelper.vue'));
 Vue.component('select2-helper', require('./components/helper/Select2Helper.vue'));
+Vue.component('preview-image', require('./components/helper/PreviewImage.vue'));
 
 
 import { store } from './store/store';
@@ -56,10 +57,11 @@ import faImages from '@fortawesome/fontawesome-free-solid/faImages';
 import faRandom from '@fortawesome/fontawesome-free-solid/faRandom';
 import faThLarge from '@fortawesome/fontawesome-free-solid/faThLarge';
 import faTags from '@fortawesome/fontawesome-free-solid/faTags';
+import faCopy from '@fortawesome/fontawesome-free-solid/faCopy';
 
 fontawesome.library.add(
     faPlus, faEnvelope, faBell, faCommentAlt, faChevronCircleDown, faCogs, faAngleRight, faHome, faUsers, faPaste, faShoppingCart, faAlignJustify, faPencilAlt, faTimes,
-    faLink, faBars, faAmountUp, faImages, faRandom, faThLarge, faTags
+    faLink, faBars, faAmountUp, faImages, faRandom, faThLarge, faTags, faCopy
 );
 
 Vue.use(Auth);

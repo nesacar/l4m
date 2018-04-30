@@ -79,6 +79,8 @@ Route::post('products/search', 'ProductsController@search');
 Route::get('products/lists', 'ProductsController@lists');
 Route::resource('products', 'ProductsController');
 Route::post('products/{id}/image', 'ProductsController@uploadImage');
+Route::post('products/{id}/clone', 'ProductsController@cloneProduct');
+Route::post('products/{id}/code', 'ProductsController@code');
 Route::post('products/{id}/gallery', 'ProductsController@galleryUpdate');
 Route::get('products/{id}/gallery', 'ProductsController@gallery');
 

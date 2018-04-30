@@ -339,9 +339,9 @@
                             timer: 1500
                         });
                     }).catch(e => {
-                    console.log(e);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getPhotos(){
                 axios.get('api/products/' + this.$route.params.id + '/gallery')

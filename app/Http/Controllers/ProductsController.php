@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Attribute;
+use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Photo;
 use App\Product;
 use App\Set;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
 
@@ -27,6 +29,8 @@ class ProductsController extends Controller
         $products = Product::with(['category' => function($query){
             $query->orderBy('parent', 'DESC')->first();
         }])->orderBy('id', 'DESC')->paginate(50);
+
+        $products->map(function($product){ $product->edit = false; return $product; } );
 
         return response()->json([
             'products' => $products
@@ -158,11 +162,19 @@ class ProductsController extends Controller
                 }
             })->groupBy('products.id')->orderBy('products.id', 'DESC')->paginate(50);
 
+        $products->map(function($product){ $product->edit = false; return $product; } );
+
         return response()->json([
             'products' => $products
         ]);
     }
 
+    /**
+     * Get gallery images
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function gallery($id){
         $photos = Product::find($id)->photo;
 
@@ -171,16 +183,70 @@ class ProductsController extends Controller
         ]);
     }
 
+    /**
+     * Update gallery image
+     *
+     * @param $id
+     * @return string
+     */
     public function galleryUpdate($id){
         Photo::saveImage($id, request('file'));
         return 'done';
     }
 
+    /**
+     * Product list
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function lists(){
         $products = Product::select('id', 'code')->where('publish', 1)->orderBy('title', 'ASC')->get();
 
         return response()->json([
             'products' => $products
+        ]);
+    }
+
+    /**
+     * Clone product
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function cloneProduct($id){
+        $product = Product::find($id);
+        $product->load('photo', 'tag');
+        $product->code = "clone-".$product->id;
+        $product->image = null;
+        $product->tmb = null;
+        $product->views = 0;
+        $product->sold = 0;
+        $product->publish_at = Carbon::now();
+        $newProduct = $product->replicate();
+        $newProduct->push();
+
+        $newProduct->edit = false;
+
+        $newProduct->category()->sync($product->category()->pluck('categories.id'));
+        $newProduct->attribute()->sync($product->attribute()->pluck('attributes.id'));
+        $newProduct->tag()->sync($product->tag()->pluck('tags.id'));
+
+        return response()->json([
+            'product' => $newProduct
+        ]);
+    }
+
+    /**
+     * @param ChangeProductCodeRequest $request
+     * @param $id
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function code(ChangeProductCodeRequest $request, $id){
+        $product = Product::find($id);
+        $product->update(['code' => request('code')]);
+
+        return response()->json([
+            'product' => $product
         ]);
     }
 }

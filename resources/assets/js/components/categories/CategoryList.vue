@@ -39,7 +39,7 @@
                             <tr v-for="row in categories">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td v-if="row.parent_category">{{ row.children[0].title }}</td><td v-else>Bez</td>
+                                <td v-if="row.parent_category">{{ row.parent_category.title }}</td><td v-else>Bez</td>
                                 <td>{{ row.publish }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>

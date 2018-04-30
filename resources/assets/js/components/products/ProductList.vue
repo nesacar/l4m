@@ -38,17 +38,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="row in products">
+                            <tr v-for="(row, index) in products">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td>{{ row.code }}</td>
-                                <td><img :src="row.tmb" :alt="row.title"></td>
+                                <td v-if="!row.edit" @click="row.edit = !row.edit" style="cursor: pointer;">{{ row.code }}</td>
+                                <td v-else>
+                                    <div class="form-group">
+                                        <textarea class="form-control" v-model="row.code"></textarea>
+                                        <small class="form-text text-muted text-center" v-if="error != null && error.code">{{ error.code[0] }}</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="btn btn-primary btn-sm" @click="editCode(row)">Izmeni</button>
+                                        <button class="btn btn-link btn-sm btn-small" @click="row.edit = !row.edit">Odustani</button>
+                                    </div>
+                                </td>
+                                <td v-if="row.tmb"><img :src="row.tmb" :alt="row.title"></td> <td v-else><preview-image :product_id="row.id"></preview-image></td>
                                 <td v-if="row.category.length > 0">{{ row.category[0].title }}</td><td v-else>/</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>
                                     <router-link tag="a" :to="'products/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
-                                    <font-awesome-icon icon="times" @click="deleteRow(row)" />
+                                    <font-awesome-icon icon="copy" @click="cloneRow(row)" title="clone" />
+                                    <font-awesome-icon icon="times" @click="deleteRow(row)" title="remove" />
                                 </td>
                             </tr>
                             </tbody>
@@ -70,19 +81,22 @@
     import SearchHelper from '../helper/SearchHelper.vue';
     import swal from 'sweetalert2';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+    import PreviewImage from '../helper/PreviewImage.vue';
 
     export default {
         data(){
             return {
                 products: {},
                 paginate: {},
-                categories: {}
+                categories: {},
+                error: {}
             }
         },
         components: {
             'paginate-helper': PaginateHelper,
             'search-helper': SearchHelper,
-            'font-awesome-icon': FontAwesomeIcon
+            'font-awesome-icon': FontAwesomeIcon,
+            'preview-image': PreviewImage,
         },
         created(){
             this.getProducts();
@@ -151,7 +165,6 @@
                     });
             },
             search(value){
-                console.log(value);
                 axios.post('api/products/search', value)
                     .then(res => {
                         console.log(res.data.products);
@@ -164,7 +177,33 @@
             },
             addRow(){
                 this.$router.push('/products/create');
-            }
+            },
+            cloneRow(row){
+                axios.post('api/products/' + row.id + '/clone')
+                    .then(res => {
+                        let index = this.products.indexOf(row);
+                        this.products.splice(index, 0, res.data.product);
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
+            editCode(row){
+                axios.post('api/products/' + row.id + '/code', {'code': row.code})
+                    .then(res => {
+                        console.log(res);
+                        swal(
+                            'Izmenjeno!',
+                            'Šifra je uspešno izmenjena.',
+                            'success'
+                        );
+                        row.edit = false;
+                    })
+                    .catch(e => {
+                        console.log(e.response.data.errors);
+                        this.error = e.response.data.errors;
+                    });
+            },
         }
     }
 </script>
