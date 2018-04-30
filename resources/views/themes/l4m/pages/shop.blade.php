@@ -56,14 +56,14 @@
   <script>
     var form =  document.getElementById('filters');
 
-    document.querySelectorAll('input[type=checkbox]').forEach(function(el){
-        el.addEventListener('click', function(){
-            form.submit();
-        });
-    });
+    // form.querySelectorAll('input[type=checkbox]').forEach(function(el){
+    //     el.addEventListener('change', function(){
+    //         form.submit();
+    //     });
+    // });
 
-    document.getElementById('sort').addEventListener('change', function () {
-        form.submit();
-    });
+    // document.getElementById('sort').addEventListener('change', function () {
+    //     form.submit();
+    // });
   </script>
 @endsection
