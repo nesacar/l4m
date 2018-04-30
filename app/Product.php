@@ -16,7 +16,7 @@ class Product extends Model
 
     protected $fillable = [
         'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'tmb', 'price',
-        'price_outlet', 'views', 'amount', 'color', 'discount', 'sold', 'publish_at', 'publish'
+        'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
     protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
@@ -53,7 +53,7 @@ class Product extends Model
     }
 
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = $this->attributes['slug']? str_slug($this->attributes['slug']) : str_slug($this->attributes['title']);
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
 
     public function setPublishAttribute($value){

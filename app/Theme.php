@@ -58,4 +58,10 @@ class Theme extends Model
             return $theme = self::where('active', 1)->first()->slug;
         }
     }
+
+    public static function getRandomaArray($limit=8){
+        $numbers = range(5,25);
+        $numbers = array_rand(array_splice($numbers, 1), $limit);
+        return $numbers;
+    }
 }

@@ -56,11 +56,12 @@ class PagesController extends Controller
 
     public function proba()
     {
-        $ids = [4,11,13];
-        return Product::withoutGlobalScopes()->whereHas('attribute', function($q) use($ids) {
-            $q->whereIn('attributes.id', $ids)
-                ->groupBy('products.id')
-                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
-        })->get();
+//        $ids = [4,11,13];
+//        return Product::withoutGlobalScopes()->whereHas('attribute', function($q) use($ids) {
+//            $q->whereIn('attributes.id', $ids)
+//                ->groupBy('products.id')
+//                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
+//        })->get();
+        return Theme::getRandomaArray(8);
     }
 }

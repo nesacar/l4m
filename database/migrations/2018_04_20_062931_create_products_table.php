@@ -32,6 +32,8 @@ class CreateProductsTable extends Migration
             $table->integer('views')->default(0);
             $table->integer('amount')->default(0);
             $table->string('color')->nullable();
+            $table->string('water')->nullable();
+            $table->string('diameter')->nullable();
             $table->boolean('discount')->default(0);
             $table->integer('sold')->default(0);
             $table->boolean('publish')->default(1);
