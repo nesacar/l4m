@@ -6,7 +6,7 @@
 
 <div class="shop-header">
   <div class="image shop-header_image lazy-image"
-    data-src="{{ $img }}"
+    data-src="{{ url($img) }}"
   >
   </div>
   <h2 class="display-2 shop-header_title">{{ $name }}</h2>
