@@ -17,7 +17,7 @@
         "chars_only_latin": true,
         "dateFormat": "d M Y H:i",
         "serverRoot": true,
-        "fileRoot": "l4m/storage/app/public/uploads/media/",
+        "fileRoot": "storage/uploads/media/",
         "relPath": false,
         "logger": false,
         "capabilities": ["select", "download", "rename", "move", "delete", "replace"],
