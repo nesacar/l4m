@@ -2,7 +2,7 @@
     <div>
         <img :src="image" style="width: 63px; height: 84px;" v-if="showImage">
 
-        <label class="labela" v-if="!showImage">
+        <label class="labela2" v-if="!showImage">
             <input type="file" @change="setUpFileUploader" v-if="!showImage">
             <small class="form-text text-muted" v-if="error != null && error.file">{{ error.file[0] }}</small>
         </label>

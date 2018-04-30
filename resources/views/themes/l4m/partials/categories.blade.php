@@ -8,7 +8,7 @@
 
 <div class="{{ $className }}">
   @foreach($categories as $category)
-    <a class="categorie_item with-flare" href="{{ url($category->slug) }}">
+    <a class="categorie_item with-flare" href="{{ url('shop/' . $category->slug) }}">
       <div class="image categorie_image lazy-image"
         data-src="{{ url($category->box_image) }}"
       ></div>

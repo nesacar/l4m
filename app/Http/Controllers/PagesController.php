@@ -53,6 +53,6 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
-        return Product::with('attribute', 'tag')->find(206);
+        return Category::with('parentCategory')->orderBy('order', 'ASC')->paginate(50);
     }
 }
