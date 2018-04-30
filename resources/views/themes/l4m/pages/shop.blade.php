@@ -53,17 +53,5 @@
 @endsection
 
 @section('scripts')
-  <script>
-    var form =  document.getElementById('filters');
-
-    // form.querySelectorAll('input[type=checkbox]').forEach(function(el){
-    //     el.addEventListener('change', function(){
-    //         form.submit();
-    //     });
-    // });
-
-    // document.getElementById('sort').addEventListener('change', function () {
-    //     form.submit();
-    // });
-  </script>
+  <script src="{{ url('themes/' . $theme . '/js/shop.js') }}"></script>
 @endsection

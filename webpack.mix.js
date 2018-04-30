@@ -13,7 +13,8 @@ require('laravel-mix-purgecss');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-  .js('resources/assets/client/js/index.js', 'public/themes/l4m/js');
+  .js('resources/assets/client/js/index.js', 'public/themes/l4m/js')
+  .js('resources/assets/client/js/shop.js', 'public/themes/l4m/js');
 
 mix.sass('resources/assets/sass/app.scss', 'public/css')
   .sass('resources/assets/client/scss/main.scss', 'public/themes/l4m/css')
