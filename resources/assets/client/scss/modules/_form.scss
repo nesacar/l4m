@@ -1,3 +1,6 @@
+$inactive-color_: rgba(0, 0, 0, .54);
+$active-color_: $theme-primary;
+
 .checkbox {
   position: relative;
   display: inline-block;
@@ -23,7 +26,8 @@
     }
 
     &:checked ~ .checkbox_background {
-      background-color: $theme-primary;
+      border-color: $active-color_;
+      background-color: $active-color_;
 
       .checkbox_checkmark {
         opacity: 1;
@@ -33,6 +37,10 @@
         stroke-dashoffset: 0;
       }
     }
+
+    &:hover ~ .checkbox_background {
+      border-color: $active-color_;
+    }
   }
 
   &_background {
@@ -41,8 +49,9 @@
     left: 3px;
     height: 17px;
     width: 17px;
-    border: 1px solid $theme-primary;
+    border: 1px solid $inactive-color_;
     transition: background-color .12s ease-in;
+    border-radius: $border-radius;
   }
 
   &_checkmark {
