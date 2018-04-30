@@ -225,6 +225,8 @@ class ProductsController extends Controller
         $newProduct = $product->replicate();
         $newProduct->push();
 
+        $newProduct->edit = false;
+
         $newProduct->category()->sync($product->category()->pluck('categories.id'));
         $newProduct->attribute()->sync($product->attribute()->pluck('attributes.id'));
         $newProduct->tag()->sync($product->tag()->pluck('tags.id'));
