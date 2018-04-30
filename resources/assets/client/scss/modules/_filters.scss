@@ -1,6 +1,18 @@
 .filters-container {
+  margin-bottom: 2 * $base-line;
+
   @include media-breakpoint-down(md) {
     display: none;
+  }
+}
+
+.filters {
+  &--has-loaded {
+    animation: fade-in .21s;
+  }
+
+  &--loading {
+    opacity: 0;
   }
 }
 
@@ -14,11 +26,11 @@
     font-weight: $font-weight-normal;
     letter-spacing: .18em;
     margin-top: 0;
-    margin-bottom: $base-line;
+    margin-bottom: 2 * $base-line;
   }
 }
 
-$filter-height: 38px;
+$filter-height: 28px;
 
 .filter-list {
   list-style: none;

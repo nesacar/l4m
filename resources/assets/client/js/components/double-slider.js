@@ -113,8 +113,10 @@ class DoubleSlider {
 
     this._eventTarget.classList.remove('double-slider_control--active');
     this._eventTarget = null;
-    cancelAnimationFrame(this._rAF);
 
+    cancelAnimationFrame(this._rAF);
+    
+    this.dispatchEvent();
     this._removeEventListeners();
   }
 
@@ -190,6 +192,14 @@ class DoubleSlider {
 
   denormalize (value) {
     return Math.round(this._state.range * value);
+  }
+
+  dispatchEvent () {
+    let event = new Event("change", {
+      "bubbles":true,
+      "cancelable":false,
+    });
+    this.el.dispatchEvent(event);
   }
 }
 

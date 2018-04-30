@@ -19,12 +19,6 @@ export function init () {
     window.counter = new Counter(ct);
   }
 
-  // Testing DoubleSlider
-  const sl = document.getElementById('price');
-  if (sl) {
-    window.price = new DoubleSlider(sl);
-  }
-
   // Testing Siema
   const el = document.querySelector('.showcase_carousel');
   if (!el) {
