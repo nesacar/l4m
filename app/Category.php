@@ -48,6 +48,10 @@ class Category extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function setPublishAttribute($value){
+        $this->attributes['publish'] = $value?: false;
+    }
+
     public function getPublishAttribute($value){
         return $value? 'Da' : 'Ne';
     }
@@ -74,5 +78,9 @@ class Category extends Model
 
     public function shopBar(){
         return $this->hasMany(ShopBar::class);
+    }
+
+    public function set(){
+        return $this->belongsToMany(Set::class);
     }
 }

@@ -71,6 +71,12 @@
                             <div class="tab-pane fade show active" id="srb" role="tabpanel" aria-labelledby="srb-tab">
                                 <form @submit.prevent="submit()">
                                     <div class="form-group">
+                                        <label>Setovi</label>
+                                        <select2 :options="sets" :multiple="true" :value="category.set_ids" @input="input($event)">
+                                            <option value="0" disabled>izaberi</option>
+                                        </select2>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="title">Naslov</label>
                                         <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="category.title">
                                         <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
@@ -107,6 +113,7 @@
     import Ckeditor from 'vue-ckeditor2';
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
@@ -114,6 +121,7 @@
               category: {},
               error: null,
               lists: {},
+              sets: {},
               config: {
                   toolbar: [
                       [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
@@ -138,17 +146,19 @@
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
             'ckeditor': Ckeditor,
-            'vue-dropzone': vue2Dropzone
+            'vue-dropzone': vue2Dropzone,
+            'select2': Select2,
         },
         created(){
-            this.getCategory();
             this.getList();
+            this.getSets();
         },
         methods: {
             getCategory(){
                 axios.get('api/categories/' + this.$route.params.id)
                     .then(res => {
                         this.category = res.data.category;
+                        this.category.set_ids = res.data.set_ids;
                     })
                     .catch(e => {
                         console.log(e);
@@ -159,6 +169,7 @@
                 axios.put('api/categories/' + this.category.id, this.category)
                     .then(res => {
                         this.category = res.data.category;
+                        this.category.set_ids = res.data.set_ids;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -197,6 +208,23 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
+            },
+            getSets(){
+                axios.get('api/sets/lists')
+                    .then(res => {
+                        this.sets = _.map(res.data.sets, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                        this.getCategory();
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            input(set){
+                this.category.set_ids = set;
             },
         }
     }

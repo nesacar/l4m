@@ -39,9 +39,6 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = Post::create(request()->all());
-        $post->slug = request('slug')?: request('title');
-        $post->publish = request('publish')?: false;
-        $post->update();
 
         if(request('tag_ids')) $post->tag()->sync(request('tag_ids'));
 
@@ -78,9 +75,6 @@ class PostsController extends Controller
     public function update(CreatePostRequest $request, Post $post)
     {
         $post->update(request()->except('image'));
-        $post->slug = request('slug')?: request('title');
-        $post->publish = request('publish')?: false;
-        $post->update();
 
         $post->tag()->sync(request('tag_ids'));
 

@@ -86,6 +86,14 @@ class Post extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function setPublishAttribute($value){
+        $this->attributes['publish'] = $value?: false;
+    }
+
+    public function setPublishAtAttribute($value){
+        $this->attributes['publish_at'] = Carbon::parse($value)->format('Y-m-d H:00:00');
+    }
+
     public function blog(){
         return $this->belongsTo(Blog::class);
     }
