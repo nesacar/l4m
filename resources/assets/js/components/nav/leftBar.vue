@@ -71,18 +71,16 @@
                 <font-awesome-icon icon="tags" />
                 <router-link tag="a" :to="'/tags'">Tagovi</router-link>
             </li>
-            <!--
             <li :class="{ 'active': showNewslettersItemActive }" :style="{ 'display': showNewslettersItem ? 'block' : 'none' }">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowNewslettersItemActive()">Newsletter</a>
                 <font-awesome-icon icon="envelope" />
                 <ul>
                     <li><a href="#">Newsletter review</a></li>
-                    <li><a href="#">Subscriber review</a></li>
+                    <li><router-link tag="a" :to="'/subscribers'">Pretplatnici</router-link></li>
                     <li><a href="#">Banner review</a></li>
                 </ul>
             </li>
-            -->
         </ul>
     </div>
 </template>

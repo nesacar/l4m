@@ -20,5 +20,10 @@
 
   <script src="{{ url('themes/' . $theme . '/js/index.js')}}"></script>
   @yield('scripts')
+  @if(session('message'))
+    <script>
+      Toast.create('{{ session('message')  }}');
+    </script>
+  @endif
 </body>
 </html>

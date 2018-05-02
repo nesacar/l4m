@@ -8,8 +8,10 @@ class Subscriber extends Model
 {
     protected $fillable = ['email', 'name', 'verification', 'block'];
 
-    public function setVerificationAttribute($value){
-        $this->attributes['verification'] = $this->attributes['verification']? $this->attributes['verification'] : str_random(32);
+    public static function createSubscriber(){
+        $array = request()->all();
+        $array['verification'] = str_random(32);
+        Subscriber::create($array);
     }
 
     public function setBlockAttribute($value){
