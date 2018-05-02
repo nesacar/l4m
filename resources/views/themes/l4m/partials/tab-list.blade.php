@@ -6,7 +6,7 @@
 
   @foreach($bars as $index => $items)
   <div class="tab_content" id={{ $options->id . '-content-' . $index }}>
-    @component('themes.' . env('THEME_NAME', '') . '.components.shop.grid', [
+    @component('themes.' . $theme . '.components.shop.grid', [
       'component' => 'shop.item',
       'items' => $items->product,
       'options' => isset($options) ? $options : null,

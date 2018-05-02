@@ -51,7 +51,7 @@ class PagesController extends Controller
         $posts = Post::getLatest($category);
         $mostView = Post::getMostView();
 
-        return view('themes.' . $this->theme . '.pages.blog', compact( 'posts', 'mostView', 'category'));
+        return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category'));
     }
 
     public function proba()
@@ -62,6 +62,5 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
-        return Category::with('parentCategory')->orderBy('order', 'ASC')->paginate(50);
     }
 }

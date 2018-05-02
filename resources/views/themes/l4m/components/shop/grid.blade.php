@@ -11,7 +11,6 @@
 @endphp
 
 <section class="{{ $className }}">
-  {{-- {{dd($items)}} --}}
   @foreach($items as $index => $item)
 
     @component('themes.' . $theme . '.components.' . $component, [

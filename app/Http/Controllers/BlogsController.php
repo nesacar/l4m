@@ -20,7 +20,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::select('id', 'title', 'publish', 'created_at')->orderBy('created_at', 'DESC')->paginate(50);
+        $blogs = Blog::with('parentBlog')->orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'blogs' => $blogs
@@ -110,15 +110,21 @@ class BlogsController extends Controller
     }
 
     /**
-     * Blog lists
+     * List of blogs
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $blogs = Blog::where('publish', 1)->orderBy('title', 'ASC')->pluck('title', 'id')->prepend('Bez kategorije', 0);
+        $parent = request('parent')?: false;
+        $blogs = Blog::where('publish', 1)
+            ->where(function ($query) use ($parent){
+                if($parent){
+                    $query->where('parent', 0);
+                }
+            })->orderBy('created_at', 'DESC')->pluck('title', 'id')->prepend('Bez nad kategorije', 0);
 
         return response()->json([
-            'blogs' => $blogs
+            'blogs' => $blogs,
         ]);
     }
 }

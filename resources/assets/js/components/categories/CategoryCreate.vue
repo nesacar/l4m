@@ -145,7 +145,7 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
-            }
+            },
         }
     }
 </script>

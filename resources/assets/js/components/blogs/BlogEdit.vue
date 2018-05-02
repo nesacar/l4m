@@ -41,6 +41,13 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
+                                <label for="category">Nad kategorija</label>
+                                <select name="category" id="category" class="form-control" v-model="blog.parent">
+                                    <option :value="index" v-for="(parent, index) in lists">{{ parent }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="title">Naslov</label>
                                 <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="blog.title">
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
@@ -81,6 +88,7 @@
           return {
               blog: {},
               error: null,
+              lists: [],
               config: {
                   toolbar: [
                       [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
@@ -101,6 +109,7 @@
         },
         created(){
             this.getCategory();
+            this.getList();
         },
         methods: {
             getCategory(){
@@ -146,7 +155,16 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
-            }
+            },
+            getList(){
+                axios.get('api/blogs/lists?parent=1')
+                    .then(res => {
+                        this.lists = res.data.blogs;
+                    }).catch(e => {
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
+            },
         }
     }
 </script>
