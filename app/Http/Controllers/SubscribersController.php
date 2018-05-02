@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditSubscriberRequest;
 use App\Http\Requests\SubscriberNewsletterRequest;
 use App\Subscriber;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class SubscribersController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('api:auth', ['except' => ['subscribe', 'unsubscribe']]);
+        $this->middleware('auth:api', ['except' => ['subscribe', 'unSubscribe']]);
     }
 
     /**
@@ -20,17 +21,11 @@ class SubscribersController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $subscribers = Subscriber::orderBy('id', 'DESC')->paginate(50);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'subscribers' => $subscribers
+        ]);
     }
 
     /**
@@ -39,9 +34,13 @@ class SubscribersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubscriberNewsletterRequest $request)
     {
-        //
+        Subscriber::createSubscriber();
+
+        return response([
+            'message' => 'Pretplatnik je kreiran.'
+        ]);
     }
 
     /**
@@ -52,18 +51,9 @@ class SubscribersController extends Controller
      */
     public function show(Subscriber $subscriber)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Subscriber  $subscriber
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Subscriber $subscriber)
-    {
-        //
+        return response([
+            'subscriber' => $subscriber
+        ]);
     }
 
     /**
@@ -73,9 +63,13 @@ class SubscribersController extends Controller
      * @param  \App\Subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subscriber $subscriber)
+    public function update(EditSubscriberRequest $request, Subscriber $subscriber)
     {
-        //
+        $subscriber->update(request()->all());
+
+        return response([
+            'subscriber' => $subscriber
+        ]);
     }
 
     /**
@@ -86,12 +80,15 @@ class SubscribersController extends Controller
      */
     public function destroy(Subscriber $subscriber)
     {
-        //
+        $subscriber->delete();
+
+        return response([
+            'message' => 'Pretplatnik je obrisan.'
+        ]);
     }
 
     public function subscribe(SubscriberNewsletterRequest $request){
-        return request()->all();
-        Subscriber::create(request()->all());
+        Subscriber::createSubscriber();
         return back()->with('message', 'Uspešno ste se prijavili na našu Newsletter listu');
     }
 

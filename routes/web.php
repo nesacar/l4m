@@ -109,7 +109,7 @@ Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index'
 Route::get('/', 'PagesController@index');
 
 Route::post('subscribe', 'SubscribersController@subscribe')->name('subscribe');
-Route::post('unsubscribe/{verification}', 'SubscribersController@unSubscribe');
+Route::post('unSubscribe/{verification}', 'SubscribersController@unSubscribe');
 
 
 Route::get('/product', function () {
