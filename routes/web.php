@@ -146,6 +146,11 @@ Route::get('/product', function () {
   return view('themes.l4m.pages.product', compact('title', 'product', 'products'));
 });
 
+Route::get('/blog/{title}', function ($title) {
+  $categorie = (object)['title' => $title];
+  return view('themes.l4m.pages.blog-categorie', compact('categorie'));
+});
+
 Route::get('/admin', function () {
     return view('layouts.admin-app');
 });
