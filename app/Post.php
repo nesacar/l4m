@@ -79,8 +79,7 @@ class Post extends Model
     }
 
     public function getLink(){
-        return url($this->blog->slug . '/' . $this->slug . '/' . $this->id);
-
+        return url('blog/' . $this->blog->slug . '/' . $this->slug . '/' . $this->id);
     }
 
     public function setSlugAttribute($value){

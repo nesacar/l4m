@@ -69,5 +69,6 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
+//
     }
 }
