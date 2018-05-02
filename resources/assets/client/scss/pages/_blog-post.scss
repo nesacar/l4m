@@ -1,0 +1,17 @@
+.blog-post {
+  &_header {
+    text-align: center;
+  }
+
+  &_title {
+    margin-top: 4 * $base-line;
+  }
+
+  &_short-desc {
+    text-align: left;
+  }
+
+  &_gallery {
+    margin-bottom: 2 * $base-line;
+  }
+}

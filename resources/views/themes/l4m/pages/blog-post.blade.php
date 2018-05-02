@@ -4,18 +4,26 @@
 
 @section('content')
 
-  <section class="container">
+  <section class="container" style="padding-top: 32px">
     <div class="split-view">
       <div class="split-view_left-pane">
-        <article>
-          <h1 class="display-2">{{ $post->title }}</h1>
-          <em>{{ $post->short }}</em>
-          <div class="image image--standard lazy-image"
-            data-src={{ url($post->image) }}
-          ></div>
+        <article class="blog-post">
+          <div class="blog-post_header">
+            <small class="blog-post_date">{{ $category->title }} | May 02, 2018</small>
+            <h1 class="display-2 blog-post_title">{{ $post->title }}</h1>
+            <p class="blog-post_short-desc">
+              <em>{{ $post->short }}</em>
+            </p>
+          </div>
+          <div class="blog-post_gallery">
+            <div class="image image--standard lazy-image"
+              data-src={{ url($post->image) }}
+            ></div>
+            {{-- thumbnails go here --}}
+          </div>
           <div>{!! $post->body !!}</div>
         </article>
-        <div>
+        <div style="margin-bottom: 32px;">
           <h2 class="section-title with-lines"><span>you may also like</span></h2>
           @component('themes.' . $theme . '.components.grid',
             [
