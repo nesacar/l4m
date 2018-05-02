@@ -56,7 +56,7 @@ class PagesController extends Controller
     public function blog4($slug1, $slug2, $slug3){
         $category = Blog::whereSlug($slug1)->first();
         $posts = Post::getLatest($category);
-        $post = Post::find($slug3);
+        $post = Post::with('tag')->find($slug3);
 
         return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
     }

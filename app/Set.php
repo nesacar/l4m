@@ -8,6 +8,11 @@ class Set extends Model
 {
     protected $fillable = ['title', 'slug', 'short', 'publish'];
 
+    public static function getProperties($sets){
+        return Property::select('properties.*')->join('property_set', 'properties.id', '=', 'property_set.property_id')
+            ->whereIn('property_set.set_id', $sets->pluck('id'))->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
+    }
+
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($value);
     }

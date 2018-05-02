@@ -30,8 +30,8 @@
                                 <th scope="col">id</th>
                                 <th scope="col">naslov</th>
                                 <th scope="col">nad kategorija</th>
+                                <th scope="col">setovi</th>
                                 <th scope="col">publikovano</th>
-                                <th scope="col">kreirano</th>
                                 <th>akcija</th>
                             </tr>
                             </thead>
@@ -40,8 +40,8 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
                                 <td v-if="row.parent_category">{{ row.parent_category.title }}</td><td v-else>Bez</td>
-                                <td>{{ row.publish }}</td>
-                                <td>{{ row.created_at }}</td>
+                                <td v-if="row.set">[<span v-for="set in row.set">{{ set.title }}</span>]</td>
+                                <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>
                                     <router-link tag="a" :to="'categories/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
@@ -90,7 +90,6 @@
                     .then(res => {
                         this.categories = res.data.categories.data;
                         this.paginate = res.data.categories;
-                        console.log(this.categories);
                     })
                     .catch(e => {
                         console.log(e);
