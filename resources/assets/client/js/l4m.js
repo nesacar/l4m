@@ -6,11 +6,6 @@ import { Toast } from './components/toast';
 
 export function init () {
   window.Toast = Toast;
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 5db80ce5dfacb5f788ada2885fa2df27008e0a8c
   LazyImages.init();
   Masthead.init();
   Toolbar.init();
