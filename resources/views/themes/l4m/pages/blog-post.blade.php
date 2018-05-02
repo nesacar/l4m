@@ -22,6 +22,9 @@
             {{-- thumbnails go here --}}
           </div>
           <div>{!! $post->body !!}</div>
+          <ul><!-- tags go here -->
+            <li>tags</li>
+          </ul><!--- /tags -->
         </article>
         <div style="margin-bottom: 32px;">
           <h2 class="section-title with-lines"><span>you may also like</span></h2>
