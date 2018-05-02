@@ -3,14 +3,10 @@ import * as Masthead from './components/masthead';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
 
-import ImageZoomer from './components/image-zoomer';
-
 export function init () {
   LazyImages.init();
   Masthead.init();
   Toolbar.init();
-
-  ImageZoomer.init();
 
   // Testing Siema
   const el = document.querySelector('.showcase_carousel');
