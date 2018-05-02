@@ -47,11 +47,11 @@ class PagesController extends Controller
     }
 
     public function blog2($slug){
-        $category = Blog::whereSlug($slug)->first();
+        $category = Blog::first();
         $posts = Post::getLatest($category);
         $mostView = Post::getMostView();
 
-        return view('themes.' . $this->theme . '.pages.blog', compact( 'posts', 'mostView', 'category'));
+        return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category'));
     }
 
     public function proba()
