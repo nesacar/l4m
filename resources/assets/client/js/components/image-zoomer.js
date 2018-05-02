@@ -1,13 +1,4 @@
 class ImageZoomer {
-  static init () {
-    const zoomer = document.querySelector('.zoomer');
-
-    if (!zoomer) {
-      return;
-    }
-    new ImageZoomer();
-  }
-
   constructor () {
     this.target = document.querySelector('.zoomer-target');
     this.canvas = document.querySelector('.zoomer');
@@ -19,7 +10,10 @@ class ImageZoomer {
     this._update = this._update.bind(this);
 
     this.target.addEventListener('load', () => {
-      this.targetBCR = this.target.getBoundingClientRect();
+      this.targetBCR = {};
+      this.targetBCR.width = this.target.naturalWidth;
+      this.targetBCR.height = this.target.naturalHeight;
+      this.containerBCR = this.target.getBoundingClientRect();
       this.initCanvas();
     });
 
@@ -31,7 +25,7 @@ class ImageZoomer {
   }
 
   initCanvas () {
-    const { width, height } = this.targetBCR;
+    const { width, height } = this.containerBCR;
     const dPR = window.devicePixelRatio || 1;
 
     this.canvas.width = width * dPR;
@@ -47,7 +41,7 @@ class ImageZoomer {
     if (evt.target !== this.target) {
       return;
     }
-    
+
     this.x = evt.pageX || evt.touches[0].pageX;
     this.y = evt.pageY || evt.touches[0].pageY;
     this.trackingTouch = true;
@@ -75,21 +69,44 @@ class ImageZoomer {
   }
 
   _update () {
-    const targetX = (this.x - this.targetBCR.left) / this.targetBCR.width;
-    const targetY = (this.y - this.targetBCR.top) / this.targetBCR.height;
-    const imageScale = 2;
-    const scaledTargetWidth = this.targetBCR.width * imageScale;
-    const scaledTargetHeight = this.targetBCR.height * imageScale;
+    const imageScale = 1;
+
+    // Image crop dimensions
+    const croppedTargetWidth = this.containerBCR.width / imageScale;
+    const croppedTargetHeight = this.containerBCR.height / imageScale;
+
+    // Get the client's position (mouse x and y) in the container.
+    const clientX = Math.min(
+      Math.max(0, this.x - this.containerBCR.left),
+      this.containerBCR.width);
+    const clientY = Math.min(
+      Math.max(0, this.y - this.containerBCR.top),
+      this.containerBCR.height);
+
+    // Map client position to the source image position.
+    const targetX = clientX * this.targetBCR.width / this.containerBCR.width;
+    const targetY = clientY * this.targetBCR.height / this.containerBCR.height;
+
+    // Source coordinates to crop image from
+    const sX = Math.min(
+      Math.max(0, targetX - (croppedTargetWidth / 2)),
+      this.targetBCR.width - croppedTargetWidth);
+    const sY = Math.min(
+      Math.max(0, targetY - (croppedTargetHeight / 2)),
+      this.targetBCR.height - croppedTargetHeight);
 
     this.ctx.drawImage(this.target,
-      (-targetX * scaledTargetWidth) / 2, (-targetY * scaledTargetHeight) / 2,
-      scaledTargetWidth, scaledTargetHeight);
+      sX, sY,
+      croppedTargetWidth, croppedTargetHeight,
+      0, 0,
+      this.canvas.width, this.canvas.height,
+    );
 
     if (!this.trackingTouch) {
       return;
     }
 
-    requestAnimationFrame(this._update)
+    requestAnimationFrame(this._update);
   }
 
   _addEventListeners () {

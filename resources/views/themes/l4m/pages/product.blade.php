@@ -94,3 +94,7 @@
         </div>
     </section>
 @endsection
+
+@section('scripts')
+  <script src="{{ url('themes/' . $theme . '/js/product.js') }}"></script>
+@endsection
