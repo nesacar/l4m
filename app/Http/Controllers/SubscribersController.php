@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubscriberNewsletterRequest;
 use App\Subscriber;
 use Illuminate\Http\Request;
 
 class SubscribersController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('api:auth', ['except' => ['subscribe', 'unsubscribe']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -81,5 +87,15 @@ class SubscribersController extends Controller
     public function destroy(Subscriber $subscriber)
     {
         //
+    }
+
+    public function subscribe(SubscriberNewsletterRequest $request){
+        return request()->all();
+        Subscriber::create(request()->all());
+        return back()->with('message', 'Uspešno ste se prijavili na našu Newsletter listu');
+    }
+
+    public function unSubscribe($verification){
+
     }
 }

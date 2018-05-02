@@ -103,40 +103,14 @@ function getCarouselData () {
   ];
 }
 
-//Route::get('/', function () {
-//  // tmp data
-//  $title = 'Luxury 4 Me';
-//  $products = getProducts();
-//  $carouselData = getCarouselData();
-//
-//  return view('themes.l4m.pages.home', compact('title', 'products', 'carouselData'));
-//});
-
 // filemanager
 Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
 
 Route::get('/', 'PagesController@index');
-Route::get('blog', 'PagesController@blog');
 
-//Route::get('/blog', function () {
-//  // tmp data
-//  $theme = 'l4m';
-//  $title = 'Luxury 4 Me - Blog';
-//  $items = getItems();
-//  $products = getProducts();
-//  $categories = getCategories();
-//  $carouselData = $slider = getCarouselData();
-//
-//  return view('themes.l4m.pages.blog', compact('title', 'items', 'products', 'categories', 'carouselData', 'theme', 'slider'));
-//});
+Route::post('subscribe', 'SubscribersController@subscribe')->name('subscribe');
+Route::post('unsubscribe/{verification}', 'SubscribersController@unSubscribe');
 
-Route::get('/shop', function () {
-  // tmp data
-  $title = 'Luxury 4 Me - Shop';
-  $products = \App\Product::paginate(20);
-
-  return view('themes.l4m.pages.shop', compact('title', 'products'));
-});
 
 Route::get('/product', function () {
   $title = 'Product';
@@ -159,3 +133,10 @@ Route::get('proba', 'PagesController@proba');
 Route::get('shop/{slug}', 'ShopController@category');
 Route::get('shop/{slug1}/{slug2}', 'ShopController@category2');
 Route::get('shop/{slug1}/{slug2}/{slug3}', 'ShopController@category3');
+Route::get('shop/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@category4');
+
+Route::get('blog', 'PagesController@blog');
+Route::get('blog/{slug1}', 'PagesController@blog');
+Route::get('blog/{slug1}/{slug2}', 'ShopController@blog2');
+Route::get('blog/{slug1}/{slug2}/{slug3}', 'ShopController@blog3');
+Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@blog4');

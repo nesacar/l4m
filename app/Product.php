@@ -62,6 +62,14 @@ class Product extends Model
         $this->attributes['publish'] = $value?: false;
     }
 
+    public function setPublishAtAttribute($value){
+        $this->attributes['publish_at'] = Carbon::parse($value)->format('Y-m-d H:00:00');
+    }
+
+//    public function getPublishAtAttribute(){
+//        return Carbon::parse($this->attributes['publish_at'])->format('Y-m-d');
+//    }
+
     public function getTmbAttribute(){
         return \Imagecache::get($this->attributes['image'], '63x84')->src;
     }
@@ -103,8 +111,8 @@ class Product extends Model
 
     public function getLink(){
         $str = 'shop/';
-        if(count($this->category)>0){
-            foreach ($this->category as $category){
+        if(count($categories = $this->category()->orderBy('parent', 'ASC')->get())>0){
+            foreach ($categories as $category){
                 $str .= $category->slug . '/';
             }
         }
@@ -123,9 +131,9 @@ class Product extends Model
         return $category->product()->where('products.id', '<>', $product->id)->withoutGlobalScope('attribute')->published()->inRandomOrder()->limit($limit)->get();
     }
 
-    public function getPublishAtAttribute(){
-        return Carbon::parse($this->attributes['publish_at'])->format('d-m-Y H:00');
-    }
+//    public function getPublishAtAttribute(){
+//        return Carbon::parse($this->attributes['publish_at'])->format('d-m-Y H:00');
+//    }
 
     public function brand(){
         return $this->belongsTo(Brand::class);

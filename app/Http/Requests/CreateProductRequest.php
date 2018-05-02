@@ -30,6 +30,7 @@ class CreateProductRequest extends FormRequest
             'brand_id' => 'required|numeric|min:1',
             'set_id' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
+            'publish_at' => 'required|date',
         ];
     }
 
@@ -55,6 +56,8 @@ class CreateProductRequest extends FormRequest
             'price.required' => 'Cena je obavezna',
             'price.numeric' => 'Cena je obavezna',
             'price.min' => 'Cena je obavezna',
+            'publish_at.required' => 'Datum publikovanja je obavezan',
+            'publish_at.date' => 'Datum publikovanja  nije u ispravnom formatu',
         ];
     }
 }

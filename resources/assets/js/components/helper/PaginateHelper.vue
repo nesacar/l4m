@@ -65,20 +65,26 @@
             clickLink(index){
                 if(this.paginate.current_page != index){
                     this.$emit('clickLink', index);
+                    //this.updateUrl(index);
                 }
             },
             lastLink(index){
                 let newindex = index + 1;
                 if(newindex <= this.paginate.last_page){
                     this.$emit('clickLink', newindex);
+                    //this.updateUrl(newindex);
                 }
             },
             firstLink(index){
                 let newindex = index - 1;
                 if(newindex >= 1){
                     this.$emit('clickLink', newindex);
+                    //this.updateUrl(newindex);
                 }
-            }
+            },
+            updateUrl(page){
+                history.pushState(null, null, '?page=' + page);
+            },
         }
     }
 </script>

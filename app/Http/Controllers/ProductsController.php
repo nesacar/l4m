@@ -89,8 +89,7 @@ class ProductsController extends Controller
      */
     public function update(CreateProductRequest $request, Product $product)
     {
-        $product->update(request()->except('image'));
-
+        $product->update(request()->all());
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));

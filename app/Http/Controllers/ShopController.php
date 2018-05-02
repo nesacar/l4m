@@ -50,4 +50,20 @@ class ShopController extends Controller
             return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
         }
     }
+
+    public function category4($slug1, $slug2, $slug3, $slug4)
+    {
+        if(is_numeric($slug3)){
+            $product = Product::withoutGlobalScope('attribute')->with('photo')->find($slug4);
+            $category = Category::whereSlug($slug2)->first();
+            $related = Product::getRelated($product, $category, $limit=6);
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
+        }else{
+            $category = Category::whereSlug($slug4)->first();
+            $data = Product::search($category);
+            $properties = Set::first()->property;
+
+            return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
+        }
+    }
 }
