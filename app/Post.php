@@ -64,9 +64,9 @@ class Post extends Model
 
     public static function getLatest($category = false, $limit = 8){
         if($category){
-            return $category->post()->published()->take($limit)->get();
+            return $category->post()->published()->paginate($limit);
         }else{
-            return Post::published()->take($limit)->get();
+            return Post::published()->paginate($limit);
         }
     }
 

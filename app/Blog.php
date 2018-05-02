@@ -46,6 +46,14 @@ class Blog extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function parentBlog() {
+        return $this->hasOne(Blog::class, 'id', 'parent');
+    }
+
+    public function children() {
+        return $this->hasMany(Blog::class, 'parent', 'id');
+    }
+
     public function post(){
         return $this->hasMany(Post::class);
     }

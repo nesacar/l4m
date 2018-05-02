@@ -111,8 +111,8 @@ class Product extends Model
 
     public function getLink(){
         $str = 'shop/';
-        if(count($categories = $this->category()->orderBy('parent', 'ASC')->get())>0){
-            foreach ($categories as $category){
+        if(count($this->category)>0){
+            foreach ($this->category as $category){
                 $str .= $category->slug . '/';
             }
         }

@@ -26,7 +26,8 @@
                             <div class="form-group">
                                 <label for="property">Osobina</label>
                                 <select name="property" id="property" class="form-control" v-model="attribute.property_id">
-                                    <option :value="index" v-for="(set, index) in lists">{{ set }}</option>
+                                    <option value="0">Bez osobine</option>
+                                    <option :value="set.id" v-for="set in lists">{{ set.title }} / {{  set.set[0].title }}</option>
                                 </select>
                                 <small class="form-text text-muted" v-if="error != null && error.property_id">{{ error.property_id[0] }}</small>
                             </div>

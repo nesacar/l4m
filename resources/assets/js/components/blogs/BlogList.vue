@@ -27,6 +27,7 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">naslov</th>
+                                <th scope="col">nad kategorija</th>
                                 <th scope="col">publikovano</th>
                                 <th scope="col">kreirano</th>
                                 <th>akcija</th>
@@ -36,6 +37,7 @@
                             <tr v-for="row in blogs">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
+                                <td v-if="row.parent_blog">{{ row.parent_blog.title }}</td> <td v-else>/</td>
                                 <td>{{ row.publish }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
