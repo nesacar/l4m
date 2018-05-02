@@ -12,16 +12,27 @@ Luxury 4 Me - {{ $category->title}} Blog
 
     <div class="split-view">
       <div class="split-view_left-pane">
-        left pane
-        {{-- @component('themes.' . $theme . '.components.list', [
+        <div style="border-bottom: 1px solid red;">
+          @component('themes.' . $theme . '.components.blog.tile', [
+            'item' => $posts[0],
+            'options' => (object)[
+              'label' => false,
+              'imgRatio' => 'wide',
+            ],
+          ])
+          @endcomponent
+        </div>
+        @component('themes.' . $theme . '.components.list', [
           'component' => 'blog.tile',
           'options' => (object)[
             'horizontal' => true,
             'asymmetric' => true,
+            'label' => false,
           ],
-          'items' => $items,
+          'items' => $posts,
         ])
-        @endcomponent --}}
+        @endcomponent
+        
       </div>
       <div class="split-view_right-pane">
         right pane
