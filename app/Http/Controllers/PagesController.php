@@ -54,6 +54,14 @@ class PagesController extends Controller
         return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category'));
     }
 
+    public function blog4($slug1, $slug2, $slug3){
+        $category = Blog::whereSlug($slug1)->first();
+        $posts = Post::getLatest($category);
+        $post = Post::find($slug3);
+
+        return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
+    }
+
     public function proba()
     {
 //        $ids = [4,11,13];
