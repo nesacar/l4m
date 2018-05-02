@@ -42,7 +42,7 @@
         
       </div>
 
-      <nav aria-label="Shop navigation">
+      <nav class="pagination-container" aria-label="shop navigation">
         {{ $data['products']->links() }}
       </nav>
 

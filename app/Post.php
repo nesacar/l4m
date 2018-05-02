@@ -62,7 +62,7 @@ class Post extends Model
         return Post::where('slider', 1)->published()->take($limit)->get();
     }
 
-    public static function getLatest($category = false, $limit = 8){
+    public static function getLatest($category = false, $limit = 7){
         if($category){
             return $category->post()->published()->paginate($limit);
         }else{

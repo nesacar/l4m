@@ -38,6 +38,10 @@
   }
 }
 
+.with-border {
+  border-bottom: 1px solid $border-color-dark;
+}
+
 .fade-in {
   animation: fade-in .3s;
 }

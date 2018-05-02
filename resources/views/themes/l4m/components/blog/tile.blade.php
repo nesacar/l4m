@@ -35,7 +35,7 @@
       <a class="blog-tile_categorie with-flare" href="{{ url($item->blog->slug) }}">{{ $item->blog->title }}</a>
     </div>
     @endif
-    <h4 class="blog-tile_title"><a href="{{ url($item->blog->slug . '/' . $item->slug . '/' . $item->id) }}">{{ $item->title }}</a></h4>
+    <h4 class="display-4 blog-tile_title"><a href="{{ url($item->blog->slug . '/' . $item->slug . '/' . $item->id) }}">{{ $item->title }}</a></h4>
     <p class="with-trunk">{{ $item->short }}</p>
   </div>
 </div>

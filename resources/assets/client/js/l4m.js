@@ -2,8 +2,11 @@ import LazyImages from './components/lazy-images';
 import * as Masthead from './components/masthead';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
+import { Toast } from './components/toast';
 
 export function init () {
+  window.Toast = Toast;
+  
   LazyImages.init();
   Masthead.init();
   Toolbar.init();

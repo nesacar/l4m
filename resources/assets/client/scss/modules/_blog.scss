@@ -41,7 +41,9 @@
     margin-top: 3 * $base-line;
 
     p {
-      max-height: 3 * 1.5em;
+      line-height: 1.5em;
+      max-height: 4 * 1.5em;
+      min-height: 2 * 1.5rem;
     }
   }
 
@@ -120,4 +122,9 @@
       }
     }
   }
+}
+
+.featured-tile {
+  padding-bottom: 2 * $base-line;
+  border-bottom: 1px solid $border-color-dark;
 }

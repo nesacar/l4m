@@ -84,8 +84,8 @@
         @endcomponent
       </div>
       
-      <div class="split-view_right-pane">
-        <div>
+      <aside class="split-view_right-pane">
+        <div class="with-border">
           <h4 class="side-content-title">most viewed posts</h4>
           @component('themes.' . $theme . '.components.list', [
             'component' => 'blog.list-item',
@@ -95,8 +95,10 @@
           @endcomponent
         </div>
         @include('themes.' . $theme . '.partials.newsletter')
-        @social()
-      </div>
+        <div class="social-container">
+          @social()
+        </div>
+      </aside>
     
     </div>
 
