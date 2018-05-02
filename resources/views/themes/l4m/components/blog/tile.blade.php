@@ -3,6 +3,7 @@
   $isHorizontal = false;
   $isAsymmetric = false;
   $withLabel = true;
+  $withLink = false;
   $imgRatio = 'standard';
 
   if (isset($_index)) {
@@ -13,6 +14,7 @@
     $isHorizontal = isset($options->horizontal) ? $options->horizontal : false;
     $isAsymmetric = isset($options->asymmetric) ? $options->asymmetric : false;
     $withLabel = isset($options->label) ? $options->label : true;
+    $withLink = isset($options->link) ? $options->link : false;
     $imgRatio = isset($options->imgRatio) ? $options->imgRatio : 'standard';
   }
 
@@ -37,5 +39,8 @@
     @endif
     <h4 class="display-4 blog-tile_title"><a href="{{ url($item->blog->slug . '/' . $item->slug . '/' . $item->id) }}">{{ $item->title }}</a></h4>
     <p class="with-trunk">{{ $item->short }}</p>
+    @if($withLink)
+    <a href="{{ $item->getLink() }}" class="blog-tile_link">continue reading</a>
+    @endif
   </div>
 </div>

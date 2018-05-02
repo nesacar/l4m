@@ -38,12 +38,30 @@
   flex-direction: column;
 
   &_content {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
     margin-top: 3 * $base-line;
 
     p {
       line-height: 1.5em;
       max-height: 4 * 1.5em;
       min-height: 2 * 1.5rem;
+    }
+
+  }
+
+  &_link {
+    margin-top: auto;
+    align-self: flex-start;
+    text-transform: uppercase;
+    color: $theme-secondary;
+
+    &:hover,
+    &:focus {
+      color: $theme-secondary;
+      text-decoration: underline;
     }
   }
 

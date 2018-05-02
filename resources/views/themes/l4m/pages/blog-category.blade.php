@@ -28,6 +28,7 @@ Luxury 4 Me - {{ $category->title}} Blog
             'horizontal' => true,
             'asymmetric' => true,
             'label' => false,
+            'link' => true,
           ],
           'items' => $posts->slice(1),
         ])
