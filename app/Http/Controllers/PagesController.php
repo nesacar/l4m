@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\Block;
+use App\Blog;
 use App\Category;
 use App\Collection;
 use App\Post;
@@ -43,6 +44,14 @@ class PagesController extends Controller
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
 
         return view('themes.' . $this->theme . '.pages.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
+    }
+
+    public function blog2($slug){
+        $category = Blog::whereSlug($slug)->first();
+        $posts = Post::getLatest($category);
+        $mostView = Post::getMostView();
+
+        return view('themes.' . $this->theme . '.pages.blog', compact( 'posts', 'mostView', 'category'));
     }
 
     public function proba()

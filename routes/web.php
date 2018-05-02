@@ -141,7 +141,7 @@ Route::get('shop/{slug1}/{slug2}/{slug3}', 'ShopController@category3');
 Route::get('shop/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@category4');
 
 Route::get('blog', 'PagesController@blog');
-Route::get('blog/{slug1}', 'PagesController@blog');
-Route::get('blog/{slug1}/{slug2}', 'ShopController@blog2');
-Route::get('blog/{slug1}/{slug2}/{slug3}', 'ShopController@blog3');
-Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@blog4');
+Route::get('blog/{slug1}', 'PagesController@blog2');
+Route::get('blog/{slug1}/{slug2}', 'ShopController@blog3');
+Route::get('blog/{slug1}/{slug2}/{slug3}', 'ShopController@blog4');
+Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@blog5');

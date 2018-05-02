@@ -62,8 +62,12 @@ class Post extends Model
         return Post::where('slider', 1)->published()->take($limit)->get();
     }
 
-    public static function getLatest($limit = 8){
-        return Post::published()->take($limit)->get();
+    public static function getLatest($category = false, $limit = 8){
+        if($category){
+            return $category->post()->published()->take($limit)->get();
+        }else{
+            return Post::published()->take($limit)->get();
+        }
     }
 
     public static function getMostView($limit = 4){
