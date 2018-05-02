@@ -1,13 +1,13 @@
 @extends('themes.' . $theme . '.index')
 
 @section('title')
-Luxury 4 Me - {{ $categorie->title}} Blog
+Luxury 4 Me - {{ $category->title}} Blog
 @endsection
 
 @section('content')
   <section class="container">
     <h1 class="section-title with-lines">
-      <span>{{ $categorie->title }}</span>
+      <span>{{ $category->title }}</span>
     </h1>
 
     <div class="split-view">
