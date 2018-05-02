@@ -36,9 +36,6 @@ class CategoriesController extends Controller
     public function store(CreateCategoryRequest $request)
     {
         $category = Category::create(request()->all());
-        $category->slug = request('slug')?: request('title');
-        $category->publish = request('publish')?: false;
-        $category->update();
 
         if(request('image')){ Category::base64UploadImage($category->id, request('image')); }
 
@@ -55,8 +52,11 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
+        $setIds = $category->set->pluck('id');
+
         return response()->json([
-            'category' => $category
+            'category' => $category,
+            'set_ids' => $setIds,
         ]);
     }
 
@@ -70,12 +70,14 @@ class CategoriesController extends Controller
     public function update(CreateCategoryRequest $request, Category $category)
     {
         $category->update(request()->except('image'));
-        $category->slug = request('slug')?: request('title');
-        $category->publish = request('publish')?: false;
-        $category->update();
+
+        $category->set()->sync(request('set_ids'));
+
+        $setIds = $category->set->pluck('id');
 
         return response()->json([
-            'category' => $category
+            'category' => $category,
+            'set_ids' => $setIds,
         ]);
     }
 
