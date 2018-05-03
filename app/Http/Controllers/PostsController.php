@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Gallery;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Post;
@@ -145,5 +146,30 @@ class PostsController extends Controller
         return response()->json([
             'posts' => $posts,
         ]);
+    }
+
+    /**
+     * Get gallery images
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function gallery($id){
+        $photos = Post::find($id)->gallery;
+
+        return response()->json([
+            'photos' => $photos
+        ]);
+    }
+
+    /**
+     * Update gallery image
+     *
+     * @param $id
+     * @return string
+     */
+    public function galleryUpdate($id){
+        Gallery::saveImage($id, request('file'));
+        return 'done';
     }
 }

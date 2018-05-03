@@ -217,7 +217,6 @@ class ProductsController extends Controller
         $product->load('photo', 'tag');
         $product->code = "clone-".$product->id;
         $product->image = null;
-        $product->tmb = null;
         $product->views = 0;
         $product->sold = 0;
         $product->publish_at = Carbon::now();

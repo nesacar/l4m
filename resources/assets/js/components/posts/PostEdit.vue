@@ -20,20 +20,18 @@
                     </div>
                 </div>
 
-                <!--
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Gallery images</h5>
                         <hr>
-                        <div id="gallery" v-if="photos">
-                            <div v-for="photo in photos" class="photo">
+                        <div id="gallery" v-if="gallery">
+                            <div v-for="photo in gallery" class="photo">
                                 <font-awesome-icon icon="times" @click="deletePhoto(photo)" />
-                                <img :src="photo.file_path_small" class="img-thumbnail" alt="post.title">
+                                <img :src="photo.tmb" class="img-thumbnail" alt="post.title">
                             </div>
                         </div>
                     </div>
                 </div>
-                -->
 
                 <div class="col-md-4">
                     <div class="card">
@@ -80,11 +78,11 @@
                         ></upload-image-helper>
 
                     </div><!-- .card -->
-                    <!--
+
                     <div class="card">
                         <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="showSuccess()"></vue-dropzone>
                     </div>
-                    -->
+
                 </div>
                 <div class="col-md-8">
                     <div class="card">
@@ -153,7 +151,7 @@
               },
               error: null,
               lists: {},
-              photos: {},
+              gallery: {},
               tags: {},
               config: {
                   toolbar: [
@@ -197,6 +195,7 @@
             this.getPost();
             this.getList();
             this.getTags();
+            this.getGallery();
         },
         methods: {
             getPost(){
@@ -256,21 +255,20 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getPhotos(){
+            getGallery(){
                 axios.get('api/posts/' + this.$route.params.id + '/gallery')
                     .then(res => {
-                        console.log(res);
-                        this.photos = res.data.photos;
+                        this.gallery = res.data.photos;
+                        console.log(this.gallery);
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
             deletePhoto(photo){
-                axios.post('api/photos/' + photo.id + '/destroy')
+                axios.post('api/galleries/' + photo.id + '/destroy')
                     .then(res => {
-                        console.log(res);
-                        this.photos = this.photos.filter(function (item) {
+                        this.gallery = this.gallery.filter(function (item) {
                             return photo.id != item.id;
                         });
                     }).catch(e => {
@@ -279,7 +277,7 @@
                     });
             },
             showSuccess(){
-                this.getPhotos();
+                this.getGallery();
             },
             getTags(){
                 axios.get('api/tags/lists')

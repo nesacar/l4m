@@ -15,13 +15,13 @@ class Product extends Model
     use SearchableProductTraits;
 
     protected $fillable = [
-        'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'tmb', 'price',
+        'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
     protected $dates = ['publish_at'];
 
-    protected $appends = ['date', 'time', 'link'];
+    protected $appends = ['date', 'time', 'link', 'tmb'];
 
     protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 

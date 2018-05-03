@@ -46,9 +46,19 @@
                                 <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="category.short"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
+                                <label for="seoTitle">Seo naslov</label>
+                                <input type="text" name="short" id="seoTitle" class="form-control" placeholder="Seo naslov" v-model="category.seoTitle">
+                                <small class="form-text text-muted" v-if="error != null && error.seoTitle">{{ error.seoTitle[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="seoKeywords">Seo ključne reči</label>
+                                <input type="text" name="seoKeywords" id="seoKeywords" class="form-control" placeholder="Seo ključne reči" v-model="category.seoKeywords">
+                                <small class="form-text text-muted" v-if="error != null && error.seoKeywords">{{ error.seoKeywords[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="short">Seo opis</label>
+                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Seo opis" v-model="category.seoShort"></textarea>
+                                <small class="form-text text-muted" v-if="error != null && error.seoShort">{{ error.seoShort[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label>Publikovano</label><br>

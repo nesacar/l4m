@@ -7,7 +7,7 @@ use File;
 
 class Category extends Model
 {
-    protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'box_image', 'publish'];
+    protected $fillable = ['title', 'slug', 'seoTitle', 'seoKeywords', 'seoShort', 'order', 'parent', 'level', 'image', 'box_image', 'publish'];
 
     public static function base64UploadImage($category_id, $image){
         $category = self::find($category_id);
@@ -38,6 +38,16 @@ class Category extends Model
             return $r[0];
         }
         return '';
+    }
+
+    public function getLink(){
+        $str = 'shop/' . $this->slug . '/';
+        if(count($this->children)>0){
+            foreach ($this->children as $category){
+                $str .= $category->slug . '/';
+            }
+        }
+        return url($str);
     }
 
     public static function getFooterCategories(){

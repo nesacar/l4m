@@ -119,4 +119,8 @@ class Post extends Model
     public function tag(){
         return $this->belongsToMany(Tag::class);
     }
+
+    public function gallery(){
+        return $this->hasMany(Gallery::class);
+    }
 }

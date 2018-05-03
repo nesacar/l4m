@@ -90,7 +90,6 @@
                     .then(res => {
                         this.categories = res.data.categories.data;
                         this.paginate = res.data.categories;
-                        console.log(this.categories);
                     })
                     .catch(e => {
                         console.log(e);
