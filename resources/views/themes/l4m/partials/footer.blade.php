@@ -41,7 +41,7 @@
             <div class="contact-cell">
               <div class="contact-icon">
                 <svg class="icon">
-                  <use xlink:href="#location">
+                  <use xlink:href="#icon_location">
                 </svg>
               </div>
               <div>LUXURY4.ME, Luxury concept store</div>
@@ -50,7 +50,7 @@
             <div class="contact-cell">
               <div class="contact-icon">
                 <svg class="icon">
-                  <use xlink:href="#mail">
+                  <use xlink:href="#icon_mail">
                 </svg>
               </div>
               <div><a href="mailto:luxury@luxury4.me">luxury@luxury4.me</a></div>
@@ -59,7 +59,7 @@
             <div class="contact-cell">
               <div class="contact-icon">
                 <svg class="icon">
-                  <use xlink:href="#phone">
+                  <use xlink:href="#icon_phone">
                 </svg>
               </div>
               <div><a href="tel:+381111234567">(+381) 11 123 4567</a></div>

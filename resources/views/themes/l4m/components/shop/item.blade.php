@@ -3,12 +3,12 @@
   <div class="shop-item_actions">
     <button tabindex="-1" class="icon-btn shop-item_action-btn" title="add to favorites">
       <svg class="icon">
-        <use xlink:href="#star-border">
+        <use xlink:href="#icon_star-border">
       </svg>
     </button>
     <button tabindex="-1" class="icon-btn shop-item_action-btn" title="add to cart">
       <svg class="icon">
-        <use xlink:href="#plus">
+        <use xlink:href="#icon_plus">
       </svg>
     </button>
   </div>
