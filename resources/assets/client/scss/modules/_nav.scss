@@ -1,10 +1,6 @@
 .nav {
-  display: none;
+  display: flex;
   justify-content: center;
-
-  @include media-breakpoint-up(md) {
-    display: flex;
-  }
 
   &_link {
     position: relative;
