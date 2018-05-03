@@ -19,6 +19,21 @@
   position: relative;
   margin-bottom: 4 * $base-line;
 
+  &:focus {
+    .shop-item_image {
+      outline: 3px solid lighten($theme-primary, 46%);
+    }
+    .shop-item_actions {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .shop-item_actions {
+      opacity: 1;
+    }
+  }
+
   &_image {
     overflow: hidden;
     border: 1px solid $border-color-dark;
@@ -52,6 +67,30 @@
       color: $text-secondary-on-light;
       text-decoration: line-through;
       margin-right: $base-line;
+    }
+  }
+
+  &_actions {
+    display: block;
+    position: absolute;
+    top: 2 * $base-line;
+    left: 2 * $base-line;
+    width: 32px;
+    height: 32px;
+    z-index: 1;
+    opacity: 1;
+
+    @include media-breakpoint-up(md) {
+      opacity: 0;
+    }
+  }
+
+  &_action-btn {
+    margin-bottom: 2 * $base-line;
+    color: $text-secondary-on-light;
+
+    &:hover {
+      color: $text-primary-on-light;
     }
   }
 

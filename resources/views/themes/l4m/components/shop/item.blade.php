@@ -1,5 +1,17 @@
 
 <a href="{{ $product->getLink() }}" class="shop-item no-link">
+  <div class="shop-item_actions">
+    <button class="icon-btn shop-item_action-btn">
+      <svg class="icon">
+        <use xlink:href="#star-border">
+      </svg>
+    </button>
+    <button class="icon-btn shop-item_action-btn">
+      <svg class="icon">
+        <use xlink:href="#plus">
+      </svg>
+    </button>
+  </div>
   @if($product->discount)
     <span class="shop-item_discount-tag">{{ $product->discount }}</span>
   @endif

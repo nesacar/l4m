@@ -18,6 +18,9 @@
   <symbol id="star" viewBox="0 0 1024 1024">
     <path d="M512,736.9L775.7,896l-70-299.9l233-201.8l-306.8-26L512,85.3L392.1,368.2l-306.8,26l233,201.8l-70,299.9L512,736.9z"/>
   </symbol>
+  <symbol id="plus" viewBox="0 0 1024 1024">
+    <path d="M810.6,554.9h-256v256h-85.3v-256h-256v-85.3h256v-256h85.3v256h256V554.9z"/>
+  </symbol>
   <!-- social icons -->
   <symbol id="icon_facebook" viewBox="0 0 1024 1024">
       <title>facebook</title>

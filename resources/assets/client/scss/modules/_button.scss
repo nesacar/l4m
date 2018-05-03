@@ -63,3 +63,17 @@
     }
   }
 }
+
+.icon-btn {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  .icon-btn:disabled {
+    opacity: .38;
+  }
+}
