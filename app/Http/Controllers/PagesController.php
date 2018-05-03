@@ -73,7 +73,7 @@ class PagesController extends Controller
         $category = Blog::whereSlug($slug1)->first();
         $posts = Post::getLatest($category);
         $post = Post::with(['tag', 'gallery'])->find($slug3);
-        $post->incremant('views');
+        $post->increment('views');
         Seo::blogPost($post);
         return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
     }
@@ -83,7 +83,7 @@ class PagesController extends Controller
             $category = Blog::whereSlug($slug1)->first();
             $posts = Post::getLatest($category);
             $post = Post::with(['tag', 'gallery'])->find($slug3);
-            $post->incremant('views');
+            $post->increment('views');
             Seo::blogPost($post);
             return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
         }else{
