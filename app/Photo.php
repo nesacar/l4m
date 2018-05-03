@@ -7,7 +7,9 @@ use File;
 
 class Photo extends Model
 {
-    protected $fillable = ['product_id', 'file_name', 'file_path', 'file_path_small', 'publish'];
+    protected $fillable = ['product_id', 'file_name', 'file_path', 'publish'];
+
+    protected $appends = ['tmb'];
 
     public static function saveImage($product_id, $image){
         $product = Product::find($product_id);
@@ -40,7 +42,7 @@ class Photo extends Model
         })->save($image);
     }
 
-    public function getFilePathSmallAttribute(){
+    public function getTmbAttribute(){
         return \Imagecache::get($this->attributes['file_path'], '63x84')->src;
     }
 

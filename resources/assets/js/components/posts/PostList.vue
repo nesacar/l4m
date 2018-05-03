@@ -39,10 +39,11 @@
                             <tr v-for="row in posts">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td>{{ row.blog }}</td>
+                                <td v-if="row.blog">{{ row.blog.title }}</td> <td v-else>/</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>
+                                    <font-awesome-icon icon="eye" @click="previewRow(row)" />
                                     <router-link tag="a" :to="'posts/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
@@ -158,7 +159,10 @@
             },
             addRow(){
                 this.$router.push('/posts/create');
-            }
+            },
+            previewRow(row){
+                window.open(row.link, '_blank');
+            },
         }
     }
 </script>

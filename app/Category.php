@@ -52,10 +52,6 @@ class Category extends Model
         $this->attributes['publish'] = $value?: false;
     }
 
-    public function getPublishAttribute($value){
-        return $value? 'Da' : 'Ne';
-    }
-
     public static function tree() {
         return static::with(implode('.', array_fill(0, 1, 'children')))->where('parent', 0)->get();
     }

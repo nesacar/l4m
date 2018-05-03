@@ -7,6 +7,7 @@ use App\Block;
 use App\Blog;
 use App\Category;
 use App\Collection;
+use App\Page;
 use App\Post;
 use App\Product;
 use App\Set;
@@ -26,6 +27,7 @@ class PagesController extends Controller
 
     public function index()
     {
+        Page::home();
         $posts = Post::getLatest();
         $latestProducts = ShopBar::getLatest();
         $featuredProducts = ShopBar::getFeatured();
@@ -56,7 +58,7 @@ class PagesController extends Controller
     public function blog4($slug1, $slug2, $slug3){
         $category = Blog::whereSlug($slug1)->first();
         $posts = Post::getLatest($category);
-        $post = Post::find($slug3);
+        $post = Post::with('tag')->find($slug3);
 
         return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
     }
@@ -69,6 +71,8 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
-//
+        return $products = Product::with(['category' => function($query){
+            $query->orderBy('parent', 'DESC')->first();
+        }])->orderBy('id', 'DESC')->paginate(50);
     }
 }

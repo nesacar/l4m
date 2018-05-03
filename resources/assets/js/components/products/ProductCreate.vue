@@ -227,7 +227,7 @@
                 return this.$store.getters.getUser;
             },
             publish_at(){
-                return this.product.date + ' ' + this.product.time + ':00'
+                return this.product.date + ' ' + this.product.time
             }
         },
         components: {

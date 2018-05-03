@@ -11,6 +11,8 @@ class Post extends Model
 {
     protected $fillable = ['user_id', 'blog_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
 
+    protected $appends = ['date', 'time', 'link'];
+
     /**
      * The "booting" method of the model.
      *
@@ -79,7 +81,11 @@ class Post extends Model
     }
 
     public function getLink(){
-        return url('blog/' . $this->blog->slug . '/' . $this->slug . '/' . $this->id);
+        if($this->blog){
+            return url('blog/' . $this->blog->slug . '/' . $this->slug . '/' . $this->id);
+        }else{
+            return '#';
+        }
     }
 
     public function setSlugAttribute($value){
@@ -92,6 +98,18 @@ class Post extends Model
 
     public function setPublishAtAttribute($value){
         $this->attributes['publish_at'] = Carbon::parse($value)->format('Y-m-d H:00:00');
+    }
+
+    public function getDateAttribute(){
+        return Carbon::parse($this->attributes['publish_at'])->format('Y-m-d');
+    }
+
+    public function getTimeAttribute(){
+        return Carbon::parse($this->attributes['publish_at'])->format('H:00:00');
+    }
+
+    public function getLinkAttribute(){
+        return $this->getLink();
     }
 
     public function blog(){

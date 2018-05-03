@@ -19,16 +19,16 @@ class ShopController extends Controller
 
     public function category($slug)
     {
-        $category = Category::whereSlug($slug)->first();
+        $category = Category::with('set')->whereSlug($slug)->first();
         $data = Product::search($category);
-        $properties = Set::first()->property;
+        $properties = Set::getProperties($category->set);
 
         return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
     }
 
     public function category2($slug1, $slug2)
     {
-        $category = Category::whereSlug($slug2)->first();
+        $category = Category::with('set')->whereSlug($slug2)->first();
         $data = Product::search($category);
         $properties = Set::first()->property;
 
@@ -43,9 +43,9 @@ class ShopController extends Controller
             $related = Product::getRelated($product, $category, $limit=6);
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
         }else{
-            $category = Category::whereSlug($slug3)->first();
+            $category = Category::with('set')->whereSlug($slug3)->first();
             $data = Product::search($category);
-            $properties = Set::first()->property;
+            $properties = Set::getProperties($category->set);
 
             return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
         }
@@ -59,9 +59,9 @@ class ShopController extends Controller
             $related = Product::getRelated($product, $category, $limit=6);
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
         }else{
-            $category = Category::whereSlug($slug4)->first();
+            $category = Category::with('set')->whereSlug($slug4)->first();
             $data = Product::search($category);
-            $properties = Set::first()->property;
+            $properties = Set::getProperties($category->set);
 
             return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
         }

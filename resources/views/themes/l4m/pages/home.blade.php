@@ -1,6 +1,8 @@
 @extends('themes.' .  $theme .'.index')
 
-@section('title') Luxury 4 Me @endsection
+@section('seo')
+  {!! SEO::generate() !!}
+@endsection
 
 @section('content')
 

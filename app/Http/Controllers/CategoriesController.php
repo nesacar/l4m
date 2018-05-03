@@ -20,7 +20,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('parentCategory')->orderBy('order', 'ASC')->paginate(50);
+        $categories = Category::with('parentCategory')->with('set')->orderBy('order', 'ASC')->paginate(50);
 
         return response()->json([
             'categories' => $categories

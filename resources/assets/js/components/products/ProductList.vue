@@ -57,6 +57,7 @@
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>
+                                    <font-awesome-icon icon="eye" @click="previewRow(row)" title="preview" />
                                     <router-link tag="a" :to="'products/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="copy" @click="cloneRow(row)" title="clone" />
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" title="remove" />
@@ -203,6 +204,9 @@
                         console.log(e.response.data.errors);
                         this.error = e.response.data.errors;
                     });
+            },
+            previewRow(row){
+                window.open(row.link, '_blank');
             },
         }
     }

@@ -22,9 +22,13 @@
             {{-- thumbnails go here --}}
           </div>
           <div class="blog-post_body">{!! $post->body !!}</div>
-          <ul><!-- tags go here -->
-            <li>tags</li>
+          @if(count($post->tag)>0)
+          <ul>
+            @foreach($post->tag as $tag)
+              <li><a href="{{ url('tagovi/'.$tag->slug) }}">{{ $tag->title }}</a></li>
+            @endforeach
           </ul><!--- /tags -->
+          @endif
         </article>
         <div style="margin-bottom: 32px;">
           <h2 class="section-title with-lines"><span>you may also like</span></h2>

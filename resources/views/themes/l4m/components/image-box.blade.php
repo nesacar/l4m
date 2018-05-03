@@ -11,7 +11,7 @@
       <div class="image-box_thumbnail">
         <div class="image image--portrait">
           @foreach ($photos as $photo)
-            <img src="{{ url($photo->file_path_small) }}" alt="{{ $title }}">
+            <img src="{{ url($photo->tmb) }}" alt="{{ $title }}">
           @endforeach
         </div>
       </div>

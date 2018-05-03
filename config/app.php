@@ -165,6 +165,7 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
         Devfactory\Imagecache\ImagecacheServiceProvider::class,
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -228,6 +229,7 @@ return [
         'HTML' => Illuminate\Html\HtmlFacade::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Imagecache' => Devfactory\Imagecache\Facades\ImagecacheFacade::class,
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
 
 ];
