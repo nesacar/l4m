@@ -3,6 +3,10 @@ class Toolbar {
     return 'sticky';
   }
 
+  static get THRESHOLD () {
+    return 92;
+  }
+
   static init () {
     if (this._instance) {
       this._instance._disconnect();
@@ -13,7 +17,6 @@ class Toolbar {
 
   constructor () {
     this._el = document.getElementById('main-nav');
-    this._offsetTop = this._el.offsetTop;
     this._ticking = false;
 
     this._onScroll = this._onScroll.bind(this);
@@ -32,13 +35,10 @@ class Toolbar {
 
   _update () {
     this._ticking = false;
-    if (!document.body.classList.contains(Toolbar.HIDDEN_CLASS)) {
-      this.offsetTop = this._el.offsetTop;
-    }
+    const currentPosition =
+      document.body.scrollTop || document.documentElement.scrollTop;
 
-    const currentPosition = document.body.scrollTop || document.documentElement.scrollTop;
-
-    if (currentPosition >= this._offsetTop) {
+    if ((currentPosition > Toolbar.THRESHOLD)) {
       document.body.classList.add(Toolbar.HIDDEN_CLASS);
     }
     else {
@@ -61,9 +61,6 @@ class Toolbar {
   _onResize () {
     clearTimeout(this._resizeTimer);
     this._resizeTimer = setTimeout(() => {
-      if (!document.body.classList.contains(Toolbar.HIDDEN_CLASS)) {
-        this.offsetTop = this._el.offsetTop;
-      }
       this._update();
     }, 250);
   }
