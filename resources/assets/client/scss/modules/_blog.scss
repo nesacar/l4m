@@ -18,6 +18,7 @@
 
   &_start-image {
     width: 14 * $base-line;
+    min-width: 33.3333%;
     margin-right: 3 * $base-line;
     flex-shrink: 0;
   }
@@ -109,7 +110,7 @@
   &--horizontal {
     margin-bottom: $grid-gutter-width;
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       flex-direction: row;
       padding-top: $grid-gutter-width;
       padding-bottom: $grid-gutter-width;
