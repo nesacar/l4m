@@ -14,4 +14,11 @@
   &_gallery {
     margin-bottom: 2 * $base-line;
   }
+
+  &_body {
+    img: {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
 }

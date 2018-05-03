@@ -21,7 +21,7 @@
             ></div>
             {{-- thumbnails go here --}}
           </div>
-          <div>{!! $post->body !!}</div>
+          <div class="blog-post_body">{!! $post->body !!}</div>
           <ul><!-- tags go here -->
             <li>tags</li>
           </ul><!--- /tags -->
