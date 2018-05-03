@@ -203,8 +203,6 @@
                 axios.get('api/posts/' + this.$route.params.id)
                     .then(res => {
                         this.post = res.data.post;
-                        this.post.date = moment(res.data.post.publish_at).format('YYYY-MM-DD');
-                        this.post.time = moment(res.data.post.publish_at).format('HH:mm');
                         this.post.tag_ids = res.data.tag_ids;
                     })
                     .catch(e => {
@@ -218,8 +216,6 @@
                 axios.put('api/posts/' + this.post.id, this.post)
                     .then(res => {
                         this.post = res.data.post;
-                        this.post.date = moment(res.data.post.publish_at).format('YYYY-MM-DD');
-                        this.post.time = moment(res.data.post.publish_at).format('HH:mm');
                         this.post.tag_ids = res.data.tag_ids;
                         swal({
                             position: 'center',

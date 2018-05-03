@@ -27,7 +27,7 @@
                         <div id="gallery" v-if="photos">
                             <div v-for="photo in photos" class="photo">
                                 <font-awesome-icon icon="times" @click="deletePhoto(photo)" />
-                                <img :src="photo.file_path" class="img-thumbnail" alt="product.title">
+                                <img :src="photo.tmb" class="img-thumbnail" alt="product.title">
                             </div>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
                 return this.$store.getters.getUser;
             },
             publish_at(){
-                return  moment(this.product.date).format('DD-MM-YYYY') + ' ' + moment(this.product.publish_at).format('HH:mm:ss')
+                return this.product.date + ' ' + this.product.time
             }
         },
         components: {
@@ -287,8 +287,10 @@
                 axios.get('api/products/' + this.$route.params.id)
                     .then(res => {
                         this.product = res.data.product;
-                        this.product.date = moment(this.product.publish_at).format('YYYY-MM-DD');
-                        this.product.time = moment(this.product.publish_at).format('HH:mm');
+                        console.log(this.product);
+//                        this.product.date = moment(this.product.publish_at).format('YYYY-MM-DD');
+//                        this.product.time = moment(this.product.publish_at).format('HH:mm:ss');
+//                        console.log('time: ' + this.product.time);
                         this.properties = res.data.properties;
                         this.product.cat_ids = res.data.cat_ids;
                         this.product.att_ids = res.data.att_ids;
@@ -307,8 +309,6 @@
                 axios.put('api/products/' + this.product.id, this.product)
                     .then(res => {
                         this.product = res.data.product;
-                        this.product.date = moment(res.data.product.publish_at).format('YYYY-MM-DD');
-                        this.product.time = moment(res.data.product.publish_at).format('HH:mm:ss');
                         this.properties = res.data.properties;
                         this.product.cat_ids = res.data.cat_ids;
                         this.product.att_ids = res.data.att_ids;

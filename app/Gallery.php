@@ -7,7 +7,7 @@ use File;
 
 class Gallery extends Model
 {
-    protected $fillable = ['post_id', 'file_name', 'file_path', 'file_path_small', 'publish'];
+    protected $fillable = ['post_id', 'file_name', 'file_path', 'publish'];
 
     public static function saveImage($post_id, $image){
         $post = Post::find($post_id);

@@ -22,8 +22,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::select('posts.id', 'posts.title', 'posts.publish', 'posts.publish_at', 'blogs.title as blog')
-            ->join('blogs', 'posts.blog_id', '=', 'blogs.id')->orderBy('posts.publish_at', 'DESC')->paginate(50);
+        $posts = Post::select('posts.*')->with('blog')->orderBy('posts.publish_at', 'DESC')->paginate(50);
 
         return response()->json([
             'posts' => $posts
@@ -131,9 +130,7 @@ class PostsController extends Controller
     public function search(){
         $blog = request('list');
         $text = request('text');
-        $posts = Post::select('posts.id', 'posts.title', 'posts.publish', 'posts.publish_at', 'blogs.title as blog')
-            ->join('blogs', 'posts.blog_id', '=', 'blogs.id')
-            ->where(function ($query) use ($blog){
+        $posts = Post::select('posts.*')->with('blog')->where(function ($query) use ($blog){
                 if($blog > 0){
                     $query->where('posts.blog_id', $blog);
                 }

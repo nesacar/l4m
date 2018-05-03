@@ -68,7 +68,7 @@ class ProductsController extends Controller
     {
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
-        $tagIds = $product->tag()->pluck('id');
+        $tagIds = $product->tag->pluck('id');
         $properties = Set::find($product->set_id)->property()->with('attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
 
         return response()->json([
@@ -95,9 +95,9 @@ class ProductsController extends Controller
         $product->tag()->sync(request('tag_ids'));
 
         $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
-        $catIds = $product->category->pluck('categories.id');
-        $attIds = $product->attribute->pluck('attributes.id');
-        $tagIds = $product->tag->pluck('tags.id');
+        $catIds = $product->category->pluck('id');
+        $attIds = $product->attribute->pluck('id');
+        $tagIds = $product->tag->pluck('id');
 
         return response()->json([
             'product' => $product,

@@ -21,6 +21,8 @@ class Product extends Model
 
     protected $dates = ['publish_at'];
 
+    protected $appends = ['date', 'time', 'link'];
+
     protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
     protected static $searchable = ['filters', 'price'];
@@ -65,10 +67,6 @@ class Product extends Model
     public function setPublishAtAttribute($value){
         $this->attributes['publish_at'] = Carbon::parse($value)->format('Y-m-d H:00:00');
     }
-
-//    public function getPublishAtAttribute(){
-//        return Carbon::parse($this->attributes['publish_at'])->format('Y-m-d');
-//    }
 
     public function getTmbAttribute(){
         return \Imagecache::get($this->attributes['image'], '63x84')->src;
@@ -131,9 +129,17 @@ class Product extends Model
         return $category->product()->where('products.id', '<>', $product->id)->withoutGlobalScope('attribute')->published()->inRandomOrder()->limit($limit)->get();
     }
 
-//    public function getPublishAtAttribute(){
-//        return Carbon::parse($this->attributes['publish_at'])->format('d-m-Y H:00');
-//    }
+    public function getDateAttribute(){
+        return Carbon::parse($this->attributes['publish_at'])->format('Y-m-d');
+    }
+
+    public function getTimeAttribute(){
+        return Carbon::parse($this->attributes['publish_at'])->format('H:00:00');
+    }
+
+    public function getLinkAttribute(){
+        return $this->getLink();
+    }
 
     public function brand(){
         return $this->belongsTo(Brand::class);

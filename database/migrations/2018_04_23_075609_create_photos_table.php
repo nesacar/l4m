@@ -20,7 +20,6 @@ class CreatePhotosTable extends Migration
 
             $table->string('file_name')->nullable();
             $table->string('file_path')->nullable();
-            $table->string('file_path_small')->nullable();
             $table->boolean('publish')->nullable()->default(1);
             $table->timestamps();
         });
