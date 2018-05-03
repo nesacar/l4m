@@ -1,12 +1,12 @@
 
 <a href="{{ $product->getLink() }}" class="shop-item no-link">
   <div class="shop-item_actions">
-    <button class="icon-btn shop-item_action-btn" title="add to favorites">
+    <button tabindex="-1" class="icon-btn shop-item_action-btn" title="add to favorites">
       <svg class="icon">
         <use xlink:href="#star-border">
       </svg>
     </button>
-    <button class="icon-btn shop-item_action-btn" title="add to cart">
+    <button tabindex="-1" class="icon-btn shop-item_action-btn" title="add to cart">
       <svg class="icon">
         <use xlink:href="#plus">
       </svg>
