@@ -26,7 +26,6 @@ class CreateProductsTable extends Migration
             $table->text('body2')->nullable();
             $table->string('code');
             $table->string('image')->nullable();
-            $table->string('tmb')->nullable();
             $table->integer('price')->nullable();
             $table->integer('price_outlet')->nullable();
             $table->integer('views')->default(0);

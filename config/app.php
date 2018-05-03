@@ -229,7 +229,9 @@ return [
         'HTML' => Illuminate\Html\HtmlFacade::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Imagecache' => Devfactory\Imagecache\Facades\ImagecacheFacade::class,
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
     ],
 
 ];

@@ -3,12 +3,29 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Property extends Model
 {
     protected $fillable = ['set_id', 'title', 'slug', 'order', 'extra', 'publish'];
 
-    protected $with = ['attribute'];
+    //protected $with = ['attribute'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('attribute', function (Builder $builder) {
+            $builder->with(['attribute' => function($query){
+                $query->where('publish', 1)->orderBy('title', 'ASC');
+            }]);
+        });
+    }
 
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($this->attributes['title']);
@@ -17,10 +34,6 @@ class Property extends Model
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value?: false;
     }
-
-//    public function getPublishAttribute($value){
-//        return $value? 'Da' : 'Ne';
-//    }
 
     public function set(){
         return $this->belongsToMany(Set::class);

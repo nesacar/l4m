@@ -350,9 +350,9 @@
                         console.log(res);
                         this.photos = res.data.photos;
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             deletePhoto(photo){
                 axios.post('api/photos/' + photo.id + '/destroy')

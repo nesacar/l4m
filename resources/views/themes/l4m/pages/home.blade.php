@@ -1,7 +1,8 @@
 @extends('themes.' .  $theme .'.index')
 
 @section('seo')
-  {!! SEO::generate() !!}
+  {!! SEOMeta::generate() !!}
+  {!! OpenGraph::generate() !!}
 @endsection
 
 @section('content')

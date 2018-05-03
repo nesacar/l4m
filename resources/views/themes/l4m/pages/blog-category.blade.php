@@ -1,7 +1,8 @@
 @extends('themes.' . $theme . '.index')
 
-@section('title')
-Luxury 4 Me - {{ $category->title}} Blog
+@section('seo')
+  {!! SEOMeta::generate() !!}
+  {!! OpenGraph::generate() !!}
 @endsection
 
 @section('content')

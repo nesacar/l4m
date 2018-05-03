@@ -9,6 +9,8 @@ class Gallery extends Model
 {
     protected $fillable = ['post_id', 'file_name', 'file_path', 'publish'];
 
+    protected $appends = ['tmb'];
+
     public static function saveImage($post_id, $image){
         $post = Post::find($post_id);
         $folderName = $post->slug . '-' . $post->id;
@@ -19,7 +21,7 @@ class Gallery extends Model
 
         if(isset($image)){
             $imageName = $folderName . '-' .  str_random(4) . '.' . $image->getClientOriginalExtension();
-            $imagePath = 'storage/uploads/galleries/'.$folderName.'/'.$imageName;
+            $imagePath = 'storage/uploads/galleries/posts/'.$folderName.'/'.$imageName;
             $image->move(public_path('storage/uploads/galleries/posts/' . $folderName . '/'), $imageName);
 
             $gallery = new Gallery();
@@ -34,13 +36,13 @@ class Gallery extends Model
 
     }
 
-    public static function cropImage($image, $width){
-        \Image::make($image)->resize($width, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($image);
-    }
+//    public static function cropImage($image, $width){
+//        \Image::make($image)->resize($width, null, function ($constraint) {
+//            $constraint->aspectRatio();
+//        })->save($image);
+//    }
 
-    public function getFilePathSmallAttribute(){
+    public function getTmbAttribute(){
         return \Imagecache::get($this->attributes['file_path'], '120x90')->src;
     }
 

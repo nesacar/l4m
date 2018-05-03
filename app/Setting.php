@@ -15,9 +15,8 @@ class Setting extends Model
     ];
 
     public static function get(){
-//        return Cache::remember('settings', 2, function () {
-//            return self::find(1);
-//        });
-        return self::first();
+        return Cache::remember('settings', 2, function () {
+            return self::find(1);
+        });
     }
 }

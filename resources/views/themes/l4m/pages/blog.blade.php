@@ -1,6 +1,9 @@
 @extends('themes.' . $theme . '.index')
 
-@section('title') Luxury 4 Me - Blog @endsection
+@section('seo')
+  {!! SEOMeta::generate() !!}
+  {!! OpenGraph::generate() !!}
+@endsection
 
 @section('content')
 <style>
