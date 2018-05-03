@@ -180,7 +180,7 @@
                 return this.$store.getters.getUser;
             },
             publish_at(){
-                return this.post.date + ' ' + this.post.time + ':00';
+                return this.post.date + ' ' + this.post.time;
             }
         },
         components: {

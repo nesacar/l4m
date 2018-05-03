@@ -12,7 +12,7 @@
       <div class="split-view_left-pane">
         <article class="blog-post">
           <div class="blog-post_header">
-            <small class="blog-post_date">{{ $category->title }} | May 02, 2018</small>
+            <small class="blog-post_date">{{ $category->title }} | {{ \Carbon\Carbon::parse($post->publish_at)->format('F d, Y') }}</small>
             <h1 class="display-2 blog-post_title">{{ $post->title }}</h1>
             <p class="blog-post_short-desc">
               <em>{{ $post->short }}</em>
