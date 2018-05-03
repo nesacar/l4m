@@ -15,8 +15,7 @@
         </svg>
       </a>
     </div>
-    @search()
-    @endsearch
+    @search()@endsearch
   </div>
   <div id="main-nav">
     <div class="container">

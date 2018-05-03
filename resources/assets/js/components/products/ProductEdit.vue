@@ -263,7 +263,7 @@
                 return this.$store.getters.getUser;
             },
             publish_at(){
-                return this.product.date + ' ' + this.product.time
+                return this.product.date + ' ' + this.product.time;
             }
         },
         components: {
@@ -287,10 +287,6 @@
                 axios.get('api/products/' + this.$route.params.id)
                     .then(res => {
                         this.product = res.data.product;
-                        console.log(this.product);
-//                        this.product.date = moment(this.product.publish_at).format('YYYY-MM-DD');
-//                        this.product.time = moment(this.product.publish_at).format('HH:mm:ss');
-//                        console.log('time: ' + this.product.time);
                         this.properties = res.data.properties;
                         this.product.cat_ids = res.data.cat_ids;
                         this.product.att_ids = res.data.att_ids;
