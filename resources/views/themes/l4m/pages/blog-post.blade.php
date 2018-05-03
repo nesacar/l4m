@@ -26,9 +26,9 @@
           </div>
           <div class="blog-post_body">{!! $post->body !!}</div>
           @if(count($post->tag)>0)
-          <ul>
+          <ul class="tag-list">
             @foreach($post->tag as $tag)
-              <li><a href="{{ url('tagovi/'.$tag->slug) }}">{{ $tag->title }}</a></li>
+              <li class="tag"><a href="{{ url('tagovi/'.$tag->slug) }}">{{ $tag->title }}</a></li>
             @endforeach
           </ul><!--- /tags -->
           @endif
