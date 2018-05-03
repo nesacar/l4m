@@ -5,7 +5,11 @@
 @section('content')
 
   @component('themes.' . $theme . '.components.masthead-carousel', [
-    'data' => $slider
+    'data' => $slider,
+    'options' => (object)[
+      'controls' => false,
+      'fullWidth' => true,
+    ],
   ])
   @endcomponent
 

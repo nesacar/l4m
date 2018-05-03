@@ -2,9 +2,11 @@
 
   $hasOptions = isset($options);
   $hasControls = true;
+  $isFullWidth = false;
 
   if ($hasOptions) {
     $hasControls = isset($options->controls) ? $options->controls : $hasControls;
+    $isFullWidth = isset($options->fullWidth) ? $options->fullWidth : $isFullWidth;
   }
 
   $controlsClassName = 'masthead-carousel-controls' . ($hasControls ? '' : ' no-controls');
@@ -24,7 +26,7 @@
     </div>
   </div>
 
-  <div class="container masthead-carousel is-loading">
+  <div class="{{ $isFullWidth ? '' : 'container ' }} masthead-carousel is-loading">
     @foreach($data as $item)
     <div class="masthead-carousel_item">
       <div class="image image--ultra-wide masthead_image">
