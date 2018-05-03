@@ -9,12 +9,8 @@
   width: 0;
   transition: width .21s;
 
-  @include media-breakpoint-up(sm) {
-    top: 22px;
-  }
-
   @include media-breakpoint-up(md) {
-    top: 35px;
+    top: 32px;
   }
 
   .search-open & {
