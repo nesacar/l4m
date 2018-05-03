@@ -1,0 +1,98 @@
+.search-widget {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  margin: 0;
+  padding: 0;
+  color: $theme-primary;
+  font-size: 16px;
+  width: 0;
+  transition: width .21s;
+
+  @include media-breakpoint-up(sm) {
+    top: 22px;
+  }
+
+  @include media-breakpoint-up(md) {
+    top: 35px;
+  }
+
+  .search-open & {
+    width: 180px;
+
+    @include media-breakpoint-up(sm) {
+      width: 240px;
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid $theme-primary;
+    background: 0;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &_border {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: $theme-primary;
+    opacity: 0;
+    transform: scaleX(0);
+    transition: transform .12s;
+
+    input:focus + & {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+
+  &_search-btn {
+    position: absolute;
+    top: 0;
+    left: -36px;
+  }
+
+  &_close-btn {
+    position: absolute;
+    top: 0;
+    right: -6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .21s;
+
+    .search-open & {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.search-open {
+  .social--desktop {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .main-nav {
+    @include media-breakpoint-down(lg) {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .header_logo {
+    @include media-breakpoint-down(sm) {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}

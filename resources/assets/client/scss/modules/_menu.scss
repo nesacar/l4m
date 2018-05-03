@@ -1,20 +1,8 @@
 .menu-toggler {
   position: fixed;
-  top: 18px;
+  top: 16px;
   left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 0;
   z-index: 3;
-  cursor: pointer;
-  background-color: transparent;
-
-  &:focus {
-    outline: 3px solid lighten($theme-primary, 46%);
-  }
 
   @include media-breakpoint-up(sm) {
     top: 22px;

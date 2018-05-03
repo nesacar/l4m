@@ -1,5 +1,5 @@
 <header id="header">
-  <button class="menu-toggler" id="js-menu-toggler">
+  <button class="icon-btn menu-toggler" id="js-menu-toggler">
     <div class="menu-icon">
       <span></span>
       <span></span>
@@ -15,6 +15,8 @@
         </svg>
       </a>
     </div>
+    @search()
+    @endsearch
   </div>
   <div id="main-nav">
     <div class="container">

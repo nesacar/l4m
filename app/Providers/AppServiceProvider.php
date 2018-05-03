@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
       Blade::component($components . 'counter', 'counter');
       Blade::component($components . 'double-slider', 'doubleslider');
       Blade::component($components . 'image-box', 'imagebox');
+      Blade::component($components . 'search-widget', 'search');
 
       Blade::include($partials . 'social', 'social');
     }
