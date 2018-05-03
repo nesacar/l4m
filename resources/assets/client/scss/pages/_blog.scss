@@ -4,6 +4,8 @@
   &_carousel {
     margin-left: -$column-paddings;
     margin-right: -$column-paddings;
+    // outline clipping bugfix
+    padding-top: 3px;
   }
 
   &_item {
