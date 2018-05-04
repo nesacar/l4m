@@ -9,19 +9,28 @@ class ImageZoomer {
     this._onEnd = this._onEnd.bind(this);
     this._update = this._update.bind(this);
 
-    this.target.addEventListener('load', () => {
-      this.targetBCR = {};
-      this.targetBCR.width = this.target.naturalWidth;
-      this.targetBCR.height = this.target.naturalHeight;
-      this.containerBCR = this.target.getBoundingClientRect();
-      this.initCanvas();
-    });
+    if (this.target.complete) {
+      // If image has been downloaded, initiate
+      this.init();
+    } else {
+      // Else, wait for it to complete downloading.
+      this.target.addEventListener('load', () => this.init());
+    }
 
+    this.target.addEventListener('mousedown', this._onStart);
+  }
+
+  init () {
     this.x = 0;
     this.y = 0;
     this.trackingTouch = false;
 
-    this.target.addEventListener('mousedown', this._onStart);
+    this.targetBCR = {};
+    this.targetBCR.width = this.target.naturalWidth;
+    this.targetBCR.height = this.target.naturalHeight;
+    this.containerBCR = this.target.getBoundingClientRect();
+    
+    this.initCanvas();
   }
 
   initCanvas () {
