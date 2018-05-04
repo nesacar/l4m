@@ -12,6 +12,11 @@ export function init () {
   SearchWidget.init();
   Toolbar.init();
 
+  document.querySelectorAll('.shop-item')
+    .forEach((item, i) => {
+      item.addEventListener('click', _clickHandler, true);
+    });
+
   // Testing Siema
   const el = document.querySelector('.showcase_carousel');
   if (!el) {
@@ -26,3 +31,31 @@ export function init () {
     }
   });
 };
+
+function _clickHandler(evt) {
+  const path = evt.composedPath();
+
+  const $target = path.find((t) => {
+    return t.tagName === 'BUTTON';
+  });
+
+  if (!$target) {
+    return;
+  }
+  
+  const action = $target.dataset.action;
+  switch (action) {
+    case 'add':
+      $target.classList.toggle('active');
+      Toast.create('Product added to cart!');
+      break;
+    case 'star':
+      Toast.create('Product added to whishlist!');
+      break;
+    default:
+      console.error(`Unknown action: ${action}, on target: ${$target}`);
+      break;
+  }
+
+  evt.preventDefault();
+}

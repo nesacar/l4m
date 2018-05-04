@@ -43,7 +43,7 @@
             <p class="masthead_desc">{{ $item->subtitle }}</p>
             <a class="btn btn--primary masthead_action" href="#">shop now</a>
           </div>
-      </div>
+        </div>
       </div>
     </div>
     @endforeach
