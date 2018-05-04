@@ -26,7 +26,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['category' => function($query){
+        $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
             $query->orderBy('parent', 'DESC')->first();
         }])->orderBy('id', 'DESC')->paginate(50);
 
@@ -45,9 +45,11 @@ class ProductsController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        $product = Product::create(request()->except('image'));
+        $array = request()->all();
+        $array['image'] = null;
+        $product = Product::create($array);
 
-        if(request('image')) Product::base64UploadImage($product, request('image'));
+        if(request('image')) Product::base64UploadImage($product->id, request('image'));
 
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
@@ -148,7 +150,7 @@ class ProductsController extends Controller
         $category = request('list');
         $text = request('text');
 
-        $products = Product::select('products.*')->join('category_product', 'products.id', '=', 'category_product.product_id')->join('categories', 'category_product.category_id', '=', 'categories.id')
+        $products = Product::withoutGlobalScope('attribute')->select('products.*')->join('category_product', 'products.id', '=', 'category_product.product_id')->join('categories', 'category_product.category_id', '=', 'categories.id')
             ->where(function($query) use ($category){
                 if($category > 0){
                     $query->where('categories.id', $category);

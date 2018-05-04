@@ -17,7 +17,9 @@ use App\Set;
 use App\Setting;
 use App\ShopBar;
 use App\Theme;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
@@ -99,6 +101,9 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
-        return Gallery::first();
+        //Artisan::call('storage:link');
+        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
+            $query->orderBy('parent', 'DESC')->first();
+        }])->orderBy('id', 'DESC')->paginate(50);
     }
 }
