@@ -21,8 +21,8 @@
     ></div>
   </div>
   <div class="shop-item_content">
-    <div class="shop-item_name">{{ $product->title }}</div>
-    <div class="shop-item_brand">{{ $product->brand->title }}</div>
+    <div class="shop-item_name">{{ $product->brand->title }}</div>
+    <div class="shop-item_brand">{{ $product->title }}</div>
     <div class="shop-item_price">
       @if($product->discount)
       <span class="shop-item_price-tag shop-item_price-tag--invalid">

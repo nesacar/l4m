@@ -16,8 +16,8 @@
             <div class="col-md-6">
 
                 <div class="product_details">
-                    <h1 class="display-3 product_name">{{ $product->title }}</h1>
-                    <div class="product_brand">{{ $product->brand->title }}</div>
+                    <h1 class="display-3 product_name">{{ $product->brand->title }}</h1>
+                    <div class="product_brand">{{ $product->title }}</div>
                     <div class="product_price">
                         @if($product->discount)
                             <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ $product->price_outlet }}</span>
