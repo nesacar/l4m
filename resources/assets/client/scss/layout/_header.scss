@@ -40,4 +40,18 @@
     fill: $theme-secondary;
     color: $theme-primary;
   }
+
+  &_social {
+    position: absolute;
+    top: -5px;
+    display: none;
+
+    @include media-breakpoint-up(sm) {
+      top: -1px;
+    }
+    
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
 }

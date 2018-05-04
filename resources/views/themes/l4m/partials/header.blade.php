@@ -9,6 +9,9 @@
   </button>
   <div class="header">
     <div class="container header_content">
+      <div class="header_social">
+        @social()
+      </div>
       <a href="{{ url('/') }}">
         <svg class="logo" role="presentation" aria-label="luxury 4 me">
           <use xlink:href="#logo">
