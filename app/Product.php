@@ -5,7 +5,7 @@ namespace App;
 use App\Traits\SearchableProductTraits;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-//use File;
+use File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 //use DB;
@@ -72,19 +72,18 @@ class Product extends Model
         return \Imagecache::get($this->attributes['image'], '63x84')->src;
     }
 
-    public static function base64UploadImage($product, $image){
-        if(!is_object($product)) $product = self::find($product);
+    public static function base64UploadImage($product_id, $image){
+        $product = self::find($product_id);
         if($product->image != null){
             File::delete($product->image);
         }
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
-        $filename = $product->slug . '-' . str_random(2) . '-' . $product->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/products/');
-        file_put_contents($path . $filename, $data);
-        $product->image = 'storage/uploads/products/' . $filename;
-        $product->update();
-        return $product->image;
+        $filename = str_slug($product->title) . '-' . str_random(2) . '-' . $product->id . '.' . self::getExtension($image);
+        $path = Helper::generateImageFolder('storage/uploads/products/');
+        file_put_contents($path['folderPath'] . '/' . $filename, $data);
+        $product->update(['image' => 'storage/uploads/products/' . $path['folder'] . '/' . $filename]);
+        return 'storage/uploads/products/' . $path['folder'] . '/' . $filename;
     }
 
     public static function getExtension($image)

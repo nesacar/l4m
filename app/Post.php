@@ -36,11 +36,10 @@ class Post extends Model
         }
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
-        $filename = $post->slug . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/posts/');
-        file_put_contents($path . $filename, $data);
-        $post->image = 'storage/uploads/posts/' . $filename;
-        $post->update();
+        $filename = str_slug($post->title) . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
+        $path = Helper::generateImageFolder('storage/uploads/posts/');
+        file_put_contents($path['folderPath'] . '/' . $filename, $data);
+        $post->update(['image' => 'storage/uploads/posts/' . $path['folder'] . '/' . $filename]);
         return $post->image;
     }
 
