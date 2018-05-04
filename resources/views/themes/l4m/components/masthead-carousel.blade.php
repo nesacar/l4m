@@ -26,7 +26,32 @@
     </div>
   </div>
 
-  <div class="{{ $isFullWidth ? '' : 'container ' }} masthead-carousel is-loading">
+  @if($isFullWidth)
+
+  <div class="masthead-carousel is-loading">
+    @foreach($data as $item)
+    <div class="masthead-carousel_item masthead-carousel_item--full-width">
+      <div class="image masthead_image masthead_image--full-width">  
+        <picture>
+          <img src="{{ url($item->image) }}" />
+        </picture>
+      </div>
+      <div class="masthead-carousel_content--full-width">
+        <div class="container">
+          <div class="masthead_action-box masthead_action-box--left">
+            <h1 class="masthead_title">{{ $item->title }}</h1>
+            <p class="masthead_desc">{{ $item->subtitle }}</p>
+            <a class="btn btn--primary masthead_action" href="#">shop now</a>
+          </div>
+      </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+
+  @else
+
+  <div class="container masthead-carousel is-loading">
     @foreach($data as $item)
     <div class="masthead-carousel_item">
       <div class="image image--ultra-wide masthead_image">
@@ -40,4 +65,6 @@
     </div>
     @endforeach
   </div>
+
+  @endif
 </section>

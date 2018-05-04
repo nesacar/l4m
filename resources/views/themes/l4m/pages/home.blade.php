@@ -8,7 +8,20 @@
 @section('content')
 
   @component('themes.' . $theme . '.components.masthead-carousel', [
-    'data' => $slider,
+    'data' => [
+      (object)[
+        'image' => 'images/demo/dude.jpg',
+        'category' => (object)[ 'title' => 'Dudes' ],
+        'title' => 'The dude in the suit',
+        'subtitle' => 'Look ma! A\'m wearing a suit on the beach.'
+      ],
+      (object)[
+        'image' => 'images/demo/TH-sat.jpg',
+        'category' => (object)[ 'title' => 'Watches' ],
+        'title' => 'Watches on the Moon',
+        'subtitle' => '\'cuz, why not?'
+      ],
+    ],
     'options' => (object)[
       'controls' => false,
       'fullWidth' => true,

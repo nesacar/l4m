@@ -41,7 +41,10 @@
   &_actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    
+    .btn--primary {
+      max-width: 27 * $base-line;
+    }
 
     > * {
       margin-right: 2 * $base-line;
