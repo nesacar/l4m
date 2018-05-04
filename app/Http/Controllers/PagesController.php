@@ -106,7 +106,7 @@ class PagesController extends Controller
 //        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
 //            $query->orderBy('parent', 'DESC')->first();
 //        }])->orderBy('id', 'DESC')->paginate(50);
-//        phpinfo();
-//        return;
+            return $products = Product::withoutGlobalScopes()->select('products.id', 'products.title', 'products.publish_at', 'products.image')
+                ->where('products.publish', 1)->orderBy('products.title', 'ASC')->get();
     }
 }

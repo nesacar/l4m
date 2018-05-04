@@ -19,7 +19,7 @@ class Product extends Model
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
-    protected $dates = ['publish_at'];
+    //protected $dates = ['publish_at'];
 
     protected $appends = ['date', 'time', 'link', 'tmb'];
 

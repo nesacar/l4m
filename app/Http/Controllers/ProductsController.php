@@ -201,7 +201,8 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $products = Product::select('id', 'code')->where('publish', 1)->orderBy('title', 'ASC')->get();
+        $products = Product::withoutGlobalScopes()->select('products.id', 'products.code', 'products.publish_at', 'products.image')
+            ->where('products.publish', 1)->orderBy('products.title', 'ASC')->get();
 
         return response()->json([
             'products' => $products
