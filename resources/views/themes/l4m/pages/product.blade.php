@@ -10,10 +10,10 @@
         @include('themes.' . $theme . '.partials.breadcrumb')
 
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 @imagebox([ 'image' => $product->image, 'tmb' => $product->tmb, 'title' => $product->title, 'photos' => $product->photo ])@endimagebox
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
 
                 <div class="product_details">
                     <h1 class="display-3 product_name">{{ $product->title }}</h1>
