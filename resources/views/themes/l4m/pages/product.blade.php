@@ -58,21 +58,25 @@
 
         <div class="tabs tabs--center product_info">
             <input class="tab_control" type="radio" name="product-details" id="desc-tab" checked>
-            <label class="tab_label" for="desc-tab">DESCRIPTION</label>
+            <label class="tab_label" for="desc-tab">OPIS</label>
+            @if($product->body2)
             <input class="tab_control" type="radio" name="product-details" id="info-tab">
-            <label class="tab_label" for="info-tab">ADDITIONAL INFORMATION</label>
-            <input class="tab_control" type="radio" name="product-details" id="reviews-tab">
-            <label class="tab_label" for="reviews-tab">REVIEWS</label>
+            <label class="tab_label" for="info-tab">DODATAN OPIS</label>
+            @endif
+            {{--<input class="tab_control" type="radio" name="product-details" id="reviews-tab">--}}
+            {{--<label class="tab_label" for="reviews-tab">REVIEWS</label>--}}
 
             <div class="tab_content" id="desc-content">
-                {{ $product->body }}
+                {!! $product->body !!}
             </div>
+            @if($product->body2)
             <div class="tab_content" id="info-content">
-                {{ $product->body2 }}
+                {!! $product->body2 !!}
             </div>
-            <div class="tab_content" id="reviews-content">
-                reviews...
-            </div>
+            @endif
+            {{--<div class="tab_content" id="reviews-content">--}}
+                {{--reviews...--}}
+            {{--</div>--}}
         </div>
     </section>
 

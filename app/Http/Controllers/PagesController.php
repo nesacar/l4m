@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attribute;
 use App\Block;
 use App\Blog;
+use App\Cart;
 use App\Category;
 use App\Collection;
 use App\Gallery;
@@ -102,8 +103,10 @@ class PagesController extends Controller
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
         //Artisan::call('storage:link');
-        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
-            $query->orderBy('parent', 'DESC')->first();
-        }])->orderBy('id', 'DESC')->paginate(50);
+//        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
+//            $query->orderBy('parent', 'DESC')->first();
+//        }])->orderBy('id', 'DESC')->paginate(50);
+//        phpinfo();
+//        return;
     }
 }

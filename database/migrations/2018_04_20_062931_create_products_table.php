@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration
             $table->boolean('discount')->default(0);
             $table->integer('sold')->default(0);
             $table->boolean('publish')->default(1);
-            $table->timestamp('publish_at')->usCurrent();
+            $table->timestamp('publish_at')->nullable();
             $table->timestamps();
         });
 
