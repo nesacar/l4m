@@ -36,10 +36,22 @@
   &_container {
     display: flex;
     flex-direction: column;
+
+    &--horizontal {
+      flex-direction: row;
+    }
   }
 
   &_presentation {
     position: relative;
+
+    .shop-item_container--horizontal & {
+      // flex-grow: 1;
+      flex-shrink: 0;
+      width: 50%;
+      min-width: 16 * $base-line;
+      margin-right: $column-paddings;
+    }
   }
 
   &_image {
@@ -51,6 +63,10 @@
   &_content {
     margin-top: 3 * $base-line;
     font-size: 1.067em;
+
+    .shop-item_container--horizontal & {
+      margin-top: 0;
+    }
   }
 
   &_name {

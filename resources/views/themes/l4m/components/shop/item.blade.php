@@ -1,6 +1,21 @@
+@php
+
+ $isHorizontal = false;
+
+ if (isset($options)) {
+   $isHorizontal = isset($options->horizontal) ? $options->horizontal : $isHorizontal;
+ }
+
+ $className = 'shop-item_container' . ($isHorizontal ? ' shop-item_container--horizontal' : '');
+
+  $product = isset($item) 
+  ? isset($product) ? $product : $item
+  : $product;
+
+@endphp
 
 <a href="{{ $product->getLink() }}" class="shop-item no-link">
-  <div class="shop-item_container">
+  <div class="{{ $className }}">
     <div class="shop-item_presentation">
       <div class="shop-item_actions">
         <button tabindex="-1" data-action="star" class="icon-btn shop-item_action-btn" title="add to favorites">
