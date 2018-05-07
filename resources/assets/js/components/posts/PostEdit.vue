@@ -62,11 +62,6 @@
                             <label>Publikovano</label><br>
                             <switches v-model="post.publish" theme="bootstrap" color="primary"></switches>
                         </div>
-                        <div class="form-group" v-if="post.category_id == 3">
-                            <label for="author">Autor</label>
-                            <input type="text" name="author" class="form-control" id="author" placeholder="Autor" v-model="post.author">
-                            <small class="form-text text-muted" v-if="error != null && error.author">{{ error.author[0] }}</small>
-                        </div>
 
                         <upload-image-helper
                                 :image="post.image"
@@ -74,6 +69,15 @@
                                 :titleImage="'članka'"
                                 :error="error"
                                 @uploadImage="upload($event)"
+                                @removeRow="remove($event)"
+                        ></upload-image-helper>
+
+                        <upload-image-helper
+                                :image="post.slider"
+                                :defaultImage="null"
+                                :titleImage="'slajdera'"
+                                :error="error"
+                                @uploadImage="uploadSlider($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
 
@@ -113,7 +117,7 @@
                                         <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.body[0] }}</small>
                                     </div>
                                     <div class="form-group">
-                                        <label>Tags</label>
+                                        <label>Tagovi</label>
                                         <select2 :options="tags" :multiple="true" :value="post.tag_ids" @input="input($event)">
                                             <option value="0" disabled>select one</option>
                                         </select2>
@@ -192,7 +196,6 @@
             'select2': Select2,
         },
         created(){
-            this.getPost();
             this.getList();
             this.getTags();
             this.getGallery();
@@ -242,14 +245,32 @@
                             timer: 1500
                         });
                     }).catch(e => {
-                    console.log(e);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            uploadSlider(image){
+                axios.post('api/posts/' + this.post.id + '/image?slider=1', { file: image[0] })
+                    .then(res => {
+                        this.post.slider = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getList(){
                 axios.get('api/blogs/lists')
                     .then(res => {
                         this.lists = res.data.blogs;
+                        this.getPost();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

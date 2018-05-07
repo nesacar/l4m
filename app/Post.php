@@ -29,6 +29,20 @@ class Post extends Model
         });
     }
 
+    public static function base64UploadSliderImage($post_id, $image){
+        $post = self::find($post_id);
+        if($post->slider != null){
+            File::delete($post->slider);
+        }
+        $exploaded = explode(',', $image);
+        $data = base64_decode($exploaded[1]);
+        $filename = str_slug($post->title) . '-slider-' . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
+        $path = Helper::generateImageFolder('storage/uploads/posts/');
+        file_put_contents($path['folderPath'] . '/' . $filename, $data);
+        $post->update(['slider' => 'storage/uploads/posts/' . $path['folder'] . '/' . $filename]);
+        return $post->slider;
+    }
+
     public static function base64UploadImage($post_id, $image){
         $post = self::find($post_id);
         if($post->image != null){
@@ -60,10 +74,10 @@ class Post extends Model
     }
 
     public static function getSlider($limit = 3){
-        return self::where('slider', 1)->published()->take($limit)->get();
+        return self::with('blog')->where('slider', '<>', null)->published()->take($limit)->get();
     }
 
-    public static function getLatest($category = false, $limit = 7){
+    public static function getLatest($category = false, $limit = 8){
         if($category){
             return $category->post()->published()->paginate($limit);
         }else{
@@ -125,5 +139,9 @@ class Post extends Model
 
     public function gallery(){
         return $this->hasMany(Gallery::class);
+    }
+
+    public function product(){
+        return $this->belongsToMany(Product::class);
     }
 }

@@ -50,7 +50,7 @@ class PagesController extends Controller
         $posts = Post::getLatest();
         $mostView = Post::getMostView();
         $featuredProducts = ShopBar::getFeatured('blog');
-        $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
+        $slider = Post::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         Seo::blog($this->settings);
         return view('themes.' . $this->theme . '.pages.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
@@ -60,8 +60,9 @@ class PagesController extends Controller
         $category = Blog::whereSlug($slug)->first();
         $posts = Post::getLatest($category);
         $mostView = Post::getMostView();
+        $slider = Post::getSlider();
         Seo::blogCategory(Setting::get(), $category);
-        return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category'));
+        return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category', 'slider'));
     }
 
     public function blog3($slug1, $slug2){
@@ -106,7 +107,8 @@ class PagesController extends Controller
 //        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
 //            $query->orderBy('parent', 'DESC')->first();
 //        }])->orderBy('id', 'DESC')->paginate(50);
-            return $products = Product::withoutGlobalScopes()->select('products.id', 'products.title', 'products.publish_at', 'products.image')
-                ->where('products.publish', 1)->orderBy('products.title', 'ASC')->get();
+        $posts = Post::select('id', 'publish_at')->take(4)->get();
+        return $one = $posts->slice(2);
+        return $posts;
     }
 }

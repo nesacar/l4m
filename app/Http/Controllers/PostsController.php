@@ -23,7 +23,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::select('posts.*')->with('blog')->orderBy('posts.publish_at', 'DESC')->paginate(50);
+        $posts = Post::select('posts.*')->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
 
         return response()->json([
             'posts' => $posts
@@ -38,11 +38,13 @@ class PostsController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $post = Post::create(request()->all());
+        $post = Post::create(request()->except('image', 'slider'));
 
         if(request('tag_ids')) $post->tag()->sync(request('tag_ids'));
+        if(request('product_ids')) $post->product()->sync(request('product_ids'));
 
         if(request('image')){ Post::base64UploadImage($post->id, request('image')); }
+        if(request('slider')){ Post::base64UploadSliderImage($post->id, request('slider')); }
 
         return response()->json([
             'post' => $post
@@ -58,10 +60,12 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         $postIds = $post->tag()->pluck('tags.id');
+        $productIds = $post->product()->pluck('products.id');
 
         return response()->json([
             'post' => $post,
             'tag_ids' => $postIds,
+            'product_ids' => $productIds,
         ]);
     }
 
@@ -74,15 +78,18 @@ class PostsController extends Controller
      */
     public function update(CreatePostRequest $request, Post $post)
     {
-        $post->update(request()->except('image'));
+        $post->update(request()->except('image', 'slider'));
 
         $post->tag()->sync(request('tag_ids'));
+        $post->product()->sync(request('product_ids'));
 
         $postIds = $post->tag()->pluck('tags.id');
+        $productIds = $post->product()->pluck('products.id');
 
         return response()->json([
             'post' => $post,
             'tag_ids' => $postIds,
+            'product_ids' => $productIds,
         ]);
     }
 
@@ -94,7 +101,8 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        if($post->image) File::delete();
+        if($post->image) File::delete($post->image);
+        if($post->slider) File::delete($post->slider);
         $post->delete();
 
         return response()->json([
@@ -103,7 +111,11 @@ class PostsController extends Controller
     }
 
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = Post::base64UploadImage($id, request('file'));
+        if(request('slider')){
+            $image = Post::base64UploadSliderImage($id, request('file'));
+        }else{
+            $image = Post::base64UploadImage($id, request('file'));
+        }
 
         return response()->json([
             'image' => $image
@@ -171,5 +183,15 @@ class PostsController extends Controller
     public function galleryUpdate($id){
         Gallery::saveImage($id, request('file'));
         return 'done';
+    }
+
+    public function products($id){
+        $post = Post::find($id);
+        $post->product()->sync(request('product_ids'));
+
+        return response()->json([
+            'post' => $post,
+            'product_ids' => $post->product()->pluck('products.id'),
+        ], 200);
     }
 }

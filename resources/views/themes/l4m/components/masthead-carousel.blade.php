@@ -33,7 +33,7 @@
     <div class="masthead-carousel_item masthead-carousel_item--full-width">
       <div class="image masthead_image masthead_image--full-width">  
         <picture>
-          <img src="{{ url($item->image) }}" />
+          <img src="{{ $item->slider? url($item->slider) : url($item->image) }}" />
         </picture>
       </div>
       <div class="masthead-carousel_content--full-width">
@@ -41,7 +41,7 @@
           <div class="masthead_action-box masthead_action-box--left">
             <h1 class="masthead_title">{{ $item->title }}</h1>
             <p class="masthead_desc">{{ $item->subtitle }}</p>
-            <a class="btn btn--primary masthead_action" href="#">shop now</a>
+            <a class="btn btn--primary masthead_action" href="{{ url($item->link) }}">{{ $item->button }}</a>
           </div>
         </div>
       </div>
@@ -55,10 +55,10 @@
     @foreach($data as $item)
     <div class="masthead-carousel_item">
       <div class="image image--ultra-wide masthead_image">
-        <img src="{{ url($item->image) }}" />
+        <img src="{{ $item->slider? url($item->slider) : url($item->image) }}" />
       </div>
       <div class="masthead-carousel_content">
-        <div class="masthead_label">{{ $item->category->title }}</div>
+        <div class="masthead_label">{{ $item->category? $item->category->title : $item->blog->title }}</div>
         <h3 class="masthead_title">{{ $item->title }}</h3>
         <p class="masthead_desc">{{ $item->subtitle }}</p>
       </div>

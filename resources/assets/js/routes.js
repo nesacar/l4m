@@ -24,6 +24,7 @@ export const router = new VueRouter({
         { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAuth: true } },
         { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAuth: true } },
         { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAuth: true } },
+        { path: "/posts/:id/products", component: require('./components/posts/PostProducts.vue'), meta: { forAuth: true } },
 
         { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAuth: true } },
         { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAuth: true } },
