@@ -64,23 +64,27 @@
   font-size: 16px;
   text-transform: uppercase;
   text-align: center;
+  background-color: $theme-primary;
+  color: $text-primary-on-primary;
+
+  @include media-breakpoint-up(md) {
+    transform: translate(0, 0);
+    width: 100%;
+    min-width: 0;
+  }
 
   .categorie--small & {
-    background-color: $theme-primary;
-    color: $text-primary-on-primary;
-
     @include media-breakpoint-up(md) {
       position: static;
-      transform: translate(0, 0);
-      width: 100%;
-      min-width: 0;
     }
   }
 
   .categorie--big & {
-    background-color: rgba(255, 255, 255, .8);
-    color: $text-primary-on-light;
-    font-size: 1.777em;
-    height: 12 * $base-line;
+    @include media-breakpoint-up(md) {
+      top: initial;
+      left: 0;
+      bottom: 0;
+      font-size: $font-size-display-4;
+    }
   }
 }
