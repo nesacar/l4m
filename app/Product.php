@@ -19,7 +19,7 @@ class Product extends Model
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
-    protected $dates = ['publish_at'];
+    //protected $dates = ['publish_at'];
 
     protected $appends = ['date', 'time', 'link', 'tmb'];
 
@@ -65,7 +65,7 @@ class Product extends Model
     }
 
     public function setPublishAtAttribute($value){
-        $this->attributes['publish_at'] = Carbon::parse($value)->format('Y-m-d H:00:00');
+        if($value) $this->attributes['publish_at'] = Carbon::parse($value)->format('Y-m-d H:00:00');
     }
 
     public function getTmbAttribute(){
@@ -82,8 +82,9 @@ class Product extends Model
         $filename = str_slug($product->title) . '-' . str_random(2) . '-' . $product->id . '.' . self::getExtension($image);
         $path = Helper::generateImageFolder('storage/uploads/products/');
         file_put_contents($path['folderPath'] . '/' . $filename, $data);
-        $product->update(['image' => 'storage/uploads/products/' . $path['folder'] . '/' . $filename]);
-        return 'storage/uploads/products/' . $path['folder'] . '/' . $filename;
+        $product->image = 'storage/uploads/products/' . $path['folder'] . '/' . $filename;
+        $product->update();
+        return $product->image;
     }
 
     public static function getExtension($image)

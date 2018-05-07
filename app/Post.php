@@ -88,7 +88,7 @@ class Post extends Model
     }
 
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = str_slug($value);
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
 
     public function setPublishAttribute($value){
