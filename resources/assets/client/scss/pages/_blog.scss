@@ -1,5 +1,5 @@
 .showcase {
-  background-color: rgba($theme-primary, .06);
+  background-color: $theme-primary--light;
 
   &_carousel {
     margin-left: -$column-paddings;

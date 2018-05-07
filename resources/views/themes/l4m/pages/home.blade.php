@@ -56,13 +56,15 @@
     ])
   </section>
 
-   {{--<section class="container">--}}
-    {{--<h2 class="display-3" style="text-align: center;">Discover More</h2>--}}
-    {{--@component('themes.' . env('THEME_NAME', '') . '.components.grid', [--}}
-      {{--'component' => 'blog.tile',--}}
-      {{--'items' => 'TODO Pass blog posts!'--}}
-    {{--])--}}
-    {{--@endcomponent--}}
-  {{--</section>--}}
+  <section class="home_discover-more">
+    <div class="container">
+      <h2 class="display-3 home_discover-more_title">Discover More</h2>
+      @component('themes.' . $theme . '.components.grid', [
+        'component' => 'blog.tile',
+        'items' => $posts,
+      ])
+      @endcomponent
+    </div>
+  </section>
 
 @endsection
