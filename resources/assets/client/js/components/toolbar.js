@@ -4,7 +4,7 @@ class Toolbar {
   }
 
   static get THRESHOLD () {
-    return 92;
+    return 80;
   }
 
   static init () {

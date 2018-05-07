@@ -19,7 +19,7 @@
   height: 8 * $base-line;
 
   @include media-breakpoint-up(md) {
-    height: 12 * $base-line;
+    height: 10 * $base-line;
   }
   
   &_content {
@@ -47,7 +47,7 @@
     display: none;
 
     @include media-breakpoint-up(sm) {
-      top: -1px;
+      top: 3px;
     }
     
     @include media-breakpoint-up(md) {
