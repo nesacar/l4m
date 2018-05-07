@@ -81,15 +81,15 @@
     height: 100%;
   }
 
-  .active & {
+  &--active & {
     transform: rotate(225deg);
   }
 
-  .active & > span:nth-child(1) {
+  &--active & > span:nth-child(1) {
     transform: translate(0.5px, -6px) scaleX(.5);
   }
 
-  .active & > span:nth-child(2) {
+  &--active & > span:nth-child(2) {
     transform: translate(-2px, 1px) scaleY(.857);
   }
 }

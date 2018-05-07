@@ -23,6 +23,10 @@
       width: $column-width;
       margin-left: $grid-gutter-width;
     }
+
+    & > div {
+      width: 100%;
+    }
   }
 }
 

@@ -5,13 +5,13 @@
   &_link {
     position: relative;
     display: inline-flex;
-    padding: (2 * $base-line) $base-line;
+    padding: 10px $base-line;
     text-transform: uppercase;
     color: $text-primary-on-light;
     outline: none;
 
     @include media-breakpoint-up(lg) {
-      padding: 2 * $base-line;
+      padding: 10px (2 * $base-line);
     }
 
     &:hover {

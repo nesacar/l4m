@@ -46,7 +46,7 @@ function _clickHandler(evt) {
   const action = $target.dataset.action;
   switch (action) {
     case 'add':
-      $target.classList.toggle('active');
+      $target.classList.toggle('icon-plus--active');
       Toast.create('Product added to cart!');
       break;
     case 'star':
