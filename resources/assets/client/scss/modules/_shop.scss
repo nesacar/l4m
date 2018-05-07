@@ -16,7 +16,6 @@
 
 .shop-item {
   display: block;
-  position: relative;
   margin-bottom: 4 * $base-line;
 
   &:focus {
@@ -32,6 +31,15 @@
     .shop-item_actions {
       opacity: 1;
     }
+  }
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_presentation {
+    position: relative;
   }
 
   &_image {
