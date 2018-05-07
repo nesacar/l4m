@@ -60,19 +60,23 @@ class Post extends Model
     }
 
     public static function getSlider($limit = 3){
-        return Post::where('slider', 1)->published()->take($limit)->get();
+        return self::where('slider', 1)->published()->take($limit)->get();
     }
 
     public static function getLatest($category = false, $limit = 7){
         if($category){
             return $category->post()->published()->paginate($limit);
         }else{
-            return Post::published()->paginate($limit);
+            return self::published()->paginate($limit);
         }
     }
 
     public static function getMostView($limit = 4){
-        return Post::published()->orderBy('views', 'DESC')->take($limit)->get();
+        return self::published()->orderBy('views', 'DESC')->take($limit)->get();
+    }
+
+    public static function getHomePosts($limit = 3){
+        return self::published()->limit($limit)->get();
     }
 
     public function scopePublished($query){

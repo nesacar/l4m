@@ -36,7 +36,7 @@ class PagesController extends Controller
 
     public function index()
     {
-        $posts = Post::getLatest();
+        $posts = Post::getHomePosts();
         $latestProducts = ShopBar::getLatest();
         $featuredProducts = ShopBar::getFeatured();
         $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
