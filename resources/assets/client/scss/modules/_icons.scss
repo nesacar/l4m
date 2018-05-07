@@ -65,7 +65,7 @@
   & > span {
     position: absolute;
     display: block;
-    background-color: #424242;
+    background-color: currentColor;
     transition: transform .32s ease-in-out;
   }
 
