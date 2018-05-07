@@ -202,7 +202,7 @@ class ProductsController extends Controller
      */
     public function lists(){
         $products = Product::withoutGlobalScopes()->select('products.id', 'products.code', 'products.publish_at', 'products.image')
-            ->where('products.publish', 1)->orderBy('products.title', 'ASC')->get();
+            ->where('products.publish', 1)->orderBy('products.publish_at', 'DESC')->get();
 
         return response()->json([
             'products' => $products

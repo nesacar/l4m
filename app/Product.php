@@ -176,4 +176,8 @@ class Product extends Model
     public function shopBar(){
         return $this->belongsToMany(ShopBar::class)->withPivot('order');
     }
+
+    public function post(){
+        return $this->belongsToMany(Post::class);
+    }
 }

@@ -30,6 +30,7 @@
                                 <th scope="col">id</th>
                                 <th scope="col">naslov</th>
                                 <th scope="col">kategorija</th>
+                                <th scope="col">proizvodi</th>
                                 <th scope="col">vidljivo</th>
                                 <th scope="col">vidljivo od</th>
                                 <th>akcija</th>
@@ -40,10 +41,12 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
                                 <td v-if="row.blog">{{ row.blog.title }}</td> <td v-else>/</td>
+                                <td v-if="row.product.length > 0">[<span v-for="product in row.product">{{ product.title }},</span>]</td> <td v-else>/</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="eye" @click="previewRow(row)" />
+                                    <font-awesome-icon icon="shopping-cart" @click="productRow(row)" />
                                     <router-link tag="a" :to="'posts/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
@@ -162,6 +165,9 @@
             },
             previewRow(row){
                 window.open(row.link, '_blank');
+            },
+            productRow(row){
+                this.$router.push('/posts/' + row.id + '/products');
             },
         }
     }

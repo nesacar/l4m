@@ -74,7 +74,7 @@
                                 <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label>Tags</label>
+                                <label>Tagovi</label>
                                 <select2 :options="tags" :multiple="true" @input="input($event)">
                                     <option value="0" disabled>select one</option>
                                 </select2>
@@ -96,6 +96,15 @@
                             :titleImage="'članka'"
                             :error="error"
                             @uploadImage="upload($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
+                    <upload-image-helper
+                            :image="post.slider"
+                            :defaultImage="null"
+                            :titleImage="'slajdera'"
+                            :error="error"
+                            @uploadImage="uploadSlider($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -124,9 +133,12 @@
                   desc: null,
                   publish: false,
                   blog_id: 0,
-                  tag_ids: []
+                  tag_ids: [],
+                  product_ids: [],
               },
               lists: {},
+              tags: {},
+              products: {},
               error: null,
               config: {
                   toolbar: [
@@ -180,8 +192,10 @@
                     });
             },
             upload(image){
-                console.log(image[0]);
                 this.post.image = image[0];
+            },
+            uploadSlider(slider){
+                this.post.slider = slider[0];
             },
             getList(){
                 axios.get('api/blogs/lists')

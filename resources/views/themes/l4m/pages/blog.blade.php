@@ -37,7 +37,7 @@
           [
             'component' => 'blog.tile',
             'theme' => $theme,
-            'items' => $posts->slice(0,4)
+            'items' => $posts->take(4)
           ]
         )
         @endcomponent
@@ -82,7 +82,7 @@
             'horizontal' => true,
             'asymmetric' => true
           ],
-          'items' => $mostView
+          'items' => $posts->slice(4)
         ])
         @endcomponent
       </div>
@@ -92,7 +92,7 @@
           <h4 class="side-content-title">most viewed posts</h4>
           @component('themes.' . $theme . '.components.list', [
             'component' => 'blog.list-item',
-            'items' => $posts->slice(4),
+            'items' => $mostView,
             'theme' => $theme
             ])
           @endcomponent
