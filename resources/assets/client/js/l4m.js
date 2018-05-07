@@ -1,9 +1,14 @@
 import LazyImages from './components/lazy-images';
 import * as Masthead from './components/masthead';
+import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
 import Siema from './components/siema';
+import Store from './components/store';
 import Toolbar from './components/toolbar';
 import { Toast } from './components/toast';
+
+import { product } from './components/product';
+import { extend } from './utils';
 
 export function init () {
   window.Toast = Toast;
@@ -12,9 +17,23 @@ export function init () {
   SearchWidget.init();
   Toolbar.init();
 
+  const emitter = new Emitter();
+  window.store = new Store([], emitter);
+
+  // Toast bindings.
+  emitter.on('product:add:cart', (product) => {
+    Toast.create(`Product added to cart. ID: ${product.id}`);
+  });
+  emitter.on('product:add:wishlist', (product) => {
+    Toast.create(`Product added to wishlist. ID: ${product.id}`);
+  });
+
+  // Extend product elements with product helper.
   document.querySelectorAll('.shop-item')
     .forEach((item, i) => {
-      item.addEventListener('click', _clickHandler, true);
+      const extension = product(emitter);
+      extend(item, extension);
+      item.init();
     });
 
   // Testing Siema
@@ -31,31 +50,3 @@ export function init () {
     }
   });
 };
-
-function _clickHandler(evt) {
-  const path = evt.composedPath();
-
-  const $target = path.find((t) => {
-    return t.tagName === 'BUTTON';
-  });
-
-  if (!$target) {
-    return;
-  }
-  
-  const action = $target.dataset.action;
-  switch (action) {
-    case 'add':
-      $target.classList.toggle('icon-plus--active');
-      Toast.create('Product added to cart!');
-      break;
-    case 'star':
-      Toast.create('Product added to whishlist!');
-      break;
-    default:
-      console.error(`Unknown action: ${action}, on target: ${$target}`);
-      break;
-  }
-
-  evt.preventDefault();
-}

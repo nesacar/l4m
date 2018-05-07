@@ -51,7 +51,14 @@
         <div class="with-border" style="width: 100%; padding-bottom: 32px; text-align: center;">
           <h4 class="side-content-title">featured products</h4>
           <div class="products-featured">
-          products...
+            @component('themes.' . $theme . '.components.list', [
+              'component' => 'shop.item',
+              'options' => (object)[
+                'horizontal' => true,
+            ],
+            'items' => [],
+            ])
+            @endcomponent
           </div>
           <a href="/shop/{{ $category->title }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">visit shop</a>
         </div>

@@ -14,7 +14,7 @@
 
 @endphp
 
-<a href="{{ $product->getLink() }}" class="shop-item no-link">
+<a href="{{ $product->getLink() }}" data-id="{{ $product->id }}" class="shop-item no-link">
   <div class="{{ $className }}">
     <div class="shop-item_presentation">
       <div class="shop-item_actions">
