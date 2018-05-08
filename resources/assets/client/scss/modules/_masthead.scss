@@ -168,8 +168,11 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      color: $text-primary-on-dark;
       z-index: 1;
+      
+      .light-context & {
+        color: $text-primary-on-dark;
+      }
     }
   }
 }

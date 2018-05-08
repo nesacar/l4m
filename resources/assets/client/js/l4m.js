@@ -37,6 +37,7 @@ export function init () {
   });
 
   window.addEventListener('load', function() {
+    // Wait for evertything to load before applying images.
     InvertableImage.init();
   });
 

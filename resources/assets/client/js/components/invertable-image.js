@@ -49,10 +49,7 @@ class InvertableImage {
    */
   constructor(image) {
     this.elem = image.parentElement;
-    this.image = image.firstElementChild;
-
-    this.worker = new Worker(InvertableImage.WORKER_URL);
-    this.worker.addEventListener('message', this.applyImage);
+    this.image = image.querySelector('img');
 
     this.applyImage = this.applyImage.bind(this);
     this.getAverageRGB = this.getAverageRGB.bind(this);
@@ -64,15 +61,15 @@ class InvertableImage {
    * @param {HTMLImageElement} image - Target image.
    */
   getAverageRGB() {
-    const image = this.image;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.height = image.height;
-    canvas.width = image.width;
-    ctx.drawImage(image, 0, 0);
-    const imageData = ctx.getImageData(0, 0, image.width, image.height);
-
     return new Promise((resolve, reject) => {
+      const image = this.image;
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.height = image.height;
+      canvas.width = image.width;
+      ctx.drawImage(image, 0, 0);
+      const imageData = ctx.getImageData(0, 0, image.width, image.height);
+
       const worker = new Worker(InvertableImage.WORKER_URL);
       worker.postMessage(imageData, [imageData.data.buffer]);
       worker.onerror = reject;

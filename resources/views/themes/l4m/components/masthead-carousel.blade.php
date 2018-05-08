@@ -31,7 +31,7 @@
   <div class="masthead-carousel is-loading">
     @foreach($data as $item)
     <div class="masthead-carousel_item masthead-carousel_item--full-width">
-      <div class="image masthead_image masthead_image--full-width">  
+      <div class="image masthead_image masthead_image--full-width invertable-image">  
         <picture>
           <img src="{{ $item->slider? url($item->slider) : url($item->image) }}" />
         </picture>
