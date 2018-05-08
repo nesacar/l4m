@@ -18,6 +18,7 @@ mix.options({
 
 mix.js('resources/assets/js/app.js', 'public/js')
   .js('resources/assets/client/js/index.js', 'public/themes/l4m/js')
+  .js('resources/assets/client/js/image-processor.js', 'public/themes/l4m/js')
   .js('resources/assets/client/js/chunks/product.js', 'public/themes/l4m/js')
   .js('resources/assets/client/js/chunks/shop.js', 'public/themes/l4m/js');
 

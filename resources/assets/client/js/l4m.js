@@ -9,6 +9,8 @@ import Store from './store';
 import View from './view';
 import Controller from './controller';
 
+import InvertableImage from './components/invertable-image';
+
 import { product } from './components/product';
 import { extend } from './utils';
 
@@ -32,6 +34,10 @@ export function init () {
   });
   emitter.on('product:add:wishlist', (product) => {
     Toast.create(`Product added to wishlist. ID: ${product.id}`);
+  });
+
+  window.addEventListener('load', function() {
+    InvertableImage.init();
   });
 
   // Testing Siema
