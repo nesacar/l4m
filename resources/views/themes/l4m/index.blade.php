@@ -20,6 +20,9 @@
   @include('themes.' . $theme . '.partials.footer')
 
   <script src="{{ url('themes/' . $theme . '/js/index.js')}}"></script>
+  <script>
+    window.cartItems = {!! \App\ShoppingCart::getIds() !!};
+  </script>
   @yield('scripts')
   @if(session('message'))
     <script>

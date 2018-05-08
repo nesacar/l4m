@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Attribute;
 use App\Block;
 use App\Blog;
 use App\ShoppingCart;
 use App\Category;
-use App\Collection;
-use App\Gallery;
 use App\Page;
-use App\Photo;
 use App\Post;
-use App\Product;
 use App\Seo;
-use App\Set;
 use App\Setting;
 use App\ShopBar;
 use App\Theme;
@@ -108,6 +102,6 @@ class PagesController extends Controller
 //        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
 //            $query->orderBy('parent', 'DESC')->first();
 //        }])->orderBy('id', 'DESC')->paginate(50);
-        return ShoppingCart::instance()->content();
+        return ShoppingCart::getIds();
     }
 }

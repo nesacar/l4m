@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Session;
+
 class ShoppingCart{
 
     public $items = null;
@@ -61,5 +63,17 @@ class ShoppingCart{
         $this->totalQty -= $this->items[$id]['qty'];
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);
+    }
+
+    public static function getIds(){
+        $oldCart = Session::has('cart')? Session::get('cart') : null;
+        $cart = new ShoppingCart($oldCart);
+        $res = collect([]);
+        if(count($cart->items) > 0){
+            foreach ($cart->items as $key => $product){
+                $res->prepend(['id' => $key]);
+            }
+        }
+        return $res;
     }
 }

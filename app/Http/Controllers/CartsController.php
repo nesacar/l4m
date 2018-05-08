@@ -68,6 +68,10 @@ class CartsController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|string|\Symfony\Component\HttpFoundation\Response
+     */
     public function removeItem($id){
         $oldCart = Session::has('cart')? Session::get('cart') : null;
         $cart = new ShoppingCart($oldCart);
@@ -88,5 +92,17 @@ class CartsController extends Controller
         }else{
             return 'cart is empty';
         }
+    }
+
+    public function countItems(){
+        $oldCart = Session::has('cart')? Session::get('cart') : null;
+        $cart = new ShoppingCart($oldCart);
+        return count($cart->items);
+    }
+
+    public function totalPrice(){
+        $oldCart = Session::has('cart')? Session::get('cart') : null;
+        $cart = new ShoppingCart($oldCart);
+        return $cart->totalPrice;
     }
 }
