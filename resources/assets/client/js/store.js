@@ -30,6 +30,7 @@ class Store {
    * @param {Function} callback - The callback to fire on add.
    */
   add(product, callback=function() {}) {
+    // TODO: Merge add and update to save.
     // Length of updated array.
     const length = this._products.push(product);
 

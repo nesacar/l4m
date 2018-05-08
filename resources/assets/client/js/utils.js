@@ -34,9 +34,21 @@ const extend = (base, extension) => {
   }
 };
 
+// Find the element's parent with the given tag name:
+const parent = (element, tagName) => {
+  if (!element.parentNode) {
+    return;
+  }
+  if (element.parentNode.tagName.toLowerCase() === tagName.toLowerCase()) {
+    return element.parentNode;
+  }
+  return parent(element.parentNode, tagName);
+};
+
 export {
   preloadImage,
   mapOverObject,
   hasValue,
   extend,
+  parent,
 };
