@@ -37,15 +37,17 @@
           [
             'component' => 'blog.tile',
             'theme' => $theme,
-            'items' => $posts->take(4)
+            'items' => $posts->take(6)
           ]
         )
         @endcomponent
       </div>
 
+      @if(false)
       <aside class="split-view_right-pane" id="banner">
         <div class="banner">banner positions</div>
       </aside>
+      @endif
 
     </div>
   </section>
@@ -82,7 +84,7 @@
             'horizontal' => true,
             'asymmetric' => true
           ],
-          'items' => $posts->slice(4)
+          'items' => $posts->slice(6)
         ])
         @endcomponent
       </div>

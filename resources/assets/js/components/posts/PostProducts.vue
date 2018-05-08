@@ -8,7 +8,7 @@
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
                             <li><router-link tag="a" :to="'/posts'">Članci</router-link></li>
                             <li><router-link tag="a" :to="'/posts/' + this.$route.params.id + '/products'">{{ post.title }}</router-link></li>
-                            <li>Izmena proizvoda</li>
+                            <li>Povezivanje proizvoda</li>
                         </ul>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
             <div class="row bela">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Izmena proizvoda</h5>
+                        <h5>Povezivanje proizvoda</h5>
                     </div>
                 </div>
 
@@ -49,6 +49,7 @@
     import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import Select2 from '../helper/Select2Helper.vue';
+    import swal from 'sweetalert2';
 
     export default {
         data(){
@@ -56,6 +57,7 @@
               post: {
                   product_ids: []
               },
+              ids: [],
               error: null,
               products: {},
               domain : apiHost
@@ -86,11 +88,10 @@
                     });
             },
             submit(){
-                axios.post('api/posts/' + this.$route.params.id + '/products', this.post)
+                axios.post('api/posts/' + this.$route.params.id + '/products', {'product_ids': this.ids})
                     .then(res => {
-                        console.log(res.data.post);
                         this.post = res.data.post;
-                        //this.post.product_ids = res.post.product_ids;
+                        this.post.product_ids = res.data.product_ids;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -119,7 +120,7 @@
                     });
             },
             input(product){
-                this.post.product_ids = product;
+                this.ids = product;
             },
         }
     }

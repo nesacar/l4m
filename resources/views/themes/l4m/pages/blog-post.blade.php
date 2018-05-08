@@ -18,12 +18,14 @@
               <em>{{ $post->short }}</em>
             </p>
           </div>
+          @if(count($post->gallery)>0)
           <div class="blog-post_gallery">
             <div class="image image--standard lazy-image"
               data-src={{ url($post->image) }}
             ></div>
             {{-- thumbnails go here --}}
           </div>
+          @endif
           <div class="blog-post_body">{!! $post->body !!}</div>
           @if(count($post->tag)>0)
           <ul class="tag-list">
@@ -56,11 +58,13 @@
               'options' => (object)[
                 'horizontal' => true,
             ],
-            'items' => [],
+            'items' => $post->product,
             ])
             @endcomponent
           </div>
-          <a href="/shop/{{ $category->title }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">visit shop</a>
+          @if(count($post->product)>0)
+          <a href="{{ $post->product->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">poseti prodavnicu</a>
+          @endif
         </div>
         @include('themes.' . $theme . '.partials.newsletter')
         <div class="social-container">

@@ -28,7 +28,7 @@ trait SearchableProductTraits
         $productIds = $products->pluck('id')->toArray();
 
         $min = self::getPass() ? request('price')[0] : 0;
-        $max = self::getPass() ? request('price')[1] : $products->first()->price;
+        $max = self::getPass() ? request('price')[1] : $products->first()? $products->first()->price : 0;
 
         $range = $category? $category->product()->published()->orderBy('price', 'DESC')->value('price') : Product::published()->orderBy('price', 'DESC')->value('price');
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Attribute;
 use App\Block;
 use App\Blog;
-use App\Cart;
+use App\ShoppingCart;
 use App\Category;
 use App\Collection;
 use App\Gallery;
@@ -47,7 +47,7 @@ class PagesController extends Controller
 
     public function blog()
     {
-        $posts = Post::getLatest();
+        $posts = Post::getLatest(false, 10);
         $mostView = Post::getMostView();
         $featuredProducts = ShopBar::getFeatured('blog');
         $slider = Post::getSlider();
@@ -58,7 +58,7 @@ class PagesController extends Controller
 
     public function blog2($slug){
         $category = Blog::whereSlug($slug)->first();
-        $posts = Post::getLatest($category);
+        $posts = Post::getLatest($category, 10);
         $mostView = Post::getMostView();
         $slider = Post::getSlider();
         Seo::blogCategory(Setting::get(), $category);
@@ -76,9 +76,10 @@ class PagesController extends Controller
     public function blog4($slug1, $slug2, $slug3){
         $category = Blog::whereSlug($slug1)->first();
         $posts = Post::getLatest($category);
-        $post = Post::with(['tag', 'gallery'])->find($slug3);
+        $post = Post::with(['tag', 'gallery', 'product'])->find($slug3);
         $post->increment('views');
         Seo::blogPost($post);
+        //return $post->product->first()->category->first()->getLink();
         return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
     }
 
@@ -107,8 +108,6 @@ class PagesController extends Controller
 //        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
 //            $query->orderBy('parent', 'DESC')->first();
 //        }])->orderBy('id', 'DESC')->paginate(50);
-        $posts = Post::select('id', 'publish_at')->take(4)->get();
-        return $one = $posts->slice(2);
-        return $posts;
+        return ShoppingCart::instance()->content();
     }
 }
