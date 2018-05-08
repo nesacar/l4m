@@ -26,8 +26,8 @@ class CreateProductsTable extends Migration
             $table->text('body2')->nullable();
             $table->string('code');
             $table->string('image')->nullable();
-            $table->integer('price')->nullable();
-            $table->integer('price_outlet')->nullable();
+            $table->float('price')->nullable();
+            $table->float('price_outlet')->nullable();
             $table->integer('views')->default(0);
             $table->integer('amount')->default(0);
             $table->string('color')->nullable();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Block;
 use App\Blog;
+use App\Product;
 use App\ShoppingCart;
 use App\Category;
 use App\Page;
@@ -102,6 +103,7 @@ class PagesController extends Controller
 //        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
 //            $query->orderBy('parent', 'DESC')->first();
 //        }])->orderBy('id', 'DESC')->paginate(50);
-        return ShoppingCart::getIds();
+        return Product::withoutGlobalScopes()->select('id', 'publish_at', 'image', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))
+            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
     }
 }
