@@ -19,6 +19,10 @@
 
   @include('themes.' . $theme . '.partials.footer')
 
+  <script>
+    window.app_url = "{{ url('/') }}";
+  </script>
+  
   <script src="{{ url('themes/' . $theme . '/js/index.js')}}"></script>
   <script>
     window.cartItems = {!! \App\ShoppingCart::getIds() !!};

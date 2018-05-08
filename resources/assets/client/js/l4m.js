@@ -3,9 +3,13 @@ import * as Masthead from './components/masthead';
 import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
 import Siema from './components/siema';
-import Store from './components/store';
 import Toolbar from './components/toolbar';
 import { Toast } from './components/toast';
+import Store from './store';
+import View from './view';
+import Controller from './controller';
+
+import InvertableImage from './components/invertable-image';
 
 import { product } from './components/product';
 import { extend } from './utils';
@@ -17,8 +21,12 @@ export function init () {
   SearchWidget.init();
   Toolbar.init();
 
+  // Message bus.
   const emitter = new Emitter();
-  window.store = new Store([], emitter);
+  // Get initial state from the session
+  window.store = new Store('cart', []);
+  window.view = new View(emitter);
+  window.cartController = new Controller(store, view);
 
   // Toast bindings.
   emitter.on('product:add:cart', (product) => {
@@ -28,13 +36,10 @@ export function init () {
     Toast.create(`Product added to wishlist. ID: ${product.id}`);
   });
 
-  // Extend product elements with product helper.
-  document.querySelectorAll('.shop-item')
-    .forEach((item, i) => {
-      const extension = product(emitter);
-      extend(item, extension);
-      item.init();
-    });
+  window.addEventListener('load', function() {
+    // Wait for evertything to load before applying images.
+    InvertableImage.init();
+  });
 
   // Testing Siema
   const el = document.querySelector('.showcase_carousel');
