@@ -121,7 +121,7 @@
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Čkanak je uspešno obrisan.',
+                                    'Članak je uspešno obrisan.',
                                     'success'
                                 );
                             })

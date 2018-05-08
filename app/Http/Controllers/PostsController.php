@@ -191,7 +191,7 @@ class PostsController extends Controller
 
         return response()->json([
             'post' => $post,
-            'product_ids' => $post->product()->pluck('products.id'),
+            'product_ids' => $post->product()->pluck('products.id')->toArray(),
         ], 200);
     }
 }

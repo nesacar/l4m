@@ -43,10 +43,10 @@ Route::post('blogs/{id}/image', 'BlogsController@uploadImage');
 Route::post('posts/search', 'PostsController@search');
 Route::get('posts/lists', 'PostsController@lists');
 Route::resource('posts', 'PostsController');
+Route::post('posts/{id}/products', 'PostsController@products');
 Route::post('posts/{id}/image', 'PostsController@uploadImage');
 Route::post('posts/{id}/gallery', 'PostsController@galleryUpdate');
 Route::get('posts/{id}/gallery', 'PostsController@gallery');
-Route::post('posts/{id}/products', 'PostsController@products');
 
 Route::post('tags/search', 'TagsController@search');
 Route::get('tags/lists', 'TagsController@lists');

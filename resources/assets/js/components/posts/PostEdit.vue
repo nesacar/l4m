@@ -68,6 +68,7 @@
                                 :defaultImage="null"
                                 :titleImage="'članka'"
                                 :error="error"
+                                :dimensions="'800x600 px'"
                                 @uploadImage="upload($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
@@ -77,6 +78,7 @@
                                 :defaultImage="null"
                                 :titleImage="'slajdera'"
                                 :error="error"
+                                :dimensions="'980x420 px'"
                                 @uploadImage="uploadSlider($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
