@@ -1,3 +1,5 @@
+import { extend } from './utils';
+
 class Store {
   /**
    * @type {Array}
@@ -10,10 +12,13 @@ class Store {
    *
    * @param {String} name - Store name.
    * @param {Array} products - Array of products.
+   * @param {Function} callback - The callback to fire on instantiation.
    */
-  constructor(name, products) {
+  constructor(name, products, callback=function() {}) {
     this._storeName = name;
     this._products = products || [];
+
+    callback(this._products);
   }
 
   /**
@@ -24,7 +29,7 @@ class Store {
    * @param {Number} product.count - Amount of products.
    * @param {Function} callback - The callback to fire on add.
    */
-  add(product, callback) {
+  add(product, callback=function() {}) {
     // Length of updated array.
     const length = this._products.push(product);
 
@@ -38,12 +43,13 @@ class Store {
    * @param {Function} callback - The callback to fire on removal
    * of product.
    */
-  remove(id, callback) {
+  remove(id, callback=function() {}) {
     const index = this._products.findIndex((product) => {
       return product.id === id;
     });
 
     if (index < 0) {
+      console.error(`Could not find the product with the ID: ${id}`);
       return;
     }
 
@@ -51,6 +57,40 @@ class Store {
     const product = this._products.splice(index, 1)[0];
 
     callback(product);
+  }
+
+  /**
+   * Updates the product with matched id.
+   *
+   * @param {String} id - The id of product to update.
+   * @param {Object} params - Params to update product with.
+   * @param {Function} callback - The callback to fire on update completion.
+   */
+  update(id, params, callback=function() {}) {
+    const product = this._products.find((product) => {
+      return product.id === id;
+    });
+
+    if (!product) {
+      console.error(`Could not find the product with the ID: ${id}`);
+      return;
+    }
+
+    // Update the product.
+    extend(product, params);
+
+    callback(product);
+  }
+
+  /**
+   * WARNING: Removes all the products, and starts clean.
+   * 
+   * @param {Function} callback - The callback to fire on fresh start.
+   */
+  drop(callback=function() {}) {
+    this._products = [];
+
+    callback();
   }
 }
 

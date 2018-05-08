@@ -15,12 +15,21 @@ class View {
   }
 
   /**
-   * Creates bind for addItem event.
+   * Creates binding for addItem event.
    *
    * @param {Function} handler - The callback to fire on added product.
    */
-  bindAddItem(handler) {
+  bindAddItemToCart(handler) {
     this.emitter.on('product:add:cart', handler);
+  }
+
+  /**
+   * Creates binding for the removeItem event.
+   *
+   * @param {String} id - The of item to remove.
+   */
+  bindRemoveItemFromCart(id) {
+    this.emitter.on('product:remove:cart', handler);
   }
 }
 

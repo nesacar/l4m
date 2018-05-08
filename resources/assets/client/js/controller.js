@@ -9,7 +9,7 @@ class Controller {
     this.store = store;
     this.view = view;
 
-    this.view.bindAddItem(this.addItem.bind(this));
+    this.view.bindAddItemToCart(this.addItem.bind(this));
   }
 
   /**
@@ -22,6 +22,18 @@ class Controller {
   addItem(product) {
     this.store.add(product, function(len) {
       console.log(len);
+    });
+  }
+
+  /**
+   * Removes item from the store.
+   *
+   * @param {String} id - The id of product to remove from the store.
+   */
+  removeItem(id) {
+    this.store.remove(id, function(product) {
+      // Update the view with new info.
+      console.log(product);
     });
   }
 }

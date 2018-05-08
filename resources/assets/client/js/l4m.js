@@ -21,9 +21,10 @@ export function init () {
 
   // Message bus.
   const emitter = new Emitter();
+  // Get initial state from the session
   window.store = new Store('cart', []);
   window.view = new View(emitter);
-  window.controller = new Controller(store, view);
+  window.cartController = new Controller(store, view);
 
   // Toast bindings.
   emitter.on('product:add:cart', (product) => {
