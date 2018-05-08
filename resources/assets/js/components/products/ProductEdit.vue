@@ -114,6 +114,11 @@
                                 <small class="form-text text-muted" v-if="error != null && error.price">{{ error.price[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label for="discount">Popust (%)</label>
+                                <input type="text" name="discount" class="form-control" id="discount" placeholder="Popust" v-model="product.discount" @change="discountPrice()">
+                                <small class="form-text text-muted" v-if="error != null && error.discount">{{ error.discount[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="price_outlet">Outlet cena</label>
                                 <input type="text" name="price_outlet" class="form-control" id="price_outlet" placeholder="Outlet cena" v-model="product.price_outlet">
                                 <small class="form-text text-muted" v-if="error != null && error.price_outlet">{{ error.price_outlet[0] }}</small>
@@ -462,6 +467,11 @@
             },
             input(tag){
                 this.product.tag_ids = tag;
+            },
+            discountPrice(){
+                if(this.product.price > 0){
+                    this.product.price_outlet = this.product.price - (this.product.discount / 100) * this.product.price;
+                }
             },
         }
     }
