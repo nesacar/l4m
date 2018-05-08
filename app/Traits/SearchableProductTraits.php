@@ -8,6 +8,7 @@ use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use DB;
 
 trait SearchableProductTraits
 {
@@ -33,7 +34,7 @@ trait SearchableProductTraits
         $range = $category? $category->product()->published()->orderBy('price', 'DESC')->value('price') : Product::published()->orderBy('price', 'DESC')->value('price');
 
         return [
-            'products' => self::query()->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
+            'products' => self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
             'attIds' => Attribute::whereHas('product', function ($q) use ($productIds) {
                 $q->whereIn('products.id', $productIds);
             })->groupBy('attributes.id')->pluck('attributes.id')->toArray(),

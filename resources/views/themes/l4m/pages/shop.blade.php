@@ -46,7 +46,7 @@
       </div>
 
       <nav class="pagination-container" aria-label="shop navigation">
-        {{ $data['products']->links() }}
+        {{ $data['products']->appends(Request::all())->links() }}
       </nav>
 
     </div>
