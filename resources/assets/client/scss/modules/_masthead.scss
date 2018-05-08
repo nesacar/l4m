@@ -2,16 +2,14 @@
   position: relative;
   overflow: hidden;
 
-  &_image {
-    @include media-breakpoint-down(sm) {
+  &_image {    
+    @include media-breakpoint-down(md) {
+      padding-top: 42 * $base-line;
+
       img {
         height: 100%;
         width: auto;
       }
-    }
-
-    @include media-breakpoint-down(md) {
-      padding-top: 42 * $base-line;
     }
 
     &--full-width {

@@ -24,7 +24,7 @@ export function init () {
   // Message bus.
   const emitter = new Emitter();
   // Get initial state from the session
-  window.store = new Store('cart', []);
+  window.store = new Store('cart', window.cartItems);
   window.view = new View(emitter);
   window.cartController = new Controller(store, view);
 
