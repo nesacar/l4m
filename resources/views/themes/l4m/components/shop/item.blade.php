@@ -48,11 +48,11 @@
           {{ $product->price }}
         </span>
         <span class="shop-item_price-tag">
-          {{ $product->price_outlet }}
+          {{ $product->totalPrice }}
         </span>
         @else
         <span class="shop-item_price-tag">
-          {{ $product->price }}
+          {{ $product->totalPrice }}
         </span>
         @endif
       </div>

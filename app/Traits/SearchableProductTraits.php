@@ -34,7 +34,7 @@ trait SearchableProductTraits
         $range = $category? $category->product()->published()->orderBy('price', 'DESC')->value('price') : Product::published()->orderBy('price', 'DESC')->value('price');
 
         return [
-            'products' => self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
+            'products' => self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
             'attIds' => Attribute::whereHas('product', function ($q) use ($productIds) {
                 $q->whereIn('products.id', $productIds);
             })->groupBy('attributes.id')->pluck('attributes.id')->toArray(),
@@ -68,9 +68,9 @@ trait SearchableProductTraits
         if ($sort == 1) {
             $query->orderBy('publish_at', 'DESC');
         } elseif ($sort == 2) {
-            $query->orderBy('price', 'ASC');
+            $query->orderBy('totalPrice', 'ASC');
         } elseif ($sort == 3) {
-            $query->orderBy('price', 'DESC');
+            $query->orderBy('totalPrice', 'DESC');
         }
         return $query;
     }
