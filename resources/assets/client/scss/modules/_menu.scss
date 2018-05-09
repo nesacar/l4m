@@ -62,3 +62,13 @@
     }
   }
 }
+
+.mega-menu {
+  position: absolute;
+  top: 41px;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, .7);
+  padding-top: 2 * $base-line;
+  padding-bottom: 2 * $base-line;
+}

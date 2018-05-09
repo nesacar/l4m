@@ -133,6 +133,7 @@
 
     &.active::after {
       opacity: 0;
+      pointer-events: none;
     }
   }
 
@@ -144,6 +145,10 @@
     padding: (2 * $base-line) (2 * $base-line);
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     color: $text-primary-on-dark;
+
+    a {
+      color: inherit;
+    }
 
     @include media-breakpoint-up(md) {
       padding: (2 * $base-line) (4 * $base-line);

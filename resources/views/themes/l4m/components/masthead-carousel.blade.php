@@ -59,7 +59,7 @@
       </div>
       <div class="masthead-carousel_content">
         <div class="masthead_label">{{ $item->category? $item->category->title : $item->blog->title }}</div>
-        <h3 class="masthead_title">{{ $item->title }}</h3>
+        <h3 class="masthead_title"><a href="#">{{ $item->title }}</a></h3>
         <p class="masthead_desc">{{ $item->subtitle }}</p>
       </div>
     </div>
