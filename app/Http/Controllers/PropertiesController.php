@@ -101,7 +101,7 @@ class PropertiesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $properties = Property::with('set')->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
+        $properties = Property::with(['set', 'attribute'])->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
 
         return response()->json([
             'properties' => $properties

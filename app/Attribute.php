@@ -29,4 +29,9 @@ class Attribute extends Model
     public function product(){
         return $this->belongsToMany(Product::class);
     }
+
+
+    public function link(){
+        return $this->belongsToMany(MenuLink::class);
+    }
 }
