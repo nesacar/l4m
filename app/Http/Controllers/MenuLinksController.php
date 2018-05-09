@@ -14,7 +14,6 @@ class MenuLinksController extends Controller
     }
 
     public function index(){
-        app()->setLocale('sr');
         $menu = Menu::find(request('id'));
         $menuLinks = $menu->menuLinks()->orderBy('order', 'ASC')->get();
         return response()->json([
@@ -24,15 +23,10 @@ class MenuLinksController extends Controller
     }
 
     public function store(CreateMenuLinkRequest $request){
-        app()->setLocale('sr');
-        $link = new MenuLink();
-        $link->menu_id = request('menu_id');
-        $link->title = request('title');
-        $link->link = request('link');
-        $link->desc = request('desc');
-        $link->sufix = request('sufix');
-        request('publish')? $link->publish = 1 : $link->publish = 0;
-        $link->save();
+        $link = MenuLink::create(request()->all());
+
+        $link->attribute()->sync(request('att_ids'));
+        $link->attributes(request('att_ids'));
 
         return response()->json([
             'link' => $link
@@ -40,29 +34,24 @@ class MenuLinksController extends Controller
     }
 
     public function show($id){
-        request('locale')? $locale = request('locale') : $locale = 'sr';
-        app()->setLocale($locale);
         $link = MenuLink::find($id);
 
         return response()->json([
-            'link' => $link
+            'link' => $link,
+            'att_ids' => $link->attribute()->pluck('attributes.id'),
         ]);
     }
 
     public function update(CreateMenuLinkRequest $request, $id){
         $link = MenuLink::find($id);
-        $link->title = request('title');
-        $link->link = request('link');
-        $link->desc = request('desc');
-        $link->sufix = request('sufix');
-        $link->parent = request('parent');
-        $link->order = request('order');
-        $link->parent == 0? $link->level = 1 : $link->level = 2;
-        $link->publish = request('publish')? 1 : 0;
-        $link->update();
+        $link->update(request()->all());
+
+        $link->attribute()->sync(request('att_ids'));
+        $link->attributes(request('att_ids'));
 
         return response()->json([
-            'link' => $link
+            'link' => $link,
+            'att_ids' => $link->attribute()->pluck('attributes.id'),
         ]);
     }
 
