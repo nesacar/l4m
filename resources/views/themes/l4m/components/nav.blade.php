@@ -1,6 +1,7 @@
 <nav class="nav">
   @foreach($links as $i => $link)
-      @php $className = $link->desc . (Request::is($link->link) ? ' ' . $link->desc . '--active' : ''); @endphp
+    @php $className = $link->desc . (Request::is($link->link) ? ' ' . $link->desc . '--active' : ''); @endphp
+    <div class="nav_item">
       <a class="{{ $className }}" href="{{ url($link->link) }}">{{ $link->title}}</a>
       @if($link->title == 'Blog')
       <div class="mega-menu">
