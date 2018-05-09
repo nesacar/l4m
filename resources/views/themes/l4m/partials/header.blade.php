@@ -17,8 +17,7 @@
           <use xlink:href="#logo">
         </svg>
       </a>
-      @search()
-      @endsearch
+      @search()@endsearch
     </div>
   </div>
   <div id="main-nav">

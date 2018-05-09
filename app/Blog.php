@@ -42,6 +42,10 @@ class Blog extends Model
         return '';
     }
 
+    public function getLink(){
+        return url('blog/' . $this->slug . '/');
+    }
+
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($value);
     }
