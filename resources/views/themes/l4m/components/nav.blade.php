@@ -4,22 +4,25 @@
     <div class="nav_item">
       <a class="{{ $className }}" href="{{ url($link->link) }}">{{ $link->title}}</a>
       @if($link->title == 'Blog')
-      <div class="mega-menu container">
-        <div class="row">
-          <div class="col-3">
-            <a href="#">women</a>
-          </div>
-          <div class="col-3">
-            <div class="image image--standard">
-              <img src="https://images.pexels.com/photos/699821/pexels-photo-699821.jpeg?auto=compress&cs=tinysrgb&h=350" alt="flowers">
+      <div class="mega-menu">
+        <div class="mega-menu_background"></div>
+        <div class="mega-menu_content container">
+          <div class="row">
+            <div class="col-3 mega-menu_col">
+              <a href="#" class="mega-menu_link">žene</a>
             </div>
-          </div>
-          <div class="col-3">
-            <a href="#">men</a>
-          </div>
-          <div class="col-3">
-            <div class="image image--standard">
-              <img src="https://images.pexels.com/photos/700439/pexels-photo-700439.jpeg?auto=compress&cs=tinysrgb&h=350" alt="leafs">
+            <div class="col-3 mega-menu_col">
+              <a href="#" class="image image--standard">
+                <img src="https://images.pexels.com/photos/699821/pexels-photo-699821.jpeg?auto=compress&cs=tinysrgb&h=350" alt="flowers">
+              </a>
+            </div>
+            <div class="col-3 mega-menu_col">
+              <a href="#" class="mega-menu_link">muškarci</a>
+            </div>
+            <div class="col-3 mega-menu_col">
+              <a href="#" class="image image--standard">
+                <img src="https://images.pexels.com/photos/700439/pexels-photo-700439.jpeg?auto=compress&cs=tinysrgb&h=350" alt="leafs">
+              </a>
             </div>
           </div>
         </div>
