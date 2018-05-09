@@ -41,6 +41,17 @@
                             </div>
                         </form>
                     </div>
+
+                    <upload-image-helper
+                            :image="link.image"
+                            :defaultImage="null"
+                            :titleImage="'linka'"
+                            :error="error"
+                            @uploadImage="upload($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
+
                 </div>
                 <div class="col-md-8">
                     <div class="card">
@@ -172,6 +183,23 @@
                         this.properties = res.data.properties;
                     }).catch(e => {
                         console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            upload(image){
+                axios.post('api/menu-links/' + this.link.id + '/image', { file: image[0] })
+                    .then(res => {
+                        this.link.image = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
                         this.error = e.response.data.errors;
                     });
             },

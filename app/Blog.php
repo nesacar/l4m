@@ -19,9 +19,9 @@ class Blog extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = $blog->slug . '-' . str_random(2) . '-' . $blog->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/blogs/');
-        file_put_contents($path . $filename, $data);
-        $blog->image = 'storage/uploads/blogs/' . $filename;
+        $path = Helper::generateImageFolder('uploads/blogs/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $blog->image = 'storage/uploads/blogs/' . $path['folder'] . '/' . $filename;
         $blog->update();
         return $blog->image;
     }

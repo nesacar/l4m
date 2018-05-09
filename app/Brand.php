@@ -18,9 +18,9 @@ class Brand extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = $brand->slug . '-' . str_random(2) . '-' . $brand->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/brands/');
-        file_put_contents($path . $filename, $data);
-        $brand->image = 'storage/uploads/brands/' . $filename;
+        $path = Helper::generateImageFolder('uploads/brands/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $brand->image = 'storage/uploads/brands/' . $path['folder'] . '/' . $filename;
         $brand->update();
         return $brand->image;
     }
@@ -71,5 +71,9 @@ class Brand extends Model
 
     public function product(){
         return $this->hasMany(Product::class);
+    }
+
+    public function post(){
+        return $this->hasMany(Post::class);
     }
 }

@@ -30,6 +30,13 @@
                                 </select>
                                 <small class="form-text text-muted" v-if="error != null && error.blog_id">{{ error.blog_id[0] }}</small>
                             </div>
+                            <div class="form-group">
+                                <label for="brand">Brend</label>
+                                <select name="brand" id="brand" class="form-control" v-model="post.brand_id">
+                                    <option :value="brand.id" v-for="brand in brands">{{ brand.title }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.brand_id">{{ error.brand_id[0] }}</small>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -140,7 +147,7 @@
               },
               lists: {},
               tags: {},
-              products: {},
+              brands: {},
               error: null,
               config: {
                   toolbar: [
@@ -173,6 +180,7 @@
         created(){
             this.getList();
             this.getTags();
+            this.getBrands();
         },
         methods: {
             submit(){
@@ -203,6 +211,15 @@
                 axios.get('api/blogs/lists')
                     .then(res => {
                         this.lists = res.data.blogs;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            getBrands(){
+                axios.get('api/brands/lists')
+                    .then(res => {
+                        this.brands = res.data.brands;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

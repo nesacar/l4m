@@ -21,7 +21,7 @@ class Product extends Model
 
     //protected $dates = ['publish_at'];
 
-    protected $appends = ['date', 'time', 'link', 'tmb'];
+    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice'];
 
     protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
@@ -80,8 +80,8 @@ class Product extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = str_slug($product->title) . '-' . str_random(2) . '-' . $product->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('storage/uploads/products/');
-        file_put_contents($path['folderPath'] . '/' . $filename, $data);
+        $path = Helper::generateImageFolder('uploads/products/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
         $product->image = 'storage/uploads/products/' . $path['folder'] . '/' . $filename;
         $product->update();
         return $product->image;
@@ -139,6 +139,10 @@ class Product extends Model
 
     public function getLinkAttribute(){
         return $this->getLink();
+    }
+
+    public function getTotalPriceAttribute(){
+        return $this->attributes['price_outlet'] ?: $this->attributes['price'];
     }
 
     public function brand(){

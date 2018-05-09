@@ -17,9 +17,9 @@ class Box extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = str_random(2) . '-' . $box->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/boxes/');
-        file_put_contents($path . $filename, $data);
-        $box->image = 'storage/uploads/boxes/' . $filename;
+        $path = Helper::generateImageFolder('uploads/boxes/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $box->image = 'storage/uploads/boxes/' . $path['folder'] . '/' . $filename;
         $box->update();
         return $box->image;
     }

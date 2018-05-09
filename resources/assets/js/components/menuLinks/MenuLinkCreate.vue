@@ -27,6 +27,16 @@
                             <switches v-model="link.publish" theme="bootstrap" color="primary"></switches>
                         </div>
                     </div>
+
+                    <upload-image-helper
+                            :image="link.image"
+                            :defaultImage="null"
+                            :titleImage="'linka'"
+                            :error="error"
+                            @uploadImage="upload($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
                 </div>
                 <div class="col-md-8">
                     <div class="card">
@@ -103,7 +113,10 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
-            }
+            },
+            upload(image){
+                this.link.image = image[0];
+            },
         }
     }
 </script>

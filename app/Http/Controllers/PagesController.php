@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Block;
 use App\Blog;
+use App\MenuLink;
 use App\Product;
 use App\ShoppingCart;
 use App\Category;
@@ -17,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PagesController extends Controller
 {
@@ -73,19 +75,21 @@ class PagesController extends Controller
         $posts = Post::getLatest($category);
         $post = Post::with(['tag', 'gallery', 'product'])->find($slug3);
         $post->increment('views');
+        $products = Post::getRelatedProducts($post);
         Seo::blogPost($post);
         //return $post->product->first()->category->first()->getLink();
-        return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
+        return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'products'));
     }
 
     public function blog5($slug1, $slug2, $slug3, $slug4){
         if(is_numeric($slug3)){
             $category = Blog::whereSlug($slug1)->first();
             $posts = Post::getLatest($category);
-            $post = Post::with(['tag', 'gallery'])->find($slug3);
+            $post = Post::with(['tag', 'gallery', 'product'])->find($slug3);
             $post->increment('views');
+            $products = Post::getRelatedProducts($post);
             Seo::blogPost($post);
-            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category'));
+            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'products'));
         }else{
 
         }
@@ -99,11 +103,14 @@ class PagesController extends Controller
 //                ->groupBy('products.id')
 //                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
 //        })->get();
-        //Artisan::call('storage:link');
+//        \Artisan::call('config:clear');
+//        \Artisan::call('storage:link');
 //        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
 //            $query->orderBy('parent', 'DESC')->first();
 //        }])->orderBy('id', 'DESC')->paginate(50);
-        return Product::withoutGlobalScopes()->select('id', 'publish_at', 'image', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))
-            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
+//        return Product::withoutGlobalScopes()->select('id', 'publish_at', 'image', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))
+//            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
+        $link = MenuLink::find(6);
+        return asset($link->image);
     }
 }

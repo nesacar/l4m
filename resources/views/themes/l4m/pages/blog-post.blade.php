@@ -58,12 +58,12 @@
               'options' => (object)[
                 'horizontal' => true,
             ],
-            'items' => $post->product,
+            'items' => $products,
             ])
             @endcomponent
           </div>
-          @if(count($post->product)>0)
-          <a href="{{ $post->product->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">poseti prodavnicu</a>
+          @if(count($products)>0)
+          <a href="{{ $products->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">poseti prodavnicu</a>
           @endif
         </div>
         @include('themes.' . $theme . '.partials.newsletter')

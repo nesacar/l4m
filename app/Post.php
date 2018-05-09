@@ -9,7 +9,7 @@ Use Carbon\Carbon;
 
 class Post extends Model
 {
-    protected $fillable = ['user_id', 'blog_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
+    protected $fillable = ['user_id', 'blog_id', 'brand_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
 
     protected $appends = ['date', 'time', 'link'];
 
@@ -37,9 +37,10 @@ class Post extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = str_slug($post->title) . '-slider-' . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('storage/uploads/posts/');
-        file_put_contents($path['folderPath'] . '/' . $filename, $data);
-        $post->update(['slider' => 'storage/uploads/posts/' . $path['folder'] . '/' . $filename]);
+        $path = Helper::generateImageFolder('uploads/posts/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $post->slider = 'storage/uploads/posts/' . $path['folder'] . '/' . $filename;
+        $post->update();
         return $post->slider;
     }
 
@@ -51,9 +52,10 @@ class Post extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = str_slug($post->title) . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('storage/uploads/posts/');
-        file_put_contents($path['folderPath'] . '/' . $filename, $data);
-        $post->update(['image' => 'storage/uploads/posts/' . $path['folder'] . '/' . $filename]);
+        $path = Helper::generateImageFolder('uploads/posts/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $post->image = 'storage/uploads/posts/' . $path['folder'] . '/' . $filename;
+        $post->update();
         return $post->image;
     }
 
@@ -71,6 +73,18 @@ class Post extends Model
             return $r[0];
         }
         return '';
+    }
+
+    public static function getRelatedProducts($post, $limit = 3){
+        if(count($post->product) > 0){
+            return $post->product;
+        }else{
+            if($post->brand_id != null){
+                return Brand::find($post->brand_id)->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take(3)->get();
+            }elseif($category = Category::whereTitle($post->blog->title)->first()){
+                return $category->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take(3)->get();
+            }
+        }
     }
 
     public static function getSlider($limit = 3){
@@ -143,5 +157,9 @@ class Post extends Model
 
     public function product(){
         return $this->belongsToMany(Product::class);
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class);
     }
 }
