@@ -12,7 +12,7 @@
       <div class="header_social">
         @social()
       </div>
-      <a href="{{ url('/') }}">
+      <a href="{{ url('/') }}" class="logo-wrap">
         <svg class="logo" role="presentation" aria-label="luxury 4 me">
           <use xlink:href="#logo">
         </svg>

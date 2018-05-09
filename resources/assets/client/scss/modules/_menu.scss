@@ -17,6 +17,7 @@
   position: relative;
   width: 18px;
   height: 12px;
+  transition: transform .21s ease-in-out;
 
   & > span {
     position: absolute;
@@ -43,6 +44,8 @@
   }
 
   .active & {
+    transform: rotate(90deg);
+
     & > span {
       &:nth-child(1) {
         transform: translateY(5px) scaleX(0);

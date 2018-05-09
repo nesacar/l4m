@@ -95,13 +95,6 @@
 
 // This site specific
 .search-widget {
-  top: -5px;
-
-  @include media-breakpoint-up(sm) {
-    top: -1px;
-  }
-
-  @include media-breakpoint-up(md) {
-    top: 3px;
-  }
+  top: 50%;
+  transform: translateY(-50%);
 }
