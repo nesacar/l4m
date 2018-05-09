@@ -63,17 +63,16 @@ class Store {
   /**
    * Updates the product with matched id.
    *
-   * @param {String} id - The id of product to update.
-   * @param {Object} params - Params to update product with.
+   * @param {Object} update - Object to update product with.
    * @param {Function} callback - The callback to fire on update completion.
    */
-  update(id, params, callback=function() {}) {
+  update(update, callback=function() {}) {
     const product = this._products.find((product) => {
-      return product.id === id;
+      return product.id === update.id;
     });
 
     if (!product) {
-      console.error(`Could not find the product with the ID: ${id}`);
+      console.error(`Could not find the product with the ID: ${update.id}`);
       return;
     }
 

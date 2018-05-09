@@ -34,15 +34,12 @@ const extend = (base, extension) => {
   }
 };
 
-// Find the element's parent with the given tag name:
-const parent = (element, tagName) => {
-  if (!element.parentNode) {
-    return;
+// Find the closest element in the chain with the given tag name:
+const closest = (element, tagName) => {
+  if (element.tagName.toLowerCase() === tagName.toLowerCase()) {
+    return element;
   }
-  if (element.parentNode.tagName.toLowerCase() === tagName.toLowerCase()) {
-    return element.parentNode;
-  }
-  return parent(element.parentNode, tagName);
+  return closest(element.parentNode, tagName);
 };
 
 export {
@@ -50,5 +47,5 @@ export {
   mapOverObject,
   hasValue,
   extend,
-  parent,
+  closest,
 };

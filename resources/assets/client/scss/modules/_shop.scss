@@ -116,6 +116,10 @@
     &:hover {
       color: $text-primary-on-light;
     }
+
+    // * {
+    //   pointer-events: none;
+    // }
   }
 
   &_discount-tag {

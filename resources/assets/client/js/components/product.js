@@ -1,4 +1,4 @@
-import { parent } from '../utils';
+import { closest } from '../utils';
 
 /**
  * Creates a product extension.
@@ -29,7 +29,7 @@ const product = (emitter) => {
     _dispatchEvent(evt) {
       evt.preventDefault();
 
-      const btn = parent(evt.target, 'button');
+      const btn = closest(evt.target, 'button');
       const target = btn.dataset.event;
       
       emitter.emit(`product:add:${target}`, {
