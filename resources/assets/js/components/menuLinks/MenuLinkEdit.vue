@@ -85,7 +85,7 @@
                         <div class="row" v-if="properties.length > 0">
                             <div class="card col-md-4" v-for="property in properties">
                                 <div class="form-group">
-                                    <label>{{ property.title }}</label>
+                                    <label>{{ property.title }} / <strong>{{ property.set[0].title }}</strong></label>
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="attribute in property.attribute">
                                             <input type="checkbox" v-model="link.att_ids" :value="attribute.id">
@@ -141,8 +141,7 @@
                     .then(res => {
                         this.link = res.data.link;
                         this.link.att_ids = res.data.att_ids;
-                        console.log(this.link.att_ids);
-                        this.getAttributes();
+                        this.getProperties();
                     })
                     .catch(e => {
                         console.log(e);
@@ -177,7 +176,7 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getAttributes(){
+            getProperties(){
                 axios.get('api/properties/lists')
                     .then(res => {
                         this.properties = res.data.properties;

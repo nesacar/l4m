@@ -53,8 +53,6 @@ class MenuLinksController extends Controller
         $link->attribute()->sync(request('att_ids'));
         $link->attributes(request('att_ids'));
 
-        if(request('image')){ MenuLink::base64UploadImage($link->id, request('image')); }
-
         return response()->json([
             'link' => $link,
             'att_ids' => $link->attribute()->pluck('attributes.id'),

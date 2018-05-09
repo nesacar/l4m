@@ -46,7 +46,7 @@ class MenuLink extends Model
         if(count($att_ids)){
             $sufix = '?';
             foreach ($att_ids as $key => $id){
-                $sufix .= 'filter[]=' . $id;
+                $sufix .= 'filters[]=' . $id;
                 if($key < count($att_ids) - 1){
                     $sufix .= '&';
                 }
