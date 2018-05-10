@@ -39,19 +39,16 @@
   }
 
   &_actions {
-    display: flex;
-    align-items: center;
-    
-    .btn--primary {
-      max-width: 27 * $base-line;
-    }
+    // display: flex;
+    // align-items: center;
+    max-width: 27 * $base-line;
 
     > * {
-      margin-right: 2 * $base-line;
+      margin-bottom: 2 * $base-line;
     }
 
     > :last-child() {
-      margin-right: 0;
+      margin-bottom: 0;
     }
   }
 
