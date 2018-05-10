@@ -86,7 +86,7 @@ class MenuLink extends Model
     }
 
     public function children() {
-        return $this->hasMany(MenuLink::class, 'parent', 'id');
+        return $this->hasMany(MenuLink::class, 'parent', 'id')->orderBy('order', 'ASC');
     }
 
     public function menu(){

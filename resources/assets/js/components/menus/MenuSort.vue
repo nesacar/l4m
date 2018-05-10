@@ -56,6 +56,7 @@
                 axios.get('api/menu-links/' + this.$route.params.id + '/sort')
                     .then(res => {
                         this.data = res.data.links;
+                        console.log(this.data);
                     })
                     .catch(e => {
                         console.log(e);

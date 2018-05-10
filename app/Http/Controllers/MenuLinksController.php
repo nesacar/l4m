@@ -71,9 +71,7 @@ class MenuLinksController extends Controller
 
     public function sort($id){
         $menu = Menu::find($id);
-        $links = $menu->menuLinks()->select('id', 'title')->with(['children' => function($query){
-            $query->orderBy('order', 'ASC');
-        }])->where('parent', 0)->orderBy('order', 'ASC')->get();
+        $links = $menu->menuLinks()->select('id', 'title')->with('children')->where('parent', 0)->orderBy('order', 'ASC')->get();
 
         return response()->json([
             'menu' => $menu,
@@ -87,9 +85,7 @@ class MenuLinksController extends Controller
         MenuLink::orderMenuLinks($links, 0);
 
         $menu = Menu::find($id);
-        $links = $menu->menuLinks()->select('id', 'title')->with(['children' => function($query){
-            $query->orderBy('order', 'ASC');
-        }])->where('parent', 0)->orderBy('order', 'ASC')->get();
+        $links = $menu->menuLinks()->select('id', 'title')->with('children')->where('parent', 0)->orderBy('order', 'ASC')->get();
 
         return response()->json([
             'menu' => $menu,

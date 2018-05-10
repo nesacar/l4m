@@ -113,7 +113,7 @@ class PagesController extends Controller
 //            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
 //        $menu = Menu::find(1);
 //        return $links = $menu->menuLinks()->select('id', 'title as text')->with(['children' => function($query){ $query->select('id'); }])->where('parent', 0)->orderBy('order', 'ASC')->get();
-        echo phpinfo();
-        return;
+        return MenuLink::where('menu_id', 1)->with(implode('.', array_fill(0, 1, 'children')))
+            ->where('parent', 0)->orderBy('order', 'ASC')->get();
     }
 }
