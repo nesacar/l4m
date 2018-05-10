@@ -51,4 +51,12 @@
   &_control--active &_control-knob {
     transform: scale(1);
   }
+
+  &_values {
+    color: $text-secondary-on-light;
+  }
+
+  &_label {
+    font-style: normal;
+  }
 }

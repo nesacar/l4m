@@ -31,6 +31,11 @@ class DoubleSlider {
       min: parrent.querySelector('[data-outputs="min"]'),
       max: parrent.querySelector('[data-outputs="max"]'),
     };
+    this.labels = {
+      min: parrent.querySelector('[data-label="min"]'),
+      max: parrent.querySelector('[data-label="max"]'),
+    };
+    console.log(this.labels)
   }
 
   _setInitialState () {
@@ -153,6 +158,8 @@ class DoubleSlider {
 
     this.outputs.min.value = this.denormalize(min);
     this.outputs.max.value = this.denormalize(max);
+    this.labels.min.innerHTML = this.denormalize(min);
+    this.labels.max.innerHTML = this.denormalize(max);
   }
 
   _checkRange (value, key) {

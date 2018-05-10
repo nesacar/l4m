@@ -16,3 +16,10 @@
 </div>
 <input class="double-slider_output" data-outputs="min" type="hidden" name="{{ $id }}[]" value="{{ $min }}">
 <input class="double-slider_output" data-outputs="max" type="hidden" name="{{ $id }}[]" value="{{ $max }}">
+@if(isset($label))
+<div class="double-slider_values">
+  <span><i data-label="min" class="double-slider_label">{{ $min }}</i> {{ $label }}</span>
+  &minus;
+  <span><i data-label="max" class="double-slider_label">{{ $max }}</i> {{ $label }}</span>
+</div>
+@endif
