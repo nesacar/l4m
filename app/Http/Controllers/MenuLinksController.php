@@ -71,55 +71,29 @@ class MenuLinksController extends Controller
 
     public function sort($id){
         $menu = Menu::find($id);
-        $links = $menu->menuLinks()->with(['children' => function($query){
-            $query->select('id', 'title as text');
-        }])->where('parent', 0)->select('id', 'title as text')->orderBy('order', 'ASC')->get();
-        $last = MenuLink::orderBy('order', 'ASC')->first();
-        if(empty($last)){
-            $id = 1;
-        }else{
-            $id = $last->id + 1;
-        }
+        $links = $menu->menuLinks()->select('id', 'title')->with(['children' => function($query){
+            $query->orderBy('order', 'ASC');
+        }])->where('parent', 0)->orderBy('order', 'ASC')->get();
 
         return response()->json([
             'menu' => $menu,
             'links' => $links,
-            'lastId' => $id
         ]);
     }
 
     public function saveOrder($id){
-        app()->setLocale('en');
-        $menu = Menu::find($id);
-        if(!empty(request('links'))){
-            foreach (request('links') as $link){
-                $old = MenuLink::find($link['id']);
-                if(empty($old)){
-                    $new = new MenuLink();
-                    $new->menu_id = $id;
-                    $new->type = 0;
-                    $new->order = $link['order'];
-                    $new->title = $link['title'];
-                    $new->save();
-                }else{
-                    $old->order = $link['order'];
-                    $old->update();
-                }
-            }
-        }
+        $links = request('links');
 
-        $links = $menu->menuLinks()->orderBy('order', 'ASC')->get();
-        $last = MenuLink::orderBy('order', 'ASC')->first();
-        if(empty($last)){
-            $id = 1;
-        }else{
-            $id = $last->id + 1;
-        }
+        MenuLink::orderMenuLinks($links, 0);
+
+        $menu = Menu::find($id);
+        $links = $menu->menuLinks()->select('id', 'title')->with(['children' => function($query){
+            $query->orderBy('order', 'ASC');
+        }])->where('parent', 0)->orderBy('order', 'ASC')->get();
 
         return response()->json([
             'menu' => $menu,
             'links' => $links,
-            'lastId' => $id
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Block;
 use App\Blog;
+use App\Menu;
 use App\MenuLink;
 use App\Product;
 use App\ShoppingCart;
@@ -110,7 +111,9 @@ class PagesController extends Controller
 //        }])->orderBy('id', 'DESC')->paginate(50);
 //        return Product::withoutGlobalScopes()->select('id', 'publish_at', 'image', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))
 //            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
-        $product = Product::first();
-        return \Imagecache::get($product->image, 'test')->src;
+//        $menu = Menu::find(1);
+//        return $links = $menu->menuLinks()->select('id', 'title as text')->with(['children' => function($query){ $query->select('id'); }])->where('parent', 0)->orderBy('order', 'ASC')->get();
+        echo phpinfo();
+        return;
     }
 }

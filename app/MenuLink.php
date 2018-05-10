@@ -57,6 +57,17 @@ class MenuLink extends Model
         }
     }
 
+    public static function orderMenuLinks($links, $parent = 0, $order = 0){
+        if(count($links)>0){
+            foreach ($links as $link){
+                self::find($link['id'])->update(['parent' => $parent, 'order' => ++$order]);
+                if(!empty($link['children'])){
+                    self::orderMenuLinks($link['children'], $link['id']);
+                }
+            }
+        }
+    }
+
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value?: false;
     }

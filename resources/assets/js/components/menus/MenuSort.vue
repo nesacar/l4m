@@ -15,20 +15,12 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="sortable">
-                        <draggable v-model="links" :options="{group:'people'}" @start="drag=true" @end="drag=false" @change="updateLinks()">
-                            <li v-for="element in links" :key="element.id">
-                                {{element.title}}
-                                <font-awesome-icon class="float-right" icon="bars"/>
-                            </li>
-                        </draggable>
-                    </ul>
                     <div>
-                        <Tree :data="data" draggable="draggable" @getTriggerEl="save" :indent="30">
+                        <Tree :data="data" draggable="draggable"  :indent="30">
                             <div slot-scope="{data, level, store}">
                                 <template v-if="!data.isDragPlaceHolder">
                                     <b v-if="data.children &amp;&amp; data.children.length" @click="store.toggleOpen(data)">{{data.open ? '-' : '+'}}&nbsp;</b>
-                                    <span>{{data.text}}</span>
+                                    <span>{{data.title}}</span>
                                 </template>
                             </div>
                         </Tree>
@@ -43,7 +35,6 @@
 <script>
     import swal from 'sweetalert2';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
-    import draggable from 'vuedraggable';
     import { DraggableTree } from 'vue-draggable-nested-tree';
 
     export default {
@@ -55,7 +46,6 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'draggable': draggable,
             'Tree': DraggableTree,
         },
         created(){
@@ -65,7 +55,6 @@
             getMenuLinks(){
                 axios.get('api/menu-links/' + this.$route.params.id + '/sort')
                     .then(res => {
-                        console.log(res.data.links);
                         this.data = res.data.links;
                     })
                     .catch(e => {
@@ -78,20 +67,37 @@
                 })
             },
             save(){
-//                axios.post('api/menu-links/' + this.$route.params.id + '/order', {links: this.links})
-//                    .then(res => {
-//                        swal({
-//                            position: 'center',
-//                            type: 'success',
-//                            title: 'Uspeh',
-//                            showConfirmButton: false,
-//                            timer: 1500
-//                        });
-//                    })
-//                    .catch(e => {
-//                        console.log(e);
-//                    });
-                console.log(this.data);
+                let data = this.order(this.data);
+                axios.post('api/menu-links/' + this.$route.params.id + '/order', {'links': data})
+                    .then(res => {
+                        this.data = res.data.links;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Uspeh',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
+            order(items){
+                return items.map((item) => {
+                    if (item.children.length) {
+                        return {
+                            id: item.id,
+                            title: item.title,
+                            children: this.order(item.children),
+                        };
+                    }
+
+                    return {
+                        id: item.id,
+                        title: item.title,
+                    };
+                });
             }
         },
     }

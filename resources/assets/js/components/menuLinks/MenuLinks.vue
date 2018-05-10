@@ -61,7 +61,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
     import Switches from 'vue-switches';
-    import draggable from 'vuedraggable';
 
     export default {
         data(){
@@ -82,7 +81,6 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'switches': Switches,
-            'draggable': draggable
         },
         created(){
             this.getMenuList();
