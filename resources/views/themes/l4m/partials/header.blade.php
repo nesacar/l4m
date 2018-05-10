@@ -17,6 +17,14 @@
           <use xlink:href="#logo">
         </svg>
       </a>
+      <div class="header_basket">
+        <a href="#" class="icon-btn">
+          <small class="chip js-basket-chip">1</small>
+          <svg class="icon" role="presentation">
+            <use xlink:href="#icon_cart">
+          </svg>
+        </a>
+      </div>
       @search()@endsearch
     </div>
   </div>

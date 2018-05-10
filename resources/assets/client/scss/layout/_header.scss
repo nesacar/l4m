@@ -62,4 +62,11 @@
       display: block;
     }
   }
+
+  &_basket {
+    position: absolute;
+    top: 50%;
+    right: 56px;
+    transform: translateY(-50%);
+  }
 }
