@@ -41,11 +41,7 @@
                     </div>
                     <div class="product_actions">
                         <button class="btn btn--primary btn--block">add to cart</button>
-                        <button class="btn btn--outline" aria-label="add to favorites">
-                            <svg class="icon">
-                                <use xlink:href="#icon_star-border">
-                            </svg>
-                        </button>
+                        <button class="btn btn--outline btn--block">add to wishlist</button>
                     </div>
                     <div class="product_social">
                         @social()

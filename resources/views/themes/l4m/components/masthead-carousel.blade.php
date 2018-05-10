@@ -33,7 +33,8 @@
     <div class="masthead-carousel_item masthead-carousel_item--full-width">
       <div class="image masthead_image masthead_image--full-width invertable-image">  
         <picture>
-          <img src="{{ $item->slider? url($item->slider) : url($item->image) }}" />
+          <source media="(min-width: 696px)" srcset="{{ $item->slider? url($item->slider) : url($item->image) }}"><!-- src velike slike ide ovde. -->
+          <img src="{{ $item->slider? url($item->slider) : url($item->image) }}" /><!-- mala slika -->
         </picture>
       </div>
       <div class="masthead-carousel_content--full-width">

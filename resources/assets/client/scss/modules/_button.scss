@@ -18,13 +18,14 @@
     height: 100%;
     content: "";
     opacity: 0;
-    background-color: rgba(255, 255, 255, .12);
+    background-color: currentColor;
     transition: opacity .12s;
+    will-change: opacity;
   }
 
   &:hover::before,
   &:active::after {
-    opacity: .5;
+    opacity: .12;
   }
 
   &--block {
@@ -69,15 +70,11 @@
     &:focus {
       outline: 3px solid lighten($theme-primary, 46%);
     }
-
-    &::before,
-    &::after {
-      background-color: rgba($theme-primary, .21);
-    }
   }
 }
 
 .icon-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;

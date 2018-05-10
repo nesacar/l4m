@@ -1,0 +1,15 @@
+.chip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $theme-secondary;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  line-height: 10px;
+  border-radius: 16px;
+  font-variant-numeric: lining-nums;
+}
