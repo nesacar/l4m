@@ -110,6 +110,7 @@ class PagesController extends Controller
 //        }])->orderBy('id', 'DESC')->paginate(50);
 //        return Product::withoutGlobalScopes()->select('id', 'publish_at', 'image', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))
 //            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
-        return $menu = MenuLink::tree(1);
+        $product = Product::first();
+        return \Imagecache::get($product->image, 'test')->src;
     }
 }

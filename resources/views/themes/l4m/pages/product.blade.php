@@ -22,7 +22,7 @@
                         @if($product->discount)
                             <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ $product->price_outlet }}</span>
                         @endif
-                        <span class="shop-item_price-tag">{{ $product->price }}</span>
+                        <span class="shop-item_price-tag">{{ $product->totalPrice }},00</span>
                     </div>
                     <p class="product_description">{{ $product->short }}</p>
                     <div class="product_options">
@@ -40,8 +40,8 @@
                         </span>
                     </div>
                     <div class="product_actions">
-                        <button class="btn btn--primary btn--block">add to cart</button>
-                        <button class="btn btn--outline btn--block">add to wishlist</button>
+                        <button class="btn btn--primary btn--block">dodaj u korpu</button>
+                        <button class="btn btn--outline btn--block">dodaj u listu želja</button>
                     </div>
                     <div class="product_social">
                         @social()

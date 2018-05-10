@@ -4,7 +4,7 @@
       
       <div class="image-box_thumbnail image-box_thumbnail--active">
         <div class="image image--portrait">
-          <img src="{{ \Imagecache::get($image, '63x84')->src }}" alt="{{ $title }}">
+          <img src="{{ \Imagecache::get($image, 'test')->src }}" alt="{{ $title }}">
         </div>
       </div>
       @if(count($photos))
