@@ -34,6 +34,7 @@ Route::resource('menus', 'MenusController');
 Route::get('menu-links/lists', 'MenuLinksController@lists');
 Route::resource('menu-links', 'MenuLinksController');
 Route::get('menu-links/{id}/sort', 'MenuLinksController@sort');
+Route::post('menu-links/{id}/image', 'MenuLinksController@uploadImage');
 Route::post('menu-links/{id}/order', 'MenuLinksController@saveOrder');
 
 Route::get('blogs/lists', 'BlogsController@lists');

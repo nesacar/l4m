@@ -2,28 +2,22 @@
   @foreach($links as $i => $link)
     @php $className = $link->desc . (Request::is($link->link) ? ' ' . $link->desc . '--active' : ''); @endphp
     <div class="nav_item">
-      <a class="{{ $className }}" href="{{ url($link->link) }}">{{ $link->title}}</a>
-      @if($link->title == 'Blog')
+      <a class="{{ $className }}" href="{{ url($link->link . $link->sufix) }}">{{ $link->title}}</a>
+      @if(count($link->children)>0)
       <div class="mega-menu">
         <div class="mega-menu_background"></div>
         <div class="mega-menu_content container">
           <div class="row">
+            @foreach($link->children as $subLink)
             <div class="col-3 mega-menu_col">
-              <a href="#" class="mega-menu_link">žene</a>
+              <a href="{{ url($subLink->link . $subLink->sufix) }}" class="mega-menu_link">{{ $subLink->title }}</a>
             </div>
             <div class="col-3 mega-menu_col">
-              <a href="#" class="image image--standard">
-                <img src="https://images.pexels.com/photos/699821/pexels-photo-699821.jpeg?auto=compress&cs=tinysrgb&h=350" alt="flowers">
+              <a href="{{ $subLink->link . $subLink->sufix }}" class="image image--standard">
+                <img src="{{ url($subLink->image) }}" alt="{{ $subLink->title }}">
               </a>
             </div>
-            <div class="col-3 mega-menu_col">
-              <a href="#" class="mega-menu_link">muškarci</a>
-            </div>
-            <div class="col-3 mega-menu_col">
-              <a href="#" class="image image--standard">
-                <img src="https://images.pexels.com/photos/700439/pexels-photo-700439.jpeg?auto=compress&cs=tinysrgb&h=350" alt="leafs">
-              </a>
-            </div>
+            @endforeach
           </div>
         </div>
       </div>

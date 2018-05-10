@@ -41,6 +41,17 @@
                             </div>
                         </form>
                     </div>
+
+                    <upload-image-helper
+                            :image="link.image"
+                            :defaultImage="null"
+                            :titleImage="'linka'"
+                            :error="error"
+                            @uploadImage="upload($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
+
                 </div>
                 <div class="col-md-8">
                     <div class="card">
@@ -74,7 +85,7 @@
                         <div class="row" v-if="properties.length > 0">
                             <div class="card col-md-4" v-for="property in properties">
                                 <div class="form-group">
-                                    <label>{{ property.title }}</label>
+                                    <label>{{ property.title }} / <strong>{{ property.set[0].title }}</strong></label>
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="attribute in property.attribute">
                                             <input type="checkbox" v-model="link.att_ids" :value="attribute.id">
@@ -130,8 +141,7 @@
                     .then(res => {
                         this.link = res.data.link;
                         this.link.att_ids = res.data.att_ids;
-                        console.log(this.link.att_ids);
-                        this.getAttributes();
+                        this.getProperties();
                     })
                     .catch(e => {
                         console.log(e);
@@ -166,12 +176,29 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getAttributes(){
+            getProperties(){
                 axios.get('api/properties/lists')
                     .then(res => {
                         this.properties = res.data.properties;
                     }).catch(e => {
                         console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            upload(image){
+                axios.post('api/menu-links/' + this.link.id + '/image', { file: image[0] })
+                    .then(res => {
+                        this.link.image = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
                         this.error = e.response.data.errors;
                     });
             },

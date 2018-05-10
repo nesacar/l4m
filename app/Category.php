@@ -17,9 +17,9 @@ class Category extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = $category->slug . '-' . str_random(2) . '-' . $category->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/categories/');
-        file_put_contents($path . $filename, $data);
-        $category->image = 'storage/uploads/categories/' . $filename;
+        $path = Helper::generateImageFolder('uploads/categories/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $category->image = 'storage/uploads/categories/' . $path['folder'] . '/' . $filename;
         $category->update();
         return $category->image;
     }

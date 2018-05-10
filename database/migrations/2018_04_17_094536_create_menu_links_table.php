@@ -19,6 +19,7 @@ class CreateMenuLinksTable extends Migration
 
             $table->string('title')->nullable();
             $table->string('link')->nullable();
+            $table->string('image')->nullable();
             $table->string('desc')->nullable();
             $table->string('sufix')->nullable();
             $table->integer('type')->nullable();

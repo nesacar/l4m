@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Property extends Model
 {
-    protected $fillable = ['set_id', 'title', 'slug', 'order', 'extra', 'publish'];
+    protected $fillable = ['title', 'slug', 'order', 'extra', 'publish'];
 
     //protected $with = ['attribute'];
 

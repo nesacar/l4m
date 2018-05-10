@@ -17,13 +17,13 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('blog_id')->unsigned()->index();
-            $table->integer('product_id')->nullable()->index();
+            $table->integer('brand_id')->nullable()->index();
             $table->string('title');
             $table->string('slug');
             $table->text('short');
             $table->text('body');
             $table->string('image')->nullable();
-            $table->timestamp('publish_at')->useCurrent();
+            $table->timestamp('publish_at')->nullable();
             $table->integer('views')->default(0);
             $table->string('slider')->nullable();
             $table->boolean('publish')->default(1);

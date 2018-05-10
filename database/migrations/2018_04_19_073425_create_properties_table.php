@@ -15,7 +15,6 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('set_id')->unsigned()->index();
             $table->string('title');
             $table->string('slug')->nullable();
             $table->integer('order')->default(1);

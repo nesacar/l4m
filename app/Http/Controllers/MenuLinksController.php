@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMenuLinkRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\Menu;
 use App\MenuLink;
 use Illuminate\Http\Request;
+use File;
 
 class MenuLinksController extends Controller
 {
@@ -23,10 +25,12 @@ class MenuLinksController extends Controller
     }
 
     public function store(CreateMenuLinkRequest $request){
-        $link = MenuLink::create(request()->all());
+        $link = MenuLink::create(request()->except('image'));
 
         $link->attribute()->sync(request('att_ids'));
         $link->attributes(request('att_ids'));
+
+        if(request('image')){ MenuLink::base64UploadImage($link->id, request('image')); }
 
         return response()->json([
             'link' => $link
@@ -44,7 +48,7 @@ class MenuLinksController extends Controller
 
     public function update(CreateMenuLinkRequest $request, $id){
         $link = MenuLink::find($id);
-        $link->update(request()->all());
+        $link->update(request()->except('image'));
 
         $link->attribute()->sync(request('att_ids'));
         $link->attributes(request('att_ids'));
@@ -56,7 +60,9 @@ class MenuLinksController extends Controller
     }
 
     public function destroy($id){
-        MenuLink::destroy($id);
+        $link = MenuLink::find($id);
+        if($link->image) File::delete($link->image);
+        $link->delete();
 
         return response()->json([
             'message' => 'deleted'
@@ -120,6 +126,14 @@ class MenuLinksController extends Controller
 
         return response()->json([
             'links' => $links
+        ]);
+    }
+
+    public function uploadImage(UploadImageRequest $request, $id){
+        $image = MenuLink::base64UploadImage($id, request('file'));
+
+        return response()->json([
+            'image' => $image
         ]);
     }
 }

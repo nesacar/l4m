@@ -17,9 +17,9 @@ class Collection extends Model
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = $collection->slug . '-' . str_random(2) . '-' . $collection->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/collections/');
-        file_put_contents($path . $filename, $data);
-        $collection->image = 'storage/uploads/collections/' . $filename;
+        $path = Helper::generateImageFolder('uploads/collections/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $collection->image = 'storage/uploads/collections/' . $path['folder'] . '/' . $filename;
         $collection->update();
         return $collection->image;
     }

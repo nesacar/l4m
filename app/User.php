@@ -33,9 +33,9 @@ class User extends Authenticatable
         $exploaded = explode(',', $image);
         $data = base64_decode($exploaded[1]);
         $filename = str_random(2) . '-' . $user->id . '.' . self::getExtension($image);
-        $path = public_path('storage/uploads/users/');
-        file_put_contents($path . $filename, $data);
-        $user->image = 'storage/uploads/users/' . $filename;
+        $path = Helper::generateImageFolder('uploads/users/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $user->image = 'storage/uploads/users/' . $path['folder'] . '/' . $filename;
         $user->update();
         return $user->image;
     }
