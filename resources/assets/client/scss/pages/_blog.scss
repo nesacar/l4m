@@ -15,12 +15,24 @@
 
 .categorie-banner {
   position: relative;
-  padding-top: 4 * $base-line;
-  padding-bottom: 4 * $base-line;
+  margin-top: 4 * $base-line;
+  margin-bottom: 4 * $base-line;
   display: none;
 
   @include media-breakpoint-up(md) {
     display: block;
+  }
+
+  &--small {
+    margin-top: 2 * $base-line;
+    margin-bottom: 2 * $base-line;
+    
+    & .image {
+      > img {
+        height: 100%;
+        width: auto;
+      }
+    }
   }
 
   &_label {
@@ -51,6 +63,10 @@
 
     &--right {
       right: 0;
+    }
+
+    .categorie-banner--small & {
+      width: 100%;
     }
   }
 }

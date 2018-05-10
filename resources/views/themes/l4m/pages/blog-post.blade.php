@@ -81,6 +81,18 @@
             ])
           @endcomponent
         </div>
+        <div class="collapse--lg">
+          <h4 class="side-content-title">categories</h4>
+          <div class="categorie-banner categorie-banner--small">
+            <div class="image image--portrait invertable-image categorie-banner_image">
+              <img cross-origin="anonymous" src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a963d29c6015992527cc43326e0e2197&auto=format&fit=crop&w=1350&q=80" alt="burger, mmm...">
+            </div>
+            <div class="categorie-banner_content">
+              <div class="categorie-banner_label">Fine dining</div>
+              <h3 class="display-3">A barbecue isn't complete without a proper homemade burger</h3>
+            </div>
+          </div>
+        </div>
       </aside>
     </div>
   </section>
