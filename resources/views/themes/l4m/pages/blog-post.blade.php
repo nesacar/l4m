@@ -20,10 +20,12 @@
           </div>
           @if(count($post->gallery)>0)
           <div class="blog-post_gallery">
-            <div class="image image--standard lazy-image"
-              data-src={{ url($post->image) }}
-            ></div>
+            <div class="image image--standard">
+              <img src={{ url($post->image) }} />
+            </div>
             {{-- thumbnails go here --}}
+              
+            {{-- /thumbnails --}}
           </div>
           @endif
           <div class="blog-post_body">{!! $post->body !!}</div>
