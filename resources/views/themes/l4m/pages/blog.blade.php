@@ -74,6 +74,18 @@
   </section>
 
   <section class="container">
+    <div class="categorie-banner">
+      <div class="image image--ultra-wide invertable-image">
+        <img cross-origin="anonymous" src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a963d29c6015992527cc43326e0e2197&auto=format&fit=crop&w=1350&q=80" alt="burger, mmm...">
+      </div>
+      <div class="categorie-banner_content categorie-banner_content--left">
+        <div class="categorie-banner_label">Fine dining</div>
+        <h3 class="display-3">A barbecue isn't complete without a proper homemade burger</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
     <h2 class="section-title with-lines"><span>featured</span></h2>
     
     <div class="split-view">

@@ -40,8 +40,8 @@
                         </span>
                     </div>
                     <div class="product_actions">
-                        <button class="btn btn--primary btn--block">add to cart</button>
-                        <button class="btn btn--outline btn--block">add to wishlist</button>
+                        <button class="btn btn--primary btn--block">dodaj u korpu</button>
+                        <button class="btn btn--outline btn--block">dodaj u listu želja</button>
                     </div>
                     <div class="product_social">
                         @social()

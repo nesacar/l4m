@@ -4,24 +4,53 @@
   &_carousel {
     margin-left: -$column-paddings;
     margin-right: -$column-paddings;
-    // outline clipping bugfix
     padding-top: 3px;
   }
 
   &_item {
     padding-left: $column-paddings;
     padding-right: $column-paddings;
-    // display: inline-block;
-    // width: 50%;
-    // overflow: hidden;
-    // font-size: initial;
+  }
+}
 
-    // @include media-breakpoint-up(md) {
-    //   width: 33.3333%;
-    // }
+.categorie-banner {
+  position: relative;
+  padding-top: 4 * $base-line;
+  padding-bottom: 4 * $base-line;
+  display: none;
 
-    // @include media-breakpoint-up(lg) {
-    //   width: 25%;
-    // }
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+
+  &_label {
+    margin-bottom: $base-line;
+  }
+
+  &_content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    padding: 0 (6 * $base-line);
+    color: white;
+    text-align: center;
+
+    @include media-breakpoint-up(lg) {
+      width: 33.3333%;
+    }
+
+    &--center {
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &--left {
+      left: 0;
+    }
+
+    &--right {
+      right: 0;
+    }
   }
 }
