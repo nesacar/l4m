@@ -105,6 +105,14 @@ class CategoriesController extends Controller
         ]);
     }
 
+    public function uploadBoxImage(UploadImageRequest $request, $id){
+        $image = Category::base64BoxUploadImage($id, request('file'));
+
+        return response()->json([
+            'image' => $image
+        ]);
+    }
+
     /**
      * List of categories
      *

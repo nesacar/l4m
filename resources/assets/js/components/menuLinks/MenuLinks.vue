@@ -30,6 +30,7 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">naziv</th>
+                                <th scope="col">nad link</th>
                                 <th scope="col">publikovano</th>
                                 <th scope="col">kreirano</th>
                                 <th>action</th>
@@ -39,6 +40,7 @@
                             <tr v-for="row in menuLinks">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
+                                <td v-if="row.parent_menu">{{ row.parent_menu.title }}</td><td v-else>/</td>
                                 <td>{{ row.publish }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
@@ -109,6 +111,7 @@
                     .then(res => {
                         this.menu = res.data.menu;
                         this.menuLinks = res.data.menuLinks;
+                        console.log(this.menuLinks);
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

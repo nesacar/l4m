@@ -58,6 +58,15 @@
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
 
+                        <upload-image-helper
+                                :image="category.box_image"
+                                :defaultImage="null"
+                                :titleImage="'box kategorije'"
+                                :error="error"
+                                @uploadImage="uploadBox($event)"
+                                @removeRow="remove($event)"
+                        ></upload-image-helper>
+
                     </div><!-- .card -->
                     <!--
                     <div class="card">
@@ -209,6 +218,23 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
+            },
+            uploadBox(image){
+                axios.post('api/categories/' + this.category.id + '/boxImage', { file: image[0] })
+                    .then(res => {
+                        this.category.box_image = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
             },
             getList(){
                 axios.get('api/categories/lists?parent=1')

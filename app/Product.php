@@ -142,7 +142,7 @@ class Product extends Model
     }
 
     public function getTotalPriceAttribute(){
-        return $this->attributes['price_outlet'] ?: $this->attributes['price'];
+        return $this->attributes['price_outlet'] != null || $this->attributes['price_outlet'] != 0 ? $this->attributes['price_outlet']: $this->attributes['price'];
     }
 
     public function brand(){

@@ -30,6 +30,15 @@
                             @uploadImage="upload($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
+
+                    <upload-image-helper
+                            :image="box.small_image"
+                            :defaultImage="null"
+                            :titleImage="'slajda (mala)'"
+                            :error="error"
+                            @uploadImage="uploadSmall($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
                 </div>
                 <div class="col-md-8">
                     <div class="card">
@@ -166,6 +175,23 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
+            },
+            uploadSmall(image){
+                axios.post('api/boxes/' + this.box.id + '/smallImage', { file: image[0] })
+                    .then(res => {
+                        this.box.small_image = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
             },
             getCategories(){
                 axios.get('api/categories/lists')

@@ -10,14 +10,16 @@ use File;
 
 class CollectionsController extends Controller
 {
+    /**
+     * CollectionsController constructor.
+     */
     public function __construct(){
         $this->middleware('auth:api');
     }
 
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -29,11 +31,10 @@ class CollectionsController extends Controller
         ]);
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateCollectionRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateCollectionRequest $request)
     {

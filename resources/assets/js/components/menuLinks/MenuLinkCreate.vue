@@ -42,6 +42,13 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
+                                <label for="parent">Nad link</label>
+                                <select name="parent" id="parent" class="form-control" v-model="link.parent">
+                                    <option :value="index" v-for="(link, index) in links">{{ link }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="title">Naziv</label>
                                 <input type="text" name="title" class="form-control" id="title" placeholder="Naziv" v-model="link.title">
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
@@ -88,6 +95,7 @@
         data(){
           return {
               link: {},
+              links: {},
               error: null,
           }
         },
@@ -96,7 +104,20 @@
             'upload-image-helper': UploadImageHelper,
             'switches': Switches
         },
+        created(){
+            this.getParentLinks();
+        },
         methods: {
+            getParentLinks(){
+                axios.get('api/menu-links/lists')
+                    .then(res => {
+                        this.links = res.data.links;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
             submit(){
                 axios.post('api/menu-links?menu_id=' + this.$route.params.id, this.link)
                     .then(res => {

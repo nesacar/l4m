@@ -78,6 +78,7 @@ Route::get('categories/lists', 'CategoriesController@lists');
 Route::get('categories/tree', 'CategoriesController@tree');
 Route::resource('categories', 'CategoriesController');
 Route::post('categories/{id}/image', 'CategoriesController@uploadImage');
+Route::post('categories/{id}/boxImage', 'CategoriesController@uploadBoxImage');
 
 Route::post('products/search', 'ProductsController@search');
 Route::get('products/lists', 'ProductsController@lists');
@@ -97,6 +98,7 @@ Route::resource('blocks', 'BlocksController');
 
 Route::resource('boxes', 'BoxesController');
 Route::post('boxes/{id}/image', 'BoxesController@uploadImage');
+Route::post('boxes/{id}/smallImage', 'BoxesController@uploadSmallImage');
 
 Route::resource('shop-bars', 'ShopBarsController');
 

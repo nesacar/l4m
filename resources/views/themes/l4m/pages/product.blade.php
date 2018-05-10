@@ -22,7 +22,7 @@
                         @if($product->discount)
                             <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ $product->price_outlet }}</span>
                         @endif
-                        <span class="shop-item_price-tag">{{ $product->price }}</span>
+                        <span class="shop-item_price-tag">{{ $product->totalPrice }},00</span>
                     </div>
                     <p class="product_description">{{ $product->short }}</p>
                     <div class="product_options">
