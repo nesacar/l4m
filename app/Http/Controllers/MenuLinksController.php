@@ -17,7 +17,7 @@ class MenuLinksController extends Controller
 
     public function index(){
         $menu = Menu::find(request('id'));
-        $menuLinks = $menu->menuLinks()->orderBy('order', 'ASC')->get();
+        $menuLinks = $menu->menuLinks()->with('parent_menu')->orderBy('order', 'ASC')->get();
         return response()->json([
             'menu' => $menu,
             'menuLinks' => $menuLinks
@@ -71,7 +71,9 @@ class MenuLinksController extends Controller
 
     public function sort($id){
         $menu = Menu::find($id);
-        $links = $menu->menuLinks()->where('parent', 0)->orderBy('order', 'ASC')->get();
+        $links = $menu->menuLinks()->with(['children' => function($query){
+            $query->select('id', 'title as text');
+        }])->where('parent', 0)->select('id', 'title as text')->orderBy('order', 'ASC')->get();
         $last = MenuLink::orderBy('order', 'ASC')->first();
         if(empty($last)){
             $id = 1;

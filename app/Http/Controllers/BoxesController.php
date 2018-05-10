@@ -36,7 +36,7 @@ class BoxesController extends Controller
      */
     public function store(CreateBoxRequest $request)
     {
-        $box = Box::create(request()->except('image'));
+        $box = Box::create(request()->except('image', 'small_image'));
         $box->publish = request('publish')?: false;
         $box->update();
 
@@ -69,7 +69,7 @@ class BoxesController extends Controller
      */
     public function update(CreateBoxRequest $request, Box $box)
     {
-        $box->update(request()->except('image'));
+        $box->update(request()->except('image', 'small_image'));
         $box->publish = request('publish')?: false;
         $box->update();
 
@@ -103,6 +103,21 @@ class BoxesController extends Controller
      */
     public function uploadImage(UploadImageRequest $request, $id){
         $image = Box::base64UploadImage($id, request('file'));
+
+        return response()->json([
+            'image' => $image
+        ]);
+    }
+
+    /**
+     * Upload image
+     *
+     * @param UploadImageRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadSmallImage(UploadImageRequest $request, $id){
+        $image = Box::base64UploadSmallImage($id, request('file'));
 
         return response()->json([
             'image' => $image

@@ -24,6 +24,21 @@ class Category extends Model
         return $category->image;
     }
 
+    public static function base64BoxUploadImage($category_id, $image){
+        $category = self::find($category_id);
+        if($category->box_image != null){
+            File::delete($category->box_image);
+        }
+        $exploaded = explode(',', $image);
+        $data = base64_decode($exploaded[1]);
+        $filename = $category->slug . '-' . str_random(2) . '-' . $category->id . '.' . self::getExtension($image);
+        $path = Helper::generateImageFolder('uploads/categories/');
+        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
+        $category->box_image = 'storage/uploads/categories/' . $path['folder'] . '/' . $filename;
+        $category->update();
+        return $category->box_image;
+    }
+
     public static function getExtension($image)
     {
         $exploaded = explode(',', $image);
