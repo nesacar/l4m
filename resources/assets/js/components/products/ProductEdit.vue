@@ -403,6 +403,7 @@
                 axios.get('api/sets/lists')
                     .then(res => {
                         this.sets = res.data.sets;
+                        this.getProperties();
                     }).catch(e => {
                     console.log(e.response);
                     this.error = e.response.data.errors;

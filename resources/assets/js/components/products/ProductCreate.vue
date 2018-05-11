@@ -253,20 +253,21 @@
             submit(){
                 this.product.user_id = this.user.id;
                 this.product.publish_at = this.publish_at;
-                axios.post('api/products', this.product)
-                    .then(res => {
-                        swal({
-                            position: 'center',
-                            type: 'success',
-                            title: 'Success',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        this.$router.push('/products');
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                console.log(this.product);
+//                axios.post('api/products', this.product)
+//                    .then(res => {
+//                        swal({
+//                            position: 'center',
+//                            type: 'success',
+//                            title: 'Success',
+//                            showConfirmButton: false,
+//                            timer: 1500
+//                        });
+//                        this.$router.push('/products');
+//                    }).catch(e => {
+//                        console.log(e.response);
+//                        this.error = e.response.data.errors;
+//                    });
             },
             upload(image){
                 this.product.image = image[0];

@@ -16,14 +16,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div>
-                        <Tree :data="data" draggable="draggable"  :indent="30">
+                        <tree :data="data" draggable="draggable"  :indent="30">
                             <div slot-scope="{data, level, store}">
                                 <template v-if="!data.isDragPlaceHolder">
                                     <b v-if="data.children &amp;&amp; data.children.length" @click="store.toggleOpen(data)">{{data.open ? '-' : '+'}}&nbsp;</b>
                                     <span>{{data.title}}</span>
                                 </template>
                             </div>
-                        </Tree>
+                        </tree>
                     </div>
                     <button class="btn btn-success" @click="save()">Sačuvaj</button>
                 </div>
@@ -46,7 +46,7 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'Tree': DraggableTree,
+            'tree': DraggableTree,
         },
         created(){
             this.getMenuLinks();
@@ -111,26 +111,10 @@
         width: 100%;
     }
     .tree-node{
-
-    }
-    .tree-node-inner-back{
-        border: 1px solid #d4d4d4;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        border-color: #D4D4D4 #D4D4D4 #BCBCBC;
-        padding: 6px;
-        margin: 0;
-        background: #f6f6f6;
-        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed));
-        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
     }
     .tree-node-inner{
+        padding: 5px;
+        border: 1px solid #ccc;
         cursor: pointer;
     }
     .draggable-placeholder{

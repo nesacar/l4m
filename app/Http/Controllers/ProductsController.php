@@ -45,9 +45,7 @@ class ProductsController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        $array = request()->all();
-        $array['image'] = null;
-        $product = Product::create($array);
+        $product = Product::create(request()->except('image'));
 
         if(request('image')) Product::base64UploadImage($product->id, request('image'));
 
@@ -71,7 +69,8 @@ class ProductsController extends Controller
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
         $tagIds = $product->tag->pluck('id');
-        $properties = Set::find($product->set_id)->property()->with('attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
+        $properties = Set::find($product->set_id)->property()->with('attribute')->where('properties.publish', 1)
+            ->groupBy('properties.id')->orderBy('properties.order', 'ASC')->get();
 
         return response()->json([
             'product' => $product,
@@ -96,7 +95,8 @@ class ProductsController extends Controller
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
 
-        $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
+        $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)
+            ->groupBy('properties.id')->orderBy('properties.order', 'ASC')->get();
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
         $tagIds = $product->tag->pluck('id');
