@@ -69,7 +69,7 @@ class Product extends Model
     }
 
     public function getTmbAttribute(){
-        return \Imagecache::get($this->attributes['image'], '63x84')->src;
+        return $this->image? \Imagecache::get($this->attributes['image'], '63x84')->src : '';
     }
 
     public static function base64UploadImage($product_id, $image){

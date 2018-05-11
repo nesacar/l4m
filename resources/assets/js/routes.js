@@ -88,6 +88,10 @@ export const router = new VueRouter({
         { path: "/subscribers", component: require('./components/subscribers/SubscriberList.vue'), meta: { forAuth: true } },
         { path: "/subscribers/create", component: require('./components/subscribers/SubscriberCreate.vue'), meta: { forAuth: true } },
         { path: "/subscribers/:id/edit", component: require('./components/subscribers/SubscriberEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/customers", component: require('./components/customers/CustomerList.vue'), meta: { forAuth: true } },
+        { path: "/customers/create", component: require('./components/customers/CustomerCreate.vue'), meta: { forAuth: true } },
+        { path: "/customers/:id/edit", component: require('./components/customers/CustomerEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',

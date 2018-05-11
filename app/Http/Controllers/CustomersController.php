@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Http\Requests\CreateCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +21,11 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $customers = Customer::orderBy('created_at', 'DESC')->paginate(50);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'customers' => $customers,
+        ]);
     }
 
     /**
@@ -33,9 +34,12 @@ class CustomersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CreateCustomerRequest $request){
+        $customer = Customer::createCustomer();
+
+        return response()->json([
+            'customer' => $customer,
+        ]);
     }
 
     /**
@@ -46,18 +50,9 @@ class CustomersController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customer $customer)
-    {
-        //
+        return response()->json([
+            'customer' => $customer,
+        ]);
     }
 
     /**
@@ -67,9 +62,13 @@ class CustomersController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->update(request()->all());
+
+        return response()->json([
+            'customer' => $customer,
+        ]);
     }
 
     /**
@@ -80,6 +79,10 @@ class CustomersController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+
+        return response()->json([
+            'message' => 'Deleted',
+        ]);
     }
 }

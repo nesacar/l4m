@@ -6,7 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $fillable = ['user_id', 'name', 'lastname', 'phone', 'email', 'company', 'address', 'town', 'state', 'country', 'postcode', 'block'];
+    protected $fillable = ['user_id', 'name', 'lastname', 'phone', 'company', 'address', 'town', 'state', 'country', 'postcode', 'block'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($customer){
+            $customer->user->delete();
+        });
+    }
 
     public static function createCustomer(){
         $user = new User();
@@ -17,8 +26,7 @@ class Customer extends Model
         $user->block = 0;
         $user->save();
 
-        $user->customer()->create(request()->all());
-        return $user;
+        return $user->customer()->create(request()->all());
     }
 
     public function user(){

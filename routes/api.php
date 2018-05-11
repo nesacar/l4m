@@ -103,3 +103,5 @@ Route::post('boxes/{id}/smallImage', 'BoxesController@uploadSmallImage');
 Route::resource('shop-bars', 'ShopBarsController');
 
 Route::resource('subscribers', 'SubscribersController');
+
+Route::resource('customers', 'CustomersController');
