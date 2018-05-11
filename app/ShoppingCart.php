@@ -76,4 +76,18 @@ class ShoppingCart{
         }
         return $res;
     }
+
+    public static function getAll(){
+        if(Session::has('cart')){
+            $oldCart = Session::has('cart')? Session::get('cart') : null;
+            $cart = new ShoppingCart($oldCart);
+
+            return response([
+                'products' => $cart->items,
+                'totalQty' => $cart->totalQty,
+                'totalPrice' => $cart->totalPrice,
+            ], 200);
+        }
+        return [];
+    }
 }
