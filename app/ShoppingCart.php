@@ -82,11 +82,11 @@ class ShoppingCart{
             $oldCart = Session::has('cart')? Session::get('cart') : null;
             $cart = new ShoppingCart($oldCart);
 
-            return response([
+            return collect([
                 'products' => $cart->items,
                 'totalQty' => $cart->totalQty,
                 'totalPrice' => $cart->totalPrice,
-            ], 200);
+            ]);
         }
         return [];
     }

@@ -24,6 +24,7 @@ class CartsController extends Controller
     public function index(){
         //Session::forget('cart');
         $data = ShoppingCart::getAll();
+        // return $data['products'];
         return view('themes.' . $this->theme . '.pages.cart', compact('data'));
     }
 
