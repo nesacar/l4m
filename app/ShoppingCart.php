@@ -83,9 +83,9 @@ class ShoppingCart{
             $cart = new ShoppingCart($oldCart);
 
             return collect([
-                ['products' => $cart->items],
-                ['totalQty' => $cart->totalQty],
-                ['totalPrice' => $cart->totalPrice],
+                'products' => $cart->items,
+                'totalQty' => $cart->totalQty,
+                'totalPrice' => $cart->totalPrice,
             ]);
         }
         return [];

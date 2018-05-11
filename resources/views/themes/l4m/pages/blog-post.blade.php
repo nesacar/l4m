@@ -81,7 +81,7 @@
             ])
           @endcomponent
         </div>
-        <div class="collapse--lg">
+        <div class="expand--lg">
           <h4 class="side-content-title">categories</h4>
           <div class="categorie-banner categorie-banner--small">
             <div class="image image--portrait invertable-image categorie-banner_image">

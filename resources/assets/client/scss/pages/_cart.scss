@@ -1,0 +1,70 @@
+.cart {
+  padding-top: 4 * $base-line;
+  padding-bottom: 4 * $base-line;
+
+  &_heading {
+    font-family: $font-family-roboto;
+    text-transform: uppercase;
+    
+    &--1 {
+      font-size: $font-size-display-3;
+    }
+    
+    &--2 {
+      font-size: $font-size-display-4;
+    }
+  }
+
+  &_secondary-text {
+    text-transform: uppercase;
+    color: rgba(0,0,0,.54);
+  }
+
+  &_actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    :first-child {
+      margin-right: 2 * $base-line;
+    }
+  }
+
+  &_list {
+    margin-bottom: 4 * $base-line;
+  }
+
+  &_entry-column {
+    padding-top: 2 * $base-line;
+    padding-bottom: 2 * $base-line;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &_item-image {
+    width: 12 * $base-line;
+    margin-right: 4 * $base-line;
+  }
+}
+
+.receipt {
+  margin-bottom: 2 * $base-line;
+  text-transform: uppercase;
+  
+  &_fraction {
+    display: flex;
+    height: 5 * $base-line;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border-color-dark;
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  &_key {
+    color: rgba(0,0,0,.54);
+  }
+}

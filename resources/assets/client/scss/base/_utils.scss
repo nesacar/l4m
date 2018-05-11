@@ -59,28 +59,33 @@
   }
 }
 
-.collapse--sm {
-  display: none;
-
-  @include media-breakpoint-up(sm) {
-    display: initial;
-  }
-}
-
 .collapse--md {
-  display: none;
-
   @include media-breakpoint-up(md) {
-    display: initial;
+    display: none;
   }
 }
 
 .collapse--lg {
-  display: none;
-
   @include media-breakpoint-up(lg) {
-    display: initial;
+    display: none;
   }
+}
+
+.expand--md {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.expand--lg {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.py-1 {
+  padding-top: $base-line;
+  padding-bottom: $base-line;
 }
 
 .with-scrollbar {
