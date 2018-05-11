@@ -6,25 +6,6 @@
 @endsection
 
 @section('content')
-<style>
-  .grid-wrap {
-    display: flex;
-  }
-  .banner {
-    width: 300px;
-    height: 450px;
-    background-color: #E0E0E0;
-  }
-  .demo {
-    background-color: #9E9E9E;
-  }
-  .demo-img {
-    background-color: #424242;
-  }
-  .hide {
-    display: none;
-  }
-</style>
   @component('themes.' . $theme . '.components.masthead-carousel', ['data' => $slider])@endcomponent
 
   <section class="container">
