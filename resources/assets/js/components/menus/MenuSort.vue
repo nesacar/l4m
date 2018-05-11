@@ -24,8 +24,10 @@
                                 </template>
                             </div>
                         </tree>
+                        <div class="form-group">
+                            <button class="btn btn-success" @click="save()">Sačuvaj</button>
+                        </div>
                     </div>
-                    <button class="btn btn-success" @click="save()">Sačuvaj</button>
                 </div>
             </div>
         </div>

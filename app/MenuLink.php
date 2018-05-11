@@ -57,12 +57,15 @@ class MenuLink extends Model
         }
     }
 
-    public static function orderMenuLinks($links, $parent = 0, $order = 0){
+    public static function orderMenuLinks($links, $parent = 0, $level = 1, $order = 0){
         if(count($links)>0){
             foreach ($links as $link){
-                self::find($link['id'])->update(['parent' => $parent, 'order' => ++$order]);
+                $old = self::find($link['id']);
+                if(!empty($old) && ($old->parent != $parent || $old->order != ++$order || $old->level != $level)){
+                    $old->update(['parent' => $parent, 'order' => $order, 'level' => $level]);
+                }
                 if(!empty($link['children'])){
-                    self::orderMenuLinks($link['children'], $link['id']);
+                    self::orderMenuLinks($link['children'], $link['id'], $level+1);
                 }
             }
         }
@@ -70,10 +73,6 @@ class MenuLink extends Model
 
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value?: false;
-    }
-
-    public function setLevelAttribute($value){
-        $this->attributes['level'] = $this->attributes['parent'] == 0? 1 : 2;
     }
 
     public static function tree($menu_id) {

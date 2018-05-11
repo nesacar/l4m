@@ -4,29 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\ShoppingCart;
+use App\Theme;
 use Illuminate\Http\Request;
 use Session;
 
 class CartsController extends Controller
 {
+    protected $theme;
+    protected $settings;
+
+    public function __construct()
+    {
+        $this->theme = Theme::getTheme();
+    }
 
     /**
      * @return \Illuminate\Contracts\Routing\ResponseFactory|string|\Symfony\Component\HttpFoundation\Response
      */
     public function index(){
         //Session::forget('cart');
-
-        if(Session::has('cart')){
-            $oldCart = Session::has('cart')? Session::get('cart') : null;
-            $cart = new ShoppingCart($oldCart);
-
-            return response([
-                'products' => $cart->items,
-                'totalQty' => $cart->totalQty,
-                'totalPrice' => $cart->totalPrice,
-            ], 200);
-        }
-        return 'cart is empty';
+        $data = ShoppingCart::getAll();
+        return view('themes.' . $this->theme . '.pages.cart', compact('data'));
     }
 
     /**
