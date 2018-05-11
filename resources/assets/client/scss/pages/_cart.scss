@@ -29,6 +29,23 @@
       margin-right: 2 * $base-line;
     }
   }
+
+  &_list {
+    margin-bottom: 4 * $base-line;
+  }
+
+  &_entry-column {
+    padding-top: 2 * $base-line;
+    padding-bottom: 2 * $base-line;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &_item-image {
+    width: 12 * $base-line;
+    margin-right: 4 * $base-line;
+  }
 }
 
 .receipt {

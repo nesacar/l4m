@@ -60,15 +60,32 @@
 }
 
 .collapse--md {
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-up(md) {
     display: none;
   }
 }
 
 .collapse--lg {
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+.expand--md {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.expand--lg {
   @include media-breakpoint-down(md) {
     display: none;
   }
+}
+
+.py-1 {
+  padding-top: $base-line;
+  padding-bottom: $base-line;
 }
 
 .with-scrollbar {

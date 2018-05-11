@@ -10,14 +10,16 @@
   </section>
   <section class="container">
     <div class="cart_list">
-      <div class="row collapse--md">
+      <div class="row expand--md cart_secondary-text">
         <div class="col-md-6">Product</div>
         <div class="col-md-3">Quantity</div>
         <div class="col-md-3">Total</div>
       </div>
+      <hr>
       @foreach($data['products'] as $id => $product)
-        @cartitem(['product' => $product])
-        @endcartitem
+        @cartentry(['product' => $product])
+        @endcartentry
+        <hr>
       @endforeach
     </div>
   </section>
@@ -28,7 +30,7 @@
         <div class="receipt">
           <div class="receipt_fraction">
             <span class="receipt_key">subtotal</span>
-            <span class="receipt_value">{{ $data['totalPrice'] }}</span>
+            <span class="receipt_value shop-item_price-tag">{{ $data['totalPrice'] }}</span>
           </div>
           <div class="receipt_fraction">
             <span class="receipt_key">shipping</span>
@@ -36,7 +38,7 @@
           </div>
           <div class="receipt_fraction">
             <span class="receipt_key">total</span>
-            <span class="receipt_value">{{ $data['totalPrice'] }}</span>
+            <span class="receipt_value shop-item_price-tag">{{ $data['totalPrice'] }}</span>
           </div>
         </div>
         <div class="cart_actions">
