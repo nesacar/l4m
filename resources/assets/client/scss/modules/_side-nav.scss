@@ -1,0 +1,48 @@
+.side-nav {
+  &_toggle {
+    position: absolute;
+    top: 5px;
+    right: 16px;
+    z-index: 1;
+  }
+
+  &_menu {
+    border-bottom: 1px solid $border-color-dark;
+    padding-bottom: 40px;
+    padding-top: 40px;
+
+    &-item {
+      overflow: hidden;
+      position: relative;
+      background: #FFF;
+    }
+
+    &-link {
+      // color: $text-secondary-on-light;
+      display: block;
+      line-height: 18px;
+      padding: 12px 48px;
+      padding-left: 24px;
+      text-align: left;
+      width: 100%;
+
+      .side-nav_submenu & {
+        padding-left: 48px;
+      }
+    }
+  }
+
+  &_wrapper {
+    overflow: hidden;
+  }
+
+  &_submenu {
+    // height: 0;
+    margin-top: auto;
+
+    .initialized & {
+      height: auto;
+      transition: margin-top 235ms cubic-bezier(.4, 0, .2, 1);
+    }
+  }
+}

@@ -3,6 +3,7 @@ import * as Masthead from './components/masthead';
 import Drawer from './components/drawer';
 import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
+import SideNav from './components/sidenav';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
 import { Toast } from './components/toast';
@@ -17,6 +18,7 @@ export function init () {
   LazyImages.init();
   Masthead.init();
   SearchWidget.init();
+  SideNav.init();
   Toolbar.init();
 
   // Message bus.
