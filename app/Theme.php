@@ -2,12 +2,13 @@
 
 namespace App;
 
+use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use File;
 
 class Theme extends Model
 {
-    protected $table = 'themes';
+    use UploudableImageTrait;
 
     protected $fillable = ['title', 'image', 'version', 'author', 'author_address', 'author_email', 'developer', 'active', 'publish'];
 
@@ -37,20 +38,6 @@ class Theme extends Model
         $theme->update();
     }
 
-    public static function base64UploadImage($theme, $image){
-        if($theme->image != null){
-            File::delete($theme->image);
-        }
-        $exploaded = explode(',', $image);
-        $data = base64_decode($exploaded[1]);
-        $filename = time() . '-' . $theme->id . '.jpg';
-        $path = public_path('storage/uploads/themes/');
-        file_put_contents($path . $filename, $data);
-        $theme->image = 'storage/uploads/themes/' . $filename;
-        $theme->update();
-        return $theme->image;
-    }
-
     public static function getTheme(){
         if(config('app.theme')){
             return config('app.theme');
@@ -63,5 +50,17 @@ class Theme extends Model
         $numbers = range(5,25);
         $numbers = array_rand(array_splice($numbers, 1), $limit);
         return $numbers;
+    }
+
+    public function setPublishAttribute($value){
+        $this->attributes['publish'] = $value?: false;
+    }
+
+    public function setActiveAttribute($value){
+        $this->attributes['active'] = $value?: false;
+    }
+
+    public function setSlugAttribute($value){
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
 }

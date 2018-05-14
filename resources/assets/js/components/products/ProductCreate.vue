@@ -138,7 +138,7 @@
                                 :defaultImage="null"
                                 :titleImage="'proizvoda'"
                                 :error="error"
-                                @uploadImage="upload($event)"
+                                @uploadImage="prepare($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
                     </div>
@@ -200,6 +200,7 @@
     export default {
         data(){
           return {
+              image: {},
               product: {
                   date: moment().format('YYYY-MM-DD'),
                   time: moment().format('HH:mm'),
@@ -255,6 +256,8 @@
                 this.product.publish_at = this.publish_at;
                 axios.post('api/products', this.product)
                     .then(res => {
+                        this.product = res.data.product;
+                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -268,8 +271,20 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.product.image = image[0];
+            prepare(image){
+                this.product.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
+            },
+            sendImage(){
+                axios.post('api/products/' + this.product.id + '/image', this.image)
+                    .then(res => {
+                        this.product.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getBrands(){
                 axios.get('api/brands/lists')

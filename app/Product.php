@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\SearchableProductTraits;
+use App\Traits\UploudableImageTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use File;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Request;
 
 class Product extends Model
 {
-    use SearchableProductTraits;
+    use SearchableProductTraits, UploudableImageTrait;
 
     protected $fillable = [
         'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
@@ -70,37 +71,6 @@ class Product extends Model
 
     public function getTmbAttribute(){
         return $this->image? \Imagecache::get($this->attributes['image'], '63x84')->src : '';
-    }
-
-    public static function base64UploadImage($product_id, $image){
-        $product = self::find($product_id);
-        if($product->image != null){
-            File::delete($product->image);
-        }
-        $exploaded = explode(',', $image);
-        $data = base64_decode($exploaded[1]);
-        $filename = str_slug($product->title) . '-' . str_random(2) . '-' . $product->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('uploads/products/');
-        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
-        $product->image = 'storage/uploads/products/' . $path['folder'] . '/' . $filename;
-        $product->update();
-        return $product->image;
-    }
-
-    public static function getExtension($image)
-    {
-        $exploaded = explode(',', $image);
-        return self::getBetween($exploaded[0], '/', ';');
-
-    }
-
-    public static function getBetween($content,$start,$end){
-        $r = explode($start, $content);
-        if (isset($r[1])){
-            $r = explode($end, $r[1]);
-            return $r[0];
-        }
-        return '';
     }
 
     public static function getHome($limit = 4){

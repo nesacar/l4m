@@ -20,6 +20,7 @@
         props: ['image', 'defaultImage', 'titleImage', 'error', 'dimensions'],
         methods:{
             setUpFileUploader(e){
+                let file = e.target.files[0];
                 let reader = new FileReader();
                 let files = e.target.files;
                 if(!files.length){
@@ -27,8 +28,10 @@
                 }
                 reader.readAsDataURL(files[0]);
                 reader.onload = (e) => {
-                    let newImage = e.target.result;
-                    this.$emit('uploadImage', [newImage]);
+                    this.$emit('uploadImage', {
+                        src: e.target.result,
+                        file: file,
+                    });
                 }
             }
         }

@@ -64,7 +64,7 @@
                             :defaultImage="null"
                             :titleImage="'kategorije'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
                 </div>
@@ -83,6 +83,7 @@
     export default {
         data(){
           return {
+              image: {},
               blog: {
                   short: null,
                   publish: false
@@ -114,6 +115,8 @@
             submit(){
                 axios.post('api/blogs', this.blog)
                     .then(res => {
+                        this.blog = res.data.blog;
+                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -127,8 +130,20 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.blog.image = image[0];
+            prepare(image){
+                this.blog.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
+            },
+            sendImage(){
+                axios.post('api/blogs/' + this.blog.id + '/image', this.image)
+                    .then(res => {
+                        this.blog.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getList(){
                 axios.get('api/blogs/lists?parent=1')

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\UploudableImageTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use File;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, UploudableImageTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -24,36 +25,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    public static function base64UploadImage($user_id, $image){
-        $user = self::find($user_id);
-        if($user->image != null){
-            File::delete($user->image);
-        }
-        $exploaded = explode(',', $image);
-        $data = base64_decode($exploaded[1]);
-        $filename = str_random(2) . '-' . $user->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('uploads/users/');
-        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
-        $user->image = 'storage/uploads/users/' . $path['folder'] . '/' . $filename;
-        $user->update();
-        return $user->image;
-    }
-
-    public static function getExtension($image)
-    {
-        $exploaded = explode(',', $image);
-        return self::getBetween($exploaded[0], '/', ';');
-    }
-
-    public static function getBetween($content,$start,$end){
-        $r = explode($start, $content);
-        if (isset($r[1])){
-            $r = explode($end, $r[1]);
-            return $r[0];
-        }
-        return '';
-    }
 
     public function product(){
         return $this->hasMany(Product::class);

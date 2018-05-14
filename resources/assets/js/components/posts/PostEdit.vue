@@ -244,7 +244,11 @@
                     });
             },
             upload(image){
-                axios.post('api/posts/' + this.post.id + '/image', { file: image[0] })
+                let data = new FormData();
+                this.post.image = image.src;
+                data.append('file', image.file);
+
+                axios.post('api/posts/' + this.post.id + '/image', data)
                     .then(res => {
                         this.post.image = res.data.image;
                         this.error = null;
@@ -261,7 +265,11 @@
                     });
             },
             uploadSlider(image){
-                axios.post('api/posts/' + this.post.id + '/image?slider=1', { file: image[0] })
+                let data = new FormData();
+                this.post.slider = image.src;
+                data.append('file', image.file);
+
+                axios.post('api/posts/' + this.post.id + '/image?slider=1', data)
                     .then(res => {
                         this.post.slider = res.data.image;
                         this.error = null;

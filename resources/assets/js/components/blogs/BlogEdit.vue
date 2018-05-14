@@ -140,7 +140,10 @@
                     });
             },
             upload(image){
-                axios.post('api/blogs/' + this.blog.id + '/image', { image: image[0] })
+                let data = new FormData();
+                data.append('file', image.file);
+
+                axios.post('api/blogs/' + this.blog.id + '/image', data)
                     .then(res => {
                         this.blog.image = res.data.image;
                         this.error = null;

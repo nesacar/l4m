@@ -36,13 +36,10 @@ class BrandsController extends Controller
      */
     public function store(CreateBrandRequest $request)
     {
-        $brand = Brand::create(request()->except('image'));
+        $brand = Brand::create(request()->except('image', 'logo'));
         $brand->slug = request('slug')?: request('title');
         $brand->publish = request('publish')?: false;
         $brand->update();
-
-        if(request('image')){ Brand::base64UploadImage($brand->id, request('image')); }
-        if(request('logo')){ Brand::base64UploadLogoImage($brand->id, request('image')); }
 
         return response()->json([
             'brand' => $brand
@@ -71,7 +68,7 @@ class BrandsController extends Controller
      */
     public function update(CreateBrandRequest $request, Brand $brand)
     {
-        $brand->update(request()->except('image'));
+        $brand->update(request()->except('image', 'logo'));
         $brand->slug = request('slug')?: request('title');
         $brand->publish = request('publish')?: false;
         $brand->update();
@@ -105,10 +102,11 @@ class BrandsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = Brand::base64UploadImage($id, request('file'));
+        $brand = Brand::find($id);
+        $brand->update(['image' => $brand->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $brand->image,
         ]);
     }
 
@@ -120,10 +118,11 @@ class BrandsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadLogoImage(UploadImageRequest $request, $id){
-        $image = Brand::base64UploadLogoImage($id, request('file'));
+        $brand = Brand::find($id);
+        $brand->update(['logo' => $brand->storeImage('file', 'logo')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $brand->logo,
         ]);
     }
 

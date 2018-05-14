@@ -23,13 +23,18 @@
             setUpFileUploader(e){
                 this.loader = true;
                 let reader = new FileReader();
+                let file = e.target.files[0];
                 let files = e.target.files;
                 if(!files.length){
                     return
                 }
                 reader.readAsDataURL(files[0]);
                 reader.onload = (e) => {
-                    axios.post('api/products/' + this.product_id + '/image', { file: e.target.result })
+
+                    let data = new FormData();
+                    data.append('file', file);
+
+                    axios.post('api/products/' + this.product_id + '/image', data)
                         .then(res => {
                             this.image = e.target.result;
                             this.showImage = true;

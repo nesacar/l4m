@@ -103,7 +103,7 @@
                             :titleImage="'članka'"
                             :error="error"
                             :dimensions="'800x600 px'"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -113,7 +113,7 @@
                             :titleImage="'slajdera'"
                             :error="error"
                             :dimensions="'980x420 px'"
-                            @uploadImage="uploadSlider($event)"
+                            @uploadImage="prepareSlider($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -136,6 +136,8 @@
     export default {
         data(){
           return {
+              image: {},
+              slider: {},
               post: {
                   date: moment().format('YYYY-MM-DD'),
                   time: moment().format('HH:mm'),
@@ -188,6 +190,9 @@
                 this.post.publish_at = this.publish_at;
                 axios.post('api/posts', this.post)
                     .then(res => {
+                        this.post = res.data.post;
+                        this.sendImage();
+                        this.sendSliderImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -201,11 +206,35 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.post.image = image[0];
+            prepare(image){
+                this.post.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
             },
-            uploadSlider(slider){
-                this.post.slider = slider[0];
+            sendImage(){
+                axios.post('api/posts/' + this.post.id + '/image', this.image)
+                    .then(res => {
+                        this.post.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            prepareSlider(slider){
+                this.post.slider = slider.src;
+                this.slider = new FormData();
+                this.slider.append('file', slider.file);
+            },
+            sendSliderImage(){
+                axios.post('api/posts/' + this.post.id + '/image?slider=1', this.slider)
+                    .then(res => {
+                        this.post.slider = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getList(){
                 axios.get('api/blogs/lists')

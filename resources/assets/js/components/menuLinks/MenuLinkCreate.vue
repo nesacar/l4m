@@ -33,7 +33,7 @@
                             :defaultImage="null"
                             :titleImage="'linka'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -94,6 +94,7 @@
     export default {
         data(){
           return {
+              image: {},
               link: {},
               links: {},
               error: null,
@@ -121,7 +122,8 @@
             submit(){
                 axios.post('api/menu-links?menu_id=' + this.$route.params.id, this.link)
                     .then(res => {
-                        this.$router.push('/menu-links/' + this.$route.params.id);
+                        this.link = res.data.link;
+                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -129,14 +131,26 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-
+                        this.$router.push('/menu-links/' + this.$route.params.id);
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.link.image = image[0];
+            prepare(image){
+                this.link.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
+            },
+            sendImage(){
+                axios.post('api/menu-links/' + this.link.id + '/image', this.image)
+                    .then(res => {
+                        this.link.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
         }
     }

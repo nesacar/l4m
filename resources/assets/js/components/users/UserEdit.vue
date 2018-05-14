@@ -92,6 +92,7 @@
             submit(){
                 axios.patch('api/users/' + this.user.id, this.user)
                     .then(res => {
+                        console.log(res);
                         swal({
                             position: 'center',
                             type: 'success',
@@ -117,7 +118,9 @@
                     });
             },
             upload(image){
-                axios.post('api/users/' + this.user.id + '/image', { image: image[0] })
+                let data = new FormData();
+                data.append('image', image.file);
+                axios.post('api/users/' + this.user.id + '/image', data)
                     .then(res => {
                         console.log(res);
                         this.user.image = res.data.image;
@@ -133,11 +136,7 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
-            }
+            },
         }
     }
 </script>
-
-<style>
-
-</style>

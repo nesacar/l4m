@@ -120,7 +120,11 @@
                     });
             },
             upload(image){
-                axios.post('api/themes/' + this.theme.id + '/image', { image: image[0] })
+                this.theme.image = image.src;
+                let data = new FormData();
+                data.append('file', image.file);
+
+                axios.post('api/themes/' + this.theme.id + '/image', data)
                     .then(res => {
                         this.theme.image = res.data.image;
                         this.error = null;

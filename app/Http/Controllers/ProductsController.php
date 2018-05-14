@@ -47,8 +47,6 @@ class ProductsController extends Controller
     {
         $product = Product::create(request()->except('image'));
 
-        if(request('image')) Product::base64UploadImage($product->id, request('image'));
-
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
@@ -90,7 +88,7 @@ class ProductsController extends Controller
      */
     public function update(CreateProductRequest $request, Product $product)
     {
-        $product->update(request()->all());
+        $product->update(request()->except('image'));
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
@@ -134,10 +132,11 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = Product::base64UploadImage($id, request('file'));
+        $product = Product::find($id);
+        $product->update(['image' => $product->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $product->image
         ]);
     }
 

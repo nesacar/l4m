@@ -43,8 +43,6 @@ class CollectionsController extends Controller
         $collection->publish = request('publish')?: false;
         $collection->update();
 
-        if(request('image')){ Collection::base64UploadImage($collection->id, request('image')); }
-
         return response()->json([
             'collection' => $collection
         ]);
@@ -94,7 +92,7 @@ class CollectionsController extends Controller
         $collection->delete();
 
         return response()->json([
-            'message' => 'deleted'
+            'message' => 'deleted',
         ]);
     }
 
@@ -106,10 +104,11 @@ class CollectionsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = Collection::base64UploadImage($id, request('file'));
+        $collection = Collection::find($id);
+        $collection->update(['image' => $collection->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $collection->image,
         ]);
     }
 

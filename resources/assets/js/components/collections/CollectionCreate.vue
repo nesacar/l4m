@@ -75,7 +75,7 @@
                             :defaultImage="null"
                             :titleImage="'kolekcije'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -96,6 +96,7 @@
     export default {
         data(){
           return {
+              image: {},
               collection: {
                   brand_id: 0,
                   desc: null,
@@ -135,6 +136,8 @@
                 this.collection.user_id = this.user.id;
                 axios.post('api/collections', this.collection)
                     .then(res => {
+                        this.collection = res.data.collection;
+                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -148,8 +151,20 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.collection.image = image[0];
+            prepare(image){
+                this.collection.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
+            },
+            sendImage(){
+                axios.post('api/collections/' + this.collection.id + '/image', this.image)
+                    .then(res => {
+                        this.collection.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getList(){
                 axios.get('api/brands/lists')
@@ -159,7 +174,7 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
-            }
+            },
         }
     }
 </script>

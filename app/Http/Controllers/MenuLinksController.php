@@ -30,8 +30,6 @@ class MenuLinksController extends Controller
         $link->attribute()->sync(request('att_ids'));
         $link->attributes(request('att_ids'));
 
-        if(request('image')){ MenuLink::base64UploadImage($link->id, request('image')); }
-
         return response()->json([
             'link' => $link
         ]);
@@ -102,10 +100,11 @@ class MenuLinksController extends Controller
     }
 
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = MenuLink::base64UploadImage($id, request('file'));
+        $menuLink = MenuLink::find($id);
+        $menuLink->update(['image' => $menuLink->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $menuLink->image
         ]);
     }
 }

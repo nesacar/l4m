@@ -43,9 +43,6 @@ class PostsController extends Controller
         if(request('tag_ids')) $post->tag()->sync(request('tag_ids'));
         if(request('product_ids')) $post->product()->sync(request('product_ids'));
 
-        if(request('image')){ Post::base64UploadImage($post->id, request('image')); }
-        if(request('slider')){ Post::base64UploadSliderImage($post->id, request('slider')); }
-
         return response()->json([
             'post' => $post
         ]);
@@ -111,15 +108,20 @@ class PostsController extends Controller
     }
 
     public function uploadImage(UploadImageRequest $request, $id){
+        $post = Post::find($id);
         if(request('slider')){
-            $image = Post::base64UploadSliderImage($id, request('file'));
-        }else{
-            $image = Post::base64UploadImage($id, request('file'));
-        }
+            $post->update(['slider' => $post->storeImage('file', 'slider')]);
 
-        return response()->json([
-            'image' => $image
-        ]);
+            return response()->json([
+                'image' => $post->slider,
+            ]);
+        }else{
+            $post->update(['image' => $post->storeImage('file')]);
+
+            return response()->json([
+                'image' => $post->image,
+            ]);
+        }
     }
 
     /**

@@ -67,7 +67,7 @@
                             :defaultImage="null"
                             :titleImage="'brenda'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -76,7 +76,7 @@
                             :defaultImage="null"
                             :titleImage="'logoa'"
                             :error="error"
-                            @uploadImage="uploadLogo($event)"
+                            @uploadImage="prepareLogo($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -97,6 +97,8 @@
     export default {
         data(){
           return {
+              image: {},
+              logo: {},
               brand: {
                   desc: null,
                   publish: false,
@@ -132,6 +134,9 @@
                 this.brand.user_id = this.user.id;
                 axios.post('api/brands', this.brand)
                     .then(res => {
+                        this.brand = res.data.brand;
+                        this.sendImage();
+                        this.sendLogoImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -145,11 +150,42 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.brand.image = image[0];
+            prepare(image){
+                this.brand.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
             },
-            uploadLogo(image){
-                this.brand.logo = image[0];
+            prepareLogo(image){
+                this.brand.logo = image.src;
+                this.logo = new FormData();
+                this.logo.append('file', image.file);
+            },
+            sendImage(){
+                axios.post('api/brands/' + this.brand.id + '/image', this.image)
+                    .then(res => {
+                        this.brand.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            sendLogoImage(){
+                axios.post('api/brands/' + this.brand.id + '/logo-image', this.logo)
+                    .then(res => {
+                        this.brand.logo = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
         }
     }

@@ -76,7 +76,7 @@
                             :defaultImage="null"
                             :titleImage="'kategorije'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -97,6 +97,7 @@
     export default {
         data(){
           return {
+              image: {},
               category: {},
               lists: {},
               error: null,
@@ -131,6 +132,8 @@
             submit(){
                 axios.post('api/categories', this.category)
                     .then(res => {
+                        this.category = res.data.category;
+                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -144,8 +147,20 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.category.image = image[0];
+            prepare(image){
+                this.category.image = image.src;
+                this.image = new FormData();
+                this.image.append('file', image.file);
+            },
+            sendImage(){
+                axios.post('api/categories/' + this.category.id + '/image', this.image)
+                    .then(res => {
+                        this.category.image = res.data.image;
+                        this.error = null;
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getList(){
                 axios.get('api/categories/lists?parent=1')

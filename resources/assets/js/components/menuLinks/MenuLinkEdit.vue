@@ -186,7 +186,11 @@
                     });
             },
             upload(image){
-                axios.post('api/menu-links/' + this.link.id + '/image', { file: image[0] })
+                let data = new FormData();
+                this.link.image = image.src;
+                data.append('file', image.file);
+
+                axios.post('api/menu-links/' + this.link.id + '/image', data)
                     .then(res => {
                         this.link.image = res.data.image;
                         this.error = null;

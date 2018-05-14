@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use File;
@@ -9,6 +10,8 @@ Use Carbon\Carbon;
 
 class Post extends Model
 {
+    use UploudableImageTrait;
+
     protected $fillable = ['user_id', 'blog_id', 'brand_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
 
     protected $appends = ['date', 'time', 'link'];
@@ -27,52 +30,6 @@ class Post extends Model
                 $query->where('publish', 1)->orderBy('parent', 'ASC');
             }]);
         });
-    }
-
-    public static function base64UploadSliderImage($post_id, $image){
-        $post = self::find($post_id);
-        if($post->slider != null){
-            File::delete($post->slider);
-        }
-        $exploaded = explode(',', $image);
-        $data = base64_decode($exploaded[1]);
-        $filename = str_slug($post->title) . '-slider-' . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('uploads/posts/');
-        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
-        $post->slider = 'storage/uploads/posts/' . $path['folder'] . '/' . $filename;
-        $post->update();
-        return $post->slider;
-    }
-
-    public static function base64UploadImage($post_id, $image){
-        $post = self::find($post_id);
-        if($post->image != null){
-            File::delete($post->image);
-        }
-        $exploaded = explode(',', $image);
-        $data = base64_decode($exploaded[1]);
-        $filename = str_slug($post->title) . '-' . str_random(2) . '-' . $post->id . '.' . self::getExtension($image);
-        $path = Helper::generateImageFolder('uploads/posts/');
-        file_put_contents($path['fullFolderPath'] . '/' . $filename, $data);
-        $post->image = 'storage/uploads/posts/' . $path['folder'] . '/' . $filename;
-        $post->update();
-        return $post->image;
-    }
-
-    public static function getExtension($image)
-    {
-        $exploaded = explode(',', $image);
-        return self::getBetween($exploaded[0], '/', ';');
-
-    }
-
-    public static function getBetween($content,$start,$end){
-        $r = explode($start, $content);
-        if (isset($r[1])){
-            $r = explode($end, $r[1]);
-            return $r[0];
-        }
-        return '';
     }
 
     public static function getRelatedProducts($post, $limit = 3){

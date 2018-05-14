@@ -40,8 +40,6 @@ class BlogsController extends Controller
         $blog->publish = request('publish')?: false;
         $blog->update();
 
-        if(request('image')) Blog::base64UploadImage($blog->id, request('image'));
-
         return response()->json([
             'blog' => $blog
         ]);
@@ -102,10 +100,11 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadImage($id){
-        $image = Blog::base64UploadImage($id, request('image'));
+        $blog = Blog::find($id);
+        $blog->update(['image' => $blog->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $blog->image
         ]);
     }
 

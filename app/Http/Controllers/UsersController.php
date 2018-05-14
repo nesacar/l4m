@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
     public function __construct(){
         $this->middleware('auth:api');
     }
@@ -29,9 +30,7 @@ class UsersController extends Controller
             $user->password = bcrypt(request('password'));
             $user->update();
         }
-        if(request('image')){
-            User::base64UploadImage($user->id, request('image'));
-        }
+
         return response()->json([
             'user' => $user
         ]);
@@ -66,9 +65,10 @@ class UsersController extends Controller
     }
 
     public function uploadImage($id){
-        $image = User::base64UploadImage($id, request('image'));
+        $user = User::find($id);
+        $user->update(['image' => $user->storeImage()]);
         return response()->json([
-            'image' => $image
+            'image' => $user->image
         ]);
     }
 

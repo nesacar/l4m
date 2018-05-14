@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/brands'">Brendovi</router-link></li>
+                            <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
                             <li>Izmena brenda</li>
                         </ul>
                     </div>
@@ -159,7 +159,11 @@
                     });
             },
             upload(image){
-                axios.post('api/collections/' + this.collection.id + '/image', { file: image[0] })
+                let data = new FormData();
+                this.collection.image = image.src;
+                data.append('file', image.file);
+
+                axios.post('api/collections/' + this.collection.id + '/image', data)
                     .then(res => {
                         this.collection.image = res.data.image;
                         this.error = null;

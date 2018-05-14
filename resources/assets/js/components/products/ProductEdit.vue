@@ -329,7 +329,11 @@
                     });
             },
             upload(image){
-                axios.post('api/products/' + this.product.id + '/image', { file: image[0] })
+                let data = new FormData();
+                this.product.image = image.src;
+                data.append('file', image.file);
+
+                axios.post('api/products/' + this.product.id + '/image', data)
                     .then(res => {
                         this.product.image = res.data.image;
                         this.error = null;

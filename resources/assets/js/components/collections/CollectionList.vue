@@ -109,7 +109,7 @@
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Brend je obrisan.',
+                                    'Kolekcija je obrisana.',
                                     'success'
                                 );
                             })

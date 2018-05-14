@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UploadImageRequest;
 use Illuminate\Http\Request;
+use File;
 
 class CategoriesController extends Controller
 {
@@ -37,7 +38,7 @@ class CategoriesController extends Controller
     {
         $category = Category::create(request()->all());
 
-        if(request('image')){ Category::base64UploadImage($category->id, request('image')); }
+        //if(request('image')){ Category::base64UploadImage($category->id, request('image')); }
 
         return response()->json([
             'category' => $category
@@ -70,9 +71,7 @@ class CategoriesController extends Controller
     public function update(CreateCategoryRequest $request, Category $category)
     {
         $category->update(request()->except('image'));
-
         $category->set()->sync(request('set_ids'));
-
         $setIds = $category->set->pluck('id');
 
         return response()->json([
@@ -89,7 +88,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        if($category->image) File::delete();
+        if($category->image) File::delete($category->image);
+        if($category->box_image) File::delete($category->box_image);
         $category->delete();
 
         return response()->json([
@@ -98,18 +98,20 @@ class CategoriesController extends Controller
     }
 
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = Category::base64UploadImage($id, request('file'));
+        $category = Category::find($id);
+        $category->update(['image' => $category->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $category->image,
         ]);
     }
 
     public function uploadBoxImage(UploadImageRequest $request, $id){
-        $image = Category::base64BoxUploadImage($id, request('file'));
+        $category = Category::find($id);
+        $category->update(['box_image' => $category->storeImage('file', 'box_image')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $category->box_image,
         ]);
     }
 

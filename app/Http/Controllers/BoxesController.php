@@ -40,7 +40,7 @@ class BoxesController extends Controller
         $box->publish = request('publish')?: false;
         $box->update();
 
-        if(request('image')){ Box::base64UploadImage($box->id, request('image')); }
+        //if(request('image')){ Box::base64UploadImage($box->id, request('image')); }
 
         return response()->json([
             'box' => $box
@@ -102,10 +102,11 @@ class BoxesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadImage(UploadImageRequest $request, $id){
-        $image = Box::base64UploadImage($id, request('file'));
+        $box = Box::find($id);
+        $box->update(['image' => $box->storeImage('file')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $box->image
         ]);
     }
 
@@ -117,10 +118,11 @@ class BoxesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadSmallImage(UploadImageRequest $request, $id){
-        $image = Box::base64UploadSmallImage($id, request('file'));
+        $box = Box::find($id);
+        $box->update(['small_image' => $box->storeImage('file', 'small_image')]);
 
         return response()->json([
-            'image' => $image
+            'image' => $box->small_image
         ]);
     }
 }

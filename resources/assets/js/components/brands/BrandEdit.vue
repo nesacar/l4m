@@ -160,7 +160,11 @@
                 });
             },
             upload(image){
-                axios.post('api/brands/' + this.brand.id + '/image', { file: image[0] })
+                this.brand.image = image.src;
+                let data = new FormData();
+                data.append('file', image.file);
+
+                axios.post('api/brands/' + this.brand.id + '/image', data)
                     .then(res => {
                         this.brand.image = res.data.image;
                         this.error = null;
@@ -177,7 +181,11 @@
                 });
             },
             uploadLogo(image){
-                axios.post('api/brands/' + this.brand.id + '/logo-image', { file: image[0] })
+                this.brand.logo = image.src;
+                let data = new FormData();
+                data.append('file', image.file);
+
+                axios.post('api/brands/' + this.brand.id + '/logo-image', data)
                     .then(res => {
                         this.brand.logo = res.data.image;
                         this.error = null;

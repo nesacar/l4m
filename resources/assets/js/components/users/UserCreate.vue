@@ -61,11 +61,11 @@
                 </div>
                 <div class="col-sm-4">
                     <upload-image-helper
-                            :image="user.image"
+                            :image="user.imagePath"
                             :defaultImage="'img/user-image.png'"
                             :titleImage="'korisnika'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
                 </div>
@@ -83,6 +83,7 @@
     export default {
         data(){
           return {
+              image: null,
               user: {
                   role_id: 0
               },
@@ -98,6 +99,8 @@
             submit(){
                 axios.post('api/users', this.user)
                     .then(res => {
+                        this.user = res.data.user;
+                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -111,9 +114,28 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                this.user.image = image[0];
+            prepare(image){
+                this.user.imagePath = image.src;
+                this.image = new FormData();
+                this.image.append('image', image.file);
             },
+            sendImage(){
+                axios.post('api/users/' + this.user.id + '/image', this.image)
+                    .then(res => {
+                        this.user.image = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            }
         }
     }
 </script>
