@@ -1,5 +1,6 @@
 import LazyImages from './components/lazy-images';
 import * as Masthead from './components/masthead';
+import Drawer from './components/drawer';
 import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
 import Siema from './components/siema';
@@ -8,14 +9,11 @@ import { Toast } from './components/toast';
 import Store from './store';
 import View from './view';
 import Controller from './controller';
-
 import InvertableImage from './components/invertable-image';
-
-import { product } from './components/product';
-import { extend } from './utils';
 
 export function init () {
   window.Toast = Toast;
+  Drawer.init();
   LazyImages.init();
   Masthead.init();
   SearchWidget.init();

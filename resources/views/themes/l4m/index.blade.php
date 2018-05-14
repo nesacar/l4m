@@ -10,6 +10,7 @@
   @yield('styles')
 </head>
 <body>
+  @include('themes.'. $theme . '.partials.mobile-nav')
   @include('themes.' . $theme . '.partials.graphics')
   @include('themes.' . $theme . '.partials.header')
 

@@ -1,0 +1,76 @@
+.cc {
+  // base class
+  &-drawer {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    contain: strict;
+    z-index: 5;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      width: 100%;
+      content: "";
+      background-color: rgba(0,0,0,.6);
+      opacity: 0;
+      will-change: opacity;
+      transition: opacity .2s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &_drawer {
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: calc(100% - 56px);
+      max-width: 280px;
+      overflow: hidden;
+      background-color: #FFF;
+      transition: transform .2s .1s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+                  0px 16px 24px 2px rgba(0, 0, 0, 0.14),
+                  0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+
+      // media queries
+      @include media-breakpoint-up(sm) {
+        width: calc(100% - 64px);
+        max-width: 320px;
+      }
+
+      // position modifiers
+      &--left {
+        left: 0;
+        right: initial;
+        transform: translateX(-107%);
+      }
+
+      &--right {
+        left: initial;
+        right: 0;
+        transform: translateX(107%);
+      }
+    }
+
+    // action modifiers
+    &--open {
+      pointer-events: auto;
+
+      &::before {
+        opacity: 1;
+      }
+
+      .cc-drawer_drawer {
+        transform: none;
+      }
+    }
+  }
+}
