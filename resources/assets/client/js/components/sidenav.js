@@ -1,3 +1,5 @@
+import {closeHelper, bindTogglerWithTarget} from '../utils';
+
 function init() {
   document.querySelectorAll('.side-nav')
     .forEach((sidenav, i) => {
@@ -9,49 +11,29 @@ function init() {
     });
 }
 
-function _initMenu(_toggleEl, index) {
-  const _id = _toggleEl.getAttribute('aria-controls').slice(1);
-
-  // If target is not set, just return.
-  if (!_id) {
+function _initMenu(toggle, index) {
+  if (!toggle.hasAttribute('aria-controls')) {
     return;
   }
 
-  const _targetEl = document.getElementById(_id).firstElementChild;
+  const id = toggle.getAttribute('aria-controls').slice(1);
+  const target = document.getElementById(id).firstElementChild;
 
-  if (!_targetEl) {
-    throw new Error(`Could not find the submenu with the id: ${_id}`);
+  if (!target) {
+    throw new Error(`Could not find the submenu with the id: ${id}`);
   }
   
-  _collapseMenu(_toggleEl, _targetEl);
-
-  _toggleEl.addEventListener('click', function(evt) {
-    // Convert to bool
-    const expanded = (_toggleEl.getAttribute('aria-expanded') === 'true');
-    // If it's expanded, collapse the menu.
-    if (expanded) {
-      _collapseMenu(_toggleEl, _targetEl);
-      return;
-    }
-    _expandMenu(_toggleEl, _targetEl);
-  });
+  closeHelper(target, toggle, _close);
+  bindTogglerWithTarget(target, toggle, _open, _close);
 }
 
-function _expandMenu(toggleEl, targetEl) {
-  requestAnimationFrame(() => {
-    targetEl.style.marginTop = '0px';
-    targetEl.setAttribute('aria-hidden', false);
-    toggleEl.setAttribute('aria-expanded', true);
-  });
+function _open(target) {
+  target.style.marginTop = '0px';
 }
 
-function _collapseMenu(toggleEl, targetEl) {
-  requestAnimationFrame(() => {
-    const height = targetEl.getBoundingClientRect().height;
-    targetEl.style.marginTop = `-${height}px`;
-    targetEl.setAttribute('aria-hidden', true);
-    toggleEl.setAttribute('aria-expanded', false);
-  });
+function _close(target) {
+  const height = target.getBoundingClientRect().height;
+  target.style.marginTop = `-${height}px`;
 }
 
 export default {

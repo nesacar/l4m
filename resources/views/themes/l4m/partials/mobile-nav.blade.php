@@ -1,4 +1,4 @@
-@drawer()
+@drawer(['id' => 'navdrawer'])
   <nav class="side-nav">
     <ul class="side-nav_menu">
       <li class="side-nav_menu-item">
@@ -19,36 +19,6 @@
             </li>
           </ul>
         </div>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
-      </li>
-      <li class="side-nav_menu-item">
-        <a href="#" class="side-nav_menu-link">menu item 3</a>
       </li>
       <li class="side-nav_menu-item">
         <a href="#" class="side-nav_menu-link">menu item 3</a>
