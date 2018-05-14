@@ -1,6 +1,7 @@
 @drawer(['id' => 'navdrawer'])
   <nav class="side-nav">
     <ul class="side-nav_menu">
+      @foreach($menu as $i => $link)
       <li class="side-nav_menu-item">
         <a href="#" class="side-nav_menu-link">menu item 1</a>
       </li>
@@ -23,6 +24,7 @@
       <li class="side-nav_menu-item">
         <a href="#" class="side-nav_menu-link">menu item 3</a>
       </li>
+      @endforeach
     </ul>
   </nav>
 @enddrawer
