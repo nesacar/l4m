@@ -33,7 +33,7 @@
       height: 100%;
       width: calc(100% - 56px);
       max-width: 280px;
-      overflow: hidden;
+      overflow-y: auto;
       background-color: #FFF;
       transition: transform .2s .1s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),

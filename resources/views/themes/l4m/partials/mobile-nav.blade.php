@@ -23,6 +23,36 @@
       <li class="side-nav_menu-item">
         <a href="#" class="side-nav_menu-link">menu item 3</a>
       </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
+      <li class="side-nav_menu-item">
+        <a href="#" class="side-nav_menu-link">menu item 3</a>
+      </li>
     </ul>
   </nav>
 @enddrawer
