@@ -1,24 +1,24 @@
 import LazyImages from './components/lazy-images';
 import * as Masthead from './components/masthead';
+import Drawer from './components/drawer';
 import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
+import SideNav from './components/sidenav';
 import Siema from './components/siema';
 import Toolbar from './components/toolbar';
 import { Toast } from './components/toast';
 import Store from './store';
 import View from './view';
 import Controller from './controller';
-
 import InvertableImage from './components/invertable-image';
-
-import { product } from './components/product';
-import { extend } from './utils';
 
 export function init () {
   window.Toast = Toast;
+  Drawer.init();
   LazyImages.init();
   Masthead.init();
   SearchWidget.init();
+  SideNav.init();
   Toolbar.init();
 
   // Message bus.
@@ -41,17 +41,19 @@ export function init () {
     InvertableImage.init();
   });
 
-  // Testing Siema
-  const el = document.querySelector('.showcase_carousel');
-  if (!el) {
-    return;
-  }
-  const slider = new Siema({
-    selector: el,
+  const defaultOptions = {
     perPage: {
       0: 2,
       696: 3,
-      1028: 4
-    }
-  });
+      1028: 4,
+    },
+  };
+
+  document.querySelectorAll('.showcase_carousel')
+    .forEach((carousel) => {
+      return new Siema({
+        selector: carousel,
+        ...defaultOptions,
+      });
+    });
 };

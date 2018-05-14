@@ -1,5 +1,5 @@
 <header id="header">
-  <button class="icon-btn menu-toggler" id="js-menu-toggler">
+  <button class="icon-btn menu-toggler" aria-controls="#navdrawer" aria-expanded="false" data-controls="#navdrawer">
     <div class="menu-icon">
       <span></span>
       <span></span>
@@ -34,10 +34,3 @@
     </div>
   </div>
 </header>
-
-<script>
-  document.querySelector('#js-menu-toggler')
-    .addEventListener('click', function () {
-      this.classList.toggle('active');
-    });
-</script>

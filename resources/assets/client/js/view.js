@@ -1,4 +1,4 @@
-import { product } from "./components/product";
+import { product } from "./mixins/product";
 import { extend } from "./utils";
 
 class View {

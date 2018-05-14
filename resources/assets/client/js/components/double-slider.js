@@ -35,7 +35,6 @@ class DoubleSlider {
       min: parrent.querySelector('[data-label="min"]'),
       max: parrent.querySelector('[data-label="max"]'),
     };
-    console.log(this.labels)
   }
 
   _setInitialState () {
