@@ -39,17 +39,19 @@ export function init () {
     InvertableImage.init();
   });
 
-  // Testing Siema
-  const el = document.querySelector('.showcase_carousel');
-  if (!el) {
-    return;
-  }
-  const slider = new Siema({
-    selector: el,
+  const defaultOptions = {
     perPage: {
       0: 2,
       696: 3,
-      1028: 4
-    }
-  });
+      1028: 4,
+    },
+  };
+
+  document.querySelectorAll('.showcase_carousel')
+    .forEach((carousel) => {
+      return new Siema({
+        selector: carousel,
+        ...defaultOptions,
+      });
+    });
 };
