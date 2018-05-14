@@ -30,11 +30,15 @@
     flex-shrink: 0;
     width: 25%;
     padding: 0 $base-line;
-    opacity: .5;
-    transition: opacity .12s;
+    
+    img {
+      opacity: .5;
+      transition: opacity .12s;
+      will-change: opacity;
+    }
 
-    &:hover,
-    &--active {
+    &:hover img,
+    img.active {
       opacity: 1;
     }
 

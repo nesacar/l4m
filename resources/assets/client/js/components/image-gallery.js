@@ -1,3 +1,4 @@
+const ACTIVE_CLASS = 'active';
 /**
  * Sets up the image gallery.
  *
@@ -7,11 +8,16 @@ function init(callback=function() {}) {
   const target = document.querySelector('.image-gallery_target');
   const thumbnails = 
     document.querySelector('.image-gallery_thumbnails');
+  let currentImage = thumbnails.querySelector('img.active');
 
   thumbnails.addEventListener('click', function(evt) {
     if (evt.target.tagName.toLowerCase() !== 'img') {
       return;
     }
+
+    currentImage.classList.remove(ACTIVE_CLASS);
+    currentImage = evt.target;
+    currentImage.classList.add(ACTIVE_CLASS);
 
     // TODO: Use data-src to hold ref to bigger image.
     const src = evt.target.src;

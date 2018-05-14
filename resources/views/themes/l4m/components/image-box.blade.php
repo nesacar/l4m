@@ -2,9 +2,9 @@
   <div class="col-lg-3">
     <div class="image-box_thumbnails image-gallery_thumbnails">
       
-      <div class="image-box_thumbnail image-box_thumbnail--active">
+      <div class="image-box_thumbnail">
         <div class="image image--portrait">
-          <img src="{{ \Imagecache::get($image, 'test')->src }}" alt="{{ $title }}">
+          <img class="active" src="{{ \Imagecache::get($image, 'test')->src }}" alt="{{ $title }}">
         </div>
       </div>
       @if(count($photos))
