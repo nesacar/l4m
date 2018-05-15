@@ -4,14 +4,14 @@
       
       <div class="image-box_thumbnail">
         <div class="image image--portrait">
-          <img class="active" src="{{ \Imagecache::get($image, 'test')->src }}" alt="{{ $title }}">
+          <img class="active" src="{{ \Imagecache::get($image, '90x120')->src }}" alt="{{ $title }}">
         </div>
       </div>
       @if(count($photos))
       @foreach ($photos as $photo)
       <div class="image-box_thumbnail">
         <div class="image image--portrait">
-          <img src="{{ url($photo->tmb) }}" alt="{{ $title }}">
+          <img src="{{ url($photo->tmb) }}" alt="{{ $title }}" data-large="{{ url($photo->file_path) }}">
         </div>
       </div>
       @endforeach

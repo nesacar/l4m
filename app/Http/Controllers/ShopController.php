@@ -45,7 +45,7 @@ class ShopController extends Controller
             $product = Product::withoutGlobalScope('attribute')->with('photo')->find($slug3);
             $category = Category::whereSlug($slug1)->first();
             $related = Product::getRelated($product, $category, $limit=6);
-            Seo::shopProduct($product);
+            Seo::shopProduct($product, $category);
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
         }else{
             $category = Category::with('set')->whereSlug($slug3)->first();
@@ -58,11 +58,11 @@ class ShopController extends Controller
 
     public function category4($slug1, $slug2, $slug3, $slug4)
     {
-        if(is_numeric($slug3)){
+        if(is_numeric($slug4)){
             $product = Product::withoutGlobalScope('attribute')->with('photo')->find($slug4);
             $category = Category::whereSlug($slug2)->first();
             $related = Product::getRelated($product, $category, $limit=6);
-            Seo::shopProduct($product);
+            Seo::shopProduct($product, $category);
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
         }else{
             $category = Category::with('set')->whereSlug($slug4)->first();

@@ -38,6 +38,7 @@
           @component('themes.' . $theme . '.components.shop.grid', [
             'component' => 'shop.item',
             'items' => $data['products'],
+            'category' => $category,
             'options' => (object)[ 'shop' => true ]
           ])
           @endcomponent

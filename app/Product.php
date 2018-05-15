@@ -77,15 +77,8 @@ class Product extends Model
         return Product::published()->inRandomOrder()->take($limit)->get();
     }
 
-    public function getLink(){
-        $str = 'shop/';
-        if(count($this->category)>0){
-            foreach ($this->category as $category){
-                $str .= $category->slug . '/';
-            }
-        }
-        $str .= $this->slug . '/' . $this->id;
-        return url($str);
+    public function getLink($category){
+        return url($category->getLink() . '/' .  $this->slug . '/' . $this->id);
     }
 
     public static function getHomeLatest(){
@@ -108,7 +101,7 @@ class Product extends Model
     }
 
     public function getLinkAttribute(){
-        return $this->getLink();
+        return $this->getLink($this->category->first());
     }
 
     public function getTotalPriceAttribute(){
@@ -132,7 +125,7 @@ class Product extends Model
     }
 
     public function category(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->orderBy('parent', 'ASC');
     }
 
     public function attribute(){

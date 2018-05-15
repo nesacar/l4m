@@ -43,7 +43,7 @@ class Photo extends Model
     }
 
     public function getTmbAttribute(){
-        return \Imagecache::get($this->attributes['file_path'], 'test')->src;
+        return \Imagecache::get($this->attributes['file_path'], '90x120')->src;
     }
 
     public function product(){

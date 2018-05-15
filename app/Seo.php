@@ -104,11 +104,11 @@ class Seo extends Model
     /**
      * SEO for shop category page
      */
-    public static function shopProduct($product)
+    public static function shopProduct($product, $category)
     {
         SEOMeta::setTitle($product->title);
         SEOMeta::setDescription($product->short);
-        SEOMeta::setCanonical($product->getLink());
+        SEOMeta::setCanonical($product->getLink($category));
         SEOMeta::addKeyword($product->tag->pluck('title'));
 
         OpenGraph::addImage(url($product->image), ['height' => 1200, 'width' => 1600]);
@@ -116,7 +116,7 @@ class Seo extends Model
         OpenGraph::addProperty('type', 'article');
         OpenGraph::setTitle($product->title);
         OpenGraph::setDescription($product->short);
-        OpenGraph::setUrl($product->getLink());
+        OpenGraph::setUrl($product->getLink($category));
         OpenGraph::setSiteName('Luksuzni online shop');
     }
 }

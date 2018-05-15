@@ -86,6 +86,7 @@
                     <div class="showcase_item">
                         @component('themes.' . $theme . '.components.shop.item', [
                           'product' => $product,
+                          'category' => $category,
                           'theme' => $theme,
                           '_index' => $i
                         ])
