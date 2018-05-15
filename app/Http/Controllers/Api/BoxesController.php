@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Box;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBoxRequest;
 use App\Http\Requests\UploadImageRequest;
 use Illuminate\Http\Request;

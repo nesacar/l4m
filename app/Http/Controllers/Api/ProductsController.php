@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Attribute;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UploadImageRequest;

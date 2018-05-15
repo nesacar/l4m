@@ -12,7 +12,7 @@
                             aria-controls="#_submenu-id-{{ $link->id }}"
                     >&plus;
                     </button>
-                    <a href="#" class="side-nav_menu-link">{{ $link->title }}</a>
+                    <a href="{{ url($link->link . $link->sufix) }}" class="side-nav_menu-link">{{ $link->title }}</a>
                     <div class="side-nav_wrapper" id="_submenu-id-{{ $link->id }}">
                         <ul class="side-nav_submenu">
                             @foreach($link->children as $subLink)

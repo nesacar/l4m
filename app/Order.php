@@ -7,6 +7,8 @@ use Session;
 
 class Order extends Model
 {
+    protected $fillable = ['customer_id', 'payment_id', 'coupon_id', 'price', 'tax', 'total', 'paid_at'];
+
     public function getOrder(){
         if(Session::has('cart')){
             $oldCart = Session::has('cart')? Session::get('cart') : null;
@@ -19,5 +21,12 @@ class Order extends Model
             ], 200);
         }
         return 'cart is empty';
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer(){
+        return $this->belongsTo(Customer::class);
     }
 }

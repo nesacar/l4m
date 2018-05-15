@@ -55,6 +55,14 @@
                     <li><router-link tag="a" :to="'/sets'">Setovi</router-link></li>
                 </ul>
             </li>
+            <li :class="{ 'active': showOrdersItemActive }" :style="{ 'display': showOrdersItem ? 'block' : 'none' }">
+                <font-awesome-icon icon="angle-right" />
+                <a href="#" @click="changeShowOrdersItemActive()">Narudžbine</a>
+                <font-awesome-icon icon="shopping-basket" />
+                <ul>
+                    <li><router-link tag="a" :to="'/orders'">Narudžbine</router-link></li>
+                </ul>
+            </li>
             <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowPostsItemActive()">Članci</a>
@@ -161,6 +169,14 @@
             showTemplatesItemActive(){
                 return this.$store.getters.getTemplatesItemActive;
             },
+
+            /** orders **/
+            showOrdersItem(){
+                return this.$store.getters.getShowOrdersItem;
+            },
+            showOrdersItemActive(){
+                return this.$store.getters.getOrdersItemActive;
+            },
         },
         methods: {
             /** settings **/
@@ -191,6 +207,11 @@
             /** galleries **/
             changeShowTemplatesItemActive(){
                 this.$store.dispatch('changeTemplatesItemActive');
+            },
+
+            /** orders **/
+            changeShowOrdersItemActive(){
+                this.$store.dispatch('changeOrdersItemActive');
             },
         }
     }

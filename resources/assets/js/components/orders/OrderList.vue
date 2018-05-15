@@ -37,7 +37,7 @@
                             <tr v-for="row in orders">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.customer.name }}</td>
-                                <td v-if="row.parent_blog">{{ row.parent_blog.title }}</td> <td v-else>/</td>
+                                <td>{{ row.total }}</td>
                                 <td>{{ row.publish }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>

@@ -78,7 +78,7 @@
                                 <small class="form-text text-muted" v-if="error != null && error.country">{{ error.country[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label>Publikovano</label><br>
+                                <label>Blokiran</label><br>
                                 <switches v-model="customer.block" theme="bootstrap" color="primary"></switches>
                             </div>
                             <div class="form-group">

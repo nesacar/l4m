@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Blog;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlogRequest;
 use Illuminate\Http\Request;
 use File;

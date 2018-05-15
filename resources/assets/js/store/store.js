@@ -37,6 +37,10 @@ export const store = new Vuex.Store({
         /** nav templates **/
         showTemplatesItem: true,
         templatesItemActive: false,
+
+        /** nav orders **/
+        showOrdersItem: true,
+        ordersItemActive: false,
     },
     getters: {
         /** auth **/
@@ -103,6 +107,14 @@ export const store = new Vuex.Store({
         getTemplatesItemActive: state => {
             return state.templatesItemActive;
         },
+
+        /** nav orders **/
+        getShowOrdersItem: state => {
+            return state.showOrdersItem;
+        },
+        getOrdersItemActive: state => {
+            return state.ordersItemActive;
+        },
     },
     mutations: {
         /** auth **/
@@ -150,6 +162,11 @@ export const store = new Vuex.Store({
         changeTemplatesItemActive: state => {
             state.templatesItemActive = !state.templatesItemActive;
         },
+
+        /** nav orders **/
+        changeOrdersItemActive: state => {
+            state.ordersItemActive = !state.ordersItemActive;
+        },
     },
     actions: {
         /** auth **/
@@ -193,6 +210,11 @@ export const store = new Vuex.Store({
         /** nav templates **/
         changeTemplatesItemActive: context => {
             context.commit('changeTemplatesItemActive');
+        },
+
+        /** nav orders **/
+        changeOrdersItemActive: context => {
+            context.commit('changeOrdersItemActive');
         },
     }
 });

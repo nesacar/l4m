@@ -17,91 +17,92 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users/logout', 'UsersController@logout');
-Route::get('users/get-users', 'UsersController@getUsers');
-Route::post('users/change-password', 'UsersController@changePassword');
-Route::resource('users', 'UsersController');
-Route::post('users/{id}/image', 'UsersController@uploadImage');
+Route::get('users/logout', 'Api\UsersController@logout');
+Route::get('users/get-users', 'Api\UsersController@getUsers');
+Route::post('users/change-password', 'Api\UsersController@changePassword');
+Route::resource('users', 'Api\UsersController');
+Route::post('users/{id}/image', 'Api\UsersController@uploadImage');
 
-Route::get('settings/{id}/edit', 'SettingsController@edit');
-Route::put('settings/{id}', 'SettingsController@update');
+Route::get('settings/{id}/edit', 'Api\SettingsController@edit');
+Route::put('settings/{id}', 'Api\SettingsController@update');
 
-Route::resource('themes', 'ThemesController');
-Route::post('themes/{id}/image', 'ThemesController@uploadImage');
+Route::resource('themes', 'Api\ThemesController');
+Route::post('themes/{id}/image', 'Api\ThemesController@uploadImage');
 
-Route::resource('menus', 'MenusController');
+Route::resource('menus', 'Api\MenusController');
 
-Route::get('menu-links/lists', 'MenuLinksController@lists');
-Route::resource('menu-links', 'MenuLinksController');
-Route::get('menu-links/{id}/sort', 'MenuLinksController@sort');
-Route::post('menu-links/{id}/image', 'MenuLinksController@uploadImage');
-Route::post('menu-links/{id}/order', 'MenuLinksController@saveOrder');
+Route::get('menu-links/lists', 'Api\MenuLinksController@lists');
+Route::resource('menu-links', 'Api\MenuLinksController');
+Route::get('menu-links/{id}/sort', 'Api\MenuLinksController@sort');
+Route::post('menu-links/{id}/image', 'Api\MenuLinksController@uploadImage');
+Route::post('menu-links/{id}/order', 'Api\MenuLinksController@saveOrder');
 
-Route::get('blogs/lists', 'BlogsController@lists');
-Route::resource('blogs', 'BlogsController');
-Route::post('blogs/{id}/image', 'BlogsController@uploadImage');
+Route::get('blogs/lists', 'Api\BlogsController@lists');
+Route::resource('blogs', 'Api\BlogsController');
+Route::post('blogs/{id}/image', 'Api\BlogsController@uploadImage');
 
-Route::post('posts/search', 'PostsController@search');
-Route::get('posts/lists', 'PostsController@lists');
-Route::resource('posts', 'PostsController');
-Route::post('posts/{id}/products', 'PostsController@products');
-Route::post('posts/{id}/image', 'PostsController@uploadImage');
-Route::post('posts/{id}/gallery', 'PostsController@galleryUpdate');
-Route::get('posts/{id}/gallery', 'PostsController@gallery');
+Route::post('posts/search', 'Api\PostsController@search');
+Route::get('posts/lists', 'Api\PostsController@lists');
+Route::resource('posts', 'Api\PostsController');
+Route::post('posts/{id}/products', 'Api\PostsController@products');
+Route::post('posts/{id}/image', 'Api\PostsController@uploadImage');
+Route::post('posts/{id}/gallery', 'Api\PostsController@galleryUpdate');
+Route::get('posts/{id}/gallery', 'Api\PostsController@gallery');
 
-Route::post('tags/search', 'TagsController@search');
-Route::get('tags/lists', 'TagsController@lists');
-Route::resource('tags', 'TagsController');
+Route::post('tags/search', 'Api\TagsController@search');
+Route::get('tags/lists', 'Api\TagsController@lists');
+Route::resource('tags', 'Api\TagsController');
 
-Route::get('brands/lists', 'BrandsController@lists');
-Route::resource('brands', 'BrandsController');
-Route::post('brands/{id}/image', 'BrandsController@uploadImage');
-Route::post('brands/{id}/logo-image', 'BrandsController@uploadLogoImage');
+Route::get('brands/lists', 'Api\BrandsController@lists');
+Route::resource('brands', 'Api\BrandsController');
+Route::post('brands/{id}/image', 'Api\BrandsController@uploadImage');
+Route::post('brands/{id}/logo-image', 'Api\BrandsController@uploadLogoImage');
 
-Route::get('collections/lists', 'CollectionsController@lists');
-Route::resource('collections', 'CollectionsController');
-Route::post('collections/{id}/image', 'CollectionsController@uploadImage');
+Route::get('collections/lists', 'Api\CollectionsController@lists');
+Route::resource('collections', 'Api\CollectionsController');
+Route::post('collections/{id}/image', 'Api\CollectionsController@uploadImage');
 
-Route::get('sets/lists', 'SetsController@lists');
-Route::resource('sets', 'SetsController');
+Route::get('sets/lists', 'Api\SetsController@lists');
+Route::resource('sets', 'Api\SetsController');
 
-Route::get('properties/lists', 'PropertiesController@lists');
-Route::get('properties/{id}/set', 'PropertiesController@listsBySet');
-Route::resource('properties', 'PropertiesController');
+Route::get('properties/lists', 'Api\PropertiesController@lists');
+Route::get('properties/{id}/set', 'Api\PropertiesController@listsBySet');
+Route::resource('properties', 'Api\PropertiesController');
 
-Route::post('attributes/search', 'AttributesController@search');
-Route::get('attributes/lists', 'AttributesController@lists');
-Route::resource('attributes', 'AttributesController');
+Route::post('attributes/search', 'Api\AttributesController@search');
+Route::get('attributes/lists', 'Api\AttributesController@lists');
+Route::resource('attributes', 'Api\AttributesController');
 
-Route::post('categories/search', 'CategoriesController@search');
-Route::get('categories/lists', 'CategoriesController@lists');
-Route::get('categories/tree', 'CategoriesController@tree');
-Route::resource('categories', 'CategoriesController');
-Route::post('categories/{id}/image', 'CategoriesController@uploadImage');
-Route::post('categories/{id}/boxImage', 'CategoriesController@uploadBoxImage');
+Route::post('categories/search', 'Api\CategoriesController@search');
+Route::get('categories/lists', 'Api\CategoriesController@lists');
+Route::get('categories/tree', 'Api\CategoriesController@tree');
+Route::resource('categories', 'Api\CategoriesController');
+Route::post('categories/{id}/image', 'Api\CategoriesController@uploadImage');
+Route::post('categories/{id}/boxImage', 'Api\CategoriesController@uploadBoxImage');
 
-Route::post('products/search', 'ProductsController@search');
-Route::get('products/lists', 'ProductsController@lists');
-Route::resource('products', 'ProductsController');
-Route::post('products/{id}/image', 'ProductsController@uploadImage');
-Route::post('products/{id}/clone', 'ProductsController@cloneProduct');
-Route::post('products/{id}/code', 'ProductsController@code');
-Route::post('products/{id}/gallery', 'ProductsController@galleryUpdate');
-Route::get('products/{id}/gallery', 'ProductsController@gallery');
+Route::post('products/search', 'Api\ProductsController@search');
+Route::get('products/lists', 'Api\ProductsController@lists');
+Route::resource('products', 'Api\ProductsController');
+Route::post('products/{id}/image', 'Api\ProductsController@uploadImage');
+Route::post('products/{id}/clone', 'Api\ProductsController@cloneProduct');
+Route::post('products/{id}/code', 'Api\ProductsController@code');
+Route::post('products/{id}/gallery', 'Api\ProductsController@galleryUpdate');
+Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');
 
-Route::post('photos/{id}/destroy', 'PhotosController@destroy');
+Route::post('photos/{id}/destroy', 'Api\PhotosController@destroy');
 
-Route::post('galleries/{id}/destroy', 'GalleriesController@destroy');
+Route::post('galleries/{id}/destroy', 'Api\GalleriesController@destroy');
 
-Route::get('blocks/lists', 'BlocksController@lists');
-Route::resource('blocks', 'BlocksController');
+Route::get('blocks/lists', 'Api\BlocksController@lists');
+Route::resource('blocks', 'Api\BlocksController');
 
-Route::resource('boxes', 'BoxesController');
-Route::post('boxes/{id}/image', 'BoxesController@uploadImage');
-Route::post('boxes/{id}/smallImage', 'BoxesController@uploadSmallImage');
+Route::resource('boxes', 'Api\BoxesController');
+Route::post('boxes/{id}/image', 'Api\BoxesController@uploadImage');
+Route::post('boxes/{id}/smallImage', 'Api\BoxesController@uploadSmallImage');
 
-Route::resource('shop-bars', 'ShopBarsController');
+Route::resource('shop-bars', 'Api\ShopBarsController');
 
-Route::resource('subscribers', 'SubscribersController');
+Route::resource('subscribers', 'Api\SubscribersController');
 
-Route::resource('customers', 'CustomersController');
+Route::put('customers/{id}/edit/{user}', 'Api\CustomersController@updateCustomer');
+Route::resource('customers', 'Api\CustomersController');

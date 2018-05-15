@@ -39,6 +39,7 @@
                             </div>
                         </div>
 
+                        @if(false)
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="checkbox">
@@ -48,6 +49,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
@@ -55,9 +57,11 @@
                                     {{ __('Login') }}
                                 </button>
 
+                                @if(false)
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </form>

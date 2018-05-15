@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
@@ -39,7 +39,7 @@
                                 <small class="form-text text-muted" v-if="error != null && error.email">{{ error.email[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="password">Lozinka <span>*</span></label>
+                                <label for="password">Lozinka</label>
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Lozinka" v-model="customer.password">
                                 <small class="form-text text-muted" v-if="error != null && error.password">{{ error.password[0] }}</small>
                             </div>
@@ -78,13 +78,18 @@
                                 <small class="form-text text-muted" v-if="error != null && error.country">{{ error.country[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label>Publikovano</label><br>
+                                <label>Blokiran</label><br>
                                 <switches v-model="customer.block" theme="bootstrap" color="primary"></switches>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary">Izmeni</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <h3>Mesto za korpe</h3>
                     </div>
                 </div>
 
@@ -117,6 +122,7 @@
                 axios.get('api/customers/' + this.$route.params.id)
                     .then(res => {
                         this.customer = res.data.customer;
+                        this.customer.email = this.customer.user.email;
                     })
                     .catch(e => {
                         console.log(e);
@@ -124,9 +130,10 @@
                     });
             },
             submit(){
-                axios.put('api/customers/' + this.customer.id, this.customer)
+                axios.put('api/customers/' + this.customer.id + '/edit/' + this.customer.user.id, this.customer)
                     .then(res => {
                         this.customer = res.data.customer;
+                        this.customer.email = this.customer.user.email;
                         swal({
                             position: 'center',
                             type: 'success',
