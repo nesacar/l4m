@@ -20,6 +20,9 @@ function init(callback=function() {}) {
     currentImage.classList.add(ACTIVE_CLASS);
 
     const src = evt.target.dataset.large;
+    // Show small image before big arives.
+    target.src = evt.target.src;
+
     const img = new Image();
     img.src = src;
     img.onload = () => {
