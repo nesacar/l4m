@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->float('price')->default(0);
             $table->string('tax')->nullable();
             $table->float('total')->default(0);
+            $table->boolean('paid')->default(0);
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });

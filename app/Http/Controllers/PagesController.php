@@ -6,6 +6,7 @@ use App\Block;
 use App\Blog;
 use App\Menu;
 use App\MenuLink;
+use App\Order;
 use App\Product;
 use App\ShoppingCart;
 use App\Category;
@@ -98,21 +99,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-//        $ids = [4,11,13];
-//        return Product::withoutGlobalScopes()->whereHas('attribute', function($q) use($ids) {
-//            $q->whereIn('attributes.id', $ids)
-//                ->groupBy('products.id')
-//                ->havingRaw('COUNT(DISTINCT attributes.id) = '.count($ids));
-//        })->get();
-//        \Artisan::call('config:clear');
-//        \Artisan::call('storage:link');
-//        return $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
-//            $query->orderBy('parent', 'DESC')->first();
-//        }])->orderBy('id', 'DESC')->paginate(50);
-//        return Product::withoutGlobalScopes()->select('id', 'publish_at', 'image', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as price"))
-//            ->orderByRaw('price DESC')->groupBy('id')->get(['price', 'price_outlet']);
-//        $menu = Menu::find(1);
-//        return $links = $menu->menuLinks()->select('id', 'title as text')->with(['children' => function($query){ $query->select('id'); }])->where('parent', 0)->orderBy('order', 'ASC')->get();
-        return $featuredProducts = ShopBar::getFeatured('blog');
+        //return Order::fake();
+        return 'done';
     }
 }

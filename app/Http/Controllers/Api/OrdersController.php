@@ -17,13 +17,17 @@ class OrdersController extends Controller
 
     public function index()
     {
-        $orders = Order::with('customer')->orderBy('orders.id', 'DESC')->paginate(50);
+        $orders = Order::with('customer')->withCount('product')->orderBy('orders.id', 'DESC')->paginate(50);
 
         return response()->json([
             'orders' => $orders
         ]);
     }
 
-
+    public function show(Order $order){
+        return response()->json([
+            'order' => $order,
+        ]);
+    }
 
 }

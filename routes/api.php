@@ -106,3 +106,5 @@ Route::resource('subscribers', 'Api\SubscribersController');
 
 Route::put('customers/{id}/edit/{user}', 'Api\CustomersController@updateCustomer');
 Route::resource('customers', 'Api\CustomersController');
+
+Route::resource('orders', 'Api\OrdersController');

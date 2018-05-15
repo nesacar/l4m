@@ -44,7 +44,7 @@ class Customer extends Model
         $user->block = request('block');
         $user->update();
 
-        $customer->create(request()->all());
+        $customer->update(request()->all());
     }
 
     /**
