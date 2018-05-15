@@ -16,15 +16,14 @@
             <div class="col-md-6">
 
                 <div class="product_details">
-                    <h1 class="display-3 product_name">{{ $product->brand->title }}</h1>
+                    <h1 class="display-4 product_name">{{ $product->brand->title }}</h1>
                     <div class="product_brand">{{ $product->title }}</div>
-                    <div class="product_price">
+                    <div class="display-4 product_price">
                         @if($product->discount)
                             <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ $product->price_outlet }}</span>
                         @endif
                         <span class="shop-item_price-tag">{{ $product->totalPrice }}</span>
                     </div>
-                    <p class="product_description">{{ $product->short }}</p>
                     <div class="product_options">
                         @if(false)
                         <span>
@@ -43,10 +42,18 @@
                         <button class="btn btn--primary btn--block">dodaj u korpu</button>
                         <button class="btn btn--outline btn--block">dodaj u listu želja</button>
                     </div>
+                    <div class="product_id">Item id: {{ $product->code }}</div>
+                    <div class="accordion initialized active" role="tablist">
+                      <div class="accordion_pane" aria-expanded="true" role="tabpanel">
+                        <button class="accordion_tab" role="tab">OPIS</button>
+                        <div class="accordion_pane-content">
+                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur in itaque cumque fuga debitis eos! Quaerat nobis alias corrupti, consequuntur voluptatum non soluta! Est provident unde vitae, at tempora in.
+                        </div>
+                      </div>
+                    </div>
                     <div class="product_social">
                         @social()
                     </div>
-                    <div class="product_id">Item id: {{ $product->code }}</div>
                 </div>
 
             </div>

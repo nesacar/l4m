@@ -1,0 +1,43 @@
+.accordion {
+  $b: &;
+  width: 100%;
+
+  &.initialized {
+    height: 600px; // Figure out why?
+    visibility: hidden;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &.active {
+    visibility: visible;
+  }
+
+  &_pane {
+    #{$b}.initialized & {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    #{$b}.active & {
+      transition: transform 0.3s cubic-bezier(0, 0, 0.3, 1);
+    }
+  }
+
+  &_tab {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    border: none;
+    text-align: left;
+    padding: 0;
+    background: transparent;
+  }
+
+  &_pane-content {
+    padding: (2 * $base-line) 0;
+    overflow-y: auto;
+    background-color: #FFF;
+  }
+}
