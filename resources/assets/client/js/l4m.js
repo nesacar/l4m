@@ -5,7 +5,6 @@ import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
 import SideNav from './components/sidenav';
 import Siema from './components/siema';
-import Toolbar from './components/toolbar';
 import { Toast } from './components/toast';
 import Store from './store';
 import View from './view';
@@ -19,7 +18,6 @@ export function init () {
   Masthead.init();
   SearchWidget.init();
   SideNav.init();
-  Toolbar.init();
 
   // Message bus.
   const emitter = new Emitter();
