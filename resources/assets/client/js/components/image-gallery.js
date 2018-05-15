@@ -19,8 +19,7 @@ function init(callback=function() {}) {
     currentImage = evt.target;
     currentImage.classList.add(ACTIVE_CLASS);
 
-    // TODO: Use data-src to hold ref to bigger image.
-    const src = evt.target.src;
+    const src = evt.target.dataset.large;
     const img = new Image();
     img.src = src;
     img.onload = () => {
