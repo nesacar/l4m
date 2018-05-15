@@ -23,10 +23,15 @@ class Order extends Model
         return 'cart is empty';
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function customer(){
         return $this->belongsTo(Customer::class);
+    }
+
+    public function payment(){
+        return $this->belongsTo(Payment::class);
+    }
+
+    public function product(){
+        return $this->belongsToMany(Product::class)->withPivot('qty');
     }
 }
