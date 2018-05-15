@@ -136,7 +136,6 @@
                 axios.get('api/categories/lists')
                     .then(res => {
                         this.categories = res.data.categories;
-                        this.getShopBar();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
@@ -166,6 +165,7 @@
                             var object = {id: pick.id, text: pick.code};
                             return object;
                         });
+                        this.getShopBar();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

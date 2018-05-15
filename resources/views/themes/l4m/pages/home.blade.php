@@ -45,7 +45,7 @@
 
   <section class="home_discover-more">
     <div class="container">
-      <h2 class="display-3 home_discover-more_title">Discover More</h2>
+      <h2 class="display-3 home_discover-more_title">Pogledaj više</h2>
       @component('themes.' . $theme . '.components.grid', [
         'component' => 'blog.tile',
         'items' => $posts,

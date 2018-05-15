@@ -77,8 +77,19 @@ class Product extends Model
         return Product::published()->inRandomOrder()->take($limit)->get();
     }
 
-    public function getLink($category){
-        return url($category->getLink() . '/' .  $this->slug . '/' . $this->id);
+    public function getLink($category = false){
+        if($category){
+            return url($category->getLink() . '/' .  $this->slug . '/' . $this->id);
+        }else{
+            $str = 'shop/';
+            if(count($this->category)>0){
+                foreach ($this->category as $category){
+                    $str .= $category->slug . '/';
+                }
+            }
+            $str .= $this->slug . '/' . $this->id;
+            return url($str);
+        }
     }
 
     public static function getHomeLatest(){
@@ -105,7 +116,8 @@ class Product extends Model
     }
 
     public function getTotalPriceAttribute(){
-        return ($this->price_outlet != null || $this->price_outlet) != 0 ? $this->price_outlet: $this->price;
+        $price = ($this->price_outlet != null || $this->price_outlet) != 0 ? $this->price_outlet: $this->price;
+        return number_format($price, 2, ',', '.');
     }
 
     public function brand(){
