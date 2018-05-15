@@ -34,10 +34,10 @@
   <div class="blog-tile_content">
     @if($withLabel)
     <div class="blog-tile_label">
-      <a class="blog-tile_categorie with-flare" href="{{ url($item->blog->slug) }}">{{ $item->blog->title }}</a>
+      <a class="blog-tile_categorie with-flare" href="{{ url($item->blog->getLink()) }}">{{ $item->blog->title }}</a>
     </div>
     @endif
-    <h4 class="display-4 blog-tile_title"><a href="{{ url($item->blog->slug . '/' . $item->slug . '/' . $item->id) }}">{{ $item->title }}</a></h4>
+    <h4 class="display-4 blog-tile_title"><a href="{{ url($item->getLink()) }}">{{ $item->title }}</a></h4>
     <p class="with-trunk">{{ $item->short }}</p>
     @if($withLink)
     <a href="{{ $item->getLink() }}" class="blog-tile_link">continue reading</a>
