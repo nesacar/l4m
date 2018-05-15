@@ -12,8 +12,6 @@
     padding-top: 40px;
 
     &-item {
-      overflow: hidden;
-      position: relative;
       background: #FFF;
     }
 
@@ -29,20 +27,6 @@
       .side-nav_submenu & {
         padding-left: 48px;
       }
-    }
-  }
-
-  &_wrapper {
-    overflow: hidden;
-  }
-
-  &_submenu {
-    // height: 0;
-    margin-top: auto;
-
-    .initialized & {
-      height: auto;
-      transition: margin-top 235ms cubic-bezier(.4, 0, .2, 1);
     }
   }
 }

@@ -1,14 +1,8 @@
 import {closeHelper, bindTogglerWithTarget} from '../utils';
 
 function init() {
-  document.querySelectorAll('.side-nav')
-    .forEach((sidenav, i) => {
-      sidenav.querySelectorAll('.side-nav_toggle')
-        .forEach(_initMenu);
-
-      // Set "All Done" flag.
-      sidenav.classList.add('initialized');
-    });
+  document.querySelectorAll('.js-accordion_toggle')
+    .forEach(_initMenu);
 }
 
 function _initMenu(toggle, index) {

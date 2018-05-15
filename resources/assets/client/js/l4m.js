@@ -3,13 +3,14 @@ import * as Masthead from './components/masthead';
 import Drawer from './components/drawer';
 import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
-import SideNav from './components/sidenav';
+import Accordion from './components/accordion';
 import Siema from './components/siema';
 import { Toast } from './components/toast';
 import Store from './store';
 import View from './view';
 import Controller from './controller';
 import InvertableImage from './components/invertable-image';
+import accordion from './components/accordion';
 
 export function init () {
   window.Toast = Toast;
@@ -17,7 +18,7 @@ export function init () {
   LazyImages.init();
   Masthead.init();
   SearchWidget.init();
-  SideNav.init();
+  Accordion.init();
 
   // Message bus.
   const emitter = new Emitter();

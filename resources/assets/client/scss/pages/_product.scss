@@ -27,10 +27,6 @@
     margin: (2 * $base-line) 0;
   }
 
-  &_description {
-    margin-bottom: 4 * $base-line;
-  }
-
   &_options {
     margin-bottom: 2 * $base-line;
     display: flex;
@@ -44,6 +40,23 @@
     > :last-child() {
       margin-left: 2 * $base-line;
     }
+  }
+
+  &_description {
+    margin-top: 2 * $base-line;
+  }
+
+  &_description-tab {
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    border: 0;
+    text-align: left;
+    width: 100%;
+  }
+  
+  &_description-content {
+    padding: 16px 0;
   }
 
   &_social {

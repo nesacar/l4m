@@ -43,14 +43,8 @@
                         <button class="btn btn--outline btn--block">dodaj u listu želja</button>
                     </div>
                     <div class="product_id">Item id: {{ $product->code }}</div>
-                    <div class="accordion initialized active" role="tablist">
-                      <div class="accordion_pane" aria-expanded="true" role="tabpanel">
-                        <button class="accordion_tab" role="tab">OPIS</button>
-                        <div class="accordion_pane-content">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur in itaque cumque fuga debitis eos! Quaerat nobis alias corrupti, consequuntur voluptatum non soluta! Est provident unde vitae, at tempora in.
-                        </div>
-                      </div>
-                    </div>
+                    @component('themes.l4m.components.accordion')
+                    @endcomponent
                     <div class="product_social">
                         @social()
                     </div>
