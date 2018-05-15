@@ -4,7 +4,7 @@
       
       <div class="image-box_thumbnail">
         <div class="image image--portrait">
-          <img class="active" src="{{ \Imagecache::get($image, '90x120')->src }}" alt="{{ $title }}">
+          <img class="active" src="{{ \Imagecache::get($image, '90x120')->src }}" alt="{{ $title }}" data-large="{{ url($image) }}">
         </div>
       </div>
       @if(count($photos))
