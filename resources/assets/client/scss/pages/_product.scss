@@ -46,6 +46,10 @@
     margin-top: 2 * $base-line;
   }
 
+  &_description-section {
+    border-bottom: 1px solid $border-color-dark;
+  }
+
   &_description-tab {
     display: block;
     height: 36px;
@@ -53,6 +57,9 @@
     border: 0;
     text-align: left;
     width: 100%;
+    padding: 0;
+    background-color: inherit;
+    outline: none !important;
   }
   
   &_description-content {

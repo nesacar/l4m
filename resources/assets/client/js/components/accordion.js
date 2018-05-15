@@ -1,4 +1,4 @@
-import {closeHelper, bindTogglerWithTarget} from '../utils';
+import {closeHelper, bindTogglerWithTarget, openHelper} from '../utils';
 
 function init() {
   document.querySelectorAll('.js-accordion_toggle')
@@ -17,7 +17,15 @@ function _initMenu(toggle, index) {
     throw new Error(`Could not find the submenu with the id: ${id}`);
   }
   
-  closeHelper(target, toggle, _close);
+  // Sets the initial state.
+  const _state = toggle.getAttribute('aria-expanded');
+  // If aria-expanded is set and has value of 'true'
+  if (_state === 'true') {
+    openHelper(target, toggle, _open);
+  } else { 
+    closeHelper(target, toggle, _close);
+  }
+
   bindTogglerWithTarget(target, toggle, _open, _close);
 }
 

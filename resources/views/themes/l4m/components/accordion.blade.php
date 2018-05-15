@@ -1,8 +1,9 @@
 <div class="accordion product_description">
   
-  <div class="accordion_pane">
+  <div class="accordion_pane product_description-section">
     <button class="js-accordion_toggle product_description-tab"
       aria-controls="#_sub-id-1"
+      aria-expanded="true"
     >OPIS 1
     </button>
     <div class="accordion_wrapper" id="_sub-id-1">
@@ -12,7 +13,7 @@
     </div>
   </div>
 
-  <div class="accordion_pane">
+  <div class="accordion_pane product_description-section">
     <button class="js-accordion_toggle product_description-tab"
       aria-controls="#_sub-id-2"
     >OPIS 2
@@ -24,7 +25,7 @@
     </div>
   </div>
 
-  <div class="accordion_pane">
+  <div class="accordion_pane product_description-section">
     <button class="js-accordion_toggle product_description-tab"
       aria-controls="#_sub-id-3"
     >OPIS 3

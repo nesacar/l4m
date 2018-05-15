@@ -53,6 +53,7 @@
             </div>
         </div>
 
+        @if(false)
         <div class="tabs tabs--center product_info">
             <input class="tab_control" type="radio" name="product-details" id="desc-tab" checked>
             <label class="tab_label" for="desc-tab">OPIS</label>
@@ -75,6 +76,7 @@
                 {{--reviews...--}}
             {{--</div>--}}
         </div>
+        @endif
     </section>
 
     <section class="showcase">
