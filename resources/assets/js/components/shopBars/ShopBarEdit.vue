@@ -147,6 +147,7 @@
                     .then(res => {
                         this.shopBar = res.data.shopBar;
                         let ids = res.data.prod_ids;
+                        console.log(ids);
                         this.prod_id1 = ids[0];
                         this.prod_id2 = ids[1];
                         this.prod_id3 = ids[2];

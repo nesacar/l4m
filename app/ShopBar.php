@@ -21,13 +21,13 @@ class ShopBar extends Model
     }
 
     public static function getLatest($template="home"){
-        return self::with('category')->where('template', $template)->where('desc', 'Latest')->orderBy('order', 'ASC')->with(['product' => function($query){
+        return self::with('category')->where('template', $template)->where('desc', 'Najnoviji')->orderBy('order', 'ASC')->with(['product' => function($query){
             $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
         }])->get();
     }
 
     public static function getFeatured($template="home"){
-        return self::with('category')->where('template', $template)->where('desc', 'Featured')->orderBy('order', 'ASC')->with(['product' => function($query){
+        return self::with('category')->where('template', $template)->where('desc', 'Istaknuti')->orderBy('order', 'ASC')->with(['product' => function($query){
             $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
         }])->get();
     }

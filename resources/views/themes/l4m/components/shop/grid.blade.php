@@ -15,7 +15,7 @@
 
     @component('themes.' . $theme . '.components.' . $component, [
       'product' => $item,
-      'category' => $category,
+      'category' => isset($category) ? $category : $item->category->first(),
       'options' => isset($options) ? $options : null,
       '_index' => $index
     ])

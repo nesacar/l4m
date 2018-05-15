@@ -17,7 +17,7 @@
   @endcomponent
 
   <section class="container">
-    <h2 class="display-3 section-title--serif">Featured Products</h2>
+    <h2 class="display-3 section-title--serif">Istaknuti proizvodi</h2>
     @include('themes.' . $theme . '.partials.tab-list', [
       'options' => (object)[
         'id' => 'featured'
@@ -34,7 +34,7 @@
   </section>
 
   <section class="container">
-    <h2 class="display-3 section-title--serif">Latest Products</h2>
+    <h2 class="display-3 section-title--serif">Najnoviji proizvodi</h2>
     @include('themes.' . $theme . '.partials.tab-list', [
       'options' => (object)[
         'id' => 'latest'
