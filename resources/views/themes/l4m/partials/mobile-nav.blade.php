@@ -15,7 +15,7 @@
                         <use xlink:href="#icon_arrow">
                       </svg>
                     </button>
-                    <a href="#" class="side-nav_menu-link">{{ $link->title }}</a>
+                    <a href="{{ url($link->link . $link->sufix) }}" class="side-nav_menu-link">{{ $link->title }}</a>
                     <div class="accordion_wrapper" id="_submenu-id-{{ $link->id }}">
                         <ul class="side-nav_submenu accordion_content">
                             @foreach($link->children as $subLink)

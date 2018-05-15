@@ -53,7 +53,7 @@
       </div>
       <aside class="split-view_right-pane">
         <div class="with-border" style="width: 100%; padding-bottom: 32px; text-align: center;">
-          <h4 class="side-content-title">featured products</h4>
+          <h4 class="side-content-title">povezani proizvodi</h4>
           <div class="products-featured">
             @component('themes.' . $theme . '.components.list', [
               'component' => 'shop.item',

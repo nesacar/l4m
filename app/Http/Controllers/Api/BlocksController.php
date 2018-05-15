@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Block;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlockRequest;
 use Illuminate\Http\Request;
 

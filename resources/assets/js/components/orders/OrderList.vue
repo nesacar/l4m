@@ -16,7 +16,6 @@
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Porudžbine</h5>
-                        <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
 
@@ -27,7 +26,8 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">ime</th>
-                                <th scope="col">cena</th>
+                                <th scope="col">ukupna cena</th>
+                                <th scope="col">broj proizvoda</th>
                                 <th scope="col">status</th>
                                 <th scope="col">kreirano</th>
                                 <th>akcija</th>
@@ -37,11 +37,12 @@
                             <tr v-for="row in orders">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.customer.name }}</td>
-                                <td v-if="row.parent_blog">{{ row.parent_blog.title }}</td> <td v-else>/</td>
-                                <td>{{ row.publish }}</td>
+                                <td>{{ formatPrice(row.total) }} rsd</td>
+                                <td>{{ row.product_count }}</td>
+                                <td>{{ row.paid }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
-                                    <router-link tag="a" :to="'blogs/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'orders/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>
@@ -67,7 +68,7 @@
     export default {
         data(){
             return {
-                blogs: {},
+                orders: {},
                 paginate: {}
             }
         },
@@ -76,21 +77,21 @@
             'font-awesome-icon': FontAwesomeIcon
         },
         created(){
-            this.getBlogs();
+            this.getOrders();
         },
         methods: {
-            getBlogs(){
-                axios.get('api/blogs')
+            getOrders(){
+                axios.get('api/orders')
                     .then(res => {
-                        this.blogs = res.data.blogs.data;
-                        this.paginate = res.data.blogs;
+                        this.orders = res.data.orders.data;
+                        this.paginate = res.data.orders;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('blogs/' + id + '/edit');
+                this.$router.push('orders/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -104,14 +105,14 @@
                     cancelButtonText: 'Odustani'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/blogs/' + row.id)
+                        axios.delete('api/orders/' + row.id)
                             .then(res => {
-                                this.blogs = this.blogs.filter(function (item) {
+                                this.orders = this.orders.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Kategorija je uspešno obrisana.',
+                                    'Porudžbina je uspešno obrisana.',
                                     'success'
                                 );
                             })
@@ -122,18 +123,19 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/blogs?page=' + index)
+                axios.get('api/orders?page=' + index)
                     .then(res => {
-                        this.blogs = res.data.blogs.data;
-                        this.paginate = res.data.blogs;
+                        this.orders = res.data.orders.data;
+                        this.paginate = res.data.orders;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
-            addRow(){
-                this.$router.push('/blogs/create');
-            }
+            formatPrice(value) {
+                let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
         }
     }
 </script>

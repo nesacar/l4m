@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Customer;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -21,7 +23,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy('created_at', 'DESC')->paginate(50);
+        $customers = Customer::withCount('order')->orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'customers' => $customers,
@@ -68,6 +70,14 @@ class CustomersController extends Controller
 
         return response()->json([
             'customer' => $customer,
+        ]);
+    }
+
+    public function updateCustomer(UpdateCustomerRequest $request, $customer_id, $user_id){
+        Customer::updateCustomer($customer_id);
+
+        return response()->json([
+            'customer' => Customer::find($customer_id),
         ]);
     }
 

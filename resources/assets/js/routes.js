@@ -92,6 +92,9 @@ export const router = new VueRouter({
         { path: "/customers", component: require('./components/customers/CustomerList.vue'), meta: { forAuth: true } },
         { path: "/customers/create", component: require('./components/customers/CustomerCreate.vue'), meta: { forAuth: true } },
         { path: "/customers/:id/edit", component: require('./components/customers/CustomerEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/orders", component: require('./components/orders/OrderList.vue'), meta: { forAuth: true } },
+        { path: "/orders/:id/edit", component: require('./components/orders/OrderEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',

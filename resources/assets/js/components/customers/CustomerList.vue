@@ -30,6 +30,7 @@
                                 <th scope="col">id</th>
                                 <th scope="col">ime</th>
                                 <th scope="col">email</th>
+                                <th scope="col">korpe</th>
                                 <th scope="col">mesto</th>
                                 <th scope="col">kreiran</th>
                                 <th>akcija</th>
@@ -39,11 +40,12 @@
                             <tr v-for="row in customers">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.name }}</td>
-                                <td>{{ row.email }}</td>
+                                <td>{{ row.user.email }}</td>
+                                <td>{{ row.order_count }}</td>
                                 <td>{{ row.town }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
-                                    <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>
+                                    <font-awesome-icon icon="pencil-alt" @click="editRow(row)"/>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>
@@ -90,8 +92,8 @@
                         console.log(e);
                     });
             },
-            editRow(id){
-                this.$router.push('customers/' + id + '/edit');
+            editRow(row){
+                this.$router.push('customers/' + row.id + '/edit');
             },
             deleteRow(row){
                 swal({

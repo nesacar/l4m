@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Attribute;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAttributeRequest;
 use Illuminate\Http\Request;
 

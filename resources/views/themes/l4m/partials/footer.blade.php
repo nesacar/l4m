@@ -11,8 +11,8 @@
       <div class="row">
         <div class="col-md-4">
           <div class="footer_column">
-            <h4 class="section-title footer_section-title">about us</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, explicabo qui.</p>
+            <h4 class="section-title footer_section-title">o nama</h4>
+            <p>{!! $settings->footer !!}</p>
           </div>
           <div class="footer_column">
             <h4 class="section-title footer_section-title">newsletter</h4>
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="col-md-4 footer_column">
-          <h4 class="section-title footer_section-title">customer service</h4>
+          <h4 class="section-title footer_section-title">korisnički servis</h4>
           <div class="footer_nav">
             <div class="footer_nav-item"><a href="/advertising">Advertising</a></div>
             <div class="footer_nav-item"><a href="/terms">Terms &amp; conditions</a></div>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="col-md-4 footer_column">
-          <h4 class="section-title footer_section-title">contact us</h4>
+          <h4 class="section-title footer_section-title">kontakt</h4>
           <div class="contact-column">
             <div class="contact-cell">
               <div class="contact-icon">

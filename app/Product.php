@@ -159,4 +159,8 @@ class Product extends Model
     public function post(){
         return $this->belongsToMany(Post::class);
     }
+
+    public function order(){
+        return $this->belongsToMany(Order::class)->withPivot('qty');
+    }
 }

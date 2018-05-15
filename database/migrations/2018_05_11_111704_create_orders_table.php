@@ -15,6 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('customer_id')->nullable()->index();
+            $table->unsignedInteger('payment_id')->index();
+            $table->unsignedInteger('coupon_id')->nullable();
+            $table->float('price')->default(0);
+            $table->string('tax')->nullable();
+            $table->float('total')->default(0);
+            $table->boolean('paid')->default(0);
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }
