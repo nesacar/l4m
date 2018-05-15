@@ -51,15 +51,24 @@
   }
 
   &_description-tab {
-    display: block;
-    height: 36px;
-    line-height: 36px;
+    display: flex;
+    height: 42px;
+    line-height: 42px;
     border: 0;
-    text-align: left;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     padding: 0;
     background-color: inherit;
     outline: none !important;
+
+    svg.icon {
+      transition: transform .12s;
+    }
+
+    &[aria-expanded="true"] svg.icon {
+      transform: rotate(180deg);
+    }
   }
   
   &_description-content {

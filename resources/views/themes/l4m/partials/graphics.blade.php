@@ -35,6 +35,9 @@
   <symbol id="icon_plus" viewBox="0 0 1024 1024">
     <path d="M810.6,554.9h-256v256h-85.3v-256h-256v-85.3h256v-256h85.3v256h256V554.9z"/>
   </symbol>
+  <symbol id="icon_arrow" viewBox="0 0 1024 1024">
+    <path d="M316.2,366.5L512,561.9l195.8-195.4l60.2,60.2l-256,256l-256-256L316.2,366.5z"/>
+  </symbol>
   <!-- social icons -->
   <symbol id="icon_facebook" viewBox="0 0 1024 1024">
       <title>facebook</title>

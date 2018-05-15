@@ -10,7 +10,10 @@
                 <li class="side-nav_menu-item accordion_pane">
                     <button class="icon-btn side-nav_toggle  js-accordion_toggle"
                             aria-controls="#_submenu-id-{{ $link->id }}"
-                    >&plus;
+                    >
+                      <svg class="icon">
+                        <use xlink:href="#icon_arrow">
+                      </svg>
                     </button>
                     <a href="#" class="side-nav_menu-link">{{ $link->title }}</a>
                     <div class="accordion_wrapper" id="_submenu-id-{{ $link->id }}">
