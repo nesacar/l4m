@@ -84,6 +84,7 @@
     background-color: $theme-primary;
     color: #FFF;
     padding-bottom: (4 * $base-line);
+    margin-top: (4 * $base-line);
   }
 
   &_brands-list {
@@ -96,6 +97,21 @@
   &_brands-list-item {
     padding: 0 15px;
     transition: opacity .12s;
+    flex-basis: 100%;
+    flex-shrink: 1;
+    text-align: center;
+
+    @include media-breakpoint-up(sm) {
+      flex-basis: 50%;
+    }
+
+    @include media-breakpoint-up(md) {
+      flex-basis: 25%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      flex-basis: 16.6666%;
+    }
 
     &:hover {
       opacity: .5;
