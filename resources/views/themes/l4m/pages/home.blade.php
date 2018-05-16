@@ -41,6 +41,21 @@
     </div>
   </section>
 
+  <section class="home_brands">
+    <div class="container">
+      <h2 class="display-3 section-title--serif">Brendovi</h2>
+      <ul class="home_brands-list">
+      @for($i = 0; $i < 12; $i++)
+        <li class="home_brands-list-item">
+          <a href="#">
+            <img src="{{ url('/storage/uploads/tmp/ft.png') }}" alt="ft">
+          </a>
+        </li>
+      @endfor
+      </ul>
+    </div>
+  </section>
+
   <section class="container">
     <h2 class="display-3 section-title--serif">Najnoviji proizvodi</h2>
     @include('themes.' . $theme . '.partials.tab-list', [
