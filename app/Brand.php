@@ -12,6 +12,14 @@ class Brand extends Model
 
     protected $fillable = ['title', 'slug', 'short', 'body', 'order', 'logo', 'image', 'publish'];
 
+    public function getBreadcrumb(){
+        $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li><li class="breadcrumb-item"><a href="'. url('brendovi') . '">Brendovi</a></li>';
+
+        $str .= '<li class="breadcrumb-item active" aria-current="page">' . $this->title . '</li></ol></nav>';
+
+        return $str;
+    }
+
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($value);
     }
@@ -28,7 +36,7 @@ class Brand extends Model
         return $this->hasMany(Post::class);
     }
 
-    public function image(){
+    public function slider(){
         return $this->hasMany(BrandImage::class);
     }
 }

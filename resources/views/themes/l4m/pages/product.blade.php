@@ -20,7 +20,7 @@
                     <div class="product_brand">{{ $product->title }}</div>
                     <div class="display-4 product_price">
                         @if($product->discount)
-                            <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ $product->price_outlet }}</span>
+                            <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ number_format($product->price, 2, ',', '.') }}</span>
                         @endif
                         <span class="shop-item_price-tag">{{ $product->totalPrice }}</span>
                     </div>

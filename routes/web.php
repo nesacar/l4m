@@ -16,7 +16,8 @@ Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index'
 
 Route::get('/', 'PagesController@index');
 
-Route::get('brand/{slug}', 'BrandsController@show');
+Route::get('brendovi', 'BrandsController@index');
+Route::get('brendovi/{slug}', 'BrandsController@show');
 
 Route::post('subscribe', 'SubscribersController@subscribe')->name('subscribe');
 Route::post('unSubscribe/{verification}', 'SubscribersController@unSubscribe');

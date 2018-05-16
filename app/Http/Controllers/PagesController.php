@@ -36,7 +36,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-        return Brand::find(29)->image()->get();
+        \Artisan::call('storage:link');
         return 'done';
     }
 }

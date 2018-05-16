@@ -18,8 +18,15 @@ class BrandsController extends Controller
         $this->settings = Setting::get();
     }
 
+    public function index(){
+        return 'in progress';
+    }
+
     public function show($slug){
-        $brand = Brand::whereId(29)->with('image', 'product')->first();
-        return view('themes.' . $this->theme . '.pages.brand', compact('brand'));
+        $brand = Brand::whereSlug($slug)->with('product')->with(['slider' => function($query){
+            $query->select('brand_id', 'file_path as slider');
+        }])->first();
+        $breadcrumb = $brand->getBreadcrumb();
+        return view('themes.' . $this->theme . '.pages.brand', compact('brand', 'breadcrumb'));
     }
 }
