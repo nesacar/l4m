@@ -3,10 +3,12 @@
   $hasOptions = isset($options);
   $hasControls = true;
   $isFullWidth = false;
+  $hasContent = false;
 
   if ($hasOptions) {
     $hasControls = isset($options->controls) ? $options->controls : $hasControls;
     $isFullWidth = isset($options->fullWidth) ? $options->fullWidth : $isFullWidth;
+    $hasContent = isset($options->content) ? $options->content : $hasContent;
   }
 
   $controlsClassName = 'masthead-carousel-controls' . ($hasControls ? '' : ' no-controls');
@@ -58,6 +60,7 @@
       <div class="image image--ultra-wide masthead_image">
         <img src="{{ $item->slider? url($item->slider) : url($item->image) }}" />
       </div>
+      @if($hasContent)
       <div class="masthead-carousel_content">
         <div class="masthead_label">
           @if($item->category)
@@ -69,6 +72,7 @@
         <h3 class="masthead_title"><a href="{{ url($item->getLink()) }}">{{ $item->title }}</a></h3>
         <p class="masthead_desc">{{ $item->subtitle }}</p>
       </div>
+      @endif
     </div>
     @endforeach
   </div>

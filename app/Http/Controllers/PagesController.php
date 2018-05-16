@@ -102,6 +102,10 @@ class PagesController extends Controller
         }
     }
 
+    public function brand() {
+      return view('themes.' . $this->theme . '.pages.brand');
+    }
+
     public function proba()
     {
         //return Order::fake();
