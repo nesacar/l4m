@@ -10,8 +10,10 @@
     @include('themes.'.$theme.'.partials.breadcrumb')
 
     <div class="brand_header">
-      <h1 class="display-3 brand_name">Brand Name</h1>
-      <p class="brand_about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni autem sapiente soluta illo, ipsa facere quod itaque quae voluptatum repudiandae culpa eveniet minima quas quidem iste necessitatibus at ut optio!</p>
+      <h1 class="display-3 brand_name">{{ $brand->title }}</h1>
+      <div class="brand_about">
+          {!! $brand->body !!}
+      </div>
    </div>
 
  </section>

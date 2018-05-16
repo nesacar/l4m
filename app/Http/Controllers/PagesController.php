@@ -34,10 +34,6 @@ class PagesController extends Controller
         return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories'));
     }
 
-    public function brand() {
-      return view('themes.' . $this->theme . '.pages.brand');
-    }
-
     public function proba()
     {
         return Brand::find(29)->image()->get();
