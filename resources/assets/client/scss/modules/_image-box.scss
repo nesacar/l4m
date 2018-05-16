@@ -1,35 +1,33 @@
+$spacer: 8px;
+
 .image-box {
-  @include media-breakpoint-down(md) {
-    flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
   }
 
   &_thumbnails {
     display: flex;
     flex-wrap: nowrap;
-    overflow: auto;
-    margin-left: -($base-line);
-    margin-right: -($base-line);
-    padding-bottom: 2 * $base-line;
+    margin-left: -($spacer / 2);
+    margin-right: -($spacer / 2);
+    // margin-bottom: $spacer;
     
     @include media-breakpoint-up(lg) {
+      // width: 120px;
+      width: 18.84%;
       flex-direction: column;
       margin: 0;
       padding: 0;
-    }
-
-    &::-webkit-scrollbar {
-      height: 4px;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: $theme-primary;
     }
   }
 
   &_thumbnail {
     flex-shrink: 0;
     width: 25%;
-    padding: 0 $base-line;
+    padding: 0 ($spacer / 2);
     
     img {
       opacity: .5;
@@ -44,8 +42,12 @@
 
     @include media-breakpoint-up(lg) {
       width: 100%;
-      margin-bottom: 2 * $base-line;
+      margin-bottom: $spacer;
       padding: 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     > .image {
@@ -54,10 +56,12 @@
   }
 
   &_image {
-    margin-bottom: 2 * $base-line;
+    flex-grow: 1;
+    margin-bottom: $spacer;
 
     @include media-breakpoint-up(lg) {
       margin-bottom: 0;
+      margin-left: $spacer; 
     }
   }
 }
