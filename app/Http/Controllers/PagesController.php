@@ -73,25 +73,30 @@ class PagesController extends Controller
     }
 
     public function blog4($slug1, $slug2, $slug3){
-        $category = Blog::whereSlug($slug1)->first();
-        $posts = Post::getLatest($category);
-        $post = Post::with(['tag', 'gallery', 'product'])->find($slug3);
-        $post->increment('views');
-        $products = Post::getRelatedProducts($post);
-        Seo::blogPost($post);
-        //return $post->product->first()->category->first()->getLink();
-        return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'products'));
-    }
-
-    public function blog5($slug1, $slug2, $slug3, $slug4){
-        if(is_numeric($slug3)){
+        if(is_numeric($slug3)) {
             $category = Blog::whereSlug($slug1)->first();
             $posts = Post::getLatest($category);
             $post = Post::with(['tag', 'gallery', 'product'])->find($slug3);
             $post->increment('views');
             $products = Post::getRelatedProducts($post);
             Seo::blogPost($post);
-            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'products'));
+            $breadcrumb = $post->getBreadcrumb();
+            return view('themes.' . $this->theme . '.pages.blog-post', compact('posts', 'post', 'category', 'products', 'breadcrumb'));
+        }else{
+
+        }
+    }
+
+    public function blog5($slug1, $slug2, $slug3, $slug4){
+        if(is_numeric($slug4)){
+            $category = Blog::whereSlug($slug1)->first();
+            $posts = Post::getLatest($category);
+            $post = Post::with(['tag', 'gallery', 'product'])->find($slug4);
+            $post->increment('views');
+            $products = Post::getRelatedProducts($post);
+            Seo::blogPost($post);
+            $breadcrumb = $post->getBreadcrumb();
+            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'products', 'breadcrumb'));
         }else{
 
         }

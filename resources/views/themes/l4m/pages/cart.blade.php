@@ -17,8 +17,7 @@
       </div>
       <hr>
       @foreach($data['products'] as $id => $product)
-        @cartentry(['product' => $product])
-        @endcartentry
+        @cartentry(['product' => $product]) @endcartentry
         <hr>
       @endforeach
     </div>

@@ -32,6 +32,18 @@ class Post extends Model
         });
     }
 
+    public function getBreadcrumb(){
+        $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li><li class="breadcrumb-item"><a href="'. url('blog') . '">Blog</a></li>';
+
+        if(!empty($this->parent)){
+            $str .= '<li class="breadcrumb-item"><a href="' . $this->parent->slug . '">' . $this->parent->title . '</a></li>';
+        }
+
+        $str .= '<li class="breadcrumb-item active" aria-current="page">' . $this->title . '</li></ol></nav>';
+
+        return $str;
+    }
+
     public static function getRelatedProducts($post, $limit = 3){
         if(count($post->product) > 0){
             return $post->product;
