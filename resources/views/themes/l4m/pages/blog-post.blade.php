@@ -7,7 +7,9 @@
 
 @section('content')
 
-  <section class="container" style="padding-top: 32px">
+  <section class="container">
+    @include('themes.' . $theme . '.partials.breadcrumb')
+
     <div class="split-view">
       <div class="split-view_left-pane">
         <article class="blog-post">
