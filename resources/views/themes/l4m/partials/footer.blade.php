@@ -16,10 +16,10 @@
           </div>
           <div class="footer_column">
             <h4 class="section-title footer_section-title">newsletter</h4>
-            <p>Receive the latest news vis email</p>
+            <p>Saznajte najnovije vesti putem emaila</p>
             <form class="footer_newsletter" method="POST" action="{{ action('SubscribersController@subscribe') }}">
               @csrf
-              <input type="text" name="email" id="nl-email" placeholder="Enter your email" aria-label="email address" />
+              <input type="text" name="email" id="nl-email" placeholder="Unesite email adresu" aria-label="email address" />
               <button class="with-flare" aria-label="subscribe to newsletter" type="submit">
                 <span role="presentation" class="arrow arrow--right"></span>
               </button>
