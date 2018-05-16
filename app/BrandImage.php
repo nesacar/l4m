@@ -14,8 +14,9 @@ class BrandImage extends Model
 
     public static function saveImage($brand_id, $image){
         $brand = Brand::find($brand_id);
+        $imageName = self::imageName($brand);
         $image->storeAs('uploads/brands/images',
-            self::imageName($brand) . '.' . $image->getClientOriginalExtension(),
+            $imageName . '.' . $image->getClientOriginalExtension(),
             'public'
         );
 
@@ -23,8 +24,8 @@ class BrandImage extends Model
 
             $brandImage = new BrandImage();
             $brandImage->brand_id = $brand->id;
-            $brandImage->file_name = self::imageName($brand) . '.' . $image->getClientOriginalExtension();
-            $brandImage->file_path = 'storage/uploads/brands/images/' . self::imageName($brand) . '.' . $image->getClientOriginalExtension();
+            $brandImage->file_name = $imageName . '.' . $image->getClientOriginalExtension();
+            $brandImage->file_path = 'storage/uploads/brands/images/' . $imageName . '.' . $image->getClientOriginalExtension();
             $brandImage->publish = 1;
             $brandImage->save();
         }

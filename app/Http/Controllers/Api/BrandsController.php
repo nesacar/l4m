@@ -142,7 +142,7 @@ class BrandsController extends Controller
     }
 
     public function gallery($id){
-        $images = Brand::find($id)->image()->get();
+        $images = Brand::find($id)->slider()->get();
 
         return response()->json([
             'images' => $images,
