@@ -32,11 +32,11 @@ return array(
 //        'height' => 90,
 //        'method' => 'crop',
 //    ),
-//    'test' => array(
-//        'width' => 90,
-//        'height' => 120,
-//        'method' => 'crop',
-//    ),
+    '100x43' => array(
+        'width' => 100,
+        'height' => 43,
+        'method' => 'crop',
+    ),
     '90x120' => array(
         'width' => 90,
         'height' => 120,

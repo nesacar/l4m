@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\MenuLink;
 use App\Setting;
+use App\ShoppingCart;
 use App\Theme;
 use Illuminate\Support\ServiceProvider;
+use Session;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {

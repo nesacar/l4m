@@ -90,4 +90,10 @@ class ShoppingCart{
         }
         return [];
     }
+
+    public static function getTotalCount(){
+        $oldCart = Session::has('cart')? Session::get('cart') : null;
+        $cart = new ShoppingCart($oldCart);
+        return $cart->totalQty;
+    }
 }

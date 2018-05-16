@@ -280,7 +280,6 @@
             'select2': Select2,
         },
         created(){
-            this.getProduct();
             this.getBrands();
             this.getSets();
             this.getTags();
@@ -297,6 +296,8 @@
                         this.product.att_ids = res.data.att_ids;
                         this.product.tag_ids = res.data.tag_ids;
                         this.getCollections(this.product.brand_id);
+                        this.getProperties();
+                        console.log(this.product.att_ids);
                     })
                     .catch(e => {
                         console.log(e);
@@ -407,7 +408,7 @@
                 axios.get('api/sets/lists')
                     .then(res => {
                         this.sets = res.data.sets;
-                        this.getProperties();
+                        this.getProduct();
                     }).catch(e => {
                     console.log(e.response);
                     this.error = e.response.data.errors;
@@ -425,7 +426,7 @@
                     axios.get('api/properties/' + this.product.set_id + '/set')
                         .then(res => {
                             this.properties = res.data.properties;
-                            this.product.att_ids = [];
+                            //this.product.att_ids = [];
                         }).catch(e => {
                             console.log(e.response);
                             this.error = e.response.data.errors;

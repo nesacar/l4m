@@ -20,6 +20,19 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <div class="card">
+                        <h5>Gallery images</h5>
+                        <hr>
+                        <div id="gallery" v-if="gallery">
+                            <div v-for="photo in gallery" class="photo">
+                                <font-awesome-icon icon="times" @click="deletePhoto(photo)" />
+                                <img :src="photo.tmb" class="img-thumbnail" alt="brand.title">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
@@ -62,6 +75,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
+
                     <upload-image-helper
                             :image="brand.image"
                             :defaultImage="null"
@@ -80,6 +94,10 @@
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
+                    <div class="card">
+                        <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="showSuccess()"></vue-dropzone>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -93,6 +111,8 @@
     import swal from 'sweetalert2';
     import Switches from 'vue-switches';
     import Ckeditor from 'vue-ckeditor2';
+    import vue2Dropzone from 'vue2-dropzone';
+    import 'vue2-dropzone/dist/vue2Dropzone.css';
 
     export default {
         data(){
@@ -101,6 +121,7 @@
                   desc: null,
                   publish: false,
               },
+              gallery: {},
               lists: {},
               error: null,
               config: {
@@ -112,6 +133,12 @@
                   ],
                   height: 300,
                   filebrowserBrowseUrl: 'filemanager/show'
+              },
+              dropzoneOptions: {
+                  url: 'api/brands/' + this.$route.params.id + '/gallery',
+                  thumbnailWidth: 150,
+                  maxFilesize: 0.5,
+                  headers: { "Authorization": "Bearer " + this.$auth.getToken() }
               },
               domain : apiHost
           }
@@ -125,10 +152,12 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
-            'ckeditor': Ckeditor
+            'ckeditor': Ckeditor,
+            'vue-dropzone': vue2Dropzone,
         },
         created(){
             this.getBrand();
+            this.getGallery();
         },
         methods: {
             getBrand(){
@@ -140,6 +169,19 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
+            },
+            getGallery(){
+                axios.get('api/brands/' + this.$route.params.id + '/gallery')
+                    .then(res => {
+                        this.gallery = res.data.images;
+                        console.log(this.gallery);
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            showSuccess(){
+                this.getGallery();
             },
             submit(){
                 this.brand.user_id = this.user.id;
@@ -198,6 +240,17 @@
                         });
                     }).catch(e => {
                         console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            deletePhoto(photo){
+                axios.post('api/brands/' + photo.id + '/remove-gallery')
+                    .then(res => {
+                        this.gallery = this.gallery.filter(function (item) {
+                            return photo.id != item.id;
+                        });
+                    }).catch(e => {
+                        console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },

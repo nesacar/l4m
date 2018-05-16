@@ -57,6 +57,9 @@ Route::get('brands/lists', 'Api\BrandsController@lists');
 Route::resource('brands', 'Api\BrandsController');
 Route::post('brands/{id}/image', 'Api\BrandsController@uploadImage');
 Route::post('brands/{id}/logo-image', 'Api\BrandsController@uploadLogoImage');
+Route::get('brands/{id}/gallery', 'Api\BrandsController@gallery');
+Route::post('brands/{id}/gallery', 'Api\BrandsController@uploadGallery');
+Route::post('brands/{id}/remove-gallery', 'Api\BrandsController@removeGalleryImage');
 
 Route::get('collections/lists', 'Api\CollectionsController@lists');
 Route::resource('collections', 'Api\CollectionsController');
