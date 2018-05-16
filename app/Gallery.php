@@ -43,11 +43,11 @@ class Gallery extends Model
 //    }
 
     protected static function imageName($post){
-        return $post->slug . '-' . $post->id . '-' . str_random(4);
+        return self::folderName($post) . '-' . str_random(4);
     }
 
     protected static function folderName($post){
-        return $post->id;
+        return $post->slug . '-' . $post->id;
     }
 
     public function getTmbAttribute(){
