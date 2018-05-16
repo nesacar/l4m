@@ -34,11 +34,11 @@ Route::get('shop/{slug1}/{slug2}', 'ShopController@category2');
 Route::get('shop/{slug1}/{slug2}/{slug3}', 'ShopController@category3');
 Route::get('shop/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@category4');
 
-Route::get('blog', 'PagesController@blog');
-Route::get('blog/{slug1}', 'PagesController@blog2');
-Route::get('blog/{slug1}/{slug2}', 'PagesController@blog3');
-Route::get('blog/{slug1}/{slug2}/{slug3}', 'PagesController@blog4');
-Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'PagesController@blog5');
+Route::get('blog', 'BlogsController@blog');
+Route::get('blog/{slug1}', 'BlogsController@blog2');
+Route::get('blog/{slug1}/{slug2}', 'BlogsController@blog3');
+Route::get('blog/{slug1}/{slug2}/{slug3}', 'BlogsController@blog4');
+Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'BlogsController@blog5');
 
 /** CART **/
 Route::get('cart', 'CartsController@index');
