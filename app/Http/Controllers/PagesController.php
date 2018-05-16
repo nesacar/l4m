@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Block;
+use App\Brand;
 use App\Category;
 use App\Page;
 use App\Post;
@@ -35,7 +36,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-        //return Order::fake();
+        return Brand::find(29)->image()->get();
         return 'done';
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Brand;
+use App\BrandImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBrandRequest;
 use App\Http\Requests\UploadImageRequest;
@@ -137,6 +138,30 @@ class BrandsController extends Controller
 
         return response()->json([
             'brands' => $brands,
+        ]);
+    }
+
+    public function gallery($id){
+        $images = Brand::find($id)->image()->get();
+
+        return response()->json([
+            'images' => $images,
+        ]);
+    }
+
+    public function uploadGallery($id){
+        BrandImage::saveImage($id, request('file'));
+        return 'done';
+    }
+
+    public function removeGalleryImage($brand_image){
+        $photo = BrandImage::find($brand_image);
+        File::delete($photo->file_path);
+
+        $photo->delete();
+
+        return response()->json([
+            'message' => 'done'
         ]);
     }
 }
