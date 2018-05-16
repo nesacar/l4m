@@ -92,6 +92,20 @@ class Product extends Model
         }
     }
 
+    public function getBreadcrumb(){
+        $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li>';
+
+        if(count($this->category)>0){
+            foreach ($this->category as $category){
+                $str .= '<li class="breadcrumb-item"><a href="' . $category->getLink() . '">' . $category->title . '</a></li>';
+            }
+        }
+
+        $str .= '<li class="breadcrumb-item active" aria-current="page">' . $this->title . '</li></ol></nav>';
+
+        return $str;
+    }
+
     public static function getHomeLatest(){
         return Category::where('publish', 1)->where('parent', 0)->get()->map(function($category){
             $category->products4;

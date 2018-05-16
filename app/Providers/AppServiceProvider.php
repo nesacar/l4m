@@ -34,9 +34,10 @@ class AppServiceProvider extends ServiceProvider
       Blade::component($components . 'image-box', 'imagebox');
       Blade::component($components . 'search-widget', 'search');
       Blade::component($components . 'drawer', 'drawer');
+      Blade::component($components . 'drawer', 'drawer');
 
       Blade::component($components . 'cart.item', 'cartitem');
-      Blade::component($components . 'cart.entry', 'cartentry');
+      Blade::component($components . 'accordion', 'accordion');
 
       Blade::include($partials . 'social', 'social');
     }
