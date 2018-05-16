@@ -22,11 +22,11 @@
       'data' => [
         (object)[
           'slider' => '/storage/uploads/posts/05-2018/10-najskupljih-vina-na-svetu-slider--Hw-22.jpeg',
-          'options' => (object)[
-            'content' => false,
-          ],
-        ],
-      ]
+        ]
+      ],
+      'options' => (object)[
+        'content' => false,
+      ],
     ])
     @endcomponent
   </div>
