@@ -35,11 +35,20 @@
 
   &_actions {
     display: flex;
-    margin-bottom: 2 * $base-line;
+    flex-direction: column;
 
-    > :last-child() {
-      margin-left: 2 * $base-line;
+    > * {
+      margin-bottom: 2 * $base-line;
     }
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+
+      > :last-child() {
+        margin-left: 2 * $base-line;
+      }
+    }
+
   }
 
   &_description {
