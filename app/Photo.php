@@ -13,23 +13,22 @@ class Photo extends Model
 
     public static function saveImage($product_id, $image){
         $product = Product::find($product_id);
-        $folderName = $product->slug . '-' . $product->id;
-        $folderPath = public_path('storage/uploads/galleries/' . $folderName);
-        if(!File::exists($folderPath)) {
-            File::makeDirectory($folderPath, 0775, true, true);
-        }
+        $folderName = self::folderName($product);
+        $imageName = self::imageName($product);
+
+        $image->storeAs('uploads/galleries/' . $folderName,
+            $imageName . '.' . $image->getClientOriginalExtension(),
+            'public'
+        );
 
         if(isset($image)){
-            $imageName = $folderName . '-' .  str_random(4) . '.' . $image->getClientOriginalExtension();
-            $imagePath = 'storage/uploads/galleries/'.$folderName.'/'.$imageName;
-            $image->move(public_path('storage/uploads/galleries/' . $folderName . '/'), $imageName);
 
-            $photo = new Photo();
-            $photo->product_id = $product_id;
-            $photo->file_name = $imageName;
-            $photo->file_path = $imagePath;
-            $photo->publish = 1;
-            $photo->save();
+            $brandImage = new Photo();
+            $brandImage->product_id = $product->id;
+            $brandImage->file_name = $imageName . '.' . $image->getClientOriginalExtension();
+            $brandImage->file_path = 'storage/uploads/galleries/' . $folderName . '/' . $imageName . '.' . $image->getClientOriginalExtension();
+            $brandImage->publish = 1;
+            $brandImage->save();
         }
 
         return 'done';
@@ -40,6 +39,14 @@ class Photo extends Model
         \Image::make($image)->resize($width, null, function ($constraint) {
             $constraint->aspectRatio();
         })->save($image);
+    }
+
+    protected static function imageName($product){
+        return self::folderName($product) . '-' . str_random(4);
+    }
+
+    protected static function folderName($product){
+        return $product->slug . '-' . $product->id;
     }
 
     public function getTmbAttribute(){

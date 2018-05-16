@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Block;
 use App\Brand;
 use App\Category;
+use App\Gallery;
 use App\Page;
 use App\Post;
 use App\Seo;
@@ -36,7 +37,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-        \Artisan::call('storage:link');
+        return Gallery::where('post_id', 22)->get();
         return 'done';
     }
 }
