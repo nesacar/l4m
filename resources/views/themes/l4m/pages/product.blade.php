@@ -26,25 +26,24 @@
                     </div>
                     <div class="product_options">
                         @if(false)
-                        <span>
+                            <span>
                           <label for="count">Quantity:</label>
-                            @counter([ 'name' => 'quantity', 'id' => 'quantity', 'value' => 1 ])@endcounter
+                                @counter([ 'name' => 'quantity', 'id' => 'quantity', 'value' => 1 ])@endcounter
+                        </span>
+                            <span>
+                            <label for="size">Size:</label>
+                                @select([ 'name' => 'size', 'id' => 'size' ])
+                                <option value="onesize" selected>one size</option>
+                                @endselect
                         </span>
                         @endif
-                        <span>
-                            <label for="size">Size:</label>
-                            @select([ 'name' => 'size', 'id' => 'size' ])
-                            <option value="onesize" selected>one size</option>
-                            @endselect
-                        </span>
                     </div>
                     <div class="product_actions">
                         <button class="btn btn--primary btn--block">dodaj u korpu</button>
                         <button class="btn btn--outline btn--block">dodaj u listu želja</button>
                     </div>
-                    <div class="product_id">Item id: {{ $product->code }}</div>
-                    @component('themes.l4m.components.accordion')
-                    @endcomponent
+                    <div class="product_id">Šifra: {{ $product->code }}</div>
+                    @accordion(['product' => $product]) @endaccordion
                     <div class="product_social">
                         @social()
                     </div>
@@ -54,35 +53,35 @@
         </div>
 
         @if(false)
-        <div class="tabs tabs--center product_info">
-            <input class="tab_control" type="radio" name="product-details" id="desc-tab" checked>
-            <label class="tab_label" for="desc-tab">OPIS</label>
-            @if($product->body2)
-            <input class="tab_control" type="radio" name="product-details" id="info-tab">
-            <label class="tab_label" for="info-tab">DODATAN OPIS</label>
-            @endif
-            {{--<input class="tab_control" type="radio" name="product-details" id="reviews-tab">--}}
-            {{--<label class="tab_label" for="reviews-tab">REVIEWS</label>--}}
+            <div class="tabs tabs--center product_info">
+                <input class="tab_control" type="radio" name="product-details" id="desc-tab" checked>
+                <label class="tab_label" for="desc-tab">OPIS</label>
+                @if($product->body2)
+                    <input class="tab_control" type="radio" name="product-details" id="info-tab">
+                    <label class="tab_label" for="info-tab">DODATAN OPIS</label>
+                @endif
+                {{--<input class="tab_control" type="radio" name="product-details" id="reviews-tab">--}}
+                {{--<label class="tab_label" for="reviews-tab">REVIEWS</label>--}}
 
-            <div class="tab_content" id="desc-content">
-                {!! $product->body !!}
-            </div>
-            @if($product->body2)
-            <div class="tab_content" id="info-content">
-                {!! $product->body2 !!}
-            </div>
-            @endif
-            {{--<div class="tab_content" id="reviews-content">--}}
+                <div class="tab_content" id="desc-content">
+                    {!! $product->body !!}
+                </div>
+                @if($product->body2)
+                    <div class="tab_content" id="info-content">
+                        {!! $product->body2 !!}
+                    </div>
+                @endif
+                {{--<div class="tab_content" id="reviews-content">--}}
                 {{--reviews...--}}
-            {{--</div>--}}
-        </div>
+                {{--</div>--}}
+            </div>
         @endif
     </section>
 
     <section class="showcase">
         <div class="container">
 
-            <h2 class="display-3 section-title--serif">Related Products</h2>
+            <h2 class="display-3 section-title--serif">Povezani proizvodi</h2>
 
             <div class="showcase_carousel">
                 @foreach($related as $i => $product)
@@ -103,5 +102,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ url('themes/' . $theme . '/js/product.js') }}"></script>
+    <script src="{{ url('themes/' . $theme . '/js/product.js') }}"></script>
 @endsection

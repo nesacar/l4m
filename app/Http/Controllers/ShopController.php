@@ -23,53 +23,66 @@ class ShopController extends Controller
 
     public function category($slug)
     {
-        $category = Category::with('set')->whereSlug($slug)->first();
+        $category = Category::with('children')->whereSlug($slug)->first();
         $data = Product::search($category);
         $properties = Set::getProperties($category->set);
         Seo::shopCategory($category);
-        return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
+        $breadcrumb = $category->getBreadcrumb();
+        return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb'));
     }
 
     public function category2($slug1, $slug2)
     {
+        $parent = Category::with('children')->whereSlug($slug1)->first();
         $category = Category::with('set')->whereSlug($slug2)->first();
         $data = Product::search($category);
         $properties = Set::getProperties($category->set);
         Seo::shopCategory($category);
-        return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
+        $breadcrumb = $parent->getBreadcrumb();
+        return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb'));
     }
 
     public function category3($slug1, $slug2, $slug3)
     {
         if(is_numeric($slug3)){
-            $product = Product::withoutGlobalScope('attribute')->with('photo')->find($slug3);
+            $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
+                $query->with('children');
+            }])->with('photo')->find($slug3);
             $category = Category::whereSlug($slug1)->first();
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
+            $breadcrumb = $product->getBreadcrumb();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb'));
         }else{
+            $parent = Category::with('children')->whereSlug($slug1)->first();
             $category = Category::with('set')->whereSlug($slug3)->first();
             $data = Product::search($category);
             $properties = Set::getProperties($category->set);
             Seo::shopCategory($category);
-            return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
+            $breadcrumb = $parent->getBreadcrumb();
+            return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb'));
         }
     }
 
     public function category4($slug1, $slug2, $slug3, $slug4)
     {
         if(is_numeric($slug4)){
-            $product = Product::withoutGlobalScope('attribute')->with('photo')->find($slug4);
+            $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
+                $query->with('children');
+            }])->with('photo')->find($slug4);
             $category = Category::whereSlug($slug2)->first();
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related'));
+            $breadcrumb = $product->getBreadcrumb();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb'));
         }else{
+            $parent = Category::with('children')->whereSlug($slug1)->first();
             $category = Category::with('set')->whereSlug($slug4)->first();
             $data = Product::search($category);
             $properties = Set::getProperties($category->set);
             Seo::shopCategory($category);
-            return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties'));
+            $breadcrumb = $parent->getBreadcrumb();
+            return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb'));
         }
     }
 }

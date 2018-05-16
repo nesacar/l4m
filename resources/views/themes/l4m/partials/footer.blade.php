@@ -29,10 +29,10 @@
         <div class="col-md-4 footer_column">
           <h4 class="section-title footer_section-title">korisnički servis</h4>
           <div class="footer_nav">
-            <div class="footer_nav-item"><a href="/advertising">Advertising</a></div>
-            <div class="footer_nav-item"><a href="/terms">Terms &amp; conditions</a></div>
-            <div class="footer_nav-item"><a href="/service">Customer service</a></div>
-            <div class="footer_nav-item"><a href="/privacy">Privacy</a></div>
+            <div class="footer_nav-item"><a href="/advertising">Reklamiranje</a></div>
+            <div class="footer_nav-item"><a href="/terms">Uslovi korišćenja</a></div>
+            <div class="footer_nav-item"><a href="/service">Korisnički servis</a></div>
+            <div class="footer_nav-item"><a href="/privacy">Privatnost</a></div>
           </div>
         </div>
         <div class="col-md-4 footer_column">
@@ -44,8 +44,8 @@
                   <use xlink:href="#icon_location">
                 </svg>
               </div>
-              <div>LUXURY4.ME, Luxury concept store</div>
-              <div>Zmaja od noćaja 9, Belgrade, Serbia</div>
+              <div>{{ $settings->title }}</div>
+              <div>{{ $settings->address }}</div>
             </div>
             <div class="contact-cell">
               <div class="contact-icon">
