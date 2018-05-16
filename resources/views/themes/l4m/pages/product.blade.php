@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <section class="container product">
+    <section class="container product js-product" data-id="{{ $product->id }}">
         @include('themes.' . $theme . '.partials.breadcrumb')
 
         <div class="row">
@@ -39,8 +39,13 @@
                         @endif
                     </div>
                     <div class="product_actions">
-                        <button class="btn btn--primary btn--block">dodaj u korpu</button>
-                        <button class="btn btn--outline btn--block">dodaj u listu želja</button>
+                        <button class="btn btn--primary btn--block"
+                          data-event="cart"
+                        >dodaj u korpu
+                        </button>
+                        <button class="btn btn--outline btn--block"
+                          data-event="wishlist"
+                        >dodaj u listu želja</button>
                     </div>
                     <div class="product_id">Šifra: {{ $product->code }}</div>
                     @accordion(['product' => $product]) @endaccordion

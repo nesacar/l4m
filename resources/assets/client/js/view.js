@@ -6,7 +6,7 @@ class View {
     this.emitter = emitter;
 
     // Extend product elements with product helper.
-    document.querySelectorAll('.shop-item')
+    document.querySelectorAll('.js-product')
       .forEach((item, i) => {
         const ext = product(this.emitter);
         extend(item, ext);
