@@ -1,5 +1,5 @@
 <div class="image-box">
-  <div class="image-box_thumbnails image-gallery_thumbnails">
+  <div class="image-box_thumbnails image-gallery_thumbnails expand--md">
     
     <div class="image-box_thumbnail">
       <div class="image image--portrait">
@@ -17,7 +17,7 @@
     @endif
   </div>
   <div class="image-box_image">
-    <div class="shop-item_image" style="position: relative;">
+    <div class="shop-item_image">
       <div class="image image--portrait">
         <img src="{{ url($image) }}" class="zoomer-target image-gallery_target" draggable="false"/>
       </div>
