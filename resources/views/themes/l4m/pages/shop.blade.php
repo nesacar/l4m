@@ -28,7 +28,7 @@
         @endselect --}}
 
         <div class="shop_sort-options">
-          <div class="shop_sort-label">Prikaži po:</div>
+          <div class="shop_sort-label">Sortiraj po:</div>
           <div class="shop_sort-option">
             <input
               type="radio"
