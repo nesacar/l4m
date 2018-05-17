@@ -11,11 +11,6 @@
     font-family: $font-family;
     font-weight: $font-weight-normal;
     text-transform: uppercase;
-    margin-top: 4 * $base-line;
-
-    @include media-breakpoint-up(md) {
-      margin-top: 0;
-    }
   }
 
   &_brand {
@@ -24,7 +19,10 @@
 
   &_price {
     color: $theme-secondary;
-    margin: (2 * $base-line) 0;
+    
+    @include media-breakpoint-up(md) {
+      margin: (2 * $base-line) 0;
+    }
   }
 
   &_options {
@@ -95,5 +93,13 @@
 
   &_info {
     margin-top: 4 * $base-line;
+  }
+
+  &_header {
+    &--mobile {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
   }
 }

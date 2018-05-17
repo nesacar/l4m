@@ -55,9 +55,14 @@
   }
 
   &_image {
+    position: relative;
     overflow: hidden;
-    // border: 1px solid $border-color-dark;
     background-color: #fff;
+    
+    @include media-breakpoint-down(md) {
+      max-width: 250px;
+      margin: 0 auto;
+    }
   }
 
   &_content {

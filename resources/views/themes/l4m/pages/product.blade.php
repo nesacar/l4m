@@ -10,13 +10,25 @@
         @include('themes.' . $theme . '.partials.breadcrumb')
 
         <div class="row">
+            <div class="col-12 collapse--md product_header--mobile">
+                <div class="">
+                  <h1 class="display-4 product_name">{{ $product->brand->title }}</h1>
+                  <div class="product_brand">{{ $product->title }}</div>
+                </div>
+                <div class="display-4 product_price">
+                    @if($product->discount)
+                        <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ number_format($product->price, 2, ',', '.') }}</span>
+                    @endif
+                    <span class="shop-item_price-tag">{{ $product->totalPrice }}</span>
+                </div>
+            </div>
             <div class="col-md-6">
                 @imagebox([ 'image' => $product->image, 'tmb' => $product->tmb, 'title' => $product->title, 'photos' => $product->photo ])@endimagebox
             </div>
             <div class="col-md-6">
 
                 <div class="product_details">
-                    <div>
+                    <div class="expand--md">
                         <h1 class="display-4 product_name">{{ $product->brand->title }}</h1>
                         <div class="product_brand">{{ $product->title }}</div>
                         <div class="display-4 product_price">
