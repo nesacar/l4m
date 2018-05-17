@@ -11,7 +11,7 @@ trait UploudableImageTrait{
 
     protected $folder = 'uploads/';
 
-    protected $array = [
+    protected $_relations = [
         'Product' => 'photo',
         'Post' => 'gallery',
         'Brand' => 'slider',
@@ -56,7 +56,7 @@ trait UploudableImageTrait{
                 );
 
             $reflection = new \ReflectionClass($this);
-            $string = (string) $this->array[$reflection->getShortName()];
+            $string = (string) $this->_relations[$reflection->getShortName()];
             $className = get_class($this->$string()->getRelated());
 
             $this->$string()->save(new $className([
