@@ -13,7 +13,7 @@ use DB;
 trait SearchableProductTraits
 {
 
-    protected static function search($category = false)
+    protected static function search($category = false, $brand  = false)
     {
         $products = self::query()->withoutGlobalScopes();
         foreach (request()->all() as $key => $attribute) {
@@ -23,6 +23,10 @@ trait SearchableProductTraits
         }
         if ($category) {
             $products->categoryFilter($category->id);
+        }
+
+        if($brand){
+            $products->brandFilter($brand->id);
         }
 
         $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.id')->get(['products.id', 'products.price']);
@@ -46,6 +50,30 @@ trait SearchableProductTraits
 
     }
 
+    protected static function simpleSearch($category = false, $brand  = false)
+    {
+        $products = self::query()->withoutGlobalScopes();
+        foreach (request()->all() as $key => $attribute) {
+            if (in_array($key, self::$searchable)) {
+                $products->$key($attribute);
+            }
+        }
+        if ($category) {
+            $products->categoryFilter($category->id);
+        }
+
+        if($brand){
+            $products->brandFilter($brand->id);
+        }
+
+        $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.id')->get(['products.id', 'products.price']);
+        $productIds = $products->pluck('id')->toArray();
+
+        return self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
+            ->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate);
+
+    }
+
     public function scopeFilters(Builder $query, $ids)
     {
         return $query->whereHas('attribute', function ($q) use ($ids) {
@@ -59,6 +87,11 @@ trait SearchableProductTraits
     {
         return $query->join('category_product', 'products.id', '=', 'category_product.product_id')
             ->where('category_product.category_id', $category_id);
+    }
+
+    public function scopeBrandFilter(Builder $query, $brand_id)
+    {
+        return $query->where('products.brand_id', $brand_id);
     }
 
     public function scopeSort(Builder $query, $sorting)

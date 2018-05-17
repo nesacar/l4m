@@ -39,7 +39,7 @@
       <ul class="home_brands-list">
       @foreach($brands as $brand)
         <li class="home_brands-list-item">
-          <a href="#">
+          <a href="{{ url('brendovi/' . $brand->slug) }}">
             <img src="{{ url($brand->logo) }}" alt="{{ $brand->title }}">
           </a>
         </li>
