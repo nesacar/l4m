@@ -105,7 +105,6 @@
     <h2 class="section-title with-lines"><span>categories</span></h2>
     @include('themes.' .$theme . '.partials.categories', [
       'categories',
-      'options' => (object)[ 'small' => true ]
     ])
   </section>
 @endsection

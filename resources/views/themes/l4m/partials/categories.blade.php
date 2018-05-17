@@ -1,18 +1,12 @@
-@php
-
-  $isSmall = isset($options->small) ? $options->small : false;
-  $isBig = isset($options->big) ? $options->big : false;
-  $className = 'categorie' . ($isSmall ? ' categorie--small' : '') . ($isBig ? ' categorie--big' : '');
-
-@endphp
-
-<div class="{{ $className }}">
+<div class="row home_categories">
   @foreach($categories as $category)
-    <a class="categorie_item with-flare" href="{{ url('shop/' . $category->slug) }}">
-      <div class="image categorie_image lazy-image"
-        data-src="{{ url($category->box_image) }}"
-      ></div>
-      <div class="categorie_name">{{ $category->title }}</div>
-    </a>
+  <a href="{{ url('shop/' . $category->slug) }}" class="col-md-3 home_category with-flare with-scrim">
+    <div class="image image--portrait home_category-image">
+      <img src="{{ url($category->box_image) }}" alt="{{ $category->title }}">
+    </div>
+    <div class="home_category-title">
+      <h3 class="home_category-text home_category-text--underline">{{ $category->title }}</h3>
+    </div>
+  </a>
   @endforeach
 </div>
