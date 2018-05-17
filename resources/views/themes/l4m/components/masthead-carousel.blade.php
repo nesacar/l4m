@@ -3,7 +3,7 @@
   $hasOptions = isset($options);
   $hasControls = true;
   $isFullWidth = false;
-  $hasContent = false;
+  $hasContent = true;
 
   if ($hasOptions) {
     $hasControls = isset($options->controls) ? $options->controls : $hasControls;
