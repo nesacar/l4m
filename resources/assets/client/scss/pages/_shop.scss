@@ -45,8 +45,64 @@
 .shop-results {
   &_header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding: $base-line 0;
     margin-bottom: 2 * $base-line;
-    color: $text-secondary-on-light;
+  }
+}
+  
+.shop_sort {
+  &-options {
+    display: inline-flex;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 300;
+  }
+  
+  &-label {
+    font-weight: 500;
+    margin-right: 16px;
+  }
+
+  &-option {
+    padding: 0 $base-line;
+    border-right: 1px solid $border-color-dark;
+    height: 100%;
+
+    &:last-child {
+      border: 0;
+    }
+
+    input[type="radio"] {
+      width: 0;
+      height: 0;
+      opacity: 0;
+
+      &:checked + label {
+        font-weight: 500;
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    label {
+      position: relative;
+      margin: 0;
+      cursor: pointer;
+
+      &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: $theme-secondary;
+        content: "";
+        opacity: 0;
+      }
+    }
   }
 }
