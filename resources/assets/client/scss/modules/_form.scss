@@ -95,6 +95,7 @@ $active-color_: $theme-primary;
     .checkbox--sm ~ & {
       padding-left: 12px;
       font-size: 12px;
+      letter-spacing: .05em;
     }
   }
 }
