@@ -12,7 +12,7 @@ trait UploudableImageTrait{
     protected $folder = 'uploads/';
 
     public function storeImage( $fieldName = 'image', $attributeName = 'image') {
-        if( $image = request()->file($fieldName)) {
+        if($image = request()->file($fieldName)) {
             if($this->$attributeName) File::delete($this->$attributeName);
             $className = (new \ReflectionClass($this))->getShortName();
             return 'storage/' . request()->file($fieldName)->storeAs(
@@ -25,13 +25,7 @@ trait UploudableImageTrait{
     }
 
     protected function getFolderName($path){
-        $temp = Carbon::now()->format('m-Y');
-        $folderPath = $path . $temp;
-        $fullFolderPath = storage_path('app/public/' . $path . $temp);
-        if(!File::exists($fullFolderPath)) {
-            File::makeDirectory($fullFolderPath, 0775, true, true);
-        }
-        return $folderPath;
+        return $path . Carbon::now()->format('m-Y');
     }
 
     protected function getFileName($image){
@@ -42,6 +36,31 @@ trait UploudableImageTrait{
             $res .= str_slug($this->name) . '-';
         }
         return $res . $this->id . '-' . str_random(2) . '.' .  $image->getClientOriginalExtension();
+    }
+
+    public function storeGallery($model, $fieldName = 'image', $attributeName = 'image', $aditional = 'galleries') {
+        if($image = request()->file($fieldName)) {
+            if($this->$attributeName) File::delete($this->$attributeName);
+            $className = (new \ReflectionClass($this))->getShortName();
+            $fileName = $this->getFileName($image);
+            $file_path = 'storage/' . request()->file($fieldName)->storeAs(
+                    $this->folder . Str::lower(str_plural($className, 2)) . '/' . $aditional . '/' . $model->slug . '-' . $model->id,
+                    $fileName,
+                    'public'
+                );
+            return ['file_path' => $file_path, 'file_name' => $fileName];
+        }
+        return '';
+    }
+
+    protected function getGalleryFolderName($path){
+        $temp = Carbon::now()->format('m-Y');
+        $folderPath = $path . $temp;
+//        $fullFolderPath = storage_path('app/public/' . $path . $temp);
+//        if(!File::exists($fullFolderPath)) {
+//            File::makeDirectory($fullFolderPath, 0775, true, true);
+//        }
+        return $folderPath;
     }
 
 }
