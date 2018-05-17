@@ -184,7 +184,14 @@ class PostsController extends Controller
      * @return string
      */
     public function galleryUpdate($id){
-        Gallery::saveImage($id, request('file'));
+        //Gallery::saveImage($id, request('file'));
+        $post = Post::find($id);
+        $image = $post->storeGallery($post, 'file', 'file_path');
+        $post->gallery()->save(new Gallery([
+            'file_name' => $image['file_name'],
+            'file_path' => $image['file_path'],
+            'publish' => 1
+        ]));
         return 'done';
     }
 

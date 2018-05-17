@@ -191,7 +191,14 @@ class ProductsController extends Controller
      * @return string
      */
     public function galleryUpdate($id){
-        Photo::saveImage($id, request('file'));
+        //Photo::saveImage($id, request('file'));
+        $product = Product::find($id);
+        $image = $product->storeGallery($product, 'file', 'file_path');
+        $product->photo()->save(new Photo([
+            'file_name' => $image['file_name'],
+            'file_path' => $image['file_path'],
+            'publish' => 1
+        ]));
         return 'done';
     }
 
