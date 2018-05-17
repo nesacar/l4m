@@ -6,7 +6,8 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Brendovi</li>
+                            <li v-if="brand"><router-link tag="a" :to="'/brands/' + brand.id + '/edit'">{{ brand.title }}</router-link></li>
+                            <li>Linkovi</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +17,7 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Brendovi</h5>
+                        <h5>Linkovi</h5>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -27,19 +28,16 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">naziv</th>
-                            <th scope="col">publikovano</th>
-                            <th scope="col">kreirano</th>
+                            <th scope="col">link</th>
                             <th>akcija</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in brands">
+                        <tr v-for="row in links">
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
-                            <td>{{ row.publish }}</td>
-                            <td>{{ row.created_at }}</td>
+                            <td>{{ row.link }}</td>
                             <td>
-                                <font-awesome-icon icon="link" @click="linkRow(row)"/>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>
                                 <font-awesome-icon icon="times" @click="deleteRow(row)" />
                             </td>
@@ -48,47 +46,44 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <paginate-helper :paginate="paginate" @clickLink="clickToLink($event)"></paginate-helper>
-                </div>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import PaginateHelper from '../helper/PaginateHelper.vue';
     import swal from 'sweetalert2';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
     export default {
         data(){
             return {
-                brands: {},
-                paginate: {}
+                brand: {},
+                links: {},
             }
         },
         components: {
-            'paginate-helper': PaginateHelper,
-            'font-awesome-icon': FontAwesomeIcon
+            'font-awesome-icon': FontAwesomeIcon,
         },
         created(){
-            this.getBrands();
+            this.getBrand();
+            console.log('test');
         },
         methods: {
-            getBrands(){
-                axios.get('api/brands')
+            getBrand(){
+                axios.get('api/brands/' +  this.$route.params.brand)
                     .then(res => {
-                        this.brands = res.data.brands.data;
-                        this.paginate = res.data.brands;
+                        this.brand = res.data.brand;
+                        this.links = this.brand.links;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('brands/' + id + '/edit');
+                this.$router.push('/brand-links/' + this.brand.id + '/edit/' + id);
+            },
+            addRow(){
+                this.$router.push('/brand-links/' + this.brand.id + '/create');
             },
             deleteRow(row){
                 swal({
@@ -101,9 +96,9 @@
                     confirmButtonText: 'Da, obriši!'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/brands/' + row.id)
+                        axios.delete('api/brand-links/' + row.id)
                             .then(res => {
-                                this.brands = this.brands.filter(function (item) {
+                                this.links = this.links.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
@@ -117,22 +112,6 @@
                             });
                     }
                 })
-            },
-            clickToLink(index){
-                axios.get('api/brands?page=' + index)
-                    .then(res => {
-                        this.brands = res.data.brands.data;
-                        this.paginate = res.data.brands;
-                    })
-                    .catch(e => {
-                        console.log(e);
-                    });
-            },
-            addRow(){
-                this.$router.push('/brands/create');
-            },
-            linkRow(row){
-                this.$router.push('/brand-links/' + row.id);
             },
         }
     }

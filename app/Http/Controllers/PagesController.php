@@ -8,6 +8,7 @@ use App\Category;
 use App\Gallery;
 use App\Page;
 use App\Post;
+use App\Product;
 use App\Seo;
 use App\Setting;
 use App\ShopBar;
@@ -31,13 +32,21 @@ class PagesController extends Controller
         $featuredProducts = ShopBar::getFeatured();
         $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
+        $brands = Brand::getLogos();
         Seo::home($this->settings);
-        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories'));
+        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands'));
     }
 
     public function proba()
     {
-        return Gallery::where('post_id', 22)->get();
+        $array = array('Product' => 'photo');
+        $product =  new Product();
+        $reflection = new \ReflectionClass($product);
+        //dd($reflection->getShortName());
+        $string = (string) $array[$reflection->getShortName()];
+        dd($string);
+        $className = get_class($product->$string()->getRelated());
+        dd(new $className);
         return 'done';
     }
 }

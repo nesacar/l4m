@@ -11,6 +11,12 @@ trait UploudableImageTrait{
 
     protected $folder = 'uploads/';
 
+    protected $_relations = [
+        'Product' => 'photo',
+        'Post' => 'gallery',
+        'Brand' => 'slider',
+    ];
+
     public function storeImage( $fieldName = 'image', $attributeName = 'image') {
         if($image = request()->file($fieldName)) {
             if($this->$attributeName) File::delete($this->$attributeName);
@@ -38,29 +44,35 @@ trait UploudableImageTrait{
         return $res . $this->id . '-' . str_random(2) . '.' .  $image->getClientOriginalExtension();
     }
 
-    public function storeGallery($model, $fieldName = 'image', $attributeName = 'image', $aditional = 'galleries') {
+    public function storeGallery($fieldName = 'file', $attributeName = 'file_path', $aditional = 'galleries') {
         if($image = request()->file($fieldName)) {
             if($this->$attributeName) File::delete($this->$attributeName);
             $className = (new \ReflectionClass($this))->getShortName();
             $fileName = $this->getFileName($image);
-            $file_path = 'storage/' . request()->file($fieldName)->storeAs(
-                    $this->folder . Str::lower(str_plural($className, 2)) . '/' . $aditional . '/' . $model->slug . '-' . $model->id,
+            $filePath = 'storage/' . request()->file($fieldName)->storeAs(
+                    $this->folder . Str::lower(str_plural($className, 2)) . '/' . $aditional . '/' . $this->slug . '-' . $this->id,
                     $fileName,
                     'public'
                 );
-            return ['file_path' => $file_path, 'file_name' => $fileName];
+
+            $reflection = new \ReflectionClass($this);
+            $string = (string) $this->_relations[$reflection->getShortName()];
+            $className = get_class($this->$string()->getRelated());
+
+            $this->$string()->save(new $className([
+                'file_name' => $fileName,
+                'file_path' => $filePath,
+                'publish' => 1
+            ]));
+
+            return 'done';
+
         }
         return '';
     }
 
     protected function getGalleryFolderName($path){
-        $temp = Carbon::now()->format('m-Y');
-        $folderPath = $path . $temp;
-//        $fullFolderPath = storage_path('app/public/' . $path . $temp);
-//        if(!File::exists($fullFolderPath)) {
-//            File::makeDirectory($fullFolderPath, 0775, true, true);
-//        }
-        return $folderPath;
+        return $path . Carbon::now()->format('m-Y');
     }
 
 }
