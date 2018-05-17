@@ -7,6 +7,10 @@ $active-color_: $theme-primary;
   height: 23px;
   width: 23px;
   padding: 3px;
+  
+  &--sm {
+    transform: scale(.7058823529411765);
+  }
 
   &_control {
     position: absolute;
@@ -51,7 +55,6 @@ $active-color_: $theme-primary;
     width: 17px;
     border: 1px solid $inactive-color_;
     transition: background-color .12s ease-in;
-    border-radius: $border-radius;
   }
 
   &_checkmark {
@@ -78,6 +81,11 @@ $active-color_: $theme-primary;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    .checkbox--sm ~ & {
+      padding-left: 12px;
+      font-size: 12px;
+    }
   }
 }
 

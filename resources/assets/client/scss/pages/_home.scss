@@ -81,8 +81,11 @@
   }
 
   &_brands {
-    background-color: $theme-primary;
-    color: #FFF;
+    // background-color: $theme-primary;
+    // color: #FFF;
+    background-color: #FFF;
+    border-top: 1px solid $border-color-dark;
+    border-bottom: 1px solid $border-color-dark;
     padding-bottom: (4 * $base-line);
     margin-top: (4 * $base-line);
   }

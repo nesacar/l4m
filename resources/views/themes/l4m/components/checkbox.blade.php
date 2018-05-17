@@ -1,4 +1,4 @@
-<div class="checkbox">
+<div class="checkbox checkbox--sm">
   <input class="checkbox_control" id="{{ $id }}" value="{{ $value }}" name="filters[]" type="checkbox" {{ request('filters') && in_array($value, request('filters')) ? 'checked' : '' }} />
   <div class="checkbox_background">
     <svg class="checkbox_checkmark" viewBox="0 0 24 24">
