@@ -9,7 +9,7 @@ $active-color_: $theme-primary;
   padding: 3px;
   
   &--sm {
-    transform: scale(.7058823529411765);
+    transform: translateX(-5px) scale(.7058823529411765);
   }
 
   &_control {
