@@ -150,14 +150,7 @@ class BrandsController extends Controller
     }
 
     public function uploadGallery($id){
-        //BrandImage::saveImage($id, request('file'));
-        $brand = Brand::find($id);
-        $image = $brand->storeGallery($brand, 'file', 'file_path');
-        $brand->slider()->save(new BrandImage([
-            'file_name' => $image['file_name'],
-            'file_path' => $image['file_path'],
-            'publish' => 1
-        ]));
+        Brand::find($id)->storeGallery();
         return 'done';
     }
 
