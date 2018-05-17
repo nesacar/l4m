@@ -32,8 +32,9 @@ class PagesController extends Controller
         $featuredProducts = ShopBar::getFeatured();
         $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
+        $brands = Brand::getLogos();
         Seo::home($this->settings);
-        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories'));
+        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands'));
     }
 
     public function proba()

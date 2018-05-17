@@ -61,6 +61,11 @@ Route::get('brands/{id}/gallery', 'Api\BrandsController@gallery');
 Route::post('brands/{id}/gallery', 'Api\BrandsController@uploadGallery');
 Route::post('brands/{id}/remove-gallery', 'Api\BrandsController@removeGalleryImage');
 
+Route::get('brand-links/{id}', 'Api\BrandLinksController@show');
+Route::post('brand-links/{brand}', 'Api\BrandLinksController@store');
+Route::put('brand-links/{id}', 'Api\BrandLinksController@update');
+Route::delete('brand-links/{id}', 'Api\BrandLinksController@destroy');
+
 Route::get('collections/lists', 'Api\CollectionsController@lists');
 Route::resource('collections', 'Api\CollectionsController');
 Route::post('collections/{id}/image', 'Api\CollectionsController@uploadImage');

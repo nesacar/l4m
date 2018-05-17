@@ -47,7 +47,9 @@ class ShopController extends Controller
         if(is_numeric($slug3)){
             $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
                 $query->with('children');
-            }])->with('photo')->find($slug3);
+            }])->with(['photo' => function($query){
+                $query->limit(3);
+            }])->find($slug3);
             $category = Category::whereSlug($slug1)->first();
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);
@@ -69,7 +71,9 @@ class ShopController extends Controller
         if(is_numeric($slug4)){
             $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
                 $query->with('children');
-            }])->with('photo')->find($slug4);
+            }])->with(['photo' => function($query){
+                $query->limit(3);
+            }])->find($slug4);
             $category = Category::whereSlug($slug2)->first();
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);

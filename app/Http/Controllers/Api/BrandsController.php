@@ -39,9 +39,6 @@ class BrandsController extends Controller
     public function store(CreateBrandRequest $request)
     {
         $brand = Brand::create(request()->except('image', 'logo'));
-        $brand->slug = request('slug')?: request('title');
-        $brand->publish = request('publish')?: false;
-        $brand->update();
 
         return response()->json([
             'brand' => $brand
@@ -71,12 +68,9 @@ class BrandsController extends Controller
     public function update(CreateBrandRequest $request, Brand $brand)
     {
         $brand->update(request()->except('image', 'logo'));
-        $brand->slug = request('slug')?: request('title');
-        $brand->publish = request('publish')?: false;
-        $brand->update();
 
         return response()->json([
-            'brand' => $brand
+            'brand' => $brand->load('links')
         ]);
     }
 
