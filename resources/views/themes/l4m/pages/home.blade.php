@@ -41,7 +41,7 @@
     </div>
   </section>
 
-  @if(false)
+  {{-- @if(false) --}}
   <section class="home_brands">
     <div class="container">
       <h2 class="display-3 section-title--serif">Brendovi</h2>
@@ -56,7 +56,7 @@
       </ul>
     </div>
   </section>
-  @endif
+  {{-- @endif --}}
 
   <section class="container">
     <h2 class="display-3 section-title--serif">Najnoviji proizvodi</h2>
