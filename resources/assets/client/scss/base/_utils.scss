@@ -78,25 +78,25 @@
 
 .collapse--md {
   @include media-breakpoint-up(md) {
-    display: none;
+    display: none !important;
   }
 }
 
 .collapse--lg {
   @include media-breakpoint-up(lg) {
-    display: none;
+    display: none !important;
   }
 }
 
 .expand--md {
   @include media-breakpoint-down(sm) {
-    display: none;
+    display: none !important;
   }
 }
 
 .expand--lg {
   @include media-breakpoint-down(md) {
-    display: none;
+    display: none !important;
   }
 }
 
