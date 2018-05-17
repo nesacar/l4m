@@ -9,7 +9,11 @@ $active-color_: $theme-primary;
   padding: 3px;
   
   &--sm {
-    transform: translateX(-5px) scale(.7058823529411765);
+    // transform: translateX(-5px) scale(.7058823529411765);
+    // transform-origin: center center;
+    height: 19px;
+    width: 16px;
+    padding: 3px 3px 3px 0;
   }
 
   &_control {
@@ -26,7 +30,7 @@ $active-color_: $theme-primary;
     z-index: 1;
 
     &:focus ~ .checkbox_background {
-      outline: 3px solid lighten($theme-primary, 46%);
+      // outline: 3px solid lighten($theme-primary, 46%);
     }
 
     &:checked ~ .checkbox_background {
@@ -55,6 +59,12 @@ $active-color_: $theme-primary;
     width: 17px;
     border: 1px solid $inactive-color_;
     transition: background-color .12s ease-in;
+
+    .checkbox--sm & {
+      height: 13px;
+      width: 13px;
+      left: 0;
+    }
   }
 
   &_checkmark {
