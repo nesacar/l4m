@@ -18,7 +18,7 @@
 
     </section>
 
-    {{-- Masthead --}}
+    @if(count($brand->slider)>0)
     <div class="brand_masthead container">
         @component('themes.'.$theme.'.components.masthead-carousel', [
           'data' => $brand->slider,
@@ -28,30 +28,31 @@
         ])
         @endcomponent
     </div>
+    @endif
 
-    {{-- Tabs --}}
+    @if(!empty($brand->links))
     <div class="container">
         <ol class="brand_tabs">
+            @foreach($brand->links as $link)
             <li class="brand_tab">
-                <a class="brand_link" href="#">tab</a>
+                <a class="brand_link" href="{{ url($link->link) }}">{{ $link->title }}</a>
             </li>
-            <li class="brand_tab">
-                <a class="brand_link" href="#">tab</a>
-            </li>
-            <li class="brand_tab">
-                <a class="brand_link" href="#">tab</a>
-            </li>
-            <li class="brand_tab">
-                <a class="brand_link" href="#">tab</a>
-            </li>
+            @endforeach
         </ol>
     </div>
+    @endif
 
     <div class="container">
         @component('themes.'.$theme.'.components.shop.grid', [
           'component' => 'shop.item',
-          'items' => $brand->product,
+          'items' => $products,
         ])
         @endcomponent
+    </div>
+
+    <div class="container">
+        <nav class="pagination-container" aria-label="shop navigation">
+            {{ $products->appends(Request::all())->links() }}
+        </nav>
     </div>
 @endsection

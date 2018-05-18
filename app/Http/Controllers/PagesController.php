@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Block;
 use App\Brand;
+use App\BrandLink;
 use App\Category;
 use App\Gallery;
 use App\Page;
@@ -39,14 +40,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-        $array = array('Product' => 'photo');
-        $product =  new Product();
-        $reflection = new \ReflectionClass($product);
-        //dd($reflection->getShortName());
-        $string = (string) $array[$reflection->getShortName()];
-        dd($string);
-        $className = get_class($product->$string()->getRelated());
-        dd(new $className);
+
         return 'done';
     }
 }

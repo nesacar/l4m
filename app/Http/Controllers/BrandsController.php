@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Product;
 use App\Setting;
 use App\Theme;
 use Illuminate\Http\Request;
@@ -23,10 +24,11 @@ class BrandsController extends Controller
     }
 
     public function show($slug){
-        $brand = Brand::whereSlug($slug)->with('product')->with(['slider' => function($query){
+        $brand = Brand::whereSlug($slug)->with(['slider' => function($query){
             $query->select('brand_id', 'file_path as slider');
         }])->first();
+        $products = Product::simpleSearch(false, $brand);
         $breadcrumb = $brand->getBreadcrumb();
-        return view('themes.' . $this->theme . '.pages.brand', compact('brand', 'breadcrumb'));
+        return view('themes.' . $this->theme . '.pages.brand', compact('brand', 'breadcrumb', 'products'));
     }
 }
