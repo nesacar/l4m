@@ -35,7 +35,7 @@
         <ol class="brand_tabs">
             @foreach($brand->links as $link)
             <li class="brand_tab">
-                <a class="brand_link" href="{{ url($link->link) }}">{{ $link->title }}</a>
+                <a class="brand_link {{ \App\Helper::activeLinkWithParams($link->link)? 'active' : '' }}" href="{{ url($link->link) }}">{{ $link->title }}</a>
             </li>
             @endforeach
         </ol>

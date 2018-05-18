@@ -1,6 +1,6 @@
 <nav class="nav">
   @foreach($links as $i => $link)
-    @php $className = $link->desc . (Request::is($link->link) ? ' ' . $link->desc . '--active' : ''); @endphp
+    @php $className = $link->desc . (\App\Helper::activeLink($link->link)? ' ' . $link->desc . '--active' : ''); @endphp
     <div class="nav_item">
       <a class="{{ $className }}" href="{{ url($link->link . $link->sufix) }}">{{ $link->title}}</a>
       @if(count($link->children)>0)
