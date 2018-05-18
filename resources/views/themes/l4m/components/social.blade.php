@@ -6,7 +6,7 @@
 
   @endphp
   <li class="social_item">
-    <a href="{{ $item->link }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $label }}">
+    <a class="icon-btn" href="{{ $item->link }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $label }}">
       <svg class="icon" role="presentation">
         <use xlink:href="#icon_{{ $item->platform }}">
       </svg>
