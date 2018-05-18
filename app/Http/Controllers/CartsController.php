@@ -23,7 +23,7 @@ class CartsController extends Controller
      * Return current cart
      */
     public function index(){
-        return \Cart::content();
+        return view('themes.' . $this->theme . '.pages.cart');
     }
 
     public function store(){

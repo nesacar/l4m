@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="cart">
-  @if(count($data) > 0)
+  @if(!empty(\Cart::content()))
   <section class="container">
     <h1 class="cart_heading cart_heading--1">Korpa</h1>
-    <p class="cart_secondary-text">Imate {{ $data['totalQty']}} {{ $data['totalQty']%10 == 1 ? 'proizvod' : 'proizvoda'  }} u korpi.</p>
+    <p class="cart_secondary-text">Imate {{ \Cart::count() }} {{ \Cart::count()%10 == 1 ? 'proizvod' : 'proizvoda'  }} u korpi.</p>
   </section>
   <section class="container">
     <div class="cart_list">
@@ -16,7 +16,7 @@
         <div class="col-md-3">Ukupno</div>
       </div>
       <hr>
-      @foreach($data['products'] as $id => $product)
+      @foreach(\Cart::content() as $product)
         @cartentry(['product' => $product]) @endcartentry
         <hr>
       @endforeach
@@ -29,7 +29,7 @@
         <div class="receipt">
           <div class="receipt_fraction">
             <span class="receipt_key">cena</span>
-            <span class="receipt_value shop-item_price-tag">{{ $data['totalPrice'] }}</span>
+            <span class="receipt_value shop-item_price-tag">{{ \Cart::subtotal() }}</span>
           </div>
           <div class="receipt_fraction">
             <span class="receipt_key">dostava</span>
@@ -37,7 +37,7 @@
           </div>
           <div class="receipt_fraction">
             <span class="receipt_key">ukupno</span>
-            <span class="receipt_value shop-item_price-tag">{{ $data['totalPrice'] }}</span>
+            <span class="receipt_value shop-item_price-tag">{{ \Cart::total() }}</span>
           </div>
         </div>
         <div class="cart_actions">
