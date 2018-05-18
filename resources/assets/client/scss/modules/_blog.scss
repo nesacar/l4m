@@ -102,12 +102,6 @@
     margin-bottom: 3 * $base-line;
   }
 
-  &_image {
-    &:focus {
-      outline: 3px solid lighten($theme-primary, 46%);
-    }
-  }
-
   &_categorie {
     display: inline-block;
     text-align: center;

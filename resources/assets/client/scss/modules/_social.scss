@@ -12,22 +12,11 @@
   margin: 0;
 
   &_item {
-    margin-left: $base-line;
-    padding: 4px;
+    margin-left: 4px;
     color: $theme-primary;
 
     &:first-child {
       margin-left: 0;
-    }
-
-    a {
-      display: flex;
-      line-height: 0;
-      color: inherit;
-
-      &:focus {
-        outline: 3px solid lighten($theme-primary, 46%);
-      }
     }
   }
 }

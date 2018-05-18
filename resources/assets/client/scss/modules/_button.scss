@@ -3,29 +3,41 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 36px;
+  height: 42px;
   padding: 0 (2 * $base-line);
   text-transform: uppercase;
   border: 0;
   text-decoration: none !important;
+  outline: none !important;
 
-  &::before,
+  @include media-breakpoint-up(sm) {
+    height: 36px;
+  }
+
   &::after {
+    pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     content: "";
-    opacity: 0;
     background-color: currentColor;
-    transition: opacity .12s;
+    opacity: 0;
     will-change: opacity;
+    transition: opacity .12s;
   }
 
-  &:hover::before,
-  &:active::after {
+  &:hover::after {
     opacity: .12;
+  }
+
+  &:focus::after {
+    opacity: .21;
+  }
+
+  &:active::after {
+    opacity: .3;
   }
 
   &--block {
@@ -34,42 +46,18 @@
 
   &--primary {
     background-color: $theme-primary;
-    color: $text-primary-on-primary;
-
-    &:hover {
-      color: $text-primary-on-primary;
-    }
-
-    &:focus {
-      outline: 3px solid lighten($theme-primary, 46%);
-    }
+    color: $text-primary-on-primary !important;
   }
 
   &--secondary {
     background-color: $theme-secondary;
-    color: $text-primary-on-secondary;
-
-    &:hover {
-      color: $text-primary-on-secondary;
-    }
-
-    &:focus {
-      outline: 3px solid lighten($theme-secondary, 21%);
-    }
+    color: $text-primary-on-secondary !important;
   }
 
   &--outline {
     background-color: transparent;
     border: 1px solid $theme-primary;
-    color: $theme-primary;
-
-    &:hover {
-      color: $theme-primary;
-    }
-
-    &:focus {
-      outline: 3px solid lighten($theme-primary, 46%);
-    }
+    color: $theme-primary !important;
   }
 }
 
@@ -86,12 +74,37 @@
   border: 0;
   background: none;
   cursor: pointer;
-
-  &:focus {
-    outline: 2px solid lighten($theme-primary, 46%);
-  }
+  color: inherit;
+  outline: none !important;
 
   .icon-btn:disabled {
     opacity: .38;
+  }
+
+  &::after {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: currentColor;
+    border-radius: 50%;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity .12s;
+  }
+
+  &:hover::after {
+    opacity: .06;
+  }
+
+  &:focus::after {
+    opacity: .12;
+  }
+
+  &:active::after {
+    opacity: .21;
   }
 }
