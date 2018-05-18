@@ -50,6 +50,10 @@
     justify-content: space-between;
     border-bottom: 1px solid $border-color-dark;
     margin: (4 * $base-line) 0;
+    
+    @include media-breakpoint-up(md) {
+      height: 28px;
+    }
   }
 }
   
