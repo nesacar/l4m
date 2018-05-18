@@ -15,14 +15,16 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('customer_id')->nullable()->index();
-            $table->unsignedInteger('payment_id')->index();
-            $table->unsignedInteger('coupon_id')->nullable();
+            $table->unsignedInteger('shopping_cart_id');
+            $table->foreign('shopping_cart_id')->references('id')->on('shopping_carts')->onDelete('cascade');
+
+            $table->unsignedInteger('product_id');
+            $table->integer('qty')->default(1);
             $table->float('price')->default(0);
-            $table->string('tax')->nullable();
             $table->float('total')->default(0);
-            $table->boolean('paid')->default(0);
-            $table->timestamp('paid_at')->nullable();
+            $table->string('size')->nullable();
+            $table->string('color')->nullable();
+            $table->string('options')->nullable();
             $table->timestamps();
         });
     }

@@ -46,14 +46,14 @@
         @if($product->discount)
         <div class="shop-item_price-tag shop-item_price-tag--invalid">
           {{ number_format($product->price, 2, ',', '.') }}
-        </div>
-        <div class="shop-item_price-tag">
-          {{ $product->totalPrice }}
-        </div>
+        </span>
+        <span class="shop-item_price-tag">
+          {{ number_format($product->totalPrice, 2, ',', '.') }}
+        </span>
         @else
-        <div class="shop-item_price-tag">
-          {{ $product->totalPrice }}
-        </div>
+        <span class="shop-item_price-tag">
+          {{ number_format($product->totalPrice, 2, ',', '.') }}
+        </span>
         @endif
       </div>
     </div>

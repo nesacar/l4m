@@ -30,7 +30,7 @@
                         @if($product->discount)
                             <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ number_format($product->price, 2, ',', '.') }}</span>
                         @endif
-                        <span class="shop-item_price-tag">{{ $product->totalPrice }}</span>
+                        <span class="shop-item_price-tag">{{ number_format($product->totalPrice, 2, ',', '.') }}</span>
                     </div>
                     <div class="product_options">
                         @if(false)

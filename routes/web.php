@@ -45,11 +45,7 @@ Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'BlogsController@blog5');
 
 /** CART **/
 Route::get('korpa', 'CartsController@index');
-Route::get('cart/count', 'CartsController@countItems');
-Route::get('cart/total', 'CartsController@totalPrice');
-Route::get('cart/{product}', 'CartsController@store');
-Route::get('cart/{product}/one', 'CartsController@reduceByOne');
-Route::get('cart/{product}/all', 'CartsController@removeItem');
+Route::get('korpa/store', 'CartsController@store');
 
 Route::get('lista-zelja', 'WishListsController@index');
 Route::get('lista-zelja/{product}', 'WishListsController@store');

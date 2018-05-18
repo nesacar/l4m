@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\MenuLink;
 use App\Setting;
-use App\ShoppingCart;
+use App\ShoppingCartOld;
 use App\Theme;
 use Illuminate\Support\ServiceProvider;
 use Session;
