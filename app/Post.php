@@ -44,14 +44,14 @@ class Post extends Model
         return $str;
     }
 
-    public static function getRelatedProducts($post, $limit = 3){
+    public static function getRelatedProducts($post, $limit = 4){
         if(count($post->product) > 0){
             return $post->product;
         }else{
             if($post->brand_id != null){
-                return Brand::find($post->brand_id)->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take(3)->get();
+                return Brand::find($post->brand_id)->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take($limit)->get();
             }elseif($category = Category::whereTitle($post->blog->title)->first()){
-                return $category->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take(3)->get();
+                return $category->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take($limit)->get();
             }
         }
     }

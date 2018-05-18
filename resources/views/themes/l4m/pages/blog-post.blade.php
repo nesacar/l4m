@@ -40,7 +40,7 @@
           @endif
         </article>
         <div style="margin-bottom: 32px;">
-          <h2 class="section-title with-lines"><span>you may also like</span></h2>
+          <h2 class="section-title with-lines"><span>možda Vam se svidi</span></h2>
           @component('themes.' . $theme . '.components.grid',
             [
               'component' => 'blog.tile',
@@ -67,7 +67,7 @@
             @endcomponent
           </div>
           @if(count($products)>0)
-          <a href="{{ $products->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">poseti prodavnicu</a>
+          <a href="{{ $products->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">posetite prodavnicu</a>
           @endif
         </div>
         @include('themes.' . $theme . '.partials.newsletter')
@@ -75,7 +75,7 @@
           @social()
         </div>
         <div>
-          <h4 class="side-content-title">most viewed posts</h4>
+          <h4 class="side-content-title">najčitanije</h4>
           @component('themes.' . $theme . '.components.list', [
             'component' => 'blog.list-item',
             'items' => $posts->slice(4),
@@ -84,7 +84,7 @@
           @endcomponent
         </div>
         <div class="expand--lg">
-          <h4 class="side-content-title">categories</h4>
+          {{--<h4 class="side-content-title">categories</h4>--}}
           <div class="categorie-banner categorie-banner--small">
             <div class="image image--portrait invertable-image categorie-banner_image">
               <img cross-origin="anonymous" src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a963d29c6015992527cc43326e0e2197&auto=format&fit=crop&w=1350&q=80" alt="burger, mmm...">

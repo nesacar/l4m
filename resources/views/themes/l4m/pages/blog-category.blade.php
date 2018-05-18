@@ -42,7 +42,7 @@
 
       <aside class="split-view_right-pane">
         <div class="with-border" style="width: 100%; padding-bottom: 32px; text-align: center;">
-          <h4 class="side-content-title">featured products</h4>
+          <h4 class="side-content-title">istaknuti proizvodi</h4>
           <div class="products-featured">
           @component('themes.' . $theme . '.components.list', [
             'component' => 'shop.item',
@@ -53,14 +53,14 @@
           ])
           @endcomponent
           </div>
-          <a href="/shop/{{ $category->title }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">visit shop</a>
+          <a href="/shop/{{ $category->title }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">posetite prodavnicu</a>
         </div>
         @include('themes.' . $theme . '.partials.newsletter')
         <div class="social-container">
           @social()
         </div>
         <div>
-          <h4 class="side-content-title">most viewed posts</h4>
+          <h4 class="side-content-title">najčitaniji</h4>
           @component('themes.' . $theme . '.components.list', [
             'component' => 'blog.list-item',
             'items' => $posts->slice(4),

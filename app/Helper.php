@@ -18,4 +18,12 @@ class Helper extends Model
         }
         return ['folderPath' => $folderPath, 'folder' => $temp, 'fullFolderPath' => $fullFolderPath];
     }
+
+    public static function activeLinkWithParams($link){
+        return str_replace(request()->root() . '/', '', request()->fullUrl()) == $link? true: false;
+    }
+
+    public static function activeLink($link){
+        return request()->path() == $link? true : false;
+    }
 }
