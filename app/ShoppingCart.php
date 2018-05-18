@@ -2,98 +2,74 @@
 
 namespace App;
 
-use Session;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
-class ShoppingCart{
+class ShoppingCart extends Model
+{
+    protected static $price = 0;
+    protected static $total = 0;
 
-    public $items = null;
-    public $totalQty = 0;
-    public $totalPrice = 0;
-
-    /**
-     * Cart constructor.
-     * @param $oldCart
-     */
-    public function __construct($oldCart){
-        if($oldCart){
-            $this->items = $oldCart->items;
-            $this->totalQty = $oldCart->totalQty;
-            $this->totalPrice = $oldCart->totalPrice;
-        }
-    }
+    protected $fillable = ['customer_id', 'payment_id', 'coupon_id', 'price', 'tax', 'total', 'paid', 'paid_at'];
 
     /**
-     * @param $item
-     * @param $id
+     * The "booting" method of the model.
+     *
+     * @return void
      */
-    public function add($item, $id){
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
-        if($this->items){
-            if(array_key_exists($id, $this->items)){
-                $storedItem = $this->items[$id];
-            }
-        }
-        $storedItem['qty']++;
-        $storedItem['price'] = $item->price * $storedItem['qty'];
-        $this->items[$id] = $storedItem;
+    protected static function boot(){
+        parent::boot();
 
-        $this->totalQty++;
-        $this->totalPrice += $item->price;
+        static::addGlobalScope('customer', function (Builder $builder) {
+            $builder->with('customer');
+        });
+
+        static::addGlobalScope('payment', function (Builder $builder) {
+            $builder->with('payment');
+        });
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->with('order');
+        });
     }
 
-    /**
-     * @param $item
-     * @param $id
-     */
-    public function reduceByOne($id){
-        $this->items[$id]['qty']--;
-        $this->items[$id]['price'] -= $this->items[$id]['item']['price'];
-        $this->totalQty--;
-        $this->totalPrice -= $this->items[$id]['item']['price'];
-
-        if($this->items[$id]['qty'] <= 0){
-            unset($this->items[$id]);
-        }
-    }
-
-    /**
-     * @param $id
-     */
-    public function removeItem($id){
-        $this->totalQty -= $this->items[$id]['qty'];
-        $this->totalPrice -= $this->items[$id]['price'];
-        unset($this->items[$id]);
-    }
-
-    public static function getIds(){
-        $oldCart = Session::has('cart')? Session::get('cart') : null;
-        $cart = new ShoppingCart($oldCart);
-        $res = collect([]);
-        if(count($cart->items) > 0){
-            foreach ($cart->items as $key => $product){
-                $res->prepend(['id' => $key]);
-            }
-        }
-        return $res;
-    }
-
-    public static function getAll(){
-        if(Session::has('cart')){
-            $oldCart = Session::has('cart')? Session::get('cart') : null;
-            $cart = new ShoppingCart($oldCart);
-
-            return collect([
-                'products' => $cart->items,
-                'totalQty' => $cart->totalQty,
-                'totalPrice' => $cart->totalPrice,
+    public static function store(){
+        if(!empty(\Cart::content())){
+            $shoppingCart = ShoppingCart::create([
+                'customer_id' => 1,
+                'payment_id' => 1,
             ]);
+            foreach (\Cart::content() as $product){
+
+                Order::create([
+                    'shopping_cart_id' => $shoppingCart->id,
+                    'product_id' => $product->id,
+                    'price' => $product->price,
+                    'total' => $product->total,
+                    'qty' => $product->qty,
+                    'size' => $product->options->has('size')? $product->options->size : null,
+                    'color' => $product->options->has('color')? $product->options->color : null,
+                ]);
+
+                self::$price += $product->price;
+                self::$total += $product->total;
+            }
+            $shoppingCart->update(['price' => self::$price, 'total' => self::$total]);
+            \Cart::destroy();
+            return true;
         }
-        return [];
+        return false;
     }
 
-    public static function getTotalCount(){
-        $oldCart = Session::has('cart')? Session::get('cart') : null;
-        $cart = new ShoppingCart($oldCart);
-        return $cart->totalQty;
+    public function order(){
+        return $this->hasMany(Order::class);
+    }
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function payment(){
+        return $this->belongsTo(Payment::class);
     }
 }

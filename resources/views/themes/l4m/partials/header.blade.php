@@ -19,7 +19,7 @@
       </a>
       <div class="header_basket">
         <a href="{{ url('korpa') }}" class="icon-btn">
-          <small class="chip js-basket-chip">{{ \App\ShoppingCart::getTotalCount() }}</small>
+          <small class="chip js-basket-chip">1</small>
           <svg class="icon" role="presentation">
             <use xlink:href="#icon_cart">
           </svg>
