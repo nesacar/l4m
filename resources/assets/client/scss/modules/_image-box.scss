@@ -60,4 +60,15 @@ $spacer: 8px;
       margin-left: $spacer; 
     }
   }
+
+  &_image-wrap {
+    position: relative;
+    overflow: hidden;
+
+    @include media-breakpoint-down(md) {
+      max-width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }

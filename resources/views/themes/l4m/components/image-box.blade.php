@@ -17,7 +17,7 @@
     @endif
   </div>
   <div class="image-box_image">
-    <div class="shop-item_image">
+    <div class="image-box_image-wrap">
       <div class="image image--portrait">
         <img src="{{ url($image) }}" class="zoomer-target image-gallery_target" draggable="false"/>
       </div>

@@ -55,11 +55,6 @@
     position: relative;
     overflow: hidden;
     background-color: #fff;
-    
-    @include media-breakpoint-down(md) {
-      max-width: 250px;
-      margin: 0 auto;
-    }
   }
 
   &_content {
