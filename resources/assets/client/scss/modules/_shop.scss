@@ -19,9 +19,6 @@
   margin-bottom: 4 * $base-line;
 
   &:focus {
-    .shop-item_image {
-      outline: 3px solid lighten($theme-primary, 46%);
-    }
     .shop-item_actions {
       opacity: 1;
     }
@@ -66,9 +63,10 @@
   }
 
   &_content {
-    margin-top: 3 * $base-line;
-    font-size: 1.067em;
+    font-size: 14px;
     text-align: center;
+    font-weight: 400;
+    margin-top: $base-line;
 
     .shop-item_container--horizontal & {
       margin-top: 0;
@@ -83,8 +81,12 @@
 
   &_brand {
     color: $text-secondary-on-light;
-    font-size: 0.878em;
+    font-size: 12px;
     margin-bottom: $base-line;
+  }
+
+  &_price {
+    font-weight: 500;
   }
 
   &_price-tag {
@@ -94,29 +96,30 @@
     }
 
     &--invalid {
-      color: $text-secondary-on-light;
+      color: $text-hint-on-light;
       text-decoration: line-through;
-      margin-right: $base-line;
     }
   }
 
   &_actions {
     display: block;
     position: absolute;
-    top: 2 * $base-line;
-    left: 2 * $base-line;
+    top: $base-line;
+    left: $base-line;
     width: 32px;
     height: 32px;
     z-index: 1;
     opacity: 1;
 
     @include media-breakpoint-up(md) {
+      top: 2 * $base-line;
+      left: 2 * $base-line;
       opacity: 0;
     }
   }
 
   &_action-btn {
-    margin-bottom: 2 * $base-line;
+    margin-bottom: $base-line;
     color: $text-secondary-on-light;
 
     &:hover {
@@ -126,13 +129,18 @@
 
   &_discount-tag {
     position: absolute;
-    top: 2 * $base-line;
-    right: 2 * $base-line;
+    top: $base-line;
+    right: $base-line;
     padding: 2px 8px;
     background-color: $theme-secondary;
     color: $text-primary-on-secondary;
     border-radius: 50px;
     z-index: 1;
+
+    @include media-breakpoint-up(md) {
+      top: 2 * $base-line;
+      right: 2 * $base-line;
+    }
 
     &::after {
       content: "%";
