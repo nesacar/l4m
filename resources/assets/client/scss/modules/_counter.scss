@@ -16,10 +16,6 @@
     justify-content: center;
     background-color: lighten($theme-primary, 82%);
 
-    &:focus {
-      outline: 3px solid lighten($theme-primary, 46%);
-    }
-
     &::after {
       content: "";
       position: absolute;
@@ -51,9 +47,5 @@
     width: 32px;
     text-align: center;
     border: 0;
-
-    &:focus {
-      outline: 3px solid lighten($theme-primary, 46%);
-    }
   }
 }
