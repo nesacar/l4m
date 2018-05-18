@@ -118,11 +118,11 @@ class Product extends Model
     }
 
     public function getDateAttribute(){
-        return Carbon::parse($this->attributes['publish_at'])->format('Y-m-d');
+        return Carbon::parse($this->publish_at)->format('Y-m-d');
     }
 
     public function getTimeAttribute(){
-        return Carbon::parse($this->attributes['publish_at'])->format('H:00:00');
+        return Carbon::parse($this->publish_at)->format('H:00:00');
     }
 
     public function getLinkAttribute(){
