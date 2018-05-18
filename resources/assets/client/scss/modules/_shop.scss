@@ -9,7 +9,7 @@
 
   &--shop {
     @include media-breakpoint-up(md) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }
@@ -134,6 +134,7 @@
     color: $text-primary-on-secondary;
     border-radius: 50px;
     z-index: 1;
+    font-size: 12px;
 
     @include media-breakpoint-up(md) {
       top: 2 * $base-line;
