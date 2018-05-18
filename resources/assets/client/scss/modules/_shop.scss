@@ -63,13 +63,16 @@
   }
 
   &_content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     font-size: 14px;
-    text-align: center;
     font-weight: 400;
     margin-top: $base-line;
 
     .shop-item_container--horizontal & {
       margin-top: 0;
+      justify-content: center;
     }
   }
 

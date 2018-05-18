@@ -25,6 +25,7 @@
     background-color: currentColor;
     opacity: 0;
     will-change: opacity;
+    transition: opacity .12s;
   }
 
   &:hover::after {
@@ -92,6 +93,7 @@
     border-radius: 50%;
     opacity: 0;
     will-change: opacity;
+    transition: opacity .12s;
   }
 
   &:hover::after {
