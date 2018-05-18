@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Order;
+use App\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class OrdersController extends Controller
+class ShoppingCartsController extends Controller
 {
     /**
      * OrdersController constructor.
@@ -17,16 +18,17 @@ class OrdersController extends Controller
 
     public function index()
     {
-        $orders = Order::with('customer')->withCount('product')->orderBy('orders.id', 'DESC')->paginate(50);
+        $shoppingCarts = ShoppingCart::orderBy('id', 'DESC')->paginate(50);
 
         return response()->json([
-            'orders' => $orders
+            'shoppingCarts' => $shoppingCarts,
         ]);
     }
 
-    public function show(Order $order){
+    public function show($id){
+        $shoppingCart = ShoppingCart::find($id);
         return response()->json([
-            'order' => $order,
+            'shoppingCart' => $shoppingCart,
         ]);
     }
 
