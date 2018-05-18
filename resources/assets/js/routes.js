@@ -93,8 +93,8 @@ export const router = new VueRouter({
         { path: "/customers/create", component: require('./components/customers/CustomerCreate.vue'), meta: { forAuth: true } },
         { path: "/customers/:id/edit", component: require('./components/customers/CustomerEdit.vue'), meta: { forAuth: true } },
 
-        { path: "/orders", component: require('./components/orders/OrderList.vue'), meta: { forAuth: true } },
-        { path: "/orders/:id/edit", component: require('./components/orders/OrderEdit.vue'), meta: { forAuth: true } },
+        { path: "/shopping-carts", component: require('./components/shoppingCart/ShoppingCartList.vue'), meta: { forAuth: true } },
+        { path: "/shopping-carts/:id/edit", component: require('./components/shoppingCart/ShoppingCartEdit.vue'), meta: { forAuth: true } },
 
         { path: "/brand-links/:brand", component: require('./components/brandLinks/BrandLinkList.vue'), meta: { forAuth: true } },
         { path: "/brand-links/:brand/create", component: require('./components/brandLinks/BrandLinkCreate.vue'), meta: { forAuth: true } },

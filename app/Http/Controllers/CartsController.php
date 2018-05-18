@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ShoppingCart;
 use App\ShoppingCartOld;
 use App\Theme;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class CartsController extends Controller
     public function __construct()
     {
         $this->theme = Theme::getTheme();
-        $this->middleware('auth')->only('store');
+        //$this->middleware('auth')->only('store');
     }
 
     /**
@@ -69,7 +70,7 @@ class CartsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(){
-        $res = \Cart::store();
+        $res = ShoppingCart::store();
         return redirect('/')->with('message', 'Korpa je sačuvana');
     }
 

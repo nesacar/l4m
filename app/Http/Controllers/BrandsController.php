@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Product;
+use App\Seo;
 use App\Setting;
 use App\Theme;
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ class BrandsController extends Controller
         }])->first();
         $products = Product::simpleSearch(false, $brand);
         $breadcrumb = $brand->getBreadcrumb();
+        Seo::shopBrand($this->settings, $brand);
         return view('themes.' . $this->theme . '.pages.brand', compact('brand', 'breadcrumb', 'products'));
     }
 }

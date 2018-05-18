@@ -119,4 +119,23 @@ class Seo extends Model
         OpenGraph::setUrl($product->getLink($category));
         OpenGraph::setSiteName('Luksuzni online shop');
     }
+
+    /**
+     * SEO for shop brand page
+     */
+    public static function shopBrand($setting,$brand)
+    {
+        SEOMeta::setTitle($brand->title);
+        SEOMeta::setDescription($brand->short);
+        SEOMeta::setCanonical($brand->getLink());
+        SEOMeta::addKeyword($setting->keywords);
+
+        OpenGraph::addImage($brand->image? url($brand->image) : url('themes/' . env('APP_THEME', '') . '/img/l4m-social-share.jpg'));
+        OpenGraph::addProperty('locale', 'sr');
+        OpenGraph::addProperty('type', 'article');
+        OpenGraph::setTitle($brand->title);
+        OpenGraph::setDescription($brand->short);
+        OpenGraph::setUrl($brand->getLink());
+        OpenGraph::setSiteName('Luksuzni online shop');
+    }
 }

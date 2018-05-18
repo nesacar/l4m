@@ -34,15 +34,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="row in orders">
+                            <tr v-for="row in shoppingCarts">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.customer.name }}</td>
                                 <td>{{ formatPrice(row.total) }} rsd</td>
-                                <td>{{ row.product_count }}</td>
+                                <td>{{ row.order.length }}</td>
                                 <td>{{ row.paid }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
-                                    <router-link tag="a" :to="'orders/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'shopping-carts/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>
@@ -68,7 +68,7 @@
     export default {
         data(){
             return {
-                orders: {},
+                shoppingCarts: {},
                 paginate: {}
             }
         },
@@ -77,21 +77,21 @@
             'font-awesome-icon': FontAwesomeIcon
         },
         created(){
-            this.getOrders();
+            this.getShoppingCarts();
         },
         methods: {
-            getOrders(){
-                axios.get('api/orders')
+            getShoppingCarts(){
+                axios.get('api/shopping-carts')
                     .then(res => {
-                        this.orders = res.data.orders.data;
-                        this.paginate = res.data.orders;
+                        this.shoppingCarts = res.data.shoppingCarts.data;
+                        this.paginate = res.data.shoppingCarts;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('orders/' + id + '/edit');
+                this.$router.push('shopping-carts/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -105,9 +105,9 @@
                     cancelButtonText: 'Odustani'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/orders/' + row.id)
+                        axios.delete('api/shopping-carts/' + row.id)
                             .then(res => {
-                                this.orders = this.orders.filter(function (item) {
+                                this.shoppingCarts = this.shoppingCarts.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
@@ -123,10 +123,10 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/orders?page=' + index)
+                axios.get('api/shopping-carts?page=' + index)
                     .then(res => {
-                        this.orders = res.data.orders.data;
-                        this.paginate = res.data.orders;
+                        this.shoppingCarts = res.data.shoppingCarts.data;
+                        this.paginate = res.data.shoppingCarts;
                     })
                     .catch(e => {
                         console.log(e);

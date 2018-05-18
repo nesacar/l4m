@@ -60,7 +60,7 @@
                 <a href="#" @click="changeShowOrdersItemActive()">Narudžbine</a>
                 <font-awesome-icon icon="shopping-basket" />
                 <ul>
-                    <li><router-link tag="a" :to="'/orders'">Narudžbine</router-link></li>
+                    <li><router-link tag="a" :to="'/shopping-carts'">Narudžbine</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">

@@ -29,6 +29,10 @@ class Brand extends Model
         return $str;
     }
 
+    public function getLink(){
+        return url('brendovi/' . $this->slug);
+    }
+
     public static function getLogos(){
         return self::where('publish', 1)->where('logo', '<>', null)->where('logo', '<>', '')->get();
     }
