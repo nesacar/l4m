@@ -1,37 +1,77 @@
-const ACTIVE_CLASS = 'active';
-/**
- * Sets up the image gallery.
- *
- * @param {Function} callback - Function to call on every image swap
- */
-function init(callback=function() {}) {
-  const target = document.querySelector('.image-gallery_target');
-  const thumbnails = 
-    document.querySelector('.image-gallery_thumbnails');
-  let currentImage = thumbnails.querySelector('img.active');
+class ImageGallery {
+  /**
+   * @type {String}
+   */
+  static get ACTIVE_CLASS() {
+    return 'active';
+  }
 
-  thumbnails.addEventListener('click', function(evt) {
-    if (evt.target.tagName.toLowerCase() !== 'img') {
-      return;
-    }
+  /**
+   * Sets up the image gallery.
+   *
+   * @param {Function} callback - Function to call on every image swap
+   */
+  static init(callback=function() {}) {
+    new ImageGallery();
+  }
 
-    currentImage.classList.remove(ACTIVE_CLASS);
-    currentImage = evt.target;
-    currentImage.classList.add(ACTIVE_CLASS);
-
-    const src = evt.target.dataset.large;
-    // Show small image before big arives.
-    target.src = evt.target.src;
-
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      target.src = src;
-      callback(src);
+  constructor() {
+    this.state = {
+      activeIndex: 0,
     };
-  });
+
+    this.target = document.querySelector('.image-gallery_target');
+    this.images = document.querySelectorAll('.image-gallery_thumbnails img');
+
+    this.images.forEach((img, i) => {
+      img.addEventListener('click', this._onClick(i));
+    });
+  }
+
+  _onClick(index) {
+    return (evt) => {
+      this.setState({
+        activeIndex: index,
+      });
+    };
+  }
+
+  update() {
+    // TODO: Split in different methods.
+    const index = this.state.activeIndex;
+
+    this.images.forEach((img, i) => {
+      if (index === i) {
+        img.classList.add(ImageGallery.ACTIVE_CLASS);
+        return;
+      }
+      img.classList.remove(ImageGallery.ACTIVE_CLASS);
+    });
+
+    const img = this.images[index];
+    const src = img.dataset.large;
+
+    // Apply small image first.
+    this.target.src = img.src;
+
+    const _img = new Image();
+    _img.src = src;
+    _img.onload = () => {
+      this.target.src = src;
+    };
+  }
+
+  setState(obj) {
+    this.state = Object.assign({}, this.state, obj);
+    this.__render();
+  }
+
+  __render() {
+    if (!this.update) {
+      throw new Error('update method must be defined.');
+    }
+    this.update();
+  }
 }
 
-export default {
-  init,
-};
+export default ImageGallery;
