@@ -48,11 +48,11 @@
           {{ number_format($product->price, 2, ',', '.') }}
         </span>
         <span class="shop-item_price-tag">
-          {{ $product->totalPrice }}
+          {{ number_format($product->totalPrice, 2, ',', '.') }}
         </span>
         @else
         <span class="shop-item_price-tag">
-          {{ $product->totalPrice }}
+          {{ number_format($product->totalPrice, 2, ',', '.') }}
         </span>
         @endif
       </div>

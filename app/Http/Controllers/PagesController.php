@@ -42,11 +42,11 @@ class PagesController extends Controller
 
     public function proba()
     {
+        $product = Product::first();
         //\Cart::destroy();
-        //\Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $product->price, 'options' => ['size' => 'large']]);
-        //$products = \Cart::content();
+        //\Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $product->price, 'options' => ['size' => 'small']]);
+        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
-        return ShoppingCart::first();
         return 'done2';
     }
 }
