@@ -17,7 +17,7 @@
 
   &_secondary-text {
     text-transform: uppercase;
-    color: rgba(0,0,0,.54);
+    color: $text-secondary-on-light;
   }
 
   &_actions {
@@ -65,6 +65,6 @@
   }
 
   &_key {
-    color: rgba(0,0,0,.54);
+    color: $text-secondary-on-light;
   }
 }

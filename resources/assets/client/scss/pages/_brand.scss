@@ -25,7 +25,7 @@
   }
 
   &_tab {
-    border-right: 1px solid #000;
+    border-right: 1px solid $border-color-dark;
 
     &:last-child {
       border-right: 0;

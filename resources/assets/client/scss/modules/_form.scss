@@ -9,8 +9,6 @@ $active-color_: $theme-primary;
   padding: 3px;
   
   &--sm {
-    // transform: translateX(-5px) scale(.7058823529411765);
-    // transform-origin: center center;
     height: 19px;
     width: 16px;
     padding: 3px 3px 3px 0;
@@ -28,10 +26,6 @@ $active-color_: $theme-primary;
     cursor: pointer;
     pointer-events: auto;
     z-index: 1;
-
-    &:focus ~ .checkbox_background {
-      // outline: 3px solid lighten($theme-primary, 46%);
-    }
 
     &:checked ~ .checkbox_background {
       border-color: $active-color_;

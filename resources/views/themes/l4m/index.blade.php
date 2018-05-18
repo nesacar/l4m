@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   @yield('title')
   <link href="https://fonts.googleapis.com/css?family=Lora&amp;subset=latin-ext" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;subset=latin-ext" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
   <link rel="stylesheet" href="{{ url('themes/' . $theme . '/css/main.css') }}">
   @yield('seo')
   @yield('styles')
