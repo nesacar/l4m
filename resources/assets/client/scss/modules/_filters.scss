@@ -1,7 +1,7 @@
 .filters-container {
   margin-bottom: 2 * $base-line;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     display: none;
   }
 }
