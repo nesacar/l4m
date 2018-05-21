@@ -18,8 +18,8 @@
   </div>
   <div class="image-box_image">
     <div class="image-box_controls collapse--md">
-      <button class="icon-btn image-box_arrow image-box_arrow--left">&lt;</button>
-      <button class="icon-btn image-box_arrow image-box_arrow--right">&gt;</button>
+      <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev">&lt;</button>
+      <button class="icon-btn image-box_arrow image-box_arrow--right js-arrow--next">&gt;</button>
     </div>
     <div class="image-box_image-wrap">
       <div class="image image--portrait">

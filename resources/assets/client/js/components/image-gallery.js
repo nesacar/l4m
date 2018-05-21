@@ -28,6 +28,10 @@ class ImageGallery {
 
     this.callbacks = Object.assign(ImageGallery.CALLBACKS, callbacks);
 
+    this.nextImage = this.nextImage.bind(this);
+    this.prevImage = this.prevImage.bind(this);
+    this.goTo = this.goTo.bind(this);
+
     this.target = document.querySelector('.image-gallery_target');
     this.images = document.querySelectorAll('.image-gallery_thumbnails img');
 
