@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class Controller {
   /**
    * Creates new controller instance.
@@ -8,6 +10,12 @@ class Controller {
   constructor(store, view) {
     this.store = store;
     this.view = view;
+
+    this._routes = new Map([
+      ['add', (id) => `/${id}/add`],
+    ]);
+
+    this._token = document.head.querySelector('meta[name="csrf-token"]');
 
     this.view.bindAddItemToCart(this.addItem.bind(this));
   }
@@ -20,9 +28,21 @@ class Controller {
    * @property {Number} product.count - Amount of items.
    */
   addItem(product) {
-    this.store.add(product, function(len) {
-      console.log(len);
-    });
+    axios.post(this._routes.get('add')(product.id), {
+      id: product.id,
+      _token: this._token,
+    })
+    .then((res) => {
+      // Update view & show success message
+      console.log(res);
+    })
+    .catch((err) => {
+      // Show error massage.
+      console.log('something bad happend', err)
+    })
+    // this.store.add(product, function(len) {
+    //   console.log(len);
+    // });
   }
 
   /**
