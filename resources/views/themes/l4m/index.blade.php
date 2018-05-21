@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lora&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
   <link rel="stylesheet" href="{{ url('themes/' . $theme . '/css/main.css') }}">
+  <meta name="csrf-token" value="{{ csrf_token() }}">
   @yield('seo')
   @yield('styles')
 </head>

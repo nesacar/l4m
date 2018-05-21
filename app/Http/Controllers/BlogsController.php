@@ -53,13 +53,15 @@ class BlogsController extends Controller
     public function blog4($slug1, $slug2, $slug3){
         if(is_numeric($slug3)) {
             $category = Blog::whereSlug($slug1)->first();
-            $posts = Post::getLatest($category);
-            $post = Post::with(['tag', 'gallery', 'product'])->find($slug3);
+            $post = Post::with(['tag', 'gallery'])->with(['product' => function($query){
+                $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
+            }])->find($slug3);
             $post->increment('views');
-            $products = Post::getRelatedProducts($post);
+            $posts = Post::getLatest($category);
+            $mostView = Post::getMostView($category);
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
-            return view('themes.' . $this->theme . '.pages.blog-post', compact('posts', 'post', 'category', 'products', 'breadcrumb'));
+            return view('themes.' . $this->theme . '.pages.blog-post', compact('posts', 'post', 'category', 'breadcrumb', 'mostView'));
         }else{
             return redirect('blog');
         }
@@ -68,13 +70,15 @@ class BlogsController extends Controller
     public function blog5($slug1, $slug2, $slug3, $slug4){
         if(is_numeric($slug4)){
             $category = Blog::whereSlug($slug1)->first();
-            $posts = Post::getLatest($category);
-            $post = Post::with(['tag', 'gallery', 'product'])->find($slug4);
+            $post = Post::with(['tag', 'gallery'])->with(['product' => function($query){
+                $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
+            }])->find($slug3);
             $post->increment('views');
-            $products = Post::getRelatedProducts($post);
+            $posts = Post::getLatest($category);
+            $mostView = Post::getMostView($category);
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
-            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'products', 'breadcrumb'));
+            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'breadcrumb', 'mostView'));
         }else{
             return redirect('blog');
         }

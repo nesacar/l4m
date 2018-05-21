@@ -62,12 +62,12 @@
               'options' => (object)[
                 'horizontal' => true,
             ],
-            'items' => $products,
+            'items' => $post->product,
             ])
             @endcomponent
           </div>
-          @if(count($products)>0)
-          <a href="{{ $products->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">posetite prodavnicu</a>
+          @if(count($post->product)>0)
+          <a href="{{ $post->product->first()->category->first()->getLink() }}" class="btn btn--outline btn--block no-link" style="max-width: 256px;">posetite prodavnicu</a>
           @endif
         </div>
         @include('themes.' . $theme . '.partials.newsletter')
@@ -78,7 +78,7 @@
           <h4 class="side-content-title">najčitanije</h4>
           @component('themes.' . $theme . '.components.list', [
             'component' => 'blog.list-item',
-            'items' => $posts->slice(4),
+            'items' => $mostView,
             'theme' => $theme
             ])
           @endcomponent

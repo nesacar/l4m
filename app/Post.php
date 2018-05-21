@@ -44,13 +44,13 @@ class Post extends Model
         return $str;
     }
 
-    public static function getRelatedProducts($post, $limit = 4){
-        if(count($post->product) > 0){
-            return $post->product;
+    public function getRelatedProducts($limit = 6){
+        if(count($this->product) > 0){
+            return $this->product()->take($limit)->get();
         }else{
-            if($post->brand_id != null){
-                return Brand::find($post->brand_id)->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take($limit)->get();
-            }elseif($category = Category::whereTitle($post->blog->title)->first()){
+            if($this->brand_id != null){
+                return Brand::find($this->brand_id)->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take($limit)->get();
+            }elseif($category = Category::whereTitle($this->blog->title)->first()){
                 return $category->product()->withoutGlobalScope('attribute')->where('products.publish', 1)->inRandomOrder()->take($limit)->get();
             }
         }
@@ -62,14 +62,18 @@ class Post extends Model
 
     public static function getLatest($category = false, $limit = 8){
         if($category){
-            return $category->post()->published()->paginate($limit);
+            return $category->post()->published()->take($limit)->get();
         }else{
-            return self::published()->paginate($limit);
+            return self::published()->take($limit)->get();
         }
     }
 
-    public static function getMostView($limit = 4){
-        return self::published()->orderBy('views', 'DESC')->take($limit)->get();
+    public static function getMostView($category = false, $limit = 4){
+        if($category){
+            return $category->post()->published()->orderBy('views', 'DESC')->take($limit)->get();
+        }else{
+            return self::published()->orderBy('views', 'DESC')->take($limit)->get();
+        }
     }
 
     public static function getHomePosts($limit = 3){

@@ -45,7 +45,7 @@ Route::get('blog/{slug1}/{slug2}/{slug3}/{slug4}', 'BlogsController@blog5');
 
 /** CART **/
 Route::get('korpa', 'CartsController@index');
-Route::get('korpa/{id}/add', 'CartsController@add');
+Route::post('korpa/{id}/add', 'CartsController@add');
 Route::get('korpa/{id}/remove', 'CartsController@remove');
 Route::get('korpa/store', 'CartsController@store');
 
