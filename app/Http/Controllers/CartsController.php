@@ -24,7 +24,6 @@ class CartsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        //return \Cart::content();
         return view('themes.' . $this->theme . '.pages.cart');
     }
 
@@ -82,5 +81,12 @@ class CartsController extends Controller
         return \Cart::content()->search(function ($cartItem, $rowId) use ($product) {
             return $cartItem->id === $product->id;
         });
+    }
+
+    /**
+     * @return array
+     */
+    public function getIds(){
+        return ShoppingCart::getIds();
     }
 }

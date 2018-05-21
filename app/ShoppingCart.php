@@ -61,6 +61,16 @@ class ShoppingCart extends Model
         return false;
     }
 
+    public static function getIds(){
+        $res = [];
+        if(!empty(\Cart::content())){
+            foreach (\Cart::content() as $product){
+                $res[] = $product->id;
+            }
+        }
+        return $res;
+    }
+
     public function order(){
         return $this->hasMany(Order::class);
     }
