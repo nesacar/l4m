@@ -32,10 +32,7 @@ const product = (emitter) => {
       const btn = closest(evt.target, 'button');
       const target = btn.dataset.event;
       
-      emitter.emit(`product:add:${target}`, {
-        id: this.id,
-        count: 1,
-      });
+      emitter.emit(`product:add:${target}`, this.id);
     },
   };
 };
