@@ -1,9 +1,11 @@
 import { product } from "./mixins/product";
+import Emitter from './components/emitter';
 import { extend } from "./utils";
+import { Toast } from "./components/toast";
 
 class View {
-  constructor(emitter) {
-    this.emitter = emitter;
+  constructor() {
+    this.emitter = new Emitter();
 
     // Extend product elements with product helper.
     document.querySelectorAll('.js-product')
@@ -30,6 +32,18 @@ class View {
    */
   bindRemoveItemFromCart(id) {
     this.emitter.on('product:remove:cart', handler);
+  }
+
+  /**
+   * Updates the view on state change.
+   *
+   * @param {Object} data - Data to render.
+   * @property {Number} data.len - Number of items in the cart.
+   * @property {String} data.id - ID of the item added to cart.
+   * @property {String} data.message - Message to display.
+   */
+  update(data) {
+    Toast.create(data.message);
   }
 }
 
