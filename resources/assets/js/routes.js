@@ -99,6 +99,10 @@ export const router = new VueRouter({
         { path: "/brand-links/:brand", component: require('./components/brandLinks/BrandLinkList.vue'), meta: { forAuth: true } },
         { path: "/brand-links/:brand/create", component: require('./components/brandLinks/BrandLinkCreate.vue'), meta: { forAuth: true } },
         { path: "/brand-links/:brand/edit/:id", component: require('./components/brandLinks/BrandLinkEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/currencies", component: require('./components/currencies/CurrencyList.vue'), meta: { forAuth: true } },
+        { path: "/currencies/create", component: require('./components/currencies/CurrencyCreate.vue'), meta: { forAuth: true } },
+        { path: "/currencies/:id/edit", component: require('./components/currencies/CurrencyEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',
