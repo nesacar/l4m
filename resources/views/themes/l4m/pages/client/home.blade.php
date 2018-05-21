@@ -19,22 +19,30 @@
     </picture>
   </div>
 </div>
-<div class="avatar, name, nav">
-  <div class="avatar" style="width: 192px;">
+<div class="container client_profile">
+  <div class="avatar">
     <div class="image image--square">
       <img
         src="https://images.pexels.com/photos/555017/pexels-photo-555017.jpeg?auto=compress&cs=tinysrgb&h=350"
         alt="doggy">
     </div>
   </div>
-  <div class="name, nav">
-    <h1>name</h1>
-    <nav>
-      <ul>
-        <li>o nama</li>
-        <li>web shop</li>
-        <li>akcije</li>
-        <li>blog</li>
+  <div class="client_info">
+    <h1 class="client_name">Client Name</h1>
+    <nav class="client_nav">
+      <ul class="client_nav-list">
+        <li class="client_nav-item">
+          <a href="#" class="client_nav-link">o nama</a>
+        </li>
+        <li class="client_nav-item">
+          <a href="#" class="client_nav-link active">web shop</a>
+        </li>
+        <li class="client_nav-item">
+          <a href="#" class="client_nav-link">akcije</a>
+        </li>
+        <li class="client_nav-item">
+          <a href="#" class="client_nav-link">blog</a>
+        </li>
       </ul>
     </nav>
   </div>
