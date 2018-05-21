@@ -18,8 +18,12 @@
   </div>
   <div class="image-box_image">
     <div class="image-box_controls collapse--md">
-      <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev">&lt;</button>
-      <button class="icon-btn image-box_arrow image-box_arrow--right js-arrow--next">&gt;</button>
+      <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev">
+        <span class="arrow arrow--left" role="presentation"></span>
+      </button>
+      <button class="icon-btn image-box_arrow image-box_arrow--right js-arrow--next">
+        <span class="arrow arrow--right" role="presentation"></span>
+      </button>
     </div>
     <div class="image-box_image-wrap">
       <div class="image image--portrait">

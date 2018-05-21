@@ -237,9 +237,6 @@
   }
 
   .arrow {
-    &::before,
-    &::after {
-      background-color: $theme-primary;
-    }
+    color: $theme-primary;
   }
 }

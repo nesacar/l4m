@@ -13,6 +13,7 @@
   display: block;
   height: 20px;
   width: 12px;
+  pointer-events: none;
   
   &::after,
   &::before {
@@ -21,7 +22,7 @@
     display: block;
     height: 50%;
     width: 2px;
-    background-color: white;
+    background-color: currentColor;
     content: "";
   }
 
