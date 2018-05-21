@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
 
-  &_image {    
+  &_image {
     @include media-breakpoint-down(md) {
       padding-top: 42 * $base-line;
 
