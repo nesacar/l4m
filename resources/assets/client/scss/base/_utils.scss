@@ -76,6 +76,12 @@
   }
 }
 
+.collapse--sm {
+  @include media-breakpoint-up(sm) {
+    display: none !important;
+  }
+}
+
 .collapse--md {
   @include media-breakpoint-up(md) {
     display: none !important;

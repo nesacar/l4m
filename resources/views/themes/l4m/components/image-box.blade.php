@@ -17,6 +17,10 @@
     @endif
   </div>
   <div class="image-box_image">
+    <div class="image-box_controls collapse--md">
+      <button class="icon-btn image-box_arrow image-box_arrow--left">&lt;</button>
+      <button class="icon-btn image-box_arrow image-box_arrow--right">&gt;</button>
+    </div>
     <div class="image-box_image-wrap">
       <div class="image image--portrait">
         <img src="{{ url($image) }}" class="zoomer-target image-gallery_target" draggable="false"/>
