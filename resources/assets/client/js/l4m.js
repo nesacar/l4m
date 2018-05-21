@@ -1,7 +1,6 @@
 import LazyImages from './components/lazy-images';
 import * as Masthead from './components/masthead';
 import Drawer from './components/drawer';
-import Emitter from './components/emitter';
 import SearchWidget from './components/search-widget';
 import Accordion from './components/accordion';
 import Siema from './components/siema';
@@ -20,20 +19,10 @@ export function init () {
   SearchWidget.init();
   Accordion.init();
 
-  // Message bus.
-  const emitter = new Emitter();
   // Get initial state from the session
   window.store = new Store('cart', window.cartItems);
-  window.view = new View(emitter);
+  window.view = new View();
   window.cartController = new Controller(store, view);
-
-  // Toast bindings.
-  emitter.on('product:add:cart', (product) => {
-    Toast.create(`Product added to cart. ID: ${product.id}`);
-  });
-  emitter.on('product:add:wishlist', (product) => {
-    Toast.create(`Product added to wishlist. ID: ${product.id}`);
-  });
 
   window.addEventListener('load', function() {
     // Wait for evertything to load before applying images.
