@@ -116,3 +116,5 @@ Route::put('customers/{id}/edit/{user}', 'Api\CustomersController@updateCustomer
 Route::resource('customers', 'Api\CustomersController');
 
 Route::resource('shopping-carts', 'Api\ShoppingCartsController');
+
+Route::resource('currencies', 'Api\CurrenciesController');
