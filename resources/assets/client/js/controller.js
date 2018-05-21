@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as types from './actions/action-types';
 
 class Controller {
   /**
@@ -11,14 +12,8 @@ class Controller {
     this.store = store;
     this.view = view;
 
-    this._routes = new Map([
-      ['add', (id) => `/korpa/${id}/add`],
-      ['remove', (id) => `/korpa/${id}/remove`],
-    ]);
-
-    this._token = document.head.querySelector('meta[name="csrf-token"]');
-
     this.view.bindAddItemToCart(this.addItem.bind(this));
+    this.view.bindRemoveItemFromCart(this.removeItem.bind(this));
   }
 
   /**
@@ -28,30 +23,27 @@ class Controller {
    * @property {String} product.id - Product id.
    * @property {Number} product.count - Amount of items.
    */
-  addItem(product) {
-    axios.post(this._routes.get('add')(product.id), {
-      id: product.id,
-      _token: this._token,
-    })
-    .then((res) => {
-      if (res.status !== 200 || res.statusText.toLowerCase() !== 'ok') {
-        throw new Error(res.statusText);
-      }
-      
-      // Update view & show success message
-      this.store.add(product, (len) => {
+  addItem(id) {
+    this.store.add(id)
+      .then((len) => {
         this.view.update({
-          len,
-          id: product.id,
-          message: `Proizvod dodat u korpu. ID: ${product.id}`,
+          type: types.ADD_ITEM,
+          payload: {
+            id,
+            len,
+            message: `Proizvod dodat u korpu. ID: ${id}`,
+          },
         });
+      })
+      .catch((err) => {
+        // Show error massage.
+        this.view.update({
+          payload: {
+            message: 'Something bad happend',
+          },
+        });
+        console.error(err);
       });
-    })
-    .catch((err) => {
-      // Show error massage.
-      console.log('something bad happend')
-      console.error(err)
-    });
   }
 
   /**
@@ -60,23 +52,30 @@ class Controller {
    * @param {String} id - The id of product to remove from the store.
    */
   removeItem(id) {
-    axios.post(this._routes.get('remove')(id), {
-      id,
-      _token: this._token,
-    })
-    .then((res) => {
-      this.store.remove(id, (product) => {
+    this.store.remove(id)
+      .then((id) => {
         this.view.update({
-          len: this.store.products.length,
-          id: product.id,
-          message: `Proizvod izbačen iz korpe. ID: ${product.id}`,
+          type: types.REMOVE_ITEM,
+          payload: {
+            id,
+            len: this.store.products.length,
+            message: `Proizvod izbačen iz korpe. ID: ${id}`,
+          },
         });
+      })
+      .catch((err) => {
+        // Show error massage.
+        this.view.update({
+          payload: {
+            message: 'Something bad happend',
+          },
+        });
+        console.error(err);
       });
-    })
-    .catch((err) => {
-      console.log('something bad happend');
-      console.error(err);
-    });
+  }
+
+  setView(data) {
+    this.view.setView(data);
   }
 }
 

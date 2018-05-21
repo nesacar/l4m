@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { extend } from './utils';
 
 class Store {
@@ -11,86 +12,65 @@ class Store {
    * Creates new store.
    *
    * @param {String} name - Store name.
-   * @param {Array} products - Array of products.
    * @param {Function} callback - The callback to fire on instantiation.
    */
-  constructor(name, products, callback=function() {}) {
-    this._storeName = name;
-    this._products = products || [];
+  constructor(name, callback=function() {}) {
+    this._routes = new Map([
+      ['all', '/korpa'],
+      ['add', (id) => `/korpa/${id}/add`],
+      ['remove', (id) => `/korpa/${id}/remove`],
+    ]);
+    
+    this._token = document.head.querySelector('meta[name="csrf-token"]');
 
-    callback(this._products);
+    this._storeName = name;
+
+    axios.post(this._routes.get('all'), {
+      _token: this._token,
+    }).then((res) => {
+      this._products = res.data;
+      callback(this._products);
+    });
   }
 
   /**
    * Adds product to the collection.
    *
-   * @param {Object} product - Product object.
-   * @param {String} product.id - Products id.
-   * @param {Number} product.count - Amount of products.
-   * @param {Function} callback - The callback to fire on add.
+   * @param {String} id - Products id.
+   * @return {Promise}
    */
-  add(product, callback=function() {}) {
-    // TODO: Merge add and update to save.
-    // Length of updated array.
-    const length = this._products.push(product);
-
-    callback(length);
+  add(id) {
+    return axios.post(this._routes.get('add')(id), {
+      id,
+      _token: this._token,
+    })
+    .then((res) => {
+      return this._products.push(parseInt(id));
+    });
   }
 
   /**
    * Removes the item from the collection.
    *
    * @param {String} id - The product id to remove.
-   * @param {Function} callback - The callback to fire on removal
+   * @return {Promise}
    * of product.
    */
-  remove(id, callback=function() {}) {
-    const index = this._products.findIndex((product) => {
-      return product.id === id;
+  remove(id) {
+    return axios.post(this._routes.get('remove')(id), {
+      id,
+      _token: this._token,
+    })
+    .then((res) => {
+      const index = this._products.indexOf(parseInt(id));
+
+      if (index < 0) {
+        throw new Error(`Could not find the product with the ID: ${id}`);
+      }
+  
+      // Removed product.
+      return this._products.splice(index, 1)[0];
     });
-
-    if (index < 0) {
-      console.error(`Could not find the product with the ID: ${id}`);
-      return;
-    }
-
-    // Removed product.
-    const product = this._products.splice(index, 1)[0];
-
-    callback(product);
-  }
-
-  /**
-   * Updates the product with matched id.
-   *
-   * @param {Object} update - Object to update product with.
-   * @param {Function} callback - The callback to fire on update completion.
-   */
-  update(update, callback=function() {}) {
-    const product = this._products.find((product) => {
-      return product.id === update.id;
-    });
-
-    if (!product) {
-      console.error(`Could not find the product with the ID: ${update.id}`);
-      return;
-    }
-
-    // Update the product.
-    extend(product, params);
-
-    callback(product);
-  }
-
-  /**
-   * WARNING: Removes all the products, and starts clean.
-   * 
-   * @param {Function} callback - The callback to fire on fresh start.
-   */
-  drop(callback=function() {}) {
-    this._products = [];
-
-    callback();
   }
 }
 

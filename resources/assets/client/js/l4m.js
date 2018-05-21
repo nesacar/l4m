@@ -20,7 +20,9 @@ export function init () {
   Accordion.init();
 
   // Get initial state from the session
-  window.store = new Store('cart', window.cartItems);
+  window.store = new Store('cart', function(data) {
+    cartController.setView(data);
+  });
   window.view = new View();
   window.cartController = new Controller(store, view);
 
