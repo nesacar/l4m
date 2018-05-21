@@ -8,6 +8,8 @@ class View {
   constructor() {
     this.emitter = new Emitter();
 
+    this._chip = document.querySelector('.js-basket-chip');
+
     // Extend product elements with product helper.
     document.querySelectorAll('.js-product')
       .forEach((item, i) => {
@@ -58,6 +60,10 @@ class View {
         break;
     }
 
+    if (payload.len) {
+      let {len} = payload;
+      this._chip.innerHTML = len > 0 ? len : '';
+    }
     if (payload.message) {
       Toast.create(payload.message);
     }
