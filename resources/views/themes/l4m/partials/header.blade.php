@@ -19,7 +19,9 @@
       </a>
       <div class="header_basket">
         <a href="{{ url('korpa') }}" class="icon-btn">
+          @if( \Cart::count() > 0)
           <small class="chip js-basket-chip">{{ \Cart::count() }}</small>
+          @endif
           <svg class="icon" role="presentation">
             <use xlink:href="#icon_cart">
           </svg>
