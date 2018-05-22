@@ -34,9 +34,21 @@
   display: inline-block;
 }
 
+.client_hero {
+  margin-bottom: 107px;
+}
+
 .client_profile {
+  transform: translateY(50%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.client_profile-wrap {
   display: flex;
-  transform: translateY(-50%);
 }
 
 .client_info {
