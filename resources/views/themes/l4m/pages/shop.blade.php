@@ -88,8 +88,6 @@
         {{ $data['products']->appends(Request::all())->links() }}
       </nav>
 
-    </div>
-
   </section>
 
 @endsection

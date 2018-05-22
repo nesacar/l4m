@@ -30,6 +30,10 @@ Route::get('/client', function() {
   return view('themes.l4m.pages.client.home');
 });
 
+Route::get('/client/shop', function() {
+  return view('themes.l4m.pages.client.shop');
+});
+
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
