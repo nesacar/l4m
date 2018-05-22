@@ -40,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
 
       Blade::component($components . 'accordion', 'accordion');
 
+      Blade::component($components . 'currency', 'currency');
+
       Blade::include($partials . 'social', 'social');
     }
 }

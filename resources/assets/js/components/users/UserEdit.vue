@@ -45,8 +45,9 @@
                             <div class="form-group">
                                 <label for="role">Pravo pristupa</label>
                                 <select name="role" class="form-control" id="role" v-model="user.role_id">
-                                    <option value="0" :selected="user.role_id == 0">Urednik</option>
-                                    <option value="1" :selected="user.role_id == 1">Admin</option>
+                                    <option value="0" :selected="user.role_id == 0">Kupac</option>
+                                    <option value="1" :selected="user.role_id == 1">Klijent</option>
+                                    <option value="2" :selected="user.role_id == 2">Admin</option>
                                 </select>
                             </div>
                             <div class="form-group">

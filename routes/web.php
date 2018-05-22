@@ -44,7 +44,7 @@ Route::get('/client/akcije', function() {
 
 Auth::routes();
 
-Route::get('home', 'HomeController@index')->name('home');
+//Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('proba', 'PagesController@proba');
 
@@ -65,6 +65,3 @@ Route::post('korpa', 'CartsController@getIds');
 Route::post('korpa/{id}/add', 'CartsController@add');
 Route::post('korpa/{id}/remove', 'CartsController@remove');
 Route::get('korpa/store', 'CartsController@store');
-
-Route::get('lista-zelja', 'WishListsController@index');
-Route::get('lista-zelja/{product}', 'WishListsController@store');

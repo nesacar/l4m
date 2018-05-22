@@ -21,13 +21,15 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                                 <a class="dropdown-item" href="#" @click.prevent="newProduct()">Proizvod</a>
-                                <a class="dropdown-item" href="#" @click.prevent="newBrand()">Brend</a>
-                                <a class="dropdown-item" href="#" @click.prevent="newCollection()">Kolekcija</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" @click.prevent="newPost()">Članak</a>
-                                <a class="dropdown-item" href="#" @click.prevent="newBlog()">Kategorija</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" @click.prevent="newUser()">Korisnik</a>
+                                <template v-if="admin">
+                                    <a class="dropdown-item" href="#" @click.prevent="newBrand()">Brend</a>
+                                    <a class="dropdown-item" href="#" @click.prevent="newCollection()">Kolekcija</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" @click.prevent="newPost()">Članak</a>
+                                    <a class="dropdown-item" href="#" @click.prevent="newBlog()">Kategorija</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" @click.prevent="newUser()">Korisnik</a>
+                                </template>
                             </div>
                         </div>
                     </li>
@@ -102,7 +104,10 @@
             },
             user(){
                 return this.$store.getters.getUser;
-            }
+            },
+            admin(){
+                return this.$store.getters.isAdmin;
+            },
         },
         created(){
             this.storeUser();

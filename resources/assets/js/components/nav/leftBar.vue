@@ -12,17 +12,18 @@
                 <font-awesome-icon icon="home" />
                 <router-link tag="a" :to="'/home'">Početna</router-link>
             </li>
-            <li :class="{ 'active': showSettingsItemActive }" :style="{ 'display': showSettingsItem ? 'block' : 'none' }">
+            <li :class="{ 'active': showSettingsItemActive }" :style="{ 'display': showSettingsItem ? 'block' : 'none' }"  v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowSettingsItemActive()">Podešavanja</a>
                 <font-awesome-icon icon="cogs"/>
                 <ul>
                     <li><router-link tag="a" :to="'/settings/1/edit'">SEO</router-link></li>
+                    <li><router-link tag="a" :to="'/currencies'">Valute</router-link></li>
                     <li><router-link tag="a" :to="'/themes'">Teme</router-link></li>
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>
-            <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }">
+            <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }"  v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
                 <font-awesome-icon icon="th-large" />
@@ -47,24 +48,25 @@
                 <font-awesome-icon icon="shopping-cart" />
                 <ul>
                     <li><router-link tag="a" :to="'/products'">Proizvodi</router-link></li>
-                    <li><router-link tag="a" :to="'/categories'">Kategorije</router-link></li>
-                    <li><router-link tag="a" :to="'/brands'">Brendovi</router-link></li>
-                    <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
-                    <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
-                    <li><router-link tag="a" :to="'/attributes'">Atributi</router-link></li>
-                    <li><router-link tag="a" :to="'/sets'">Setovi</router-link></li>
+                    <template v-if="admin">
+                        <li><router-link tag="a" :to="'/categories'">Kategorije</router-link></li>
+                        <li><router-link tag="a" :to="'/brands'">Brendovi</router-link></li>
+                        <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
+                        <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
+                        <li><router-link tag="a" :to="'/attributes'">Atributi</router-link></li>
+                        <li><router-link tag="a" :to="'/sets'">Setovi</router-link></li>
+                    </template>
                 </ul>
             </li>
-            <li :class="{ 'active': showOrdersItemActive }" :style="{ 'display': showOrdersItem ? 'block' : 'none' }">
+            <li :class="{ 'active': showOrdersItemActive }" :style="{ 'display': showOrdersItem ? 'block' : 'none' }" v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowOrdersItemActive()">Narudžbine</a>
                 <font-awesome-icon icon="shopping-basket" />
                 <ul>
                     <li><router-link tag="a" :to="'/shopping-carts'">Narudžbine</router-link></li>
-                    <li><router-link tag="a" :to="'/currencies'">Valute</router-link></li>
                 </ul>
             </li>
-            <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">
+            <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }" v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowPostsItemActive()">Članci</a>
                 <font-awesome-icon icon="paste" />
@@ -73,15 +75,15 @@
                     <li><router-link tag="a" :to="'/blogs'">Kategorije</router-link></li>
                 </ul>
             </li>
-            <li>
+            <li v-if="admin">
                 <font-awesome-icon icon="images" />
                 <a :href="domain + 'filemanager/show'" target="_blank">File manager</a>
             </li>
-            <li>
+            <li v-if="admin">
                 <font-awesome-icon icon="tags" />
                 <router-link tag="a" :to="'/tags'">Tagovi</router-link>
             </li>
-            <li :class="{ 'active': showNewslettersItemActive }" :style="{ 'display': showNewslettersItem ? 'block' : 'none' }">
+            <li :class="{ 'active': showNewslettersItemActive }" :style="{ 'display': showNewslettersItem ? 'block' : 'none' }" v-if="admin">
                 <font-awesome-icon icon="angle-right" />
                 <a href="#" @click="changeShowNewslettersItemActive()">Newsletter</a>
                 <font-awesome-icon icon="envelope" />

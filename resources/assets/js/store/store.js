@@ -120,7 +120,7 @@ export const store = new Vuex.Store({
         /** auth **/
         changeUser: (state, callback) => {
             state.user = callback;
-            if(state.user.role_id == 1){
+            if(state.user.role_id == 2){
                 state.admin = true;
             }
         },
