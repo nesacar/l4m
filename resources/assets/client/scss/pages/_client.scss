@@ -28,10 +28,15 @@
 }
 
 .avatar {
-  width: 152px;
+  width: 96px;
   padding: 1px;
   background: linear-gradient(white, black);
   display: inline-block;
+  flex-shrink: 0;
+
+  @include media-breakpoint-up(md) {
+    width: 152px;
+  }
 }
 
 .client_hero {
@@ -60,12 +65,17 @@
 .client_name {
   color: white;
   font-family: $font-family;
-  font-size: 32px;
+  font-size: 24px;
   margin: 0;
   height: 50%;
   display: flex;
   align-items: center;
-  padding-left: 32px;
+  padding-left: 16px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 32px;
+    padding-left: 32px;
+  }
 }
 
 .client_nav {
@@ -73,7 +83,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 32px;
+  padding-left: 16px;
+
+  @include media-breakpoint-up(md) {
+    padding-left: 32px;
+  }
 }
 
 .client_nav-list {
@@ -97,10 +111,15 @@
   display: block;
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: $font-weight-medium;
-  padding: 8px 16px;
+  padding: 8px;
   border: 1px solid transparent;
+
+  @include media-breakpoint-up(md) {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
 
   &.active {
     border-color: $border-color-dark;
