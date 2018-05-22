@@ -30,6 +30,10 @@ Route::get('/client', function() {
   return view('themes.l4m.pages.client.home');
 });
 
+Route::get('/client/about', function() {
+  return view('themes.l4m.pages.client.about');
+});
+
 Route::get('/client/shop', function() {
   return view('themes.l4m.pages.client.shop');
 });
