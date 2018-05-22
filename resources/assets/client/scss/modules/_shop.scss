@@ -92,11 +92,6 @@
   }
 
   &_price-tag {
-    &::after {
-      display: inline;
-      content: " RSD";
-    }
-
     &--invalid {
       color: $text-hint-on-light;
       text-decoration: line-through;
