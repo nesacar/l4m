@@ -87,13 +87,4 @@ class SubscribersController extends Controller
             'message' => 'Pretplatnik je obrisan.'
         ]);
     }
-
-    public function subscribe(SubscriberNewsletterRequest $request){
-        Subscriber::createSubscriber();
-        return back()->with('message', 'Uspešno ste se prijavili na našu Newsletter listu');
-    }
-
-    public function unSubscribe($verification){
-
-    }
 }

@@ -28,9 +28,9 @@
                     </div>
                     <div class="product_price">
                         @if($product->discount)
-                            <span class="shop-item_price-tag shop-item_price-tag--invalid">{{ number_format($product->price, 2, ',', '.') }}</span>
+                            <span class="shop-item_price-tag shop-item_price-tag--invalid">@currency(['price' => $product->price]) @endcurrency</span>
                         @endif
-                        <span class="shop-item_price-tag">{{ number_format($product->totalPrice, 2, ',', '.') }}</span>
+                        <span class="shop-item_price-tag">@currency(['price' => $product->totalPrice]) @endcurrency</span>
                     </div>
                     <div class="product_options">
                         @if(false)

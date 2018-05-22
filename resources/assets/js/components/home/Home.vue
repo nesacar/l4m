@@ -42,7 +42,11 @@
                 if(this.$store.getters.getUser == null){
                     axios.get('api/user')
                         .then(res => {
-                            this.$store.dispatch('changeUser', res.data);
+                            if(res.data.role_id < 1){
+                                this.$router.push('/logout');
+                            }else{
+                                this.$store.dispatch('changeUser', res.data);
+                            }
                         })
                         .catch(e => {
                             if(e.response.status == 401){
