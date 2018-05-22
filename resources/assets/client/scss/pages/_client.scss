@@ -35,7 +35,7 @@
 }
 
 .client_hero {
-  margin-bottom: 107px;
+  margin-bottom: 76px;
 }
 
 .client_profile {
@@ -106,4 +106,24 @@
     border-color: $border-color-dark;
     border-bottom-color: white;
   }
+}
+
+.client_products {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.client_showcase {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.client_brands {
+  background-color: $theme-primary--light;
+  padding-bottom: 32px;
+}
+
+.client_brand-list {
+  display: flex;
+  justify-content: center;
 }
