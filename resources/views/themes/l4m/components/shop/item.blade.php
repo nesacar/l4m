@@ -45,14 +45,14 @@
       <div class="shop-item_price">
         @if($product->discount)
         <div class="shop-item_price-tag shop-item_price-tag--invalid">
-          {{ number_format($product->price, 2, ',', '.') }}
+          @currency(['price' => $product->price]) @endcurrency
         </div>
         <div class="shop-item_price-tag">
-          {{ number_format($product->totalPrice, 2, ',', '.') }}
+          @currency(['price' => $product->totalPrice]) @endcurrency
         </div>
         @else
         <div class="shop-item_price-tag">
-          {{ number_format($product->totalPrice, 2, ',', '.') }}
+          @currency(['price' => $product->totalPrice]) @endcurrency
         </div>
         @endif
       </div>

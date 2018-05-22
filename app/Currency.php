@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Currency extends Model
 {
-    protected $fillable = ['name', 'code', 'symbol', 'format', 'exchange_rate', 'primary', 'publish'];
+    protected $fillable = ['name', 'code', 'symbol', 'format', 'exchange_rate', 'active', 'primary', 'publish'];
 
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value?: false;

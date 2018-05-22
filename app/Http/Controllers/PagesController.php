@@ -47,7 +47,8 @@ class PagesController extends Controller
 //        \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $product->price, 'options' => ['size' => 'small']]);
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
-        return currency(12.00, 'RSD', 'EUR');
+        //\Session::forget('currency');
+        return \Session::get('currency');
         return 'done2';
     }
 }

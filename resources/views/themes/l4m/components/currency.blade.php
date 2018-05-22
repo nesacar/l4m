@@ -1,0 +1,1 @@
+{{ number_format($price / \Session::get('currency')->exchange_rate, 2, ',', '.') }} {{ \Session::get('currency')->code }}

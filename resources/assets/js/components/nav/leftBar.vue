@@ -18,6 +18,7 @@
                 <font-awesome-icon icon="cogs"/>
                 <ul>
                     <li><router-link tag="a" :to="'/settings/1/edit'">SEO</router-link></li>
+                    <li><router-link tag="a" :to="'/currencies'">Valute</router-link></li>
                     <li><router-link tag="a" :to="'/themes'">Teme</router-link></li>
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
@@ -61,7 +62,6 @@
                 <font-awesome-icon icon="shopping-basket" />
                 <ul>
                     <li><router-link tag="a" :to="'/shopping-carts'">Narudžbine</router-link></li>
-                    <li><router-link tag="a" :to="'/currencies'">Valute</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showPostsItemActive }" :style="{ 'display': showPostsItem ? 'block' : 'none' }">
