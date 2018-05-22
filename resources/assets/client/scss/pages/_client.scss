@@ -111,6 +111,12 @@
 .client_products {
   text-align: center;
   margin-bottom: 32px;
+
+  &--border {
+    & + & {
+      border-top: 1px solid $border-color-dark;
+    }
+  }
 }
 
 .client_showcase {

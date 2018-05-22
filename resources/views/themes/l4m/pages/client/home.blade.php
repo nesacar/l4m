@@ -91,5 +91,36 @@
     </div>
   </div>
 </div>
+
+{{-- Ponavljati N puta --}}
+<div class="container client_products client_products--border">
+  <h2 class="display-3 section-title--serif">Akcija</h2>
+  <div class="showcase_carousel client_showcase">
+    {{-- @foreach($featuredProducts->first()->product as $i => $product)
+    <div class="showcase_item">
+      @component('themes.' . $theme . '.components.shop.item', [
+        'product' => $product,
+        'theme' => $theme,
+        '_index' => $i
+      ])
+      @endcomponent
+    </div>
+    @endforeach --}}
+  </div>
+
+  <a href="#" class="btn btn--primary">pogledajte sve</a>
+</div>
+{{-- /Ponavljati N puta --}}
+
+<div class="home_discover-more">
+  <div class="container">
+    <h2 class="display-3 home_discover-more_title">Otrki više</h2>
+    {{-- @component('themes.' . $theme . '.components.grid', [
+      'component' => 'blog.tile',
+      'items' => $posts,
+    ])
+    @endcomponent --}}
+  </div>
+</div>
   
 @endsection
