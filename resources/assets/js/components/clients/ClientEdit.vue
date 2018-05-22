@@ -6,8 +6,8 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/blogs'">Kategorije članaka</router-link></li>
-                            <li>Izmena kategorije</li>
+                            <li><router-link tag="a" :to="'/clients'">Klijenti</router-link></li>
+                            <li>Izmena klijenta</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
             <div class="row bela">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Izmena kategorije</h5>
+                        <h5>Izmena klijenta</h5>
                     </div>
                 </div>
 
@@ -24,15 +24,24 @@
                     <div class="card">
                         <div class="form-group">
                             <label>Publikovano</label><br>
-                            <switches v-model="blog.publish" theme="bootstrap" color="primary"></switches>
+                            <switches v-model="client.publish" theme="bootstrap" color="primary"></switches>
                         </div>
 
                         <upload-image-helper
-                                :image="blog.image"
+                                :image="client.image"
                                 :defaultImage="null"
-                                :titleImage="'kategorije'"
+                                :titleImage="'klijenta'"
                                 :error="error"
                                 @uploadImage="upload($event)"
+                                @removeRow="remove($event)"
+                        ></upload-image-helper>
+
+                        <upload-image-helper
+                                :image="client.cover"
+                                :defaultImage="null"
+                                :titleImage="'klijenta'"
+                                :error="error"
+                                @uploadImage="uploadCover($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
                     </div>
@@ -41,29 +50,32 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
-                                <label for="category">Nad kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="blog.parent">
-                                    <option :value="index" v-for="(parent, index) in lists">{{ parent }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
+                                <label for="name">Ime klijenta <span>*</span></label>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Ime klijenta" v-model="client.name">
+                                <small class="form-text text-muted" v-if="error != null && error.name">{{ error.name[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="blog.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
+                                <label for="fullName">Puno ime klijenta</label>
+                                <input type="text" name="name" class="form-control" id="fullName" placeholder="Puno ime klijenta" v-model="client.fullName">
+                                <small class="form-text text-muted" v-if="error != null && error.fullName">{{ error.fullName[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="blog.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
+                                <label for="short">Kratak opis</label>
+                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="client.short"></textarea>
+                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label>Opis</label>
                                 <ckeditor
-                                        v-model="blog.short"
+                                        v-model="client.body"
                                         :config="config">
                                 </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
+                                <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="order">Redosled</label>
+                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="client.order">
+                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
@@ -86,9 +98,8 @@
     export default {
         data(){
           return {
-              blog: {},
+              client: {},
               error: null,
-              lists: [],
               config: {
                   toolbar: [
                       [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
@@ -108,14 +119,13 @@
             'ckeditor': Ckeditor
         },
         created(){
-            this.getCategory();
-            this.getList();
+            this.getClient();
         },
         methods: {
-            getCategory(){
-                axios.get('api/blogs/' + this.$route.params.id)
+            getClient(){
+                axios.get('api/clients/' + this.$route.params.id)
                     .then(res => {
-                        this.blog = res.data.blog;
+                        this.client = res.data.client;
                     })
                     .catch(e => {
                         console.log(e);
@@ -123,9 +133,9 @@
                     });
             },
             submit(){
-                axios.put('api/blogs/' + this.blog.id, this.blog)
+                axios.put('api/clients/' + this.client.id, this.client)
                     .then(res => {
-                        this.blog = res.data.blog;
+                        this.client = res.data.client;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -141,11 +151,11 @@
             },
             upload(image){
                 let data = new FormData();
-                data.append('file', image.file);
+                data.append('image', image.file);
 
-                axios.post('api/blogs/' + this.blog.id + '/image', data)
+                axios.post('api/clients/' + this.client.id + '/image', data)
                     .then(res => {
-                        this.blog.image = res.data.image;
+                        this.client.image = res.data.image;
                         this.error = null;
                         swal({
                             position: 'center',
@@ -159,14 +169,45 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getList(){
-                axios.get('api/blogs/lists?parent=1')
+            uploadCover(image){
+                let data = new FormData();
+                data.append('cover', image.file);
+
+                axios.post('api/clients/' + this.client.id + '/image', data)
                     .then(res => {
-                        this.lists = res.data.blogs;
+                        this.client.cover = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            uploadCover(image){
+                let data = new FormData();
+                data.append('cover', image.file);
+
+                axios.post('api/clients/' + this.client.id + '/image', data)
+                    .then(res => {
+                        this.client.cover = res.data.image;
+                        this.error = null;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
         }
     }
