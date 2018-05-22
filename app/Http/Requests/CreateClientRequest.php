@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadImageRequest extends FormRequest
+class CreateClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,23 +24,14 @@ class UploadImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'image',
-            'image' => 'image',
-            'slider' => 'image',
-            'cover' => 'image',
+            'name' => 'required',
         ];
     }
 
-    /**
-     * @return array
-     */
     public function messages()
     {
         return [
-            'file.image' => 'Slika nije u ispravnom formatu',
-            'image.image' => 'Slika nije u ispravnom formatu',
-            'slider.image' => 'Slika nije u ispravnom formatu',
-            'cover.image' => 'Slika nije u ispravnom formatu',
+            'name.required' => 'Naziv je obavezan',
         ];
     }
 }

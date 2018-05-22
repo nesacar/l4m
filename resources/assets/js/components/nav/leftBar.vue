@@ -38,8 +38,9 @@
                 <a href="#" @click="changeShowUsersItemActive()">Korisnici</a>
                 <font-awesome-icon icon="users" />
                 <ul>
-                    <li><router-link tag="a" :to="'/users'">Pregled korisnika</router-link></li>
-                    <li><router-link tag="a" :to="'/customers'">Pregled kupaca</router-link></li>
+                    <li><router-link tag="a" :to="'/users'">Korisnici</router-link></li>
+                    <li><router-link tag="a" :to="'/customers'">Kupci</router-link></li>
+                    <li><router-link tag="a" :to="'/clients'">Klijenti</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showProductsItemActive }" :style="{ 'display': showProductsItem ? 'block' : 'none' }">

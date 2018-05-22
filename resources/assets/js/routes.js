@@ -103,6 +103,10 @@ export const router = new VueRouter({
         { path: "/currencies", component: require('./components/currencies/CurrencyList.vue'), meta: { forAuth: true } },
         { path: "/currencies/create", component: require('./components/currencies/CurrencyCreate.vue'), meta: { forAuth: true } },
         { path: "/currencies/:id/edit", component: require('./components/currencies/CurrencyEdit.vue'), meta: { forAuth: true } },
+
+        { path: "/clients", component: require('./components/clients/ClientList.vue'), meta: { forAuth: true } },
+        { path: "/clients/create", component: require('./components/clients/ClientCreate.vue'), meta: { forAuth: true } },
+        { path: "/clients/:id/edit", component: require('./components/clients/ClientEdit.vue'), meta: { forAuth: true } },
     ],
 
     linkActiveClass: 'active',

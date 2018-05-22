@@ -118,3 +118,6 @@ Route::resource('customers', 'Api\CustomersController');
 Route::resource('shopping-carts', 'Api\ShoppingCartsController');
 
 Route::resource('currencies', 'Api\CurrenciesController');
+
+Route::resource('clients', 'Api\ClientsController');
+Route::post('clients/{id}/image', 'Api\ClientsController@uploadImage');

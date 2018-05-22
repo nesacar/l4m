@@ -40,9 +40,6 @@ class CollectionsController extends Controller
     public function store(CreateCollectionRequest $request)
     {
         $collection = Collection::create(request()->except('image'));
-        $collection->slug = request('slug')?: request('title');
-        $collection->publish = request('publish')?: false;
-        $collection->update();
 
         return response()->json([
             'collection' => $collection
@@ -72,9 +69,6 @@ class CollectionsController extends Controller
     public function update(CreateCollectionRequest $request, Collection $collection)
     {
         $collection->update(request()->except('image'));
-        $collection->slug = request('slug')?: request('title');
-        $collection->publish = request('publish')?: false;
-        $collection->update();
 
         return response()->json([
             'collection' => $collection
