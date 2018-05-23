@@ -1,23 +1,48 @@
 (function() {
-  const toggleEl = document.querySelector('.js-collapse-toggle');
-  const el = document.querySelector('.js-collapse-container');
-  const content = el.querySelector('.js-collapse-content');
+  let toggleEl;
+  let el;
+  let content;
+  let state = {
+    expanded: false,
+  };
 
-  toggleEl.addEventListener('click', _toggleElement);
+  _init();
 
   /**
-   * Toggles the container visibility.
-   *
-   * @param {Event} e - Click event object.
+   * Kicks things out.
    */
-  function _toggleElement(e) {
-    // Transform to boolean.
-    const expanded = (toggleEl.dataset.expanded === 'true');
+  function _init() {
+    toggleEl = document.querySelector('.js-collapse-toggle');
+    el = document.querySelector('.js-collapse-container');
+    content = el.querySelector('.js-collapse-content');
+    toggleEl.addEventListener('click', _toggleCollapse);
 
-    if (expanded) {
+    // Initial render.
+    _setState({
+      expanded: (toggleEl.dataset.expanded === 'true'),
+    });
+  }
+
+  /**
+   * Convinience function for toggling state.
+   * 
+   * @param {Event} e - event object.
+   */
+  function _toggleCollapse(e) {
+    _setState({
+      expanded: !state.expanded,
+    });
+  }
+
+  /**
+   * Updates the view.
+   */
+  function _render(e) {
+    toggleEl.dataset.expanded = state.expanded;
+
+    if (!state.expanded) {
       requestAnimationFrame(() => {
         el.style = '';
-        toggleEl.dataset.expanded = false;
       });
       return;
     }
@@ -26,7 +51,16 @@
 
     requestAnimationFrame(() => {
       el.style.paddingTop = `${height}px`;
-      toggleEl.dataset.expanded = true;
     });
+  }
+
+  /**
+   * Updates state and calls render.
+   *
+   * @param {Object} partialState - State update.
+   */
+  function _setState(partialState) {
+    state = Object.assign({}, state, partialState);
+    _render();
   }
 }());
