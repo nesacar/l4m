@@ -11,6 +11,7 @@
 
         <div class="brand_header">
             <h1 class="display-3 brand_name">{{ $brand->title }}</h1>
+            @if(!empty($brand->body))
             <div class="brand_about js-collapse-container">
               <div class="brand_about-content js-collapse-content">
                 {!! $brand->body !!}
@@ -23,6 +24,7 @@
                 </svg>
               </button>
             </div>
+            @endif
         </div>
 
     </section>

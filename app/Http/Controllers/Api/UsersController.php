@@ -118,4 +118,15 @@ class UsersController extends Controller
             'users' => $users,
         ]);
     }
+
+    /**
+     * @param User $user
+     */
+    public function clientByUser(User $user){
+        $client = $user->client()->first();
+
+        return response()->json([
+            'client' => $client,
+        ]);
+    }
 }

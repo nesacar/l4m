@@ -21,6 +21,7 @@ Route::get('users/logout', 'Api\UsersController@logout');
 Route::get('users/get-users', 'Api\UsersController@getUsers');
 Route::post('users/change-password', 'Api\UsersController@changePassword');
 Route::resource('users', 'Api\UsersController');
+Route::get('users/{id}/client', 'Api\UsersController@clientByUser');
 Route::post('users/{id}/image', 'Api\UsersController@uploadImage');
 
 Route::get('settings/{id}/edit', 'Api\SettingsController@edit');
@@ -119,5 +120,6 @@ Route::resource('shopping-carts', 'Api\ShoppingCartsController');
 
 Route::resource('currencies', 'Api\CurrenciesController');
 
+Route::get('clients/lists', 'Api\ClientsController@lists');
 Route::resource('clients', 'Api\ClientsController');
 Route::post('clients/{id}/image', 'Api\ClientsController@uploadImage');

@@ -100,4 +100,12 @@ class ClientsController extends Controller
             ]);
         }
     }
+
+    public function lists(){
+        $clients = Client::with('user')->get();
+
+        return response()->json([
+            'clients' => $clients,
+        ]);
+    }
 }

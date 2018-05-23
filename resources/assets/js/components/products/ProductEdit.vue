@@ -36,6 +36,13 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <form @submit.prevent="submit()">
+                            <div class="form-group" v-if="admin">
+                                <label for="client">Klijent</label>
+                                <select name="client" id="client" class="form-control" v-model="product.client_id">
+                                    <option :value="client.id" v-for="client in clients">{{ client.name }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.client_id">{{ error.client_id[0] }}</small>
+                            </div>
                             <div class="form-group">
                                 <label for="set">Set</label>
                                 <select name="set" id="set" class="form-control" v-model="product.set_id" @change="getProperties()">
@@ -242,6 +249,7 @@
               properties: {},
               photos: {},
               sets: {},
+              clients: {},
               tags: {},
               error: null,
               config: {
@@ -269,7 +277,10 @@
             },
             publish_at(){
                 return this.product.date + ' ' + this.product.time;
-            }
+            },
+            admin(){
+                return this.$store.getters.isAdmin;
+            },
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
@@ -285,6 +296,7 @@
             this.getTags();
             this.getCategories();
             this.getPhotos();
+            this.getClients();
         },
         methods: {
             getProduct(){
@@ -331,6 +343,16 @@
                         console.log(e.response.data);
                         this.error = e.response.data.errors;
                     });
+            },
+            getClients(){
+                axios.get('api/clients/lists')
+                    .then(res => {
+                        this.clients = res.data.clients;
+                        console.log(this.clients);
+                    }).catch(e => {
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
             },
             upload(image){
                 let data = new FormData();

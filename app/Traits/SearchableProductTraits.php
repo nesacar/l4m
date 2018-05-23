@@ -70,7 +70,7 @@ trait SearchableProductTraits
         $productIds = $products->pluck('id')->toArray();
 
         return self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
-            ->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate);
+            ->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$simplePaginate);
 
     }
 
