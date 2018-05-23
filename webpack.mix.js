@@ -20,7 +20,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
   .js('resources/assets/client/js/index.js', 'public/themes/l4m/js')
   .js('resources/assets/client/js/image-processor.js', 'public/themes/l4m/js')
   .js('resources/assets/client/js/chunks/product.js', 'public/themes/l4m/js')
-  .js('resources/assets/client/js/chunks/shop.js', 'public/themes/l4m/js');
+  .js('resources/assets/client/js/chunks/shop.js', 'public/themes/l4m/js')
+  .js('resources/assets/client/js/chunks/brand.js', 'public/themes/l4m/js');
 
 mix.sass('resources/assets/sass/app.scss', 'public/css')
   .sass('resources/assets/client/scss/main.scss', 'public/themes/l4m/css')

@@ -11,8 +11,17 @@
 
         <div class="brand_header">
             <h1 class="display-3 brand_name">{{ $brand->title }}</h1>
-            <div class="brand_about">
+            <div class="brand_about js-collapse-container">
+              <div class="brand_about-content js-collapse-content">
                 {!! $brand->body !!}
+              </div>
+            </div>
+            <div style="text-align: center; padding: 8px 0;">
+              <button class="icon-btn brand_about-toggle js-collapse-toggle" data-expanded="false">
+                <svg class="icon">
+                  <use xlink:href="#icon_arrow">
+                </svg>
+              </button>
             </div>
         </div>
 
@@ -55,4 +64,8 @@
             {{ $products->appends(Request::all())->links() }}
         </nav>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ url('themes/' . $theme . '/js/brand.js') }}"></script>
 @endsection

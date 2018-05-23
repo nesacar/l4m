@@ -2,7 +2,7 @@
   $b: &;
 
   &_header {
-    margin-bottom: 4 * $base-line;
+    margin-bottom: 2 * $base-line;
   }
 
   &_name {
@@ -10,7 +10,32 @@
   }
 
   &_about {
+    position: relative;
     margin-bottom: 0;
+    line-height: 1.5em;
+    padding-top: 5 * 1.5em;
+    overflow: hidden;
+    transition: padding-top .21s;
+
+    p {
+      margin-bottom: 1.5em;
+    }
+  }
+
+  &_about-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &_about-toggle {
+    svg.icon {
+      transition: transform .12s;
+    }
+
+    &[data-expanded=true] svg.icon {
+      transform: rotate(180deg);
+    }
   }
 
   &_masthead {
