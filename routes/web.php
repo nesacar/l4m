@@ -42,6 +42,10 @@ Route::get('/client/akcije', function() {
   return view('themes.l4m.pages.client.akcije');
 });
 
+Route::get('/brands', function() {
+  return view('themes.l4m.pages.brands');
+});
+
 Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');

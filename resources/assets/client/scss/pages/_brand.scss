@@ -2,7 +2,7 @@
   $b: &;
 
   &_header {
-    margin-bottom: 2 * $base-line;
+    // margin-bottom: 2 * $base-line;
   }
 
   &_name {
@@ -26,6 +26,11 @@
     position: absolute;
     top: 0;
     left: 0;
+    font-family: $font-family-playfair-display;
+
+    p:last-child {
+      margin-bottom: 0 !important;
+    }
   }
 
   &_about-toggle {
