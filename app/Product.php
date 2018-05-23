@@ -16,7 +16,7 @@ class Product extends Model
     use SearchableProductTraits, UploudableImageTrait;
 
     protected $fillable = [
-        'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
+       'client_id', 'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
@@ -29,6 +29,8 @@ class Product extends Model
     protected static $searchable = ['filters', 'price'];
 
     protected static $paginate = 15;
+
+    protected static $simplePaginate = 16;
 
     /**
      * The "booting" method of the model.

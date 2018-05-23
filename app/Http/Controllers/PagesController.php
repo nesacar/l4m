@@ -16,6 +16,7 @@ use App\Setting;
 use App\ShopBar;
 use App\ShoppingCart;
 use App\Theme;
+use App\User;
 
 class PagesController extends Controller
 {
@@ -48,7 +49,7 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        return \Session::get('currency');
+        return User::find(5)->client()->pluck('id')->toArray();
         return 'done2';
     }
 }

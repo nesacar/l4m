@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Attribute;
+use App\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
@@ -51,7 +52,8 @@ class ProductsController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        $product = Product::create(request()->except('image'));
+        $product = Product::create(request()->except('image', 'client_id'));
+        $product->update(['client_id' => request('client_id')?: Client::getClientId()]);
 
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
@@ -70,8 +72,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        $clientIds = auth()->user()->client()->pluck('id');
-        if(!auth()->user()->isAdmin() && in_array($product->client_id, $clientIds)){
+        if(!auth()->user()->isAdmin() && !in_array($product->client_id, auth()->user()->client()->pluck('id')->toArray())){
             return response([
                 'error' => 'unauthorized'
             ], 401);
@@ -100,7 +101,8 @@ class ProductsController extends Controller
      */
     public function update(CreateProductRequest $request, Product $product)
     {
-        $product->update(request()->except('image'));
+        $product->update(request()->except('image', 'client_id'));
+        $product->update(['client_id' => request('client_id')?: Client::getClientId()]);
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
@@ -128,7 +130,7 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        if(!auth()->user()->isAdmin() && $product->user_id != auth()->id()){
+        if(!auth()->user()->isAdmin() && !in_array($product->client_id, auth()->user()->client()->pluck('id')->toArray())){
             return response([
                 'error' => 'unauthorized'
             ], 401);

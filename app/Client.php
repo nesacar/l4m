@@ -35,6 +35,10 @@ class Client extends Model
         });
     }
 
+    public static function getClientId(){
+        return auth()->user()->isAdmin()? 1 : auth()->user()->client()->first()->id;
+    }
+
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value?: false;
     }
