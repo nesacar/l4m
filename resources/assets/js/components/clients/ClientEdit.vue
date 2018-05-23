@@ -59,6 +59,12 @@
                                 <input type="text" name="name" class="form-control" id="fullName" placeholder="Puno ime klijenta" v-model="client.fullName">
                                 <small class="form-text text-muted" v-if="error != null && error.fullName">{{ error.fullName[0] }}</small>
                             </div>
+                            <div class="form-group" v-if="brands">
+                                <label>Brendovi</label>
+                                <select2 :options="brands" :value="client.brand_ids" :multiple="true" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
                             <div class="form-group">
                                 <label for="short">Kratak opis</label>
                                 <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="client.short"></textarea>
@@ -94,11 +100,13 @@
     import swal from 'sweetalert2';
     import Switches from 'vue-switches';
     import Ckeditor from 'vue-ckeditor2';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
               client: {},
+              brands: {},
               error: null,
               config: {
                   toolbar: [
@@ -116,16 +124,33 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
-            'ckeditor': Ckeditor
+            'ckeditor': Ckeditor,
+            'select2': Select2,
         },
         mounted(){
-            this.getClient();
+            this.getBrands();
         },
         methods: {
+            getBrands(){
+                axios.get('api/brands/lists')
+                    .then(res => {
+                        this.brands = _.map(res.data.brands, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                        this.getClient();
+                        this.error = null;
+                    }).catch(e => {
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
+            },
             getClient(){
                 axios.get('api/clients/' + this.$route.params.id)
                     .then(res => {
                         this.client = res.data.client;
+                        this.client.brand_ids = res.data.brand_ids;
                     })
                     .catch(e => {
                         console.log(e);
@@ -136,6 +161,7 @@
                 axios.put('api/clients/' + this.client.id, this.client)
                     .then(res => {
                         this.client = res.data.client;
+                        this.client.brand_ids = res.data.brand_ids;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -188,6 +214,9 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
+            },
+            input(brand){
+                this.client.brand_ids = brand;
             },
         }
     }

@@ -52,6 +52,7 @@ class ClientsController extends Controller
     public function show(Client $client){
         return response()->json([
             'client' => $client->load('brand'),
+            'brand_ids' => $client->brand()->pluck('id')->toArray(),
         ]);
     }
 
@@ -68,6 +69,7 @@ class ClientsController extends Controller
 
         return response()->json([
             'client' => $client,
+            'brand_ids' => $client->brand()->pluck('id')->toArray(),
         ]);
     }
 
