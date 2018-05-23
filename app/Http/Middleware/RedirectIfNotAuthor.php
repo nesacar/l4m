@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class RedirectIfNotAdmin
+class RedirectIfNotAuthor
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,8 @@ class RedirectIfNotAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check() &&  auth()->user()->role_id >= 2) {
-            return $next($request);
-        }
+        dd($request->route('slug'));
 
-        return redirect('/');
+        return $next($request);
     }
 }
