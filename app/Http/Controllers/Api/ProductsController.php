@@ -27,11 +27,15 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
-            $query->orderBy('parent', 'DESC')->first();
-        }])->orderBy('id', 'DESC')->paginate(50);
-
-        $products->map(function($product){ $product->edit = false; return $product; } );
+        if(auth()->user()->isAdmin()){
+            $products = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
+                $query->orderBy('parent', 'DESC')->first();
+            }])->orderBy('id', 'DESC')->paginate(50);
+        }else{
+            $products = auth()->user()->product()->withoutGlobalScope('attribute')->with(['category' => function($query){
+                $query->orderBy('parent', 'DESC')->first();
+            }])->orderBy('id', 'DESC')->paginate(50);
+        }
 
         return response()->json([
             'products' => $products
@@ -65,6 +69,11 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
+        if(!auth()->user()->isAdmin() && $product->user_id != auth()->id()){
+            return response([
+                'error' => 'unauthorized'
+            ], 401);
+        }
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
         $tagIds = $product->tag->pluck('id');
@@ -117,6 +126,12 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
+        if(!auth()->user()->isAdmin() && $product->user_id != auth()->id()){
+            return response([
+                'error' => 'unauthorized'
+            ], 401);
+        }
+
         if($product->image) File::delete($product->image);
         $product->delete();
 

@@ -24,7 +24,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::select('posts.*')->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
+        if(auth()->user()->isAdmin()){
+            $posts = Post::select('posts.*')->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
+        }else{
+            $posts = auth()->user()->post()->select('posts.*')->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
+        }
 
         return response()->json([
             'posts' => $posts
@@ -57,6 +61,12 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        if(!auth()->user()->isAdmin() && $post->user_id != auth()->id()){
+            return response([
+                'error' => 'unauthorized'
+            ], 401);
+        }
+
         $postIds = $post->tag()->pluck('tags.id');
         $productIds = $post->product()->pluck('products.id');
 
@@ -99,8 +109,11 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        if($post->image) File::delete($post->image);
-        if($post->slider) File::delete($post->slider);
+        if(!auth()->user()->isAdmin() && $post->user_id != auth()->id()){
+            return response([
+                'error' => 'unauthorized'
+            ], 401);
+        }
         $post->delete();
 
         return response()->json([

@@ -30,6 +30,11 @@ class Post extends Model
                 $query->where('publish', 1)->orderBy('parent', 'ASC');
             }]);
         });
+
+        static::deleting(function ($post) {
+            if($post->image) File::delete($post->image);
+            if($post->slider) File::delete($post->slider);
+        });
     }
 
     public function getBreadcrumb(){

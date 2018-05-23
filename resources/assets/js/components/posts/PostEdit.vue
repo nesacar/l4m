@@ -221,6 +221,9 @@
                     .catch(e => {
                         console.log(e);
                         this.error = e.response.data.errors;
+                        if(e.response.status == 401){
+                            this.$router.push('/posts');
+                        }
                     });
             },
             submit(){

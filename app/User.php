@@ -26,6 +26,10 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function isAdmin(){
+        return auth()->check() && auth()->user()->role_id >= 2? true : false;
+    }
+
     public function product(){
         return $this->hasMany(Product::class);
     }
