@@ -189,26 +189,6 @@
                         this.error = e.response.data.errors;
                     });
             },
-            uploadCover(image){
-                let data = new FormData();
-                data.append('cover', image.file);
-
-                axios.post('api/clients/' + this.client.id + '/image', data)
-                    .then(res => {
-                        this.client.cover = res.data.image;
-                        this.error = null;
-                        swal({
-                            position: 'center',
-                            type: 'success',
-                            title: 'Success',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
         }
     }
 </script>
