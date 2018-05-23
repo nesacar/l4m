@@ -38,9 +38,11 @@ class UsersController extends Controller
     }
 
     public function show($id){
-        $user = User::find($id);
+        $user = User::with('client')->find($id);
+        $client_ids = $user->client()->pluck('id');
         return response()->json([
-            'user' => $user
+            'user' => $user,
+            'client_ids' => $client_ids,
         ]);
     }
 
@@ -51,8 +53,14 @@ class UsersController extends Controller
             $user->password = bcrypt(request('password'));
             $user->update();
         }
+
+        $user->client()->sync(request('client_ids'));
+
+        $client_ids = $user->client()->pluck('id');
+
         return response()->json([
-            'user' => $user
+            'user' => $user,
+            'client_ids' => $client_ids,
         ]);
     }
 
@@ -79,9 +87,7 @@ class UsersController extends Controller
             $user->password = bcrypt(request('password'));
             $user->update();
 
-            if(request('image')){
-                User::base64UploadImage($user->id, request('image'));
-            }
+            $user->update(['image' => $user->storeImage()]);
 
             return response()->json([
                 'message' => 'done'

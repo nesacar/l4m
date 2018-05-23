@@ -32,7 +32,8 @@ class ProductsController extends Controller
                 $query->orderBy('parent', 'DESC')->first();
             }])->orderBy('id', 'DESC')->paginate(50);
         }else{
-            $products = auth()->user()->product()->withoutGlobalScope('attribute')->with(['category' => function($query){
+            $clientIds = auth()->user()->client()->pluck('id');
+            $products = Product::whereIn('client_id', $clientIds)->withoutGlobalScope('attribute')->with(['category' => function($query){
                 $query->orderBy('parent', 'DESC')->first();
             }])->orderBy('id', 'DESC')->paginate(50);
         }
@@ -69,7 +70,8 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        if(!auth()->user()->isAdmin() && $product->user_id != auth()->id()){
+        $clientIds = auth()->user()->client()->pluck('id');
+        if(!auth()->user()->isAdmin() && in_array($product->client_id, $clientIds)){
             return response([
                 'error' => 'unauthorized'
             ], 401);

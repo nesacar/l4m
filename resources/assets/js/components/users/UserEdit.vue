@@ -51,6 +51,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Klijenti</label>
+                                <select2 :options="clients" :multiple="true" :value="user.client_ids" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
                                 <label>Publikovano</label><br>
                                 <switches v-model="user.block" theme="bootstrap" color="primary"></switches>
                             </div>
@@ -73,11 +79,13 @@
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
     import Switches from 'vue-switches';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
               user: {},
+              clients: {},
               error: null
           }
         },
@@ -85,15 +93,30 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
             'switches': Switches,
+            'select2': Select2,
         },
         created(){
-            this.getUser();
+            this.getClients();
         },
         methods: {
+            getClients(){
+                axios.get('api/clients')
+                    .then(res => {
+                        this.clients = _.map(res.data.clients.data, (data) => {
+                            var pick = _.pick(data, 'name', 'id');
+                            var object = {id: pick.id, text: pick.name};
+                            return object;
+                        });
+                        this.getUser();
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
             submit(){
                 axios.patch('api/users/' + this.user.id, this.user)
                     .then(res => {
-                        console.log(res);
                         swal({
                             position: 'center',
                             type: 'success',
@@ -111,7 +134,7 @@
                 axios.get('api/users/' + this.$route.params.id)
                     .then(res => {
                         this.user = res.data.user;
-                        console.log(this.user);
+                        this.user.client_ids = res.data.client_ids;
                     })
                     .catch(e => {
                         console.log(e);
@@ -137,6 +160,10 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
+            },
+            input(client){
+                this.user.client_ids = client;
+                console.log(client);
             },
         }
     }
