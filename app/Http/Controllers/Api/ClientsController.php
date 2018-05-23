@@ -38,6 +38,8 @@ class ClientsController extends Controller
         $client = Client::create(request()->except('image', 'cover'));
         $client->update(['image' => $client->storeImage(), 'cover' => $client->storeImage('cover', 'cover')]);
 
+        $client->brand()->sync(request('brand_ids'));
+
         return response()->json([
             'client' => $client,
         ]);
@@ -49,7 +51,7 @@ class ClientsController extends Controller
      */
     public function show(Client $client){
         return response()->json([
-            'client' => $client,
+            'client' => $client->load('brand'),
         ]);
     }
 
@@ -61,6 +63,8 @@ class ClientsController extends Controller
     public function update(CreateClientRequest $request, Client $client){
         $client->update(request()->except('image', 'cover'));
         $client->update(['image' => $client->storeImage(), 'cover' => $client->storeImage('cover', 'cover')]);
+
+        $client->brand()->sync(request('brand_ids'));
 
         return response()->json([
             'client' => $client,

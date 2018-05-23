@@ -64,4 +64,8 @@ class Brand extends Model
     public function links(){
         return $this->hasMany(BrandLink::class);
     }
+
+    public function client(){
+        return $this->belongsToMany(Client::class);
+    }
 }

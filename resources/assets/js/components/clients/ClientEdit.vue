@@ -118,7 +118,7 @@
             'switches': Switches,
             'ckeditor': Ckeditor
         },
-        created(){
+        mounted(){
             this.getClient();
         },
         methods: {

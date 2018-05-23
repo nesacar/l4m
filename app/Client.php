@@ -54,4 +54,8 @@ class Client extends Model
     public function product(){
         return $this->hasMany(Product::class);
     }
+
+    public function brand(){
+        return $this->belongsToMany(Brand::class);
+    }
 }

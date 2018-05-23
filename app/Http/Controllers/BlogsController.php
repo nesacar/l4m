@@ -30,7 +30,7 @@ class BlogsController extends Controller
         $slider = Post::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         Seo::blog($this->settings);
-        return view('themes.' . $this->theme . '.pages.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
+        return view('themes.' . $this->theme . '.pages.blog.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
     }
 
     public function blog2($slug){
@@ -39,7 +39,7 @@ class BlogsController extends Controller
         $mostView = Post::getMostView();
         $slider = Post::getSlider();
         Seo::blogCategory(Setting::get(), $category);
-        return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category', 'slider'));
+        return view('themes.' . $this->theme . '.pages.blog.category', compact( 'posts', 'mostView', 'category', 'slider'));
     }
 
     public function blog3($slug1, $slug2){
@@ -47,7 +47,7 @@ class BlogsController extends Controller
         $posts = Post::getLatest($category);
         $mostView = Post::getMostView();
         Seo::blogCategory(Setting::get(), $category);
-        return view('themes.' . $this->theme . '.pages.blog-category', compact( 'posts', 'mostView', 'category'));
+        return view('themes.' . $this->theme . '.pages.blog.category', compact( 'posts', 'mostView', 'category'));
     }
 
     public function blog4($slug1, $slug2, $slug3){
@@ -61,7 +61,7 @@ class BlogsController extends Controller
             $mostView = Post::getMostView($category);
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
-            return view('themes.' . $this->theme . '.pages.blog-post', compact('posts', 'post', 'category', 'breadcrumb', 'mostView'));
+            return view('themes.' . $this->theme . '.pages.blog.post', compact('posts', 'post', 'category', 'breadcrumb', 'mostView'));
         }else{
             return redirect('blog');
         }
@@ -78,7 +78,7 @@ class BlogsController extends Controller
             $mostView = Post::getMostView($category);
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
-            return view('themes.' . $this->theme . '.pages.blog-post', compact( 'posts', 'post', 'category', 'breadcrumb', 'mostView'));
+            return view('themes.' . $this->theme . '.pages.blog.post', compact( 'posts', 'post', 'category', 'breadcrumb', 'mostView'));
         }else{
             return redirect('blog');
         }
