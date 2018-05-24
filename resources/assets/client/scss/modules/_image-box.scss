@@ -11,6 +11,7 @@ $spacer: 8px;
   &_thumbnails {
     display: flex;
     flex-wrap: nowrap;
+    flex-shrink: 0;
     margin-left: -($spacer / 2);
     margin-right: -($spacer / 2);
     // margin-bottom: $spacer;
@@ -53,6 +54,7 @@ $spacer: 8px;
 
   &_image {
     position: relative;
+    overflow: hidden;
     flex-grow: 1;
     margin-bottom: $spacer;
 
@@ -61,10 +63,20 @@ $spacer: 8px;
       margin-left: $spacer; 
     }
   }
+  
+  .loading {
+    display: flex;
+    flex-wrap: nowrap;
+  }
 
   &_image-wrap {
-    position: relative;
-    overflow: hidden;
+    // position: relative;
+    // overflow: hidden;
+    .loading & {
+      flex-shrink: 0;
+      width: 100% !important;
+      max-width: none;
+    }
 
     @include media-breakpoint-down(md) {
       max-width: 250px;
@@ -78,6 +90,12 @@ $spacer: 8px;
     top: 50%;
     z-index: 1;
     transform: translateY(-50%);
+
+    &:disabled {
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+    }
 
     &--left {
       left: 0;
