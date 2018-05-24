@@ -21,7 +21,8 @@ class BrandsController extends Controller
     }
 
     public function index(){
-        return 'in progress';
+        $brands = Brand::where('logo', '<>', null)->where('publish', 1)->orderBy('order', 'ASC')->get();
+        return view('themes.' . $this->theme . '.pages.brand.brands', compact('brands'));
     }
 
     public function show($slug){
@@ -31,6 +32,6 @@ class BrandsController extends Controller
         $products = Product::simpleSearch(false, $brand);
         $breadcrumb = $brand->getBreadcrumb();
         Seo::shopBrand($this->settings, $brand);
-        return view('themes.' . $this->theme . '.pages.brand', compact('brand', 'breadcrumb', 'products'));
+        return view('themes.' . $this->theme . '.pages.brand.brand', compact('brand', 'breadcrumb', 'products'));
     }
 }

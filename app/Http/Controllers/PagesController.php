@@ -49,7 +49,6 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        return User::find(5)->client()->pluck('id')->toArray();
         return 'done2';
     }
 }
