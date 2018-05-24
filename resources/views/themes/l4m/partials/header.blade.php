@@ -10,7 +10,7 @@
   <div class="header">
     <div class="container header_content">
       <div class="header_social">
-        @social()
+        {{-- @social() --}}
       </div>
       <a href="{{ url('/') }}" class="logo-wrap">
         <svg class="logo" role="presentation" aria-label="luxury 4 me">
