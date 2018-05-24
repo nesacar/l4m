@@ -21,6 +21,7 @@
                                 <th scope="col">ime</th>
                                 <th scope="col">email</th>
                                 <th scope="col">pravo pristupa</th>
+                                <th scope="col">klijent</th>
                                 <th scope="col">kreiran</th>
                                 <th>akcija</th>
                             </tr>
@@ -31,6 +32,13 @@
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.email }}</td>
                                 <td>{{ row.role_id }}</td>
+
+                                <td v-if="row.role_id == 2">/</td>
+                                <td v-else>
+                                    <span v-if="row.client.length > 0">[<template v-for="client in row.client">{{ client.name }}</template>,]</span>
+                                    <span v-else>  <font-awesome-icon icon="exclamation" /> </span>
+                                </td>
+
                                 <td>{{ row.created_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>

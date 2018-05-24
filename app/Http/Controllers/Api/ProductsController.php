@@ -53,7 +53,7 @@ class ProductsController extends Controller
     public function store(CreateProductRequest $request)
     {
         $product = Product::create(request()->except('image', 'client_id'));
-        $product->update(['client_id' => request('client_id')?: Client::getClientId()]);
+        if(empty(request('client_id'))) $product->update(['client_id' => Client::getClientId()]);
 
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
@@ -102,7 +102,7 @@ class ProductsController extends Controller
     public function update(CreateProductRequest $request, Product $product)
     {
         $product->update(request()->except('image', 'client_id'));
-        $product->update(['client_id' => request('client_id')?: Client::getClientId()]);
+        if(empty(request('client_id'))) $product->update(['client_id' => Client::getClientId()]);
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));

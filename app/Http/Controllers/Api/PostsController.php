@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Client;
 use App\Gallery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
@@ -45,6 +46,7 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = Post::create(request()->except('image', 'slider'));
+        if(empty(request('client_id'))) $post->update(['client_id' => Client::getClientId()]);
 
         if(request('tag_ids')) $post->tag()->sync(request('tag_ids'));
         if(request('product_ids')) $post->product()->sync(request('product_ids'));
@@ -88,6 +90,7 @@ class PostsController extends Controller
     public function update(CreatePostRequest $request, Post $post)
     {
         $post->update(request()->except('image', 'slider'));
+        if(empty(request('client_id'))) $post->update(['client_id' => Client::getClientId()]);
 
         $post->tag()->sync(request('tag_ids'));
         $post->product()->sync(request('product_ids'));
