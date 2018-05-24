@@ -44,7 +44,7 @@ class Client extends Model
     }
 
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['name']);
     }
 
     public function user(){

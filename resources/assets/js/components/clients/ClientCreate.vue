@@ -29,6 +29,11 @@
                                 <small class="form-text text-muted" v-if="error != null && error.name">{{ error.name[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label for="slug">Slug</label>
+                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="client.slug">
+                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="fullName">Puno ime klijenta</label>
                                 <input type="text" name="name" class="form-control" id="fullName" placeholder="Puno ime klijenta" v-model="client.fullName">
                                 <small class="form-text text-muted" v-if="error != null && error.fullName">{{ error.fullName[0] }}</small>

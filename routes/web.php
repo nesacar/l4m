@@ -26,10 +26,6 @@ Route::get('/admin', function () {
     return view('layouts.admin-app');
 });
 
-Route::get('/client', function() {
-  return view('themes.l4m.pages.client.home');
-});
-
 Route::get('/client/about', function() {
   return view('themes.l4m.pages.client.about');
 });
@@ -69,3 +65,9 @@ Route::post('korpa', 'CartsController@getIds');
 Route::post('korpa/{id}/add', 'CartsController@add');
 Route::post('korpa/{id}/remove', 'CartsController@remove');
 Route::get('korpa/store', 'CartsController@store');
+
+Route::get('{slug}', 'ClientsController@home');
+Route::get('{slug}/o-nama', 'ClientsController@about');
+Route::get('{slug}/shop', 'ClientsController@shop');
+Route::get('{slug}/akcije', 'ClientsController@action');
+Route::get('{slug}/blog', 'ClientsController@blog');

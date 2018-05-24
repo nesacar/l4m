@@ -13,7 +13,7 @@ use DB;
 trait SearchableProductTraits
 {
 
-    protected static function search($category = false, $brand  = false)
+    protected static function search($category = false, $brand  = false, $client = false, $discount = false)
     {
         $products = self::query()->withoutGlobalScopes();
         foreach (request()->all() as $key => $attribute) {
@@ -27,6 +27,14 @@ trait SearchableProductTraits
 
         if($brand){
             $products->brandFilter($brand->id);
+        }
+
+        if($client){
+            $products->clientFilter($client->id);
+        }
+
+        if($discount){
+            $products->discountFilter();
         }
 
         $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.id')->get(['products.id', 'products.price']);
@@ -50,8 +58,7 @@ trait SearchableProductTraits
 
     }
 
-    protected static function simpleSearch($category = false, $brand  = false)
-    {
+    protected static function simpleSearch($category = false, $brand  = false, $client = false, $discount = false){
         $products = self::query()->withoutGlobalScopes();
         foreach (request()->all() as $key => $attribute) {
             if (in_array($key, self::$searchable)) {
@@ -64,6 +71,14 @@ trait SearchableProductTraits
 
         if($brand){
             $products->brandFilter($brand->id);
+        }
+
+        if($client){
+            $products->clientFilter($client->id);
+        }
+
+        if($discount){
+            $products->discountFilter();
         }
 
         $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.id')->get(['products.id', 'products.price']);
@@ -92,6 +107,16 @@ trait SearchableProductTraits
     public function scopeBrandFilter(Builder $query, $brand_id)
     {
         return $query->where('products.brand_id', $brand_id);
+    }
+
+    public function scopeClientFilter(Builder $query, $client_id)
+    {
+        return $query->where('products.client_id', $client_id);
+    }
+
+    public function scopeDiscountFilter(Builder $query)
+    {
+        return $query->where('products.discount', '>', 0);
     }
 
     public function scopeSort(Builder $query, $sorting)
