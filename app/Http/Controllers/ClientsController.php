@@ -57,7 +57,7 @@ class ClientsController extends Controller
      * Return all products from client
      *
      * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\V+iew
      */
     public function shop($slug){
         $client = Client::where('slug', $slug)->first();
@@ -87,5 +87,15 @@ class ClientsController extends Controller
         $breadcrumb = [];
         $template = 'action';
         return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template'));
+    }
+
+    public function blog($slug){
+        $client = Client::where('slug', $slug)->first();
+        //Seo::shopCategory($category);
+        //$breadcrumb = $client->getBreadcrumb();
+        $posts = $client->post()->published()->paginate(9);
+        $breadcrumb = [];
+        $template = 'blog';
+        return view('themes.' . $this->theme . '.pages.client.blog', compact('client', 'posts', 'breadcrumb', 'template'));
     }
 }
