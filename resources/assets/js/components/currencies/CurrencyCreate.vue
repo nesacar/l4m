@@ -39,6 +39,11 @@
                                 <small class="form-text text-muted" v-if="error != null && error.symbol">{{ error.symbol[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label for="decimals">Broj decimala</label>
+                                <input type="text" name="decimals" class="form-control" id="decimals" placeholder="Broj decimala" v-model="currency.decimals">
+                                <small class="form-text text-muted" v-if="error != null && error.decimals">{{ error.decimals[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="exchange_rate">Vrednost <span>*</span></label>
                                 <input type="text" name="exchange_rate" class="form-control" id="exchange_rate" placeholder="Vrednost" v-model="currency.exchange_rate">
                                 <small class="form-text text-muted" v-if="error != null && error.exchange_rate">{{ error.exchange_rate[0] }}</small>

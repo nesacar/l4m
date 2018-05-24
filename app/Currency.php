@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Currency extends Model
 {
-    protected $fillable = ['name', 'code', 'symbol', 'format', 'exchange_rate', 'active', 'primary', 'publish'];
+    protected $fillable = ['name', 'code', 'symbol', 'format', 'decimals', 'exchange_rate', 'primary', 'publish'];
 
     /**
      * The "booting" method of the model.

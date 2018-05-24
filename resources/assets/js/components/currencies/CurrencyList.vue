@@ -31,6 +31,7 @@
                                 <th scope="col">naziv</th>
                                 <th scope="col">kod</th>
                                 <th scope="col">simbol</th>
+                                <th scope="col">broj decimala</th>
                                 <th scope="col">vrednost</th>
                                 <th scope="col">primarna valute</th>
                                 <th scope="col">kreiran</th>
@@ -43,6 +44,7 @@
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.code }}</td>
                                 <td>{{ row.symbol }}</td>
+                                <td>{{ row.decimals }}</td>
                                 <td>{{ row.exchange_rate }}</td>
                                 <td>{{ row.primary? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.created_at }}</td>
