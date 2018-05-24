@@ -38,7 +38,7 @@ trait SearchableProductTraits
         $range = $category? $category->product()->published()->orderBy('price', 'DESC')->value('price') : Product::published()->orderBy('price', 'DESC')->value('price');
 
         return [
-            'products' => self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
+            'products' => self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))->withoutGlobalScope('attribute')->with('altImage')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
             'attIds' => Attribute::whereHas('product', function ($q) use ($productIds) {
                 $q->whereIn('products.id', $productIds);
             })->groupBy('attributes.id')->pluck('attributes.id')->toArray(),
@@ -70,7 +70,7 @@ trait SearchableProductTraits
         $productIds = $products->pluck('id')->toArray();
 
         return self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
-            ->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$simplePaginate);
+            ->withoutGlobalScope('attribute')->with('altImage')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$simplePaginate);
 
     }
 

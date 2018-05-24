@@ -12,7 +12,7 @@ class Post extends Model
 {
     use UploudableImageTrait;
 
-    protected $fillable = ['user_id', 'blog_id', 'brand_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
+    protected $fillable = ['user_id', 'client_id', 'blog_id', 'brand_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
 
     protected $appends = ['date', 'time', 'link'];
 
@@ -139,5 +139,9 @@ class Post extends Model
 
     public function brand(){
         return $this->belongsTo(Brand::class);
+    }
+
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
 }

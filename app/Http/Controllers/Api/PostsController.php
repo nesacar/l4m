@@ -25,9 +25,10 @@ class PostsController extends Controller
     public function index()
     {
         if(auth()->user()->isAdmin()){
-            $posts = Post::select('posts.*')->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
+            $posts = Post::with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
         }else{
-            $posts = auth()->user()->post()->select('posts.*')->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
+            $clientIds = auth()->user()->client()->pluck('id');
+            $posts = Post::whereIn('client_id', $clientIds)->with(['blog', 'product'])->orderBy('posts.publish_at', 'DESC')->paginate(50);
         }
 
         return response()->json([
@@ -61,7 +62,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        if(!auth()->user()->isAdmin() && $post->user_id != auth()->id()){
+        if(!auth()->user()->isAdmin() && !in_array($post->client_id, auth()->user()->client()->pluck('id')->toArray())){
             return response([
                 'error' => 'unauthorized'
             ], 401);
@@ -109,7 +110,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        if(!auth()->user()->isAdmin() && $post->user_id != auth()->id()){
+        if(!auth()->user()->isAdmin() && !in_array($post->client_id, auth()->user()->client()->pluck('id')->toArray())){
             return response([
                 'error' => 'unauthorized'
             ], 401);

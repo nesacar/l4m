@@ -187,4 +187,8 @@ class Product extends Model
     public function client(){
         return $this->belongsTo(Client::class);
     }
+
+    public function altImage(){
+        return $this->hasMany(Photo::class)->take(1);
+    }
 }

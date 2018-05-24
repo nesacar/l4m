@@ -10,7 +10,7 @@ class Client extends Model
 {
     use UploudableImageTrait;
 
-    protected $fillable = ['user_id', 'name', 'fullName', 'short', 'body', 'image', 'cover', 'order', 'publish'];
+    protected $fillable = ['user_id', 'name', 'slug', 'fullName', 'short', 'body', 'image', 'cover', 'order', 'publish'];
 
     /**
      * The "booting" method of the model.
@@ -57,5 +57,9 @@ class Client extends Model
 
     public function brand(){
         return $this->belongsToMany(Brand::class);
+    }
+
+    public function post(){
+        return $this->hasMany(Post::class);
     }
 }
