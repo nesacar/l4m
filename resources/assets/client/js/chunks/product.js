@@ -93,7 +93,22 @@ import Siema from '../components/siema';
    */
   function _render() {
     slider.goTo(state.activeIndex);
+    _updateControls();
     _markActiveThumbnail();
+  }
+  
+  /**
+   * Updates the control buttons to match state.
+   * https://github.com/pawelgrzybek/siema/issues/68
+   */
+  function _updateControls() {
+    const index = state.activeIndex;
+
+    $prev.disabled = (0 === index);
+    $next.disabled = (
+      index === slider.innerElements.length + 1 ||
+      index + 1 >= slider.innerElements.length
+    );
   }
 
   /**

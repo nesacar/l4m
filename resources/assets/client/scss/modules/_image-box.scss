@@ -81,6 +81,12 @@ $spacer: 8px;
     z-index: 1;
     transform: translateY(-50%);
 
+    &:disabled {
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+    }
+
     &--left {
       left: 0;
     }
