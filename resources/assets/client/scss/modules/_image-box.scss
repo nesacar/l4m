@@ -63,10 +63,20 @@ $spacer: 8px;
       margin-left: $spacer; 
     }
   }
+  
+  .loading {
+    display: flex;
+    flex-wrap: nowrap;
+  }
 
   &_image-wrap {
     // position: relative;
     // overflow: hidden;
+    .loading & {
+      flex-shrink: 0;
+      width: 100% !important;
+      max-width: none;
+    }
 
     @include media-breakpoint-down(md) {
       max-width: 250px;
