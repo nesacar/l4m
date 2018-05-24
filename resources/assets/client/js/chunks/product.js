@@ -1,7 +1,14 @@
 import ImageZoomer from '../components/image-zoomer';
 import ImageGallery from '../components/image-gallery';
+import Siema from '../components/siema';
 
 (function() {
+  const slider = new  Siema({
+    selector: '.demo-siema',
+    perPage: 1,
+  });
+  return;
+
   const zoomer = new ImageZoomer();
   window.imgGallery = new ImageGallery({
     onChange,

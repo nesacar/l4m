@@ -53,6 +53,7 @@ $spacer: 8px;
 
   &_image {
     position: relative;
+    overflow: hidden;
     flex-grow: 1;
     margin-bottom: $spacer;
 

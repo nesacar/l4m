@@ -151,10 +151,6 @@ export default class Siema {
     this.sliderFrame.style.width = `${widthItem * itemsToBuild}px`;
     this.enableTransition();
 
-    if (this.config.draggable) {
-      this.selector.style.cursor = '-webkit-grab';
-    }
-
     // Create a document fragment to put slides into it
     const docFragment = document.createDocumentFragment();
 
@@ -577,8 +573,6 @@ export default class Siema {
    */
   destroy(restoreMarkup = false, callback) {
     this.detachEvents();
-
-    this.selector.style.cursor = 'auto';
 
     if (restoreMarkup) {
       const slides = document.createDocumentFragment();
