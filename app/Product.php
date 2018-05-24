@@ -116,11 +116,11 @@ class Product extends Model
     }
 
     public static function getRelated($product, $category, $limit=6){
-        $products = Product::where('brand_id', $product->brand_id)->where('id', '<>', $product->id)->withoutGlobalScope('attribute')->published()->inRandomOrder()->limit($limit)->get();
+        $products = Product::where('brand_id', $product->brand_id)->where('id', '<>', $product->id)->withoutGlobalScope('attribute')->with('photo')->published()->inRandomOrder()->limit($limit)->get();
         if(count($products)>3){
             return $products;
         }else{
-            return $category->product()->where('products.id', '<>', $product->id)->withoutGlobalScope('attribute')->published()->inRandomOrder()->limit($limit)->get();
+            return $category->product()->where('products.id', '<>', $product->id)->withoutGlobalScope('attribute')->with('photo')->published()->inRandomOrder()->limit($limit)->get();
         }
     }
 

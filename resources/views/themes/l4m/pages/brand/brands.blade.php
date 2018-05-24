@@ -16,24 +16,19 @@
 
   </section>
 
+  @if(count($brands)>0)
   <section class="brands_all">
     <div class="container">
       <ul class="home_brands-list">
+        @foreach($brands as $brand)
         <li class="home_brands-list-item">
-          <a href="#">
-            <img
-              src="http://l4m.mia.rs/storage/uploads/brands/05-2018/boss-6-Er.png" 
-              alt="brend!">
+          <a href="{{ $brand->getLink() }}">
+            <img src="{{ url($brand->logo) }}" alt="{{ $brand->title }}">
           </a>
         </li>
-        <li class="home_brands-list-item">
-          <a href="#">
-            <img
-              src="http://l4m.mia.rs/storage/uploads/brands/05-2018/hermes-13-FQ.png" 
-              alt="brend!!! yeah!">
-          </a>
-        </li>
-      </div>
+        @endforeach
+      </ul>
     </div>
   </section>
+  @endif
 @endsection
