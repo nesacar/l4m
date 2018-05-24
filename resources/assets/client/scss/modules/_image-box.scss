@@ -65,8 +65,8 @@ $spacer: 8px;
   }
 
   &_image-wrap {
-    position: relative;
-    overflow: hidden;
+    // position: relative;
+    // overflow: hidden;
 
     @include media-breakpoint-down(md) {
       max-width: 250px;

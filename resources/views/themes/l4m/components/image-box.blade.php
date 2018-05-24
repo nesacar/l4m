@@ -15,7 +15,8 @@
     </div>
     @endforeach
     @endif
-  </div>
+  </div><!-- /.image-box_thumbnails -->
+
   <div class="image-box_image">
     <div class="image-box_controls">
       <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev">
@@ -24,7 +25,7 @@
       <button class="icon-btn image-box_arrow image-box_arrow--right js-arrow--next">
         <span class="arrow arrow--right" role="presentation"></span>
       </button>
-    </div>
+    </div><!-- /.image-box_controls -->
     <div class="demo-siema">
       <div class="image-box_image-wrap">
         <div class="image image--portrait">
@@ -41,7 +42,7 @@
       </div>
       @endforeach
       @endif
-    </div>
+    </div><!-- /carousel -->
       {{-- <canvas class="zoomer"></canvas> --}}
   </div>
 </div>
