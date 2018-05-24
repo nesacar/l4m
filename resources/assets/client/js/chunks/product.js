@@ -7,6 +7,9 @@ import Siema from '../components/siema';
   const CONFIG = {
     selector: '.demo-siema',
     perPage: 1,
+    onInit: function() {
+      this.selector.classList.remove('loading');
+    },
     onChange: _onChange,
   };
 

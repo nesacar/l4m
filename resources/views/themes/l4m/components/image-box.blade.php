@@ -26,7 +26,7 @@
         <span class="arrow arrow--right" role="presentation"></span>
       </button>
     </div><!-- /.image-box_controls -->
-    <div class="demo-siema">
+    <div class="demo-siema loading">
       <div class="image-box_image-wrap">
         <div class="image image--portrait">
           {{-- <img src="{{ url($image) }}" class="zoomer-target image-gallery_target" draggable="false"/> --}}
