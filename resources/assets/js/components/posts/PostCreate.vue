@@ -23,6 +23,13 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
+                            <div class="form-group" v-if="admin">
+                                <label for="client">Klijent</label>
+                                <select name="client" id="client" class="form-control" v-model="post.client_id">
+                                    <option :value="client.id" v-for="client in clients">{{ client.name }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.client_id">{{ error.client_id[0] }}</small>
+                            </div>
                             <div class="form-group">
                                 <label for="category">Kategorija</label>
                                 <select name="category" id="category" class="form-control" v-model="post.blog_id">
@@ -138,6 +145,7 @@
           return {
               image: {},
               slider: {},
+              clients: {},
               post: {
                   date: moment().format('YYYY-MM-DD'),
                   time: moment().format('HH:mm'),
@@ -170,7 +178,10 @@
             },
             publish_at(){
                 return this.post.date + ' ' + this.post.time + ':00'
-            }
+            },
+            admin(){
+                return this.$store.getters.isAdmin;
+            },
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
@@ -179,10 +190,11 @@
             'ckeditor': Ckeditor,
             'select2': Select2,
         },
-        created(){
+        mounted(){
             this.getList();
             this.getTags();
             this.getBrands();
+            this.getClients();
         },
         methods: {
             submit(){
@@ -203,6 +215,15 @@
                         this.$router.push('/posts');
                     }).catch(e => {
                         console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            getClients(){
+                axios.get('api/clients/lists')
+                    .then(res => {
+                        this.clients = res.data.clients;
+                    }).catch(e => {
+                        console.log(e);
                         this.error = e.response.data.errors;
                     });
             },
