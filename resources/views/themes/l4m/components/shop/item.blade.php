@@ -37,11 +37,6 @@
         <div class="image image--portrait lazy-image"
           data-src="{{ url(\Imagecache::get($product->image, '215x287')->src) }}"
         ></div>
-        @if(count($product->alt_image) > 0)
-        <div class="image image--portrait lazy-image"
-          data-src="{{ url(\Imagecache::get($product->alt_image->first()->file_path, '215x287')->src) }}"
-        ></div>
-        @endif
       </div>
     </div>
     <div class="shop-item_content">
