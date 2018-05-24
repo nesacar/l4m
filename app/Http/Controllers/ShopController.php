@@ -24,7 +24,7 @@ class ShopController extends Controller
     public function category($slug)
     {
         $category = Category::with('children')->whereSlug($slug)->first();
-        return $data = Product::search($category);
+        $data = Product::search($category);
         $properties = Set::getProperties($category->set);
         Seo::shopCategory($category);
         $breadcrumb = $category->getBreadcrumb();

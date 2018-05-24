@@ -20,14 +20,14 @@ class Client extends Model
     protected static function boot(){
         parent::boot();
 
-        static::created(function ($client){
-            $admins = User::where('role_id', '>=', 2)->get();
-            if(count($admins)>0){
-                foreach ($admins as $admin){
-                    $admin->client()->attach($client->id);
-                }
-            }
-        });
+//        static::created(function ($client){
+//            $admins = User::where('role_id', '>=', 2)->get();
+//            if(count($admins)>0){
+//                foreach ($admins as $admin){
+//                    $admin->client()->attach($client->id);
+//                }
+//            }
+//        });
 
         static::deleting(function ($client) {
             if($client->image) File::delete($client->image);

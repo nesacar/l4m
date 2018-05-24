@@ -35,7 +35,6 @@
 
                 <div class="col-md-4">
                     <div class="card">
-
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -50,6 +49,13 @@
                                     <input type="time" name="title" class="form-control" id="time" placeholder="Published at" v-model="post.time">
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group" v-if="admin">
+                            <label for="client">Klijent</label>
+                            <select name="client" id="client" class="form-control" v-model="post.client_id">
+                                <option :value="client.id" v-for="client in clients">{{ client.name }}</option>
+                            </select>
+                            <small class="form-text text-muted" v-if="error != null && error.client_id">{{ error.client_id[0] }}</small>
                         </div>
                         <div class="form-group">
                             <label for="category">Kategorija</label>
@@ -165,6 +171,7 @@
               error: null,
               lists: {},
               gallery: {},
+              client: {},
               brands: {},
               tags: {},
               config: {
@@ -195,7 +202,10 @@
             },
             publish_at(){
                 return this.post.date + ' ' + this.post.time;
-            }
+            },
+            admin(){
+                return this.$store.getters.isAdmin;
+            },
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
@@ -205,11 +215,12 @@
             'vue-dropzone': vue2Dropzone,
             'select2': Select2,
         },
-        created(){
+        mounted(){
             this.getList();
             this.getTags();
             this.getGallery();
             this.getBrands();
+            this.getClients();
         },
         methods: {
             getPost(){
@@ -224,6 +235,16 @@
                         if(e.response.status == 401){
                             this.$router.push('/posts');
                         }
+                    });
+            },
+            getClients(){
+                axios.get('api/clients/lists')
+                    .then(res => {
+                        this.clients = res.data.clients;
+                        this.getPost();
+                    }).catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
                     });
             },
             submit(){
@@ -292,7 +313,7 @@
                 axios.get('api/blogs/lists')
                     .then(res => {
                         this.lists = res.data.blogs;
-                        this.getPost();
+                        this.getClients();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
