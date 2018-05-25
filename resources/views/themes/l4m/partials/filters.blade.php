@@ -31,7 +31,7 @@
           'min' => $data['min'],
           'max' => $data['max'],
           'range' => $data['range'],
-          'label' => 'rsd',
+          'label' => \Session::get('currency')->symbol,
         ])
         @enddoubleslider
     </div>

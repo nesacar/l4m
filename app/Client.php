@@ -47,6 +47,12 @@ class Client extends Model
         $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['name']);
     }
 
+    public function getBreadcrumb(){
+        $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li>';
+        $str .= '<li class="breadcrumb-item active" aria-current="page">' . $this->title . '</li></ol></nav>';
+        return $str;
+    }
+
     public function user(){
         return $this->belongsToMany(User::class);
     }
