@@ -20,6 +20,17 @@
     color: $text-secondary-on-light;
   }
 
+  &_header {
+    margin-bottom: 2 * $base-line;
+  }
+
+  &_header-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+
   &_actions {
     display: flex;
     align-items: center;
@@ -27,6 +38,14 @@
 
     :first-child {
       margin-right: 2 * $base-line;
+    }
+  }
+
+  &_coupon {
+    display: flex;
+
+    input[type="text"] {
+      flex-grow: 1;
     }
   }
 
