@@ -10,6 +10,7 @@ use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Photo;
 use App\Product;
+use App\Property;
 use App\Set;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -80,8 +81,7 @@ class ProductsController extends Controller
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
         $tagIds = $product->tag->pluck('id');
-        $properties = Set::find($product->set_id)->property()->with('attribute')->where('properties.publish', 1)
-            ->groupBy('properties.id')->orderBy('properties.order', 'ASC')->get();
+        $properties = Property::getPropertyByCategories($catIds);
 
         return response()->json([
             'product' => $product,
@@ -103,15 +103,15 @@ class ProductsController extends Controller
     {
         $product->update(request()->except('image', 'client_id'));
         if(empty(request('client_id'))) $product->update(['client_id' => Client::getClientId()]);
+
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
 
-        $properties = Set::find($product->set_id)->property()->with('Attribute')->where('properties.publish', 1)
-            ->groupBy('properties.id')->orderBy('properties.order', 'ASC')->get();
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
         $tagIds = $product->tag->pluck('id');
+        $properties = Property::getPropertyByCategories($catIds);
 
         return response()->json([
             'product' => $product,

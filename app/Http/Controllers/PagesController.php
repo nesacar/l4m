@@ -11,6 +11,7 @@ use App\Gallery;
 use App\Page;
 use App\Post;
 use App\Product;
+use App\Property;
 use App\Seo;
 use App\Setting;
 use App\ShopBar;
@@ -49,6 +50,12 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
+        $ids = [2,4];
+        return Property::with('attribute')
+            ->join('property_set', 'properties.id', '=', 'property_set.property_id')
+            ->join('category_set', 'property_set.set_id', '=', 'category_set.set_id')
+            ->whereIn('category_set.category_id', [2,4])->groupBy('properties.id')
+            ->get();
         return 'done2';
     }
 }
