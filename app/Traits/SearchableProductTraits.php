@@ -45,7 +45,7 @@ trait SearchableProductTraits
 
         if($products->first() != null){
             $min = self::getPass() ? request('price')[0] : 0;
-            $max = self::getPass() ? request('price')[1] : $products? $products->first()->totalPrice : 0;
+            $max = self::getPass() ? request('price')[1] : $products->first()->totalPrice;
         }else{
             $min = self::getPass() ? request('price')[0] : 0;
             $max = self::getPass() ? request('price')[1] : 0;
