@@ -38,7 +38,7 @@
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
                             <td>{{ row.publish? 'Da' : 'Ne' }}</td>
-                            <td v-if="row.set">[<template v-for="set in row.set">{{ set.title }}</template>]</td><td v-else>/</td>
+                            <td v-if="row.set">[<template v-for="set in row.set">{{ set.title }},</template>]</td><td v-else>/</td>
                             <td>{{ row.attribute.length }}</td>
                             <td>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>

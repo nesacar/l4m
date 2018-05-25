@@ -43,7 +43,7 @@
                                 <td v-if="row.set">[<span v-for="set in row.set">{{ set.title }}</span>]</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>
-                                    <router-link tag="a" :to="'categories/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'categories/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>

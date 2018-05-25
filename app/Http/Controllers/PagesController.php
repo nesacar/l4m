@@ -12,6 +12,7 @@ use App\Page;
 use App\Post;
 use App\Product;
 use App\Seo;
+use App\Set;
 use App\Setting;
 use App\ShopBar;
 use App\ShoppingCart;
