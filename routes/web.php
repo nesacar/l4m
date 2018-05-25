@@ -38,6 +38,10 @@ Route::get('/client/akcije', function() {
   return view('themes.l4m.pages.client.akcije');
 });
 
+Route::get('/client/blog', function() {
+  return view('themes.l4m.pages.client.blog');
+});
+
 Route::get('/brands', function() {
   return view('themes.l4m.pages.brands');
 });
