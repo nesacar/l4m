@@ -15,10 +15,14 @@
           'component' => 'blog.tile',
           'options' => (object)[
             'horizontal' => true,
-            'asymmetric' => true
           ],
           'items' => $posts,
         ])
         @endcomponent
+    </div>
+    <div class="container">
+      <nav class="pagination-container" aria-label="blog navigation">
+        {{ $posts->links() }}
+      </nav>
     </div>
 @endsection
