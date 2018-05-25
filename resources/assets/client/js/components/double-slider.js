@@ -157,10 +157,10 @@ class DoubleSlider {
     this.track.style.transform =
       `translateX(${min * width}px) scaleX(${max - min})`;
 
-    this.outputs.min.value = this.denormalize(min);
-    this.outputs.max.value = this.denormalize(max);
-    this.labels.min.innerHTML = this.denormalize(min) * this._exchangeRate;
-    this.labels.max.innerHTML = this.denormalize(max) * this._exchangeRate;
+    this.outputs.min.value = this.denormalize(min) * this._exchangeRate;
+    this.outputs.max.value = this.denormalize(max) * this._exchangeRate;
+    this.labels.min.innerHTML = this.denormalize(min);
+    this.labels.max.innerHTML = this.denormalize(max);
   }
 
   _checkRange (value, key) {

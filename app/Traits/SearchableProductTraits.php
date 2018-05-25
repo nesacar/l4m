@@ -38,13 +38,19 @@ trait SearchableProductTraits
             $products->discountFilter();
         }
 
-        $products = $products->select('id', 'price', 'price_outlet', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
-            ->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->groupBy('id')->get();
+        $products = $products->select('*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
+            ->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->groupBy('id');
 
         $productIds = $products->pluck('id')->toArray();
 
-        $min = self::getPass() ? request('price')[0] : 0;
-        $max = self::getPass() ? request('price')[1] : $products->first()? $products->first()->total_price : 0;
+        if($products->first() != null){
+            $min = self::getPass() ? request('price')[0] : 0;
+            $max = self::getPass() ? request('price')[1] : $products? $products->first()->totalPrice : 0;
+        }else{
+            $min = 0;
+            $max = 0;
+        }
+
 
         if($category){
             $range = $category->product()->select('products.id', 'products.price', 'products.price_outlet', DB::raw("CASE WHEN products.price_outlet THEN products.price_outlet ELSE products.price END as totalPrice"))
@@ -149,7 +155,7 @@ trait SearchableProductTraits
 
     public function scopePrice(Builder $query, $price)
     {
-        if (count($price) == 2) return $query->whereBetween('price', [($price[0] * Session::get('currency')->exchange_rate), ($price[1] * Session::get('currency')->exchange_rate)]);
+        if (count($price) == 2) return $query->havingRaw(DB::raw('totalPrice') . ' BETWEEN ' . ($price[0]) . ' AND ' . ($price[1]));
     }
 
     public static function getPass()
