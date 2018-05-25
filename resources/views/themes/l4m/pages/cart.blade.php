@@ -43,7 +43,7 @@
                         </div>
                         @if(\Cart::count()>0)
                             <div class="cart_actions">
-                                <button class="btn btn--primary btn--block">primenite izmene</button>
+                                <a href="/shop" class="btn btn--primary btn--block">nastavi kupovinu</a>
                                 <button class="btn btn--primary btn--block">Idite na plaćanje</button>
                             </div>
                         @endif
