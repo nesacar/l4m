@@ -16,7 +16,7 @@ class Product extends Model
     use SearchableProductTraits, UploudableImageTrait;
 
     protected $fillable = [
-       'client_id', 'user_id', 'brand_id', 'collection_id', 'set_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
+       'client_id', 'user_id', 'brand_id', 'collection_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
@@ -24,7 +24,7 @@ class Product extends Model
 
     protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice'];
 
-    protected static $selectable = ['id', 'set_id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
+    protected static $selectable = ['id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
     protected static $searchable = ['filters', 'price'];
 

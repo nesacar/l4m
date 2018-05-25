@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Attribute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePropertyRequest;
+use App\Product;
 use App\Property;
 use Illuminate\Http\Request;
 
@@ -123,6 +124,16 @@ class PropertiesController extends Controller
 
         return response()->json([
             'properties' => $properties
+        ]);
+    }
+
+    public function listsByCategories(){
+        $properties = Property::getPropertyByCategories(request('ids'));
+        $newAttIds = Attribute::getAttributeIdsByCategories(request('ids'));
+
+        return response()->json([
+            'properties' => $properties,
+            'newIds' => $newAttIds,
         ]);
     }
 }

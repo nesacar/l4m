@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('brand_id')->unsigned()->index();
             $table->integer('collection_id')->unsigned()->nullable()->index();
-            $table->integer('set_id')->unsigned();
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('short')->nullable();

@@ -27,6 +27,18 @@ class Property extends Model
         });
     }
 
+    public static function getPropertyByCategories($ids=false){
+        if($ids){
+            return self::with('attribute')
+                ->join('property_set', 'properties.id', '=', 'property_set.property_id')
+                ->join('category_set', 'property_set.set_id', '=', 'category_set.set_id')
+                ->whereIn('category_set.category_id', $ids)->groupBy('properties.id')
+                ->orderBy('properties.title', 'ASC')->get();
+        }else{
+            return [];
+        }
+    }
+
     public function setSlugAttribute($value){
         $this->attributes['slug'] = str_slug($this->attributes['title']);
     }

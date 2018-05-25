@@ -76,6 +76,7 @@ Route::resource('sets', 'Api\SetsController');
 
 Route::get('properties/lists', 'Api\PropertiesController@lists');
 Route::get('properties/{id}/set', 'Api\PropertiesController@listsBySet');
+Route::post('properties/categories', 'Api\PropertiesController@listsByCategories');
 Route::resource('properties', 'Api\PropertiesController');
 
 Route::post('attributes/search', 'Api\AttributesController@search');

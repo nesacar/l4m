@@ -44,13 +44,6 @@
                                 <small class="form-text text-muted" v-if="error != null && error.client_id">{{ error.client_id[0] }}</small>
                             </div>
                             <div class="form-group">
-                                <label for="set">Set</label>
-                                <select name="set" id="set" class="form-control" v-model="product.set_id" @change="getProperties()">
-                                    <option :value="set.id" v-for="set in sets">{{ set.title }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.set_id">{{ error.set_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
                                 <label for="brand">Brend</label>
                                 <select name="brand" id="brand" class="form-control" v-model="product.brand_id" @change="setBrand()">
                                     <option :value="brand.id" v-for="brand in brands">{{ brand.title }}</option>
@@ -173,10 +166,10 @@
                             <small class="form-text text-muted" v-if="error != null && error.cat_ids">{{ error.cat_ids[0] }}</small>
                             <ol class="sortable" style="margin-left: -15px;">
                                 <li :id="`list_${cat.id}`" v-for="cat in categories">
-                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id"> {{ cat.title }}</div>
+                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id" @change="getProperties()"> {{ cat.title }}</div>
                                     <ol class="sortable" v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
-                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
+                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id" @change="getProperties()"> {{ cat2.title }}</div>
                                         </li>
                                     </ol>
                                 </li>
@@ -187,12 +180,13 @@
                     <div class="row">
                         <div class="card col-md-12">
                             <h3>Osobine i atributi</h3>
+                            <small class="form-text text-muted" v-if="error != null && error.att_ids">{{ error.att_ids[0] }}</small>
                         </div>
                     </div>
 
                     <div class="row">
                         <template v-if="properties.length > 0">
-                            <div class="card col-sm-4" v-if="product.set_id == 1">
+                            <div class="card col-sm-4" v-if="product.cat_ids.includes(2)">
                                 <div class="form-group">
                                     <label>Vodootpornost</label>
                                     <input type="text" class="form-control" name="water" v-model="product.water">
@@ -248,7 +242,6 @@
               categories: {},
               properties: {},
               photos: {},
-              sets: {},
               clients: {},
               tags: {},
               error: null,
@@ -292,7 +285,6 @@
         },
         created(){
             this.getBrands();
-            this.getSets();
             this.getTags();
             this.getCategories();
             this.getPhotos();
@@ -429,16 +421,6 @@
                     this.error = e.response.data.errors;
                 });
             },
-            getSets(){
-                axios.get('api/sets/lists')
-                    .then(res => {
-                        this.sets = res.data.sets;
-                        this.getProduct();
-                    }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
-            },
             setBrand(){
                 if(this.product.brand_id > 0){
                     this.getCollections(this.product.brand_id);
@@ -447,18 +429,17 @@
                 }
             },
             getProperties(){
-                if(this.product.set_id > 0){
-                    axios.get('api/properties/' + this.product.set_id + '/set')
-                        .then(res => {
-                            this.properties = res.data.properties;
-                            //this.product.att_ids = [];
-                        }).catch(e => {
-                            console.log(e.response);
-                            this.error = e.response.data.errors;
+                axios.post('api/properties/categories', {'ids': this.product.cat_ids})
+                    .then(res => {
+                        this.properties = res.data.properties;
+                        let newIds = res.data.newIds;
+                        this.product.att_ids = this.product.att_ids.filter((item) => {
+                            return newIds.includes(item);
                         });
-                }else{
-                    this.properties = {};
-                }
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             getPhotos(){
                 axios.get('api/products/' + this.$route.params.id + '/gallery')
@@ -491,6 +472,7 @@
                             var object = {id: pick.id, text: pick.title};
                             return object;
                         });
+                        this.getProduct();
                     }).catch(e => {
                     console.log(e.response);
                     this.error = e.response.data.errors;
@@ -504,6 +486,6 @@
                     this.product.price_outlet = this.product.price - (this.product.discount / 100) * this.product.price;
                 }
             },
-        }
+        },
     }
 </script>
