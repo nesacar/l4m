@@ -7,19 +7,15 @@ use App\Client;
 use App\Product;
 use App\Seo;
 use App\Set;
-use App\Setting;
 use App\Theme;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
     protected $theme;
-    protected $settings;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->theme = Theme::getTheme();
-        $this->settings = Setting::get();
     }
 
     /**
@@ -65,8 +61,7 @@ class ClientsController extends Controller
         $data = Product::search($category, false, $client);
         Seo::shopCategory($category);
         $properties = Set::getProperties($category->set);
-        //$breadcrumb = $client->getBreadcrumb();
-        $breadcrumb = [];
+        $breadcrumb = $client->getBreadcrumb();
         $template = 'shop';
         return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template'));
     }
@@ -83,8 +78,7 @@ class ClientsController extends Controller
         $data = Product::search($category, false, $client, true);
         Seo::shopCategory($category);
         $properties = Set::getProperties($category->set);
-        //$breadcrumb = $client->getBreadcrumb();
-        $breadcrumb = [];
+        $breadcrumb = $client->getBreadcrumb();
         $template = 'action';
         return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template'));
     }
@@ -92,9 +86,8 @@ class ClientsController extends Controller
     public function blog($slug){
         $client = Client::where('slug', $slug)->first();
         //Seo::shopCategory($category);
-        //$breadcrumb = $client->getBreadcrumb();
         $posts = $client->post()->published()->paginate(9);
-        $breadcrumb = [];
+        $breadcrumb = $client->getBreadcrumb();
         $template = 'blog';
         return view('themes.' . $this->theme . '.pages.client.blog', compact('client', 'posts', 'breadcrumb', 'template'));
     }

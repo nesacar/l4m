@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use DB;
+use Session;
 
 trait SearchableProductTraits
 {
@@ -37,22 +38,30 @@ trait SearchableProductTraits
             $products->discountFilter();
         }
 
-        $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.id')->get(['products.id', 'products.price']);
+        $products = $products->select('id', 'price', 'price_outlet', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
+            ->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->groupBy('id')->get();
+
         $productIds = $products->pluck('id')->toArray();
 
         $min = self::getPass() ? request('price')[0] : 0;
-        $max = self::getPass() ? request('price')[1] : $products->first()? $products->first()->price : 0;
+        $max = self::getPass() ? request('price')[1] : $products->first()? $products->first()->total_price : 0;
 
-        $range = $category? $category->product()->published()->orderBy('price', 'DESC')->value('price') : Product::published()->orderBy('price', 'DESC')->value('price');
+        if($category){
+            $range = $category->product()->select('products.id', 'products.price', 'products.price_outlet', DB::raw("CASE WHEN products.price_outlet THEN products.price_outlet ELSE products.price END as totalPrice"))
+                ->withoutGlobalScopes()->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->value('totalPrice');
+        }else{
+            $range = Product::select('products.id', 'products.price', 'products.price_outlet', DB::raw("CASE WHEN products.price_outlet THEN products.price_outlet ELSE products.price END as totalPrice"))
+                ->withoutGlobalScopes()->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->value('totalPrice');
+        }
 
         return [
             'products' => self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))->with('photo')->withoutGlobalScope('attribute')->whereIn('id', $productIds)->sort(request('sort'))->paginate(self::$paginate),
             'attIds' => Attribute::whereHas('product', function ($q) use ($productIds) {
                 $q->whereIn('products.id', $productIds);
             })->groupBy('attributes.id')->pluck('attributes.id')->toArray(),
-            'min' => (int)$min,
-            'max' => (int)$max,
-            'range' => $range,
+            'min' => (int) ($min / Session::get('currency')->exchange_rate),
+            'max' => (int) ($max / Session::get('currency')->exchange_rate),
+            'range' => (int) ($range / Session::get('currency')->exchange_rate) + 1,
             'count' => count($productIds)
         ];
 
@@ -140,7 +149,7 @@ trait SearchableProductTraits
 
     public function scopePrice(Builder $query, $price)
     {
-        if (count($price) == 2) return $query->whereBetween('price', [$price[0], $price[1]]);
+        if (count($price) == 2) return $query->whereBetween('price', [($price[0] * Session::get('currency')->exchange_rate), ($price[1] * Session::get('currency')->exchange_rate)]);
     }
 
     public static function getPass()
