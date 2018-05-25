@@ -6,8 +6,8 @@
         @if(!empty(\Cart::content()))
             <section class="container cart_header">
                 <h1 class="cart_heading cart_heading--1">Korpa</h1>
-                <div class="cart_header-line">
-                  <div class="cart_secondary-text">Imate {{ \Cart::count() }} {{ \Cart::count()%10 == 1 ? 'proizvod' : 'proizvoda'  }} u korpi.</div>
+                <div class="cart_header-line cart_secondary-text">
+                  <div>Imate {{ \Cart::count() }} {{ \Cart::count()%10 == 1 ? 'proizvod' : 'proizvoda'  }} u korpi.</div>
                   <button class="icon-btn" title="Isprazni korpu">
                     <svg class="icon" role="presentation">
                       <use xlink:href="#icon_delete">
@@ -17,16 +17,16 @@
             </section>
             <section class="container">
                 <div class="cart_list">
-                    <div class="row expand--md cart_secondary-text">
-                        <div class="col-md-6">Proizvod</div>
-                        <div class="col-md-3">Količina</div>
-                        <div class="col-md-3">Ukupno</div>
-                    </div>
-                    <hr>
-                    @foreach(\Cart::content() as $product)
-                        @cartentry(['product' => $product]) @endcartentry
-                        <hr>
-                    @endforeach
+                  <div class="cart_table-row cart_table-row--header cart_secondary-text">
+                    <div class="cart_table-cell expand--md"></div>
+                    <div class="cart_table-cell">Proizvod</div>
+                    <div class="cart_table-cell">Količina</div>
+                    <div class="cart_table-cell expand--md">Ukupno</div>
+                    <div class="cart_table-cell"></div>
+                  </div>
+                  @foreach(\Cart::content() as $product)
+                    @cartentry(['product' => $product]) @endcartentry
+                  @endforeach
                 </div>
             </section>
             <section class="container">
