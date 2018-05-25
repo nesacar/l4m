@@ -17,19 +17,6 @@
       margin-bottom: 2 * $base-line;
     }
 
-    input[type="text"] {
-      font-size: 16px;
-      padding: 6px 16px;
-      margin-bottom: 2 * $base-line;
-      background-color: rgba($theme-primary, .12);
-      border: 1px solid transparent;
-      outline: none;
-
-      &:focus {
-        border-color: $theme-primary;
-      }
-    }
-
     button[type="submit"] {
       width: 100%;
     }
