@@ -3,6 +3,7 @@
   data-min={{ $min }}
   data-max={{ $max }}
   data-range={{ $range }}
+  data-exchange-rate={{ \Session::get('currency')->exchange_rate }}
 >
   <div class="double-slider_track-wrap">
     <div class="double-slider_track js-double-slider_track"></div>

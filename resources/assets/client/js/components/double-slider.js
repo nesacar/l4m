@@ -13,6 +13,8 @@ class DoubleSlider {
     this._addEventListeners = this._addEventListeners.bind(this);
     this._removeEventListeners = this._removeEventListeners.bind(this);
 
+    this._exchangeRate = this.el.dataset.exchangeRate || 1;
+
     // Order matters
     this._cacheDOM();
     this._setInitialState();
@@ -157,8 +159,8 @@ class DoubleSlider {
 
     this.outputs.min.value = this.denormalize(min);
     this.outputs.max.value = this.denormalize(max);
-    this.labels.min.innerHTML = this.denormalize(min);
-    this.labels.max.innerHTML = this.denormalize(max);
+    this.labels.min.innerHTML = this.denormalize(min) * this._exchangeRate;
+    this.labels.max.innerHTML = this.denormalize(max) * this._exchangeRate;
   }
 
   _checkRange (value, key) {
