@@ -15,7 +15,9 @@
         </div>
       </div>
       <div class="client_info">
-        <h1 class="client_name">{{ $client->name }}</h1>
+        <h1 class="client_name">
+          <a href="{{ url($client->slug) }}">{{ $client->name }}</a>
+        </h1>
         <nav class="client_nav">
           <ul class="client_nav-list">
             <li class="client_nav-item">
