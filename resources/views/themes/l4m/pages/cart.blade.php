@@ -4,10 +4,16 @@
 
     <div class="cart">
         @if(!empty(\Cart::content()))
-            <section class="container">
+            <section class="container cart_header">
                 <h1 class="cart_heading cart_heading--1">Korpa</h1>
-                <p class="cart_secondary-text">
-                    Imate {{ \Cart::count() }} {{ \Cart::count()%10 == 1 ? 'proizvod' : 'proizvoda'  }} u korpi.</p>
+                <div class="cart_header-line">
+                  <div class="cart_secondary-text">Imate {{ \Cart::count() }} {{ \Cart::count()%10 == 1 ? 'proizvod' : 'proizvoda'  }} u korpi.</div>
+                  <button class="icon-btn" title="Isprazni korpu">
+                    <svg class="icon" role="presentation">
+                      <use xlink:href="#icon_delete">
+                    </use></svg>
+                  </button>
+                </div>
             </section>
             <section class="container">
                 <div class="cart_list">
@@ -25,7 +31,7 @@
             </section>
             <section class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-8">
                         <h2 class="cart_heading cart_heading--2">Ukupno u korpi</h2>
                         <div class="receipt">
                             <div class="receipt_fraction">
@@ -41,9 +47,13 @@
                                 <span class="receipt_value shop-item_price-tag">{{ \Cart::total() }}</span>
                             </div>
                         </div>
+                        <div class="cart_coupon">
+                          <input class="text-input" type="text" name="kupon" id="kupon" placeholder="Unesite promo kod">
+                          <button class="btn btn--primary">iskoristi promo kod</button>
+                        </div>
                         @if(\Cart::count()>0)
                             <div class="cart_actions">
-                                <a href="/shop" class="btn btn--primary btn--block">nastavi kupovinu</a>
+                                <a href="/shop" class="btn btn--outline btn--block">nastavi kupovinu</a>
                                 <button class="btn btn--primary btn--block">Idite na plaćanje</button>
                             </div>
                         @endif

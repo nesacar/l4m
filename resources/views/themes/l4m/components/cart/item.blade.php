@@ -2,7 +2,7 @@
 
 <div class="shop-item_container shop-item_container--horizontal">
   <div class="shop-item_image cart_item-image">
-    <div class="image image--portrait lazy-image"
+    <div class="image image--square lazy-image"
       data-src="{{ url(\Imagecache::get($productItem->image, '90x120')->src) }}"
     ></div>
   </div>

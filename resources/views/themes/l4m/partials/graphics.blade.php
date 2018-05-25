@@ -38,6 +38,9 @@
   <symbol id="icon_arrow" viewBox="0 0 1024 1024">
     <path d="M511.7,768.4L85,341.8v-85.3l426.7,426.7l426.7-426.7v85.3L511.7,768.4z"/>
   </symbol>
+  <symbol id="icon_delete" viewBox="0 0 1024 1024">
+    <path d="M682.7,384v426.7H341.3V384H682.7 M618.7,128H405.3l-42.7,42.7H213.3V256h597.3v-85.3H661.3L618.7,128 L618.7,128z M768,298.7H256v512c0,46.9,38.4,85.3,85.3,85.3h341.3c46.9,0,85.3-38.4,85.3-85.3V298.7L768,298.7z"/>
+  </symbol>
   <!-- social icons -->
   <symbol id="icon_facebook" viewBox="0 0 1024 1024">
       <title>facebook</title>

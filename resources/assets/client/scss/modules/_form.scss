@@ -136,3 +136,16 @@ $active-color_: $theme-primary;
     }
   }
 }
+
+.text-input {
+  font-size: 14px;
+  padding: 8px 16px;
+  margin-bottom: 2 * $base-line;
+  background-color: rgba($theme-primary, .12);
+  border: 0;
+
+  &:focus {
+    outline: 1px solid $theme-primary;
+    outline-offset: -1px;
+  }
+}

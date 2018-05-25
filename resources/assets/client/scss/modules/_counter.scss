@@ -3,43 +3,7 @@
   vertical-align: middle;
 
   &_control {
-    font-size: 24px;
-    line-height: 24px;
-    position: relative;
-    padding: 0;
-    margin: 0 6px;
-    border: 0;
-    display: flex;
-    width: 32px;
-    height: 32px;
-    align-items: center;
-    justify-content: center;
     background-color: lighten($theme-primary, 82%);
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: currentColor;
-      opacity: 0;
-      will-change: opacity;
-      transition: opacity .12s;
-    }
-
-    &:hover::after {
-      opacity: .12;
-    }
-
-    &:focus::after {
-      opacity: .21;
-    }
-
-    &:active::after {
-      opacity: .32;
-    }
   }
 
   &_value {
@@ -47,5 +11,10 @@
     width: 32px;
     text-align: center;
     border: 0;
+
+    &:focus {
+      outline: 1px solid $theme-primary;
+      outline-offset: -1px;
+    }
   }
 }
