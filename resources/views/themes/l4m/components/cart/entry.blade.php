@@ -1,11 +1,25 @@
-<div class="row cart_entry">
-  <div class="col-md-6 cart_entry-column">
-    <span class="collapse--md cart_secondary-text">proizvod</span>
-    @cartitem([ 'product' => $product])
-    @endcartitem
+@php $productItem = \App\Product::find($product->id); @endphp
+
+<div class="cart_table-row cart_entry">
+  <div class="cart_table-cell expand--md">
+    <div class="shop-item_image">
+      <div class="image image--square lazy-image"
+        data-src="{{ url(\Imagecache::get($productItem->image, '90x120')->src) }}"
+      ></div>
+    </div>
   </div>
-  <div class="col-md-3 cart_entry-column">
-    <label class="collapse--md cart_secondary-text" for="{{ $product->id }}">Kolicina:</label>
+  <div class="cart_table-cell cart_entry-column">
+    <div class="cart_item">
+      <div class="shop-item_name">{{ $productItem->brand->title }}</div>
+      <div class="shop-item_brand">{{ $productItem->title }}</div>
+      <div class="shop-item_price" style="margin-top: auto;">
+        <span class="shop-item_price-tag">
+          {{ number_format($product->total, 2, ',', '.') }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="cart_table-cell cart_entry-column">
     @counter([
       'id' => $product->id,
       'name' => 'Količina',
@@ -13,8 +27,10 @@
     ])
     @endcounter
   </div>
-  <div class="col-md-3 cart_entry-column">
-    <span class="collapse--md cart_secondary-text">total</span>
+  <div class="cart_table-cell cart_entry-column expand--md">
     <span class="shop-item_price-tag">{{ number_format($product->total, 2, ',', '.') }}</span>
+  </div>
+  <div class="cart_table-cell cart_entry-column">
+    <button class="icon-btn">&times;</button>
   </div>
 </div>
