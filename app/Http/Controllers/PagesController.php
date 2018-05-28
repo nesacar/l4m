@@ -51,12 +51,7 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        $ids = [2,4];
-        return Property::with('attribute')
-            ->join('property_set', 'properties.id', '=', 'property_set.property_id')
-            ->join('category_set', 'property_set.set_id', '=', 'category_set.set_id')
-            ->whereIn('category_set.category_id', [2,4])->groupBy('properties.id')
-            ->get();
+        return Category::tree();
         return 'done2';
     }
 }

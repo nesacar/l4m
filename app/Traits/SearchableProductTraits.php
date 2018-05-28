@@ -66,7 +66,7 @@ trait SearchableProductTraits
                 $q->whereIn('products.id', $productIds);
             })->groupBy('attributes.id')->pluck('attributes.id')->toArray(),
             'min' => (int) ($min / Session::get('currency')->exchange_rate),
-            'max' => (int) ($max / Session::get('currency')->exchange_rate),
+            'max' => (int) ($max / Session::get('currency')->exchange_rate) + 1,
             'range' => (int) ($range / Session::get('currency')->exchange_rate) + 1,
             'count' => count($productIds)
         ];

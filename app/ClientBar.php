@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientShopBar extends Model
+class ClientBar extends Model
 {
     //
 }

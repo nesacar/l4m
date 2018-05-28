@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Category;
 use App\Client;
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UploadImageRequest;
@@ -112,6 +113,23 @@ class ClientsController extends Controller
 
         return response()->json([
             'clients' => $clients,
+        ]);
+    }
+
+    public function categories($id){
+        $client = Client::find($id);
+
+        return response()->json([
+            'category_ids' => $client->category()->pluck('id'),
+        ]);
+    }
+
+    public function categoriesUpdate($id){
+        $client = Client::find($id);
+        $client->category()->sync(request('client_id'));
+
+        return response()->json([
+            'category_ids' => request('client_id'),
         ]);
     }
 }

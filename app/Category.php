@@ -86,4 +86,8 @@ class Category extends Model
     public function set(){
         return $this->belongsToMany(Set::class);
     }
+
+    public function client(){
+        return $this->belongsToMany(Client::class);
+    }
 }

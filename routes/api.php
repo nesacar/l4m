@@ -88,6 +88,7 @@ Route::get('categories/lists', 'Api\CategoriesController@lists');
 Route::get('categories/tree', 'Api\CategoriesController@tree');
 Route::resource('categories', 'Api\CategoriesController');
 Route::post('categories/{id}/image', 'Api\CategoriesController@uploadImage');
+Route::post('categories/{id}/clients', 'Api\CategoriesController@clients');
 Route::post('categories/{id}/boxImage', 'Api\CategoriesController@uploadBoxImage');
 
 Route::post('products/search', 'Api\ProductsController@search');
@@ -124,3 +125,5 @@ Route::resource('currencies', 'Api\CurrenciesController');
 Route::get('clients/lists', 'Api\ClientsController@lists');
 Route::resource('clients', 'Api\ClientsController');
 Route::post('clients/{id}/image', 'Api\ClientsController@uploadImage');
+Route::get('clients/{id}/categories', 'Api\ClientsController@categories');
+Route::post('clients/{id}/categories', 'Api\ClientsController@categoriesUpdate');

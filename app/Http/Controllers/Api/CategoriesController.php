@@ -141,7 +141,7 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function tree(){
-        $categories = Category::tree();
+        $categories = Category::tree(2);
 
         return response()->json([
             'categories' => $categories,
