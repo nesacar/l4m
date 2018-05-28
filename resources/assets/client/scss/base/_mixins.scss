@@ -1,0 +1,8 @@
+@mixin nav-link() {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+  color: $text-primary-on-light;
+  text-decoration: none !important;
+  outline: none;
+}

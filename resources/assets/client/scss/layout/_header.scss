@@ -47,16 +47,11 @@
     }
   }
 
-  &_social {
+  &_section--left {
     position: absolute;
     left: 2 * $base-line;
     top: 50%;
     transform: translateY(-50%);
-    display: none;
-    
-    @include media-breakpoint-up(md) {
-      display: block;
-    }
   }
 
   &_basket {

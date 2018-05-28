@@ -4,20 +4,16 @@
   justify-content: center;
 
   &_link {
+    @include nav-link;
+
     position: relative;
     display: inline-flex;
     padding: 10px $base-line;
-    text-transform: uppercase;
-    color: $text-primary-on-light;
-    outline: none;
+    text-transform: none;
+    font-weight: 500;
 
     @include media-breakpoint-up(lg) {
       padding: 10px (2 * $base-line);
-    }
-
-    &:hover {
-      color: currentColor;
-      text-decoration: none;
     }
 
     &::before {
