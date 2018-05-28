@@ -46,6 +46,10 @@ Route::get('/brands', function() {
   return view('themes.l4m.pages.brands');
 });
 
+Route::get('/registration', function() {
+  return view('themes.l4m.pages.registration');
+});
+
 Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');
