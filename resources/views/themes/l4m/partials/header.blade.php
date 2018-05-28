@@ -11,6 +11,12 @@
     <div class="container header_content">
       <div class="header_social">
         {{-- @social() --}}
+        <nav class="category-nav">
+          <a class="category-nav_link active" href="#">muškarci</a>
+          <a class="category-nav_link" href="#">žene</a>
+          <a class="category-nav_link" href="#">deca</a>
+          <a class="category-nav_link" href="#">lifestyle</a>
+        </nav>
       </div>
       <a href="{{ url('/') }}" class="logo-wrap">
         <svg class="logo" role="presentation" aria-label="luxury 4 me">
