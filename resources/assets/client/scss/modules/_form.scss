@@ -149,3 +149,71 @@ $active-color_: $theme-primary;
     outline-offset: -1px;
   }
 }
+
+.text-field {
+  display: inline-flex;
+  height: 56px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 16px;
+
+  &_input {
+    font-size: 14px;
+    padding: 8px 16px;
+    background-color: rgba($theme-primary, .12);
+    border: 0;
+    height: 36px;
+    margin-top: auto;
+    outline: none;
+    will-change: background-color;
+    transition: background-color .12s;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+
+    &:hover {
+      background-color: rgba($theme-primary, .18);
+    }
+
+    &:focus {
+      background-color: rgba($theme-primary, .21);
+    }
+  }
+
+  &_label {
+    position: absolute;
+    left: 16px;
+    bottom: 8px;
+    margin: 0;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    color: $text-secondary-on-light;
+    transform-origin: top left;
+    transition: transform .12s, color .12s;
+
+    .float & {
+      transform: translateY(-26px) scale(.75);
+    }
+  }
+
+  &_line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $theme-primary;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform .12s, opacity .12s;
+  }
+
+  &_input:focus ~ &_line {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &_input:focus ~ &_label {
+    color: $theme-primary;
+  }
+}
