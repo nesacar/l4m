@@ -48,6 +48,7 @@ export const router = new VueRouter({
 
         { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAdmin: true } },
         { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAdmin: true } },
+        { path: "/categories/sort", component: require('./components/categories/CategorySort.vue'), meta: { forAuth: true } },
         { path: "/categories/:id/edit", component: require('./components/categories/CategoryEdit.vue'), meta: { forAdmin: true } },
 
         { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAuth: true } },

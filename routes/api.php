@@ -86,10 +86,12 @@ Route::resource('attributes', 'Api\AttributesController');
 Route::post('categories/search', 'Api\CategoriesController@search');
 Route::get('categories/lists', 'Api\CategoriesController@lists');
 Route::get('categories/tree', 'Api\CategoriesController@tree');
+Route::get('categories/sort', 'Api\CategoriesController@sort');
 Route::resource('categories', 'Api\CategoriesController');
 Route::post('categories/{id}/image', 'Api\CategoriesController@uploadImage');
 Route::post('categories/{id}/clients', 'Api\CategoriesController@clients');
 Route::post('categories/{id}/boxImage', 'Api\CategoriesController@uploadBoxImage');
+Route::post('categories/order', 'Api\CategoriesController@saveOrder');
 
 Route::post('products/search', 'Api\ProductsController@search');
 Route::get('products/lists', 'Api\ProductsController@lists');

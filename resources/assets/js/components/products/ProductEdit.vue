@@ -170,6 +170,16 @@
                                     <ol class="sortable" v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
                                             <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id" @change="getProperties()"> {{ cat2.title }}</div>
+                                            <ol class="sortable" v-if="cat2.children.length > 0">
+                                                <li :id="`list_${cat3.id}`" v-for="cat3 in cat2.children">
+                                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat3.id" @change="getProperties()"> {{ cat3.title }}</div>
+                                                    <ol class="sortable" v-if="cat3.children.length > 0">
+                                                        <li :id="`list_${cat4.id}`" v-for="cat4 in cat3.children">
+                                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat4.id" @change="getProperties()"> {{ cat4.title }}</div>
+                                                        </li>
+                                                    </ol>
+                                                </li>
+                                            </ol>
                                         </li>
                                     </ol>
                                 </li>

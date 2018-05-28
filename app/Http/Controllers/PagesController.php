@@ -52,7 +52,10 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        return Client::first()->category;
+        $categories = Category::all();
+        foreach ($categories as $category){
+            $category->update(['slug' => str_slug($category->title)]);
+        }
         return 'done2';
     }
 }
