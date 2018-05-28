@@ -9,7 +9,7 @@
   </button>
   <div class="header">
     <div class="container header_content">
-      <div class="header_social">
+      <section class="header_section--left expand--md">
         {{-- @social() --}}
         <nav class="category-nav">
           <a class="category-nav_link active" href="#">muškarci</a>
@@ -17,7 +17,7 @@
           <a class="category-nav_link" href="#">deca</a>
           <a class="category-nav_link" href="#">lifestyle</a>
         </nav>
-      </div>
+      </section>
       <a href="{{ url('/') }}" class="logo-wrap">
         <svg class="logo" role="presentation" aria-label="luxury 4 me">
           <use xlink:href="#logo">
