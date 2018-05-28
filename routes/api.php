@@ -127,3 +127,5 @@ Route::resource('clients', 'Api\ClientsController');
 Route::post('clients/{id}/image', 'Api\ClientsController@uploadImage');
 Route::get('clients/{id}/categories', 'Api\ClientsController@categories');
 Route::post('clients/{id}/categories', 'Api\ClientsController@categoriesUpdate');
+
+Route::get('client-bars/{id}', 'Api\ClientBarsController@index');

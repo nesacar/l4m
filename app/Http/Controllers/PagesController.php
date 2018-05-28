@@ -6,6 +6,7 @@ use App\Block;
 use App\Brand;
 use App\BrandLink;
 use App\Category;
+use App\Client;
 use App\Customer;
 use App\Gallery;
 use App\Page;
@@ -51,7 +52,7 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        return Category::tree();
+        return Client::first()->category;
         return 'done2';
     }
 }

@@ -37,6 +37,7 @@
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
+                                    <router-link tag="a" :to="'clients/' + row['id'] + '/bars'" class="edit-link"><font-awesome-icon icon="th-large"/></router-link>
                                     <router-link tag="a" :to="'clients/' + row['id'] + '/category'" class="edit-link"><font-awesome-icon icon="stream"/></router-link>
                                     <router-link tag="a" :to="'clients/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />

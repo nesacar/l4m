@@ -72,4 +72,8 @@ class Client extends Model
     public function category(){
         return $this->belongsToMany(Category::class);
     }
+
+    public function clientBar(){
+        return $this->hasMany(ClientBar::class);
+    }
 }

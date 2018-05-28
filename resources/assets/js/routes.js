@@ -108,6 +108,8 @@ export const router = new VueRouter({
         { path: "/clients/create", component: require('./components/clients/ClientCreate.vue'), meta: { forAdmin: true } },
         { path: "/clients/:id/edit", component: require('./components/clients/ClientEdit.vue'), meta: { forAdmin: true } },
         { path: "/clients/:id/category", component: require('./components/clients/ClientCategory.vue'), meta: { forAdmin: true } },
+
+        { path: "/client-bars/:id", component: require('./components/clientBars/BarList.vue'), meta: { forAdmin: true } },
     ],
 
     linkActiveClass: 'active',
