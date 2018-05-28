@@ -165,7 +165,6 @@ $active-color_: $theme-primary;
     height: 36px;
     margin-top: auto;
     outline: none;
-    will-change: background-color;
     transition: background-color .12s;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -190,6 +189,7 @@ $active-color_: $theme-primary;
     color: $text-secondary-on-light;
     transform-origin: top left;
     transition: transform .12s, color .12s;
+    will-change: transform;
 
     .float & {
       transform: translateY(-26px) scale(.75);
@@ -206,6 +206,7 @@ $active-color_: $theme-primary;
     opacity: 0;
     transform: scale(0);
     transition: transform .12s, opacity .12s;
+    will-change: transform, opacity;
   }
 
   &_input:focus ~ &_line {
