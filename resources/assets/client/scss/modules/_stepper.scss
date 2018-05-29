@@ -1,22 +1,33 @@
 .stepper {
   padding: 8px 0;
   list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }
 
 .step {
   height: 48px;
-  padding: 0 16px;
+  padding: 0 8px;
   display: flex;
   align-items: center;
   position: relative;
   text-decoration: none !important;
   font-weight: $font-weight-bold;
   color: $text-primary-on-light;
-  // text-transform: uppercase;
 
   &[disabled] {
     pointer-events: none;
     color: $text-hint-on-light;
+  }
+
+  @include media-breakpoint-up(md) {
+    padding: 0 16px;
   }
 
   &::after {
@@ -43,7 +54,6 @@
   &_icon {
     width: 32px;
     height: 32px;
-    margin-right: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -55,6 +65,10 @@
 
     [disabled] & {
       background: rgba($theme-primary, .3);
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 16px;
     }
   }
 }

@@ -11,12 +11,27 @@
     'steps' => [
       (object)[
         'link' => '#first',
-        'text' => 'First step',
+        'text' => 'Adresa slanja',
         'disabled' => false,
       ],
       (object)[
         'link' => '#second',
-        'text' => 'second step',
+        'text' => 'Način dostave',
+        'disabled' => false,
+      ],
+      (object)[
+        'link' => '#second',
+        'text' => 'Način plaćanja',
+        'disabled' => true,
+      ],
+      (object)[
+        'link' => '#second',
+        'text' => 'Potvrda porudžbine',
+        'disabled' => true,
+      ],
+      (object)[
+        'link' => '#second',
+        'text' => 'Kraj',
         'disabled' => true,
       ],
     ],
