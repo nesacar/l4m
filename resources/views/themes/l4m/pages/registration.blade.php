@@ -7,7 +7,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container" style="margin-bottom: 32px;">
   <h2 class="section-title with-lines">
     <span>Registracija</span>
   </h2> 
