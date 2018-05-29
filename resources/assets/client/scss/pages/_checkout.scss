@@ -1,0 +1,21 @@
+.checkout {
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+  }
+}
+
+.checkout-steps {
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    width: 240px;
+    flex-shrink: 0;
+  }
+}
+
+.checkout-content {
+  flex-grow: 1;
+}

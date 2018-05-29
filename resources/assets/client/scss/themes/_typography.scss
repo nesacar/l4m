@@ -87,3 +87,16 @@
 .text--serif {
   font-family: $font-family-header !important;
 }
+
+.subtitle {
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+
+  &--serif {
+    font-family: $font-family-playfair-display;
+  }
+
+  &--sans-serif {
+    font-family: $font-family-roboto;
+  }
+}
