@@ -7,7 +7,10 @@
 
 @section('content')
 
-<div class="container" style="padding-top: 32px;">
+<div class="container" style="margin-bottom: 32px;">
+  <h2 class="section-title with-lines">
+    <span>Registracija</span>
+  </h2> 
   <form>
     <div class="row">
       <div class="col-md-6">
@@ -61,6 +64,10 @@
           ])
         @endtextfield
       </div>
+    </div>
+    <div class="form_footer">
+      <button class="btn btn--outline" type="reset">poništi</button>
+      <button class="btn btn--primary" type="submit">potvrdi</button>
     </div>
   </form>
 </div>
