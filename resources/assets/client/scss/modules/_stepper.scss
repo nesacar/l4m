@@ -1,0 +1,60 @@
+.stepper {
+  padding: 8px 0;
+  list-style: none;
+}
+
+.step {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-decoration: none !important;
+  font-weight: $font-weight-bold;
+  color: $text-primary-on-light;
+  // text-transform: uppercase;
+
+  &[disabled] {
+    pointer-events: none;
+    color: $text-hint-on-light;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    transition: opactiy .12s;
+  }
+
+  &:hover::after {
+    opacity: .12;
+  }
+
+  &:focus::after {
+    opacity: .21;
+  }
+
+  &_icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $theme-primary;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+    color: #FFF;
+
+    [disabled] & {
+      background: rgba($theme-primary, .3);
+    }
+  }
+}

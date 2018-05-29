@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
       Blade::component($components . 'search-widget', 'search');
       Blade::component($components . 'text-field', 'textfield');
       Blade::component($components . 'drawer', 'drawer');
+      Blade::component($components . 'stepper', 'stepper');
 
       Blade::component($components . 'cart.entry', 'cartentry');
       Blade::component($components . 'cart.item', 'cartitem');

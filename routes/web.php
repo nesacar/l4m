@@ -50,6 +50,10 @@ Route::get('/registration', function() {
   return view('themes.l4m.pages.registration');
 });
 
+Route::get('/checkout/step-1', function() {
+  return view('themes.l4m.pages.checkout.address');
+});
+
 Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');
