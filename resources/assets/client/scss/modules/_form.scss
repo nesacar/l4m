@@ -1,6 +1,17 @@
 $inactive-color_: rgba(0, 0, 0, .54);
 $active-color_: $theme-primary;
 
+.form {
+  &_footer {
+    display: flex;
+    justify-content: flex-end;
+
+    button + button {
+      margin-left: 16px;
+    }
+  }
+}
+
 .checkbox {
   position: relative;
   display: inline-block;
@@ -147,5 +158,131 @@ $active-color_: $theme-primary;
   &:focus {
     outline: 1px solid $theme-primary;
     outline-offset: -1px;
+  }
+}
+
+.text-field-container {
+  display: block;
+  min-width: 200px;
+}
+
+.text-field {
+  font-size: 14px;
+  display: inline-flex;
+  width: 100%;
+  height: 48px;
+  position: relative;
+  // overflow: hidden;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  background-color: rgba($theme-primary, .12);
+  border-bottom: 1px solid $border-color-dark;
+
+  &:hover {
+    border-bottom-color: $theme-primary;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $theme-primary;
+    opacity: 0;
+    will-change: opacity;
+    // transition: opacity .12s;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    opacity: .06;
+  }
+
+  &.focus::after {
+    opacity: .12;
+  }
+
+  &_input {
+    width: 100%;
+    padding: 16px 16px 0;
+    border: 0;
+    background: transparent;
+    outline: none;
+    transition: background-color .12s;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+
+  &_label {
+    position: absolute;
+    left: 16px;
+    bottom: 17px;
+    margin: 0;
+    z-index: 1;
+    line-height: 1.15;
+    line-height: 1;
+    font-weight: $font-weight-medium;
+    color: $text-secondary-on-light;
+    transform-origin: top left;
+    transition: transform .12s, color .12s;
+    will-change: transform;
+    pointer-events: none;
+
+    .required &::after {
+      content: "*";
+    }
+
+    .float & {
+      transform: translateY(-50%) scale(.75);
+    }
+
+    .error & {
+      color: $theme-error !important;
+    }
+  }
+
+  &_line {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $theme-primary;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform .12s, opacity .12s;
+    will-change: transform, opacity;
+
+    .error & {
+      background: $theme-error !important;
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &_helper-text {
+    font-size: .75rem;
+    line-height: 1.25rem;
+    font-weight: $font-weight-normal;
+    letter-spacing: .03333em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    margin: 0 16px 8px;
+
+    .error + & {
+      color: $theme-error !important;
+    }
+  }
+
+  &_input:focus ~ &_line {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &_input:focus ~ &_label {
+    color: $theme-primary;
   }
 }
