@@ -22,7 +22,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::with('set')->orderBy('order', 'ASC')->paginate(50);
+        $properties = Property::with('category')->orderBy('order', 'ASC')->paginate(50);
 
         return response()->json([
             'properties' => $properties
@@ -39,7 +39,8 @@ class PropertiesController extends Controller
     {
         $property = Property::create(request()->all());
 
-        if(request('sets')){ $property->set()->sync(request('sets')); }
+        //$property->set()->sync(request('set_ids'));
+        $property->category()->sync(request('cat_ids'));
 
         return response()->json([
             'property' => $property
@@ -54,11 +55,13 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
-        $sets = $property->set()->pluck('sets.id');
+        //$sets = $property->set()->pluck('sets.id');
+        $categories = $property->category()->pluck('categories.id');
 
         return response()->json([
             'property' => $property,
-            'sets' => $sets,
+            //'sets' => $sets,
+            'categories' => $categories,
         ]);
     }
 
@@ -73,12 +76,16 @@ class PropertiesController extends Controller
     {
         $property->update(request()->all());
 
-        if(request('sets')){ $property->set()->sync(request('sets')); }
-        $sets = $property->set()->pluck('sets.id');
+        //$property->set()->sync(request('set_ids'));
+        $property->category()->sync(request('cat_ids'));
+
+        //$sets = $property->set()->pluck('sets.id');
+        $cats = $property->category()->pluck('categories.id');
 
         return response()->json([
             'property' => $property,
-            'sets' => $sets
+            //'sets' => $sets,
+            'categories' => $cats,
         ]);
     }
 

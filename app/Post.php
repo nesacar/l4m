@@ -65,19 +65,27 @@ class Post extends Model
         return self::with('blog')->where('slider', '<>', null)->published()->take($limit)->get();
     }
 
-    public static function getLatest($category = false, $limit = 8){
+    public static function getLatest($category = false, $exclude = false, $limit = 8){
         if($category){
-            return $category->post()->published()->take($limit)->get();
+            return $category->post()->published()->paginate($limit);
         }else{
-            return self::published()->take($limit)->get();
+            return self::published()->paginate($limit);
         }
     }
 
-    public static function getMostView($category = false, $limit = 4){
+    public static function getMostView($category = false, $exclude = false, $limit = 4){
         if($category){
-            return $category->post()->published()->orderBy('views', 'DESC')->take($limit)->get();
+            return $category->post()->where(function($query) use ($exclude){
+                if($exclude){
+                    $query->where('posts.id', '<>', $exclude->id);
+                }
+            })->published()->orderBy('views', 'DESC')->take($limit)->get();
         }else{
-            return self::published()->orderBy('views', 'DESC')->take($limit)->get();
+            return self::where(function($query) use ($exclude){
+                if($exclude){
+                    $query->where('posts.id', '<>', $exclude->id);
+                }
+            })->published()->orderBy('views', 'DESC')->take($limit)->get();
         }
     }
 

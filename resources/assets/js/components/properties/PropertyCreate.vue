@@ -24,11 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
-                                <label>Set</label>
-                                <select2 :options="sets" :multiple="true" @input="input($event)">
+                                <label>Kategorije</label>
+                                <select2 :options="categories" :multiple="true" @input="inputCategory($event)">
                                     <option value="0" disabled>select one</option>
                                 </select2>
-                                <small class="form-text text-muted" v-if="error != null && error.sets">{{ error.sets[0] }}</small>
+                                <small class="form-text text-muted" v-if="error != null && error.categories">{{ error.categories[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="title">Naziv</label>
@@ -74,7 +74,7 @@
         data(){
           return {
               property: {},
-              sets: {},
+              categories: {},
               error: null,
               domain : apiHost
           }
@@ -90,17 +90,19 @@
             'select2': Select2,
         },
         created(){
-            this.getSets();
+            this.getTopCategories();
         },
         methods: {
-            getSets(){
-                axios.get('api/sets/lists')
+            getTopCategories(){
+                axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.sets = _.map(res.data.sets, (data) => {
+                        console.log(res);
+                        this.categories = _.map(res.data.categories, (data) => {
                             var pick = _.pick(data, 'title', 'id');
                             var object = {id: pick.id, text: pick.title};
                             return object;
                         });
+                        console.log(this.categories);
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
@@ -122,8 +124,8 @@
                         this.error = e.response.data.errors;
                     });
             },
-            input(set){
-                this.property.sets = set;
+            inputCategory(category){
+                this.property.cat_ids = category;
             },
         }
     }

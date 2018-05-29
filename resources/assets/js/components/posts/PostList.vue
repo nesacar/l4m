@@ -47,7 +47,7 @@
                                 <td>
                                     <font-awesome-icon icon="eye" @click="previewRow(row)" />
                                     <font-awesome-icon icon="shopping-cart" @click="productRow(row)" />
-                                    <router-link tag="a" :to="'posts/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'posts/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>

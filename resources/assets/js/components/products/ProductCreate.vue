@@ -130,6 +130,30 @@
                             </div>
                         </form>
                     </div>
+
+
+                    <div class="row">
+                        <div class="card col-md-12">
+                            <h3>Osobine i atributi</h3>
+                            <small class="form-text text-muted" v-if="error != null && error.att_ids">{{ error.att_ids[0] }}</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <template v-if="properties.length > 0">
+                            <div class="card col-sm-4" v-for="property in properties">
+                                <div class="form-group">
+                                    <label>{{ property.title }}</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="attribute in property.attribute">
+                                            <input type="checkbox" :value="attribute.id" v-model="product.att_ids">
+                                            {{ attribute.title }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
                 </div>
                 <div class="col-sm-6">
                     <div style="max-width: 400px;">
@@ -152,34 +176,17 @@
                                     <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id" @change="getProperties()"> {{ cat.title }}</div>
                                     <ol class="sortable" v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
-                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id" @change="getProperties()"> {{ cat2.title }}</div>
+                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
+                                            <ol class="sortable" v-if="cat2.children.length > 0">
+                                                <li :id="`list_${cat3.id}`" v-for="cat3 in cat2.children">
+                                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat3.id"> {{ cat3.title }}</div>
+                                                </li>
+                                            </ol>
                                         </li>
                                     </ol>
                                 </li>
                             </ol>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="card col-md-12">
-                            <h3>Osobine i atributi</h3>
-                            <small class="form-text text-muted" v-if="error != null && error.att_ids">{{ error.att_ids[0] }}</small>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <template v-if="properties.length > 0">
-                            <div class="card col-sm-4" v-for="property in properties">
-                                <div class="form-group">
-                                    <label>{{ property.title }}</label>
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="attribute in property.attribute">
-                                            <input type="checkbox" :value="attribute.id" v-model="product.att_ids">
-                                            {{ attribute.title }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </template>
                     </div>
 
                 </div>

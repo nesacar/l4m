@@ -65,8 +65,16 @@ class Category extends Model
         return self::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
     }
 
+    public static function getProperties($slug){
+        $category = self::whereSlug($slug)->first();
+        if(!empty($category)){
+            return $category->property()->where('properties.publish', 1)->orderBy('properties.order', 'ASC')->get();
+        }
+        return [];
+    }
+
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = str_slug($value);
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
 
     public function setPublishAttribute($value){
@@ -76,6 +84,16 @@ class Category extends Model
     public static function tree() {
         return static::with(implode('.', array_fill(0, 3, 'children')))->where('parent', 0)
             ->orderBy('order', 'ASC')->get();
+    }
+
+    public static function setPrimaryCategory($slug){
+        if(\Session::has('primary')){
+            if(\Session::get('primary') != $slug){
+                \Session::put('primary', $slug);
+            }
+        }else{
+            \Session::put('primary', $slug);
+        }
     }
 
     public function parentCategory() {
@@ -104,5 +122,9 @@ class Category extends Model
 
     public function client(){
         return $this->belongsToMany(Client::class);
+    }
+
+    public function property(){
+        return $this->belongsToMany(Property::class);
     }
 }

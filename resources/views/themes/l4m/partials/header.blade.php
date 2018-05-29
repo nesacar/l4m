@@ -12,10 +12,10 @@
       <section class="header_section--left expand--md">
         {{-- @social() --}}
         <nav class="category-nav">
-          <a class="category-nav_link active" href="#">muškarci</a>
-          <a class="category-nav_link" href="#">žene</a>
-          <a class="category-nav_link" href="#">deca</a>
-          <a class="category-nav_link" href="#">lifestyle</a>
+          <a class="category-nav_link {{ \Session::get('primary') == 'muskarci'? 'active' : '' }}" href="{{ url('shop/muskarci') }}">muškarci</a>
+          <a class="category-nav_link {{ \Session::get('primary') == 'zene'? 'active' : '' }}" href="{{ url('shop/zene') }}">žene</a>
+          <a class="category-nav_link {{ \Session::get('primary') == 'deca'? 'active' : '' }}" href="{{ url('shop/deca') }}">deca</a>
+          <a class="category-nav_link {{ \Session::get('primary') == 'living'? 'active' : '' }}" href="{{ url('shop/living') }}">living</a>
         </nav>
       </section>
       <a href="{{ url('/') }}" class="logo-wrap">

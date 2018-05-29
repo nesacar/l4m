@@ -9,6 +9,7 @@ use App\Category;
 use App\Client;
 use App\Customer;
 use App\Gallery;
+use App\MenuLink;
 use App\Page;
 use App\Post;
 use App\Product;
@@ -41,7 +42,8 @@ class PagesController extends Controller
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
-        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands', 'menu'));
     }
 
     public function proba()
@@ -52,10 +54,7 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        $categories = Category::all();
-        foreach ($categories as $category){
-            $category->update(['slug' => str_slug($category->title)]);
-        }
+        return MenuLink::getMenu();
         return 'done2';
     }
 }

@@ -84,6 +84,7 @@ Route::get('attributes/lists', 'Api\AttributesController@lists');
 Route::resource('attributes', 'Api\AttributesController');
 
 Route::post('categories/search', 'Api\CategoriesController@search');
+Route::get('categories/top-lists', 'Api\CategoriesController@topLists');
 Route::get('categories/lists', 'Api\CategoriesController@lists');
 Route::get('categories/tree', 'Api\CategoriesController@tree');
 Route::get('categories/sort', 'Api\CategoriesController@sort');

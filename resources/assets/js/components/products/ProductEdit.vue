@@ -143,6 +143,39 @@
                             </div>
                         </form>
                     </div>
+
+                    <div class="row">
+                        <div class="card col-md-12">
+                            <h3>Osobine i atributi</h3>
+                            <small class="form-text text-muted" v-if="error != null && error.att_ids">{{ error.att_ids[0] }}</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <template v-if="properties.length > 0">
+                            <div class="card col-sm-4" v-if="product.cat_ids.includes(2)">
+                                <div class="form-group">
+                                    <label>Vodootpornost</label>
+                                    <input type="text" class="form-control" name="water" v-model="product.water">
+                                </div>
+                                <div class="form-group">
+                                    <label>Prečnik sata</label>
+                                    <input type="text" class="form-control" name="diameter" v-model="product.diameter">
+                                </div>
+                            </div>
+                            <div class="card col-sm-4" v-for="property in properties">
+                                <div class="form-group">
+                                    <label>{{ property.title }} / {{ property.extra }}</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="attribute in property.attribute">
+                                            <input type="checkbox" v-model="product.att_ids" :value="attribute.id">
+                                            {{ attribute.title }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div style="max-width: 400px;">
@@ -169,13 +202,13 @@
                                     <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id" @change="getProperties()"> {{ cat.title }}</div>
                                     <ol class="sortable" v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
-                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id" @change="getProperties()"> {{ cat2.title }}</div>
+                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
                                             <ol class="sortable" v-if="cat2.children.length > 0">
                                                 <li :id="`list_${cat3.id}`" v-for="cat3 in cat2.children">
-                                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat3.id" @change="getProperties()"> {{ cat3.title }}</div>
+                                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat3.id"> {{ cat3.title }}</div>
                                                     <ol class="sortable" v-if="cat3.children.length > 0">
                                                         <li :id="`list_${cat4.id}`" v-for="cat4 in cat3.children">
-                                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat4.id" @change="getProperties()"> {{ cat4.title }}</div>
+                                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat4.id"> {{ cat4.title }}</div>
                                                         </li>
                                                     </ol>
                                                 </li>
@@ -185,39 +218,6 @@
                                 </li>
                             </ol>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="card col-md-12">
-                            <h3>Osobine i atributi</h3>
-                            <small class="form-text text-muted" v-if="error != null && error.att_ids">{{ error.att_ids[0] }}</small>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <template v-if="properties.length > 0">
-                            <div class="card col-sm-4" v-if="product.cat_ids.includes(2)">
-                                <div class="form-group">
-                                    <label>Vodootpornost</label>
-                                    <input type="text" class="form-control" name="water" v-model="product.water">
-                                </div>
-                                <div class="form-group">
-                                    <label>Prečnik sata</label>
-                                    <input type="text" class="form-control" name="diameter" v-model="product.diameter">
-                                </div>
-                            </div>
-                            <div class="card col-sm-4" v-for="property in properties">
-                                <div class="form-group">
-                                    <label>{{ property.title }}</label>
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="attribute in property.attribute">
-                                            <input type="checkbox" v-model="product.att_ids" :value="attribute.id">
-                                            {{ attribute.title }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </template>
                     </div>
 
                 </div>
@@ -439,6 +439,7 @@
                 }
             },
             getProperties(){
+                console.log('get properties');
                 axios.post('api/properties/categories', {'ids': this.product.cat_ids})
                     .then(res => {
                         this.properties = res.data.properties;

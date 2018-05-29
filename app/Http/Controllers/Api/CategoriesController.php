@@ -22,7 +22,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('parentCategory')->with('set')->orderBy('order', 'ASC')->paginate(50);
+        $categories = Category::with('parentCategory')->orderBy('order', 'ASC')->paginate(50);
 
         return response()->json([
             'categories' => $categories
@@ -54,11 +54,8 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        $setIds = $category->set->pluck('id');
-
         return response()->json([
             'category' => $category,
-            'set_ids' => $setIds,
         ]);
     }
 
@@ -72,12 +69,9 @@ class CategoriesController extends Controller
     public function update(CreateCategoryRequest $request, Category $category)
     {
         $category->update(request()->except('image'));
-        $category->set()->sync(request('set_ids'));
-        $setIds = $category->set->pluck('id');
 
         return response()->json([
             'category' => $category,
-            'set_ids' => $setIds,
         ]);
     }
 
@@ -136,12 +130,25 @@ class CategoriesController extends Controller
     }
 
     /**
+     * List of top categories
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function topLists(){
+        $categories = Category::select('id', 'title')->where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
      * Three of categories
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function tree(){
-        $categories = Category::tree(3);
+        $categories = Category::tree(1);
 
         return response()->json([
             'categories' => $categories,

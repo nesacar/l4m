@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use App\Category;
+use App\MenuLink;
 use App\Post;
 use App\Seo;
 use App\Setting;
@@ -30,7 +31,8 @@ class BlogsController extends Controller
         $slider = Post::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         Seo::blog($this->settings);
-        return view('themes.' . $this->theme . '.pages.blog.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.blog.blog', compact('featuredProducts', 'slider', 'posts', 'mostView', 'categories', 'menu'));
     }
 
     public function blog2($slug){
@@ -39,7 +41,8 @@ class BlogsController extends Controller
         $mostView = Post::getMostView();
         $slider = Post::getSlider();
         Seo::blogCategory(Setting::get(), $category);
-        return view('themes.' . $this->theme . '.pages.blog.category', compact( 'posts', 'mostView', 'category', 'slider'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.blog.category', compact( 'posts', 'mostView', 'category', 'slider', 'menu'));
     }
 
     public function blog3($slug1, $slug2){
@@ -47,7 +50,8 @@ class BlogsController extends Controller
         $posts = Post::getLatest($category);
         $mostView = Post::getMostView();
         Seo::blogCategory(Setting::get(), $category);
-        return view('themes.' . $this->theme . '.pages.blog.category', compact( 'posts', 'mostView', 'category'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.blog.category', compact( 'posts', 'mostView', 'category', 'menu'));
     }
 
     public function blog4($slug1, $slug2, $slug3){
@@ -57,11 +61,12 @@ class BlogsController extends Controller
                 $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
             }])->find($slug3);
             $post->increment('views');
-            $posts = Post::getLatest($category);
-            $mostView = Post::getMostView($category);
+            $posts = Post::getLatest($category, $post);
+            $mostView = Post::getMostView($category, $post);
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
-            return view('themes.' . $this->theme . '.pages.blog.post', compact('posts', 'post', 'category', 'breadcrumb', 'mostView'));
+            $menu = MenuLink::getMenu();
+            return view('themes.' . $this->theme . '.pages.blog.post', compact('posts', 'post', 'category', 'breadcrumb', 'mostView', 'menu'));
         }else{
             return redirect('blog');
         }
@@ -74,11 +79,12 @@ class BlogsController extends Controller
                 $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
             }])->find($slug3);
             $post->increment('views');
-            $posts = Post::getLatest($category);
-            $mostView = Post::getMostView($category);
+            $posts = Post::getLatest($category, $post);
+            $mostView = Post::getMostView($category, $post);
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
-            return view('themes.' . $this->theme . '.pages.blog.post', compact( 'posts', 'post', 'category', 'breadcrumb', 'mostView'));
+            $menu = MenuLink::getMenu();
+            return view('themes.' . $this->theme . '.pages.blog.post', compact( 'posts', 'post', 'category', 'breadcrumb', 'mostView', 'menu'));
         }else{
             return redirect('blog');
         }
