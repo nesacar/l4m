@@ -1,6 +1,17 @@
 $inactive-color_: rgba(0, 0, 0, .54);
 $active-color_: $theme-primary;
 
+.form {
+  &_footer {
+    display: flex;
+    justify-content: flex-end;
+
+    button + button {
+      margin-left: 16px;
+    }
+  }
+}
+
 .checkbox {
   position: relative;
   display: inline-block;
@@ -156,12 +167,12 @@ $active-color_: $theme-primary;
 }
 
 .text-field {
-  font-size: 16px;
+  font-size: 14px;
   display: inline-flex;
   width: 100%;
-  height: 56px;
+  height: 48px;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   margin-top: 16px;
   margin-bottom: 8px;
   background-color: rgba($theme-primary, .12);
@@ -196,7 +207,7 @@ $active-color_: $theme-primary;
 
   &_input {
     width: 100%;
-    padding: 20px 16px 0;
+    padding: 16px 16px 0;
     border: 0;
     background: transparent;
     outline: none;
@@ -208,7 +219,7 @@ $active-color_: $theme-primary;
   &_label {
     position: absolute;
     left: 16px;
-    bottom: 20px;
+    bottom: 17px;
     margin: 0;
     z-index: 1;
     line-height: 1.15;
@@ -235,7 +246,7 @@ $active-color_: $theme-primary;
 
   &_line {
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
     width: 100%;
     height: 2px;
