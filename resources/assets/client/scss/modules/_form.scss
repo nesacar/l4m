@@ -261,7 +261,7 @@ $active-color_: $theme-primary;
     text-transform: inherit;
     margin: 0 16px 8px;
 
-    .error & {
+    .error + & {
       color: $theme-error !important;
     }
   }

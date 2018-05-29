@@ -2,22 +2,24 @@
   $error = isset($error) ? $error : false;
   $required = isset($required) ? $required : false;
   $type = isset($type) ? $type : "text";
+  $value = isset($value) ? $value : "";
 
-  $containerCN = "text-field-container";
-  $containerCN = $error
-    ? ($containerCN." error")
-    : $containerCN;
-  $containerCN = $required
-    ? ($containerCN." required")
-    : $containerCN;
+  $className = "text-field";
+  $className = $error
+    ? ($className." error")
+    : $className;
+  $className = $required
+    ? ($className." required")
+    : $className;
 @endphp
 
-<div class="{{$containerCN}}" style="width: 240px;">
-  <div class="text-field">
+<div class="text-field-container">
+  <div class="{{$className}}">
     <input class="text-field_input"
       type="{{$type}}"
       name="{{$name}}"
       id="{{$id}}"
+      value="{{$value}}"
       @if($required) required @endif
     >
     <label class="text-field_label" for="{{$id}}">{{$label}}</label>

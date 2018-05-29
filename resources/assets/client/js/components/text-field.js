@@ -11,6 +11,10 @@ class TextField {
     this._onBlur = this._onBlur.bind(this);
     this._onFocus = this._onFocus.bind(this);
 
+    if (this._input.value) {
+      this._root.classList.add('float');
+    }
+
     this._addEventListeners();
   }
 
