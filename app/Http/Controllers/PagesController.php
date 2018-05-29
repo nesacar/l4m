@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Block;
 use App\Brand;
 use App\BrandLink;
@@ -54,7 +55,10 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-        return MenuLink::getMenu();
+//        $attributes = Attribute::where('property_id', 2)->get();
+//        foreach ($attributes as $attribute){
+//            $attribute->update(['property_id' => 19]);
+//        }
         return 'done2';
     }
 }

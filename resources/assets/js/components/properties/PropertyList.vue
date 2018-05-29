@@ -36,7 +36,7 @@
                         <tbody>
                         <tr v-for="row in properties">
                             <td>{{ row.id }}</td>
-                            <td>{{ row.title }} / {{ row.extra }}</td>
+                            <td>{{ row.title }}</td>
                             <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                             <td v-if="row.category">[<template v-for="category in row.category">{{ category.title }},</template>]</td><td v-else>/</td>
                             <td>{{ row.attribute.length }}</td>

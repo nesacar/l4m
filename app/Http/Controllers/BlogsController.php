@@ -25,7 +25,7 @@ class BlogsController extends Controller
 
     public function blog()
     {
-        $posts = Post::getLatest(false, 10);
+        $posts = Post::getLatest(false, false, 10);
         $mostView = Post::getMostView();
         $featuredProducts = ShopBar::getFeatured('blog');
         $slider = Post::getSlider();
@@ -37,7 +37,7 @@ class BlogsController extends Controller
 
     public function blog2($slug){
         $category = Blog::whereSlug($slug)->first();
-        $posts = Post::getLatest($category, 10);
+        $posts = Post::getLatest($category, false, 10);
         $mostView = Post::getMostView();
         $slider = Post::getSlider();
         Seo::blogCategory(Setting::get(), $category);
@@ -47,7 +47,7 @@ class BlogsController extends Controller
 
     public function blog3($slug1, $slug2){
         $category = Blog::whereSlug($slug2)->first();
-        $posts = Post::getLatest($category);
+        $posts = Post::getLatest($category, false);
         $mostView = Post::getMostView();
         Seo::blogCategory(Setting::get(), $category);
         $menu = MenuLink::getMenu();

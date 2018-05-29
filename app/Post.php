@@ -67,9 +67,17 @@ class Post extends Model
 
     public static function getLatest($category = false, $exclude = false, $limit = 8){
         if($category){
-            return $category->post()->published()->paginate($limit);
+            return $category->post()->where(function($query) use ($exclude){
+                if($exclude){
+                    $query->where('posts.id', '<>', $exclude->id);
+                }
+            })->published()->paginate($limit);
         }else{
-            return self::published()->paginate($limit);
+            return self::where(function($query) use ($exclude){
+                if($exclude){
+                    $query->where('posts.id', '<>', $exclude->id);
+                }
+            })->published()->paginate($limit);
         }
     }
 
