@@ -26,7 +26,7 @@ class CreatePropertyRequest extends FormRequest
         return [
             'title' => 'required',
             'order' => 'required|numeric|min:1',
-            'sets' => 'required|array|min:1',
+            'cat_ids' => 'required|array|min:1',
         ];
     }
 
@@ -42,9 +42,9 @@ class CreatePropertyRequest extends FormRequest
             'order.required' => 'Redosled je obavezan',
             'order.numeric' => 'Redosled mora biti broj',
             'order.min' => 'Redosled je obavezan',
-            'sets.required' => 'Set je obavezan',
-            'sets.array' => 'et je obavezan',
-            'sets.min' => 'Set je obavezan',
+            'cat_ids.required' => 'Kategorija je obavezna',
+            'cat_ids.array' => 'Kategorija je obavezna',
+            'cat_ids.min' => 'Kategorija je obavezna',
         ];
     }
 }

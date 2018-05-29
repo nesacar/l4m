@@ -25,9 +25,8 @@ class Attribute extends Model
     public static function getAttributeIdsByCategories($ids){
         if($ids){
             return self::join('properties', 'attributes.property_id', '=', 'properties.id')
-                ->join('property_set', 'properties.id', '=', 'property_set.property_id')
-                ->join('category_set', 'property_set.set_id', '=', 'category_set.set_id')
-                ->whereIn('category_set.category_id', $ids)->groupBy('attributes.id')
+                ->join('category_property', 'properties.id', '=', 'category_property.property_id')
+                ->whereIn('category_property.category_id', $ids)->groupBy('attributes.id')
                 ->orderBy('properties.title', 'ASC')->pluck('attributes.id');
         }else{
             return [];

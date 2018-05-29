@@ -30,9 +30,8 @@ class Property extends Model
     public static function getPropertyByCategories($ids=false){
         if($ids){
             return self::with('attribute')
-                ->join('property_set', 'properties.id', '=', 'property_set.property_id')
-                ->join('category_set', 'property_set.set_id', '=', 'category_set.set_id')
-                ->whereIn('category_set.category_id', $ids)->groupBy('properties.id')
+                ->join('category_property', 'properties.id', '=', 'category_property.property_id')
+                ->whereIn('category_property.category_id', $ids)->groupBy('properties.id')
                 ->orderBy('properties.title', 'ASC')->get();
         }else{
             return [];
@@ -53,5 +52,9 @@ class Property extends Model
 
     public function attribute(){
         return $this->hasMany(Attribute::class)->orderBy('order', 'ASC');
+    }
+
+    public function category(){
+        return $this->belongsToMany(Category::class);
     }
 }

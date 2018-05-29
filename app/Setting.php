@@ -11,7 +11,7 @@ class Setting extends Model
 
     protected $fillable = [
         'title', 'address', 'keywords', 'desc', 'footer', 'phone1', 'phone2', 'email1', 'email2', 'facebook', 'twitter', 'instagram',
-        'pinterest', 'google', 'youtube', 'analytics', 'map'
+        'pinterest', 'google', 'youtube', 'analytics', 'map', 'primary'
     ];
 
     public static function get(){

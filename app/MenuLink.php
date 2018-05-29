@@ -47,6 +47,11 @@ class MenuLink extends Model
         $this->attributes['publish'] = $value?: false;
     }
 
+    public static function getMenu(){
+        $menu = Menu::whereSlug(\Session::get('primary'))->first();
+        return self::tree($menu->id);
+    }
+
     public static function tree($menu_id) {
         return static::where('menu_id', $menu_id)->with(implode('.', array_fill(0, 1, 'children')))
             ->where('parent', 0)->orderBy('order', 'ASC')->get();

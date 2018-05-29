@@ -23,18 +23,12 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group" v-if="seen">
-                                <label>Set</label>
-                                <select2 :options="sets" :value="property.sets" :multiple="true" @input="input($event)">
+                            <div class="form-group">
+                                <label>Kategorije</label>
+                                <select2 :options="categories" :value="property.categories" :multiple="true" @input="inputCategory($event)">
                                     <option value="0" disabled>select one</option>
                                 </select2>
-                                <small class="form-text text-muted" v-if="error != null && error.sets">{{ error.sets[0] }}</small>
-                            </div>
-                            <div class="form-group" v-else>
-                                <label>Set</label>
-                                <select class="form-control">
-                                    <option value="0" disabled>select one</option>
-                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.categories">{{ error.categories[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="title">Naziv</label>
@@ -87,10 +81,9 @@
         data(){
           return {
               property: {
-                  sets: []
+                  categories: []
               },
-              seen: false,
-              sets: {},
+              categories: {},
               error: null,
               domain : apiHost
           }
@@ -106,31 +99,30 @@
             'select2': Select2,
         },
         created(){
-            this.getProperty();
-            this.getSets();
-            setTimeout(() => {
-                this.seen = true;
-            }, 1000);
+            this.getTopCategories();
         },
         methods: {
-            getSets(){
-                axios.get('api/sets/lists')
+            getTopCategories(){
+                axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.sets = _.map(res.data.sets, (data) => {
+                        console.log(res);
+                        this.categories = _.map(res.data.categories, (data) => {
                             var pick = _.pick(data, 'title', 'id');
                             var object = {id: pick.id, text: pick.title};
                             return object;
                         });
+                        this.getProperty();
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             getProperty(){
                 axios.get('api/properties/' + this.$route.params.id)
                     .then(res => {
                         this.property = res.data.property;
                         this.property.sets = res.data.sets;
+                        this.property.categories = res.data.categories;
                     })
                     .catch(e => {
                         console.log(e);
@@ -141,7 +133,7 @@
                 axios.put('api/properties/' + this.property.id, this.property)
                     .then(res => {
                         this.property = res.data.property;
-                        this.property.sets = res.data.sets;
+                        this.property.categories = res.data.categories;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -155,8 +147,8 @@
                         this.error = e.response.data.errors;
                     });
             },
-            input(set){
-                this.property.sets = set;
+            inputCategory(category){
+                this.property.cat_ids = category;
             },
         }
     }

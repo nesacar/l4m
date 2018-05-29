@@ -29,7 +29,6 @@
                             <th scope="col">id</th>
                             <th scope="col">naziv</th>
                             <th scope="col">osobina</th>
-                            <th scope="col">setovi</th>
                             <th scope="col">publikovano</th>
                             <th>akcija</th>
                         </tr>
@@ -39,7 +38,6 @@
                             <td>{{ row.id }}</td>
                             <td>{{ row.title }}</td>
                             <td>{{ row.property.title }}</td>
-                            <td>[<template v-for="set in row.property.set">{{ set.title }}</template>]</td>
                             <td>{{ row.publish }}</td>
                             <td>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>

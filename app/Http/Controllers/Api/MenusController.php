@@ -13,7 +13,7 @@ class MenusController extends Controller
     }
 
     public function index(){
-        $menus = Menu::orderBy('created_at', 'DESC')->paginate(3);
+        $menus = Menu::orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'menus' => $menus,
