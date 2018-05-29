@@ -1,20 +1,13 @@
 <ul class="stepper" style="width: 240px;">
+  @foreach($steps as $index => $step)
   <li>
-    <a class="step" href="#first">
-      <span class="step_icon">1</span>
-      first step
+    <a class="step"
+      href="{{$step->link}}"
+      @if(isset($step->disabled) && $step->disabled) disabled @endif
+      >
+      <span class="step_icon">{{$index + 1}}</span>
+      {{$step->text}}
     </a>
   </li>
-  <li>
-    <a class="step" href="#second" disabled>
-      <span class="step_icon">2</span>
-      second step
-    </a>
-  </li>
-  <li>
-    <a class="step" href="#third" disabled>
-      <span class="step_icon">3</span>
-      third step
-    </a>
-  </li>
+  @endforeach
 </ul>
