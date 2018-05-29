@@ -150,15 +150,26 @@ $active-color_: $theme-primary;
   }
 }
 
+.text-field-container {
+  display: block;
+  min-width: 200px;
+}
+
 .text-field {
   font-size: 16px;
   display: inline-flex;
+  width: 100%;
   height: 56px;
   position: relative;
   overflow: hidden;
   margin-top: 16px;
+  margin-bottom: 8px;
   background-color: rgba($theme-primary, .12);
-  border-bottom: 1px solid $theme-primary;
+  border-bottom: 1px solid $border-color-dark;
+
+  &:hover {
+    border-bottom-color: $theme-primary;
+  }
 
   &::after {
     content: "";
@@ -170,7 +181,7 @@ $active-color_: $theme-primary;
     background-color: $theme-primary;
     opacity: 0;
     will-change: opacity;
-    transition: opacity .12s;
+    // transition: opacity .12s;
     z-index: 1;
     pointer-events: none;
   }
@@ -184,7 +195,7 @@ $active-color_: $theme-primary;
   }
 
   &_input {
-    
+    width: 100%;
     padding: 20px 16px 0;
     border: 0;
     background: transparent;
@@ -201,6 +212,7 @@ $active-color_: $theme-primary;
     margin: 0;
     z-index: 1;
     line-height: 1.15;
+    line-height: 1;
     font-weight: $font-weight-medium;
     color: $text-secondary-on-light;
     transform-origin: top left;
@@ -208,8 +220,16 @@ $active-color_: $theme-primary;
     will-change: transform;
     pointer-events: none;
 
+    .required &::after {
+      content: "*";
+    }
+
     .float & {
       transform: translateY(-50%) scale(.75);
+    }
+
+    .error & {
+      color: $theme-error !important;
     }
   }
 
@@ -224,6 +244,26 @@ $active-color_: $theme-primary;
     transform: scale(0);
     transition: transform .12s, opacity .12s;
     will-change: transform, opacity;
+
+    .error & {
+      background: $theme-error !important;
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &_helper-text {
+    font-size: .75rem;
+    line-height: 1.25rem;
+    font-weight: $font-weight-normal;
+    letter-spacing: .03333em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    margin: 0 16px 8px;
+
+    .error & {
+      color: $theme-error !important;
+    }
   }
 
   &_input:focus ~ &_line {

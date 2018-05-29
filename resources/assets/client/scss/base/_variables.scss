@@ -1,9 +1,13 @@
 $navy: #131b24;
 $gold: #BC8F5C;
 
+$red: #C00;
+
 $theme-primary: $navy;
 $theme-secondary: $gold;
 $theme-primary--light: lighten($theme-primary, 85%);
+
+$theme-error: $red;
 
 $font-family-playfair-display: 'Lora', serif;
 $font-family-roboto: 'Montserrat', sans-serif;

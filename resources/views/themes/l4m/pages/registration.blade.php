@@ -8,7 +8,12 @@
 @section('content')
 
 <div class="container" style="padding-top: 32px;">
-  @textfield()
+  @textfield([
+    'id' => 'email',
+    'name' => 'email',
+    'label' => 'email',
+    'helper_text' => 'This field is required.',
+  ])
   @endtextfield
 </div>
 
