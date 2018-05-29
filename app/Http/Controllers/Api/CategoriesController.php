@@ -141,7 +141,7 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function tree(){
-        $categories = Category::tree();
+        $categories = Category::tree(3);
 
         return response()->json([
             'categories' => $categories,
@@ -168,6 +168,24 @@ class CategoriesController extends Controller
                 }
             })
             ->orderBy('created_at', 'DESC')->paginate(50);
+
+        return response()->json([
+            'categories' => $categories,
+        ]);
+    }
+
+    public function sort(){
+        $categories = Category::tree();
+
+        return response()->json([
+            'categories' => $categories,
+        ]);
+    }
+
+    public function saveOrder(){
+        Category::orderCategories(request('categories'), 0);
+
+        $categories = Category::tree();
 
         return response()->json([
             'categories' => $categories,

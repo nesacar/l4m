@@ -47,6 +47,20 @@ class Category extends Model
         return $str;
     }
 
+    public static function orderCategories($links, $parent = 0, $level = 1, $order = 0){
+        if(count($links)>0){
+            foreach ($links as $link){
+                $old = self::find($link['id']);
+                if(!empty($old) && ($old->parent != $parent || $old->order != ++$order || $old->level != $level)){
+                    $old->update(['parent' => $parent, 'order' => $order, 'level' => $level]);
+                }
+                if(!empty($link['children'])){
+                    self::orderCategories($link['children'], $link['id'], $level+1);
+                }
+            }
+        }
+    }
+
     public static function getFooterCategories(){
         return self::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
     }
@@ -60,7 +74,8 @@ class Category extends Model
     }
 
     public static function tree() {
-        return static::with(implode('.', array_fill(0, 1, 'children')))->where('parent', 0)->get();
+        return static::with(implode('.', array_fill(0, 3, 'children')))->where('parent', 0)
+            ->orderBy('order', 'ASC')->get();
     }
 
     public function parentCategory() {
@@ -85,5 +100,9 @@ class Category extends Model
 
     public function set(){
         return $this->belongsToMany(Set::class);
+    }
+
+    public function client(){
+        return $this->belongsToMany(Client::class);
     }
 }

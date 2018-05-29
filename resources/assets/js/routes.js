@@ -48,6 +48,7 @@ export const router = new VueRouter({
 
         { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAdmin: true } },
         { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAdmin: true } },
+        { path: "/categories/sort", component: require('./components/categories/CategorySort.vue'), meta: { forAuth: true } },
         { path: "/categories/:id/edit", component: require('./components/categories/CategoryEdit.vue'), meta: { forAdmin: true } },
 
         { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAuth: true } },
@@ -107,6 +108,9 @@ export const router = new VueRouter({
         { path: "/clients", component: require('./components/clients/ClientList.vue'), meta: { forAdmin: true } },
         { path: "/clients/create", component: require('./components/clients/ClientCreate.vue'), meta: { forAdmin: true } },
         { path: "/clients/:id/edit", component: require('./components/clients/ClientEdit.vue'), meta: { forAdmin: true } },
+        { path: "/clients/:id/category", component: require('./components/clients/ClientCategory.vue'), meta: { forAdmin: true } },
+
+        { path: "/client-bars/:id", component: require('./components/clientBars/BarList.vue'), meta: { forAdmin: true } },
     ],
 
     linkActiveClass: 'active',

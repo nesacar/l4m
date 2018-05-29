@@ -18,6 +18,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Kategorije proizvoda</h5>
+                        <font-awesome-icon icon="random" @click="sortRows()" class="new-link-add left-one-place" />
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -106,6 +107,9 @@
             },
             editRow(id){
                 this.$router.push('categories/' + id + '/edit');
+            },
+            sortRows(){
+                this.$router.push('/categories/sort');
             },
             deleteRow(row){
                 swal({
