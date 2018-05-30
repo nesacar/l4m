@@ -13,36 +13,44 @@ class Category extends Model
 
     protected $fillable = ['title', 'slug', 'seoTitle', 'seoKeywords', 'seoShort', 'order', 'parent', 'level', 'image', 'box_image', 'publish'];
 
-//    protected static function boot(){
-//        parent::boot();
-//
-//        static::addGlobalScope('children', function (Builder $builder) {
-//            $builder->with(['children' => function($query){
-//                $query->where('publish', 1)->orderBy('parent', 'ASC');
-//            }]);
-//        });
-//    }
+    protected static function boot(){
+        parent::boot();
+
+        static::addGlobalScope('parentCategory', function (Builder $builder) {
+            $builder->with(['parentCategory' => function($query){
+                $query->where('publish', 1);
+            }]);
+        });
+    }
 
     public function getLink(){
-        $str = 'shop/' . $this->slug . '/';
-        if(count($this->children)>0){
-            foreach ($this->children as $category){
-                $str .= $category->slug . '/';
+        $str = '';
+        if(!empty($parent = $this->parentCategory)){
+            $str = $parent->slug . '/';
+            if(!empty($parent2 = $parent->parentCategory)){
+                $str = $parent2->slug . '/' . $str;
+                if(!empty($parent3 = $parent2->parentCategory)){
+                    $str = $parent3->slug . '/' . $str;
+                }
             }
         }
+        $str = 'shop/' . $str . $this->slug . '/';
         return url($str);
     }
 
     public function getBreadcrumb(){
-        $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li>';
-
-        if(count($this->children)>0){
-            foreach ($this->children as $category){
-                $str .= '<li class="breadcrumb-item"><a href="' . $category->getLink() . '">' . $category->title . '</a></li>';
+        $str = '';
+        if(!empty($parent = $this->parentCategory)){
+            $str = '<li class="breadcrumb-item"><a href="' . $parent->getLink() . '">' . $parent->title . '</a></li>' . $str;
+            if(!empty($parent2 = $parent->parentCategory)){
+                $str = '<li class="breadcrumb-item"><a href="' . $parent2->getLink() . '">' . $parent2->title . '</a></li>' . $str;
+                if(!empty($parent3 = $parent2->parentCategory)){
+                    $str = '<li class="breadcrumb-item"><a href="' . $parent3->getLink() . '">' . $parent3->title . '</a></li>' . $str;
+                }
             }
         }
 
-        $str .= '<li class="breadcrumb-item active" aria-current="page">' . $this->title . '</li></ol></nav>';
+        $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li>' . $str . '<li class="breadcrumb-item active" aria-current="page">' . $this->title . '</li></ol></nav>';
 
         return $str;
     }

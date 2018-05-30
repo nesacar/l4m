@@ -17,7 +17,7 @@
       ])
       @endcomponent
 
-      {{-- @include('themes.' . $theme . '.partials.breadcrumb') --}}
+       @include('themes.' . $theme . '.partials.breadcrumb')
 
       <div class="shop-results_header">
         <div class="collapse--md shop_filter-btn">Filteri</div>

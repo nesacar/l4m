@@ -26,4 +26,8 @@ class Helper extends Model
     public static function activeLink($link){
         return request()->path() == $link? true : false;
     }
+
+    public static function getMinutesToTheNextHour(){
+        return Carbon::now()->diffInMinutes(Carbon::now()->addHour()->format('Y-m-d H:00:00'));
+    }
 }
