@@ -48,6 +48,11 @@ class MenuLink extends Model
         $this->attributes['publish'] = $value?: false;
     }
 
+    public static function getFirstChild($slug){
+        $array = ['zene' => 2, 'muskarci' => 3, 'deca' => 4, 'living' => 5];
+        return $currentId = self::where('menu_id', $array[$slug])->orderBy('order', 'ASC')->value('link');
+    }
+
     public static function getMenu(){
         return Cache::remember('menu.'.\Session::get('primary'), Helper::getMinutesToTheNextHour(), function () {
             $menu = Menu::whereSlug(\Session::get('primary'))->first();

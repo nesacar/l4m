@@ -15,7 +15,7 @@ class Setting extends Model
     ];
 
     public static function get(){
-        return Cache::remember('settings', 2, function () {
+        return Cache::remember('settings', Helper::getMinutesToTheNextHour(), function () {
             return self::find(1);
         });
     }

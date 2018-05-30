@@ -48,6 +48,12 @@ class PagesController extends Controller
         return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands', 'menu'));
     }
 
+    public function category($slug)
+    {
+        Category::setPrimaryCategory($slug);
+        return redirect(MenuLink::getFirstChild($slug));
+    }
+
     public function proba()
     {
 //        $product = Product::first();
@@ -60,7 +66,7 @@ class PagesController extends Controller
 //        foreach ($attributes as $attribute){
 //            $attribute->update(['property_id' => 12]);
 //        }
-        return Helper::getMinutesToTheNextHour();
+        return MenuLink::getFirstChild('zene');
         return 'done2';
     }
 }
