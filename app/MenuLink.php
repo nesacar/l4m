@@ -5,6 +5,7 @@ namespace App;
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use File;
+use Illuminate\Support\Facades\Cache;
 
 class MenuLink extends Model
 {
@@ -48,8 +49,10 @@ class MenuLink extends Model
     }
 
     public static function getMenu(){
-        $menu = Menu::whereSlug(\Session::get('primary'))->first();
-        return self::tree($menu->id);
+        return Cache::remember('menu.'.\Session::get('primary'), Helper::getMinutesToTheNextHour(), function () {
+            $menu = Menu::whereSlug(\Session::get('primary'))->first();
+            return self::tree($menu->id);
+        });
     }
 
     public static function tree($menu_id) {

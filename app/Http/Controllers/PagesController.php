@@ -10,6 +10,7 @@ use App\Category;
 use App\Client;
 use App\Customer;
 use App\Gallery;
+use App\Helper;
 use App\MenuLink;
 use App\Page;
 use App\Post;
@@ -39,7 +40,7 @@ class PagesController extends Controller
         $posts = Post::getHomePosts();
         $latestProducts = ShopBar::getLatest();
         $featuredProducts = ShopBar::getFeatured();
-        $slider = Block::find(1)->box()->with('category')->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
+        $slider = Block::find(1)->box()->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
@@ -55,10 +56,11 @@ class PagesController extends Controller
 //        return $products = \Cart::content();
         //\Cart::store('nebojsart1409@yahoo.com');
         //\Session::forget('currency');
-//        $attributes = Attribute::where('property_id', 2)->get();
+//        $attributes = Attribute::where('property_id', 20)->get();
 //        foreach ($attributes as $attribute){
-//            $attribute->update(['property_id' => 19]);
+//            $attribute->update(['property_id' => 12]);
 //        }
+        return Helper::getMinutesToTheNextHour();
         return 'done2';
     }
 }

@@ -36,12 +36,11 @@ class ShopController extends Controller
 
     public function category2($slug1, $slug2)
     {
-        $parent = Category::whereSlug($slug1)->first();
         $category = Category::whereSlug($slug2)->first();
         $data = Product::search($category);
         $properties = Category::getProperties($slug1);
         Seo::shopCategory($category);
-        $breadcrumb = $parent->getBreadcrumb();
+        $breadcrumb = $category->getBreadcrumb();
         Category::setPrimaryCategory($slug1);
         $menu = MenuLink::getMenu();
         return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb', 'menu'));
@@ -63,12 +62,11 @@ class ShopController extends Controller
             $breadcrumb = $product->getBreadcrumb();
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu'));
         }else{
-            $parent = Category::whereSlug($slug1)->first();
             $category = Category::whereSlug($slug3)->first();
             $data = Product::search($category);
             $properties = Category::getProperties($slug1);
             Seo::shopCategory($category);
-            $breadcrumb = $parent->getBreadcrumb();
+            $breadcrumb = $category->getBreadcrumb();
             return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb', 'menu'));
         }
     }
@@ -89,12 +87,11 @@ class ShopController extends Controller
             $breadcrumb = $product->getBreadcrumb();
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu'));
         }else{
-            $parent = Category::whereSlug($slug1)->first();
             $category = Category::whereSlug($slug4)->first();
             $data = Product::search($category);
             $properties = Category::getProperties($slug1);
             Seo::shopCategory($category);
-            $breadcrumb = $parent->getBreadcrumb();
+            $breadcrumb = $category->getBreadcrumb();
             return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb', 'menu'));
         }
     }

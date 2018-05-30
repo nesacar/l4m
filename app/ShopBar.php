@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ShopBar extends Model
 {
@@ -21,15 +22,23 @@ class ShopBar extends Model
     }
 
     public static function getLatest($template="home"){
-        return self::with('category')->where('template', $template)->where('desc', 'Najnoviji')->orderBy('order', 'ASC')->with(['product' => function($query){
-            $query->withoutGlobalScope('attribute')->with('photo')->orderBy('pivot_order', 'ASC');
-        }])->get();
+        return Cache::remember('najnoviji', Helper::getMinutesToTheNextHour(), function () use ($template) {
+            return self::where('template', $template)->where('desc', 'Najnoviji')->orderBy('order', 'ASC')->with(['category' => function($query){
+                $query->withoutGlobalScopes();
+            }])->with(['product' => function($query){
+                $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
+            }])->get();
+        });
     }
 
     public static function getFeatured($template="home"){
-        return self::with('category')->where('template', $template)->where('desc', 'Istaknuti')->orderBy('order', 'ASC')->with(['product' => function($query){
-            $query->withoutGlobalScope('attribute')->with('photo')->orderBy('pivot_order', 'ASC');
-        }])->get();
+        return Cache::remember('istaknuti', Helper::getMinutesToTheNextHour(), function () use ($template) {
+            return self::where('template', $template)->where('desc', 'Istaknuti')->orderBy('order', 'ASC')->with(['category' => function($query){
+                $query->withoutGlobalScopes();
+            }])->with(['product' => function($query){
+                $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
+            }])->get();
+        });
     }
 
     public function setPublishAttribute($value){

@@ -57,6 +57,10 @@ class Product extends Model
                 $query->where('publish', 1)->orderBy('order', 'ASC')->pluck('id');
             }]);
         });
+
+        static::addGlobalScope('photo', function (Builder $builder) {
+            $builder->with(['photo']);
+        });
     }
 
     public function setSlugAttribute($value){

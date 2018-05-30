@@ -27,7 +27,6 @@
 
   <script>
     window.app_url = "{{ url('/') }}";
-    window.cartItems = '[1,2]';
   </script>
   @yield('scripts')
   @if(session('message'))
