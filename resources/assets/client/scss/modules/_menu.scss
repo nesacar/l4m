@@ -69,64 +69,97 @@
 
 // Temp lol
 .mega-menu {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
   position: absolute;
-  // top: 40px;
   left: 0;
   width: 100%;
-  pointer-events: none;
-  overflow: hidden;
+  will-change: opacity;
 
-  .nav_item:hover > & {
+  .nav_item:hover & {
+    visibility: visible;
     pointer-events: auto;
+    opacity: 1;
+  }
 
-    .mega-menu_content {
-      opacity: 1;
-      transform: translate(0);
-    }
-
-    .mega-menu_background {
-      transform: translate(-50%, -57%) scale(1);
-      opacity: 1;
-    }
+  &_scrim {
+    background: #000;
+    opacity: .3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
   }
 
   &_content {
-    position: relative;
-    padding-top: 2 * $base-line;
-    padding-bottom: 2 * $base-line;
-    opacity: 0;
-    transform: translateY(-20%);
-    transition: transform .38s, opacity .21s;
-    will-change: transform, opacity;
+    width: 100%;
+    // min-height: 280px;
+    // min-height: 426px;
+    background: #FFF;
+    box-shadow: 0 2px 2px rgba(0,0,0,.12);
+    display: flex;
   }
 
-  &_background {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 140%;
-    padding-top: 140%;
-    transform: translate(-50%, -57%) scale(0);
-    content: "";
-    background-color: #FFF;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0;
-    transition: transform .38s, opacity .21s;
-    will-change: transform, opacity;
+  &_row {
+    display: flex;
   }
 
   &_col {
-    position: relative;
+    width: 25%;
   }
+}
 
-  &_link {
+// Temp LOL!
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+
+  &_item {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: $font-weight-medium;
+    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+// Demo
+.demo-img-box {
+  width: 100%;
+  padding: 16px;
+  padding-top: 0;
+  position: relative;
+}
+.demo-img {
+  width: 100%;
+  padding-top: (390/753) * 100%;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+
+  img {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    text-transform: uppercase;
-    font-size: 16px;
+    height: 100%;
+    width: auto;
+    transform: translate(-50%,-50%);
   }
+}
+.demo-something {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 46px;
+  color: #FFF;
+  font-weight: 500;
+  font-family: 'Times New Roman', Times, serif;
+  text-shadow: 0 1px 2px rgba(0,0,0,.12);
 }
