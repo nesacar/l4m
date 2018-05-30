@@ -33,9 +33,11 @@
                       <!-- demo -->
                       <div class="demo-img-box">
                         <div class="image image--ultra-wide">
-                          <img src="http://localhost:8000/storage/uploads/posts/05-2018/lezerno-leto-uz-nove-boss-komade-slider--yK-2.jpeg" alt="">
+                          @if(!empty($link->image))
+                            <img src="{{ url($link->image) }}" alt="{{ $link->link }}">
+                          @endif
                         </div>
-                        <span class="demo-something">Fashion</span>
+                        <span class="demo-something">{{ $link->title }}</span>
                       </div>
                       <!-- /demo -->
                     </div>
