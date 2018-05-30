@@ -35,8 +35,6 @@
     </div>
   </div>
   <div id="main-nav">
-    <div class="container">
-      @include('themes.'. $theme .'.components.nav', ['links' => $menu])
-    </div>
+    @include('themes.'. $theme .'.components.nav', ['links' => $menu])
   </div>
 </header>
