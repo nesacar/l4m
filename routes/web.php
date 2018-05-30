@@ -60,7 +60,7 @@ Auth::routes();
 
 Route::get('proba', 'PagesController@proba');
 
-Route::get('shop/{slug}', 'ShopController@category');
+Route::get('shop/{slug}', 'PagesController@category');
 Route::get('shop/{slug1}/{slug2}', 'ShopController@category2');
 Route::get('shop/{slug1}/{slug2}/{slug3}', 'ShopController@category3');
 Route::get('shop/{slug1}/{slug2}/{slug3}/{slug4}', 'ShopController@category4');
