@@ -1,7 +1,7 @@
 @mixin nav-link() {
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
-  font-weight: $font-weight-bold;
+  font-weight: $font-weight-normal;
   color: $text-primary-on-light;
   text-decoration: none !important;
   outline: none;

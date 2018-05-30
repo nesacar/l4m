@@ -10,7 +10,6 @@
     display: inline-flex;
     padding: 10px $base-line;
     text-transform: none;
-    font-weight: 500;
 
     @include media-breakpoint-up(lg) {
       padding: 10px (2 * $base-line);
