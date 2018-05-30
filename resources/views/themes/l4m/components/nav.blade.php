@@ -24,9 +24,11 @@
                           @endforeach
                       </div> --}}
                       <div class="menu-list mega-menu_col">
-                        <a class="menu-list_item" href="#">category one</a>
-                        <a class="menu-list_item" href="#">category two</a>
-                        <a class="menu-list_item" href="#">category three</a>
+                        @foreach($link->children as $subLink)
+                          <a class="menu-list_item"
+                            href="{{url($subLink->link . $subLink->sufix)}}"
+                            >{{$subLink->title}}</a>
+                        @endforeach
                       </div>
                       <!-- demo -->
                       <div class="demo-img-box">
