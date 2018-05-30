@@ -32,8 +32,8 @@
                       </div>
                       <!-- demo -->
                       <div class="demo-img-box">
-                        <div class="demo-img">
-                          <img src="http://localhost:8000/storage/uploads/boxes/WJ-2.jpeg" alt="">
+                        <div class="image image--ultra-wide">
+                          <img src="http://localhost:8000/storage/uploads/posts/05-2018/lezerno-leto-uz-nove-boss-komade-slider--yK-2.jpeg" alt="">
                         </div>
                         <span class="demo-something">Fashion</span>
                       </div>
