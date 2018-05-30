@@ -18,7 +18,7 @@ class SetPrimaryCategory
     public function handle($request, Closure $next)
     {
         if(!\Session::has('primary')){
-            \Session::put('primary', 'muskarci');
+            \Session::put('primary', 'zene');
         }
 
         return $next($request);
