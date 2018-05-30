@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\MenuLink;
 use App\Product;
 use App\Seo;
 use App\Setting;
@@ -22,7 +23,8 @@ class BrandsController extends Controller
 
     public function index(){
         $brands = Brand::where('logo', '<>', null)->where('publish', 1)->orderBy('order', 'ASC')->get();
-        return view('themes.' . $this->theme . '.pages.brand.brands', compact('brands'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.brand.brands', compact('brands', 'menu'));
     }
 
     public function show($slug){
@@ -32,6 +34,7 @@ class BrandsController extends Controller
         $products = Product::simpleSearch(false, $brand);
         $breadcrumb = $brand->getBreadcrumb();
         Seo::shopBrand($this->settings, $brand);
-        return view('themes.' . $this->theme . '.pages.brand.brand', compact('brand', 'breadcrumb', 'products'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.brand.brand', compact('brand', 'breadcrumb', 'products', 'menu'));
     }
 }

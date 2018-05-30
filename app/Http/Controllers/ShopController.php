@@ -36,7 +36,8 @@ class ShopController extends Controller
 
     public function category2($slug1, $slug2)
     {
-        $category = Category::whereSlug($slug2)->first();
+        $parent = Category::whereSlug($slug1)->first();
+        $category = Category::where('parent', $parent->id)->whereSlug($slug2)->first();
         $data = Product::search($category);
         $properties = Category::getProperties($slug1);
         Seo::shopCategory($category);
@@ -62,7 +63,9 @@ class ShopController extends Controller
             $breadcrumb = $product->getBreadcrumb();
             return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu'));
         }else{
-            $category = Category::whereSlug($slug3)->first();
+            $parent1 = Category::whereSlug($slug1)->first();
+            $parent2 = Category::where('parent', $parent1->id)->whereSlug($slug2)->first();
+            $category = Category::where('parent', $parent2->id)->whereSlug($slug3)->first();
             $data = Product::search($category);
             $properties = Category::getProperties($slug1);
             Seo::shopCategory($category);
