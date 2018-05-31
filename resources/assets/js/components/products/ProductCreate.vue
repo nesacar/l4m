@@ -80,7 +80,7 @@
                                 <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
                             </div>
                             <div class="form-group">
-                                    <label>Opis</label>
+                                <label>Opis</label>
                                 <ckeditor
                                         v-model="product.body"
                                         :config="config">
@@ -174,10 +174,10 @@
                             <ol class="sortable" style="margin-left: -15px;">
                                 <li :id="`list_${cat.id}`" v-for="cat in categories">
                                     <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id" @change="getProperties()"> {{ cat.title }}</div>
-                                    <ol class="sortable" v-if="cat.children.length > 0">
+                                    <ol v-if="cat.children.length > 0">
                                         <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
                                             <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
-                                            <ol class="sortable" v-if="cat2.children.length > 0">
+                                            <ol v-if="cat2.children.length > 0">
                                                 <li :id="`list_${cat3.id}`" v-for="cat3 in cat2.children">
                                                     <div><input type="checkbox" v-model="product.cat_ids" :value="cat3.id"> {{ cat3.title }}</div>
                                                 </li>
@@ -207,35 +207,35 @@
 
     export default {
         data(){
-          return {
-              image: {},
-              product: {
-                  date: moment().format('YYYY-MM-DD'),
-                  time: moment().format('HH:mm'),
-                  cat_ids: [],
-                  att_ids: [],
-                  tag_ids: [],
-                  price_outlet: 0,
-              },
-              brands: {},
-              collections: {},
-              categories: {},
-              tags: {},
-              clients: {},
-              properties: {},
-              error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
-              domain : apiHost
-          }
+            return {
+                image: {},
+                product: {
+                    date: moment().format('YYYY-MM-DD'),
+                    time: moment().format('HH:mm'),
+                    cat_ids: [],
+                    att_ids: [],
+                    tag_ids: [],
+                    price_outlet: 0,
+                },
+                brands: {},
+                collections: {},
+                categories: {},
+                tags: {},
+                clients: {},
+                properties: {},
+                error: null,
+                config: {
+                    toolbar: [
+                        [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
+                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                        '/',
+                        { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+                    ],
+                    height: 300,
+                    filebrowserBrowseUrl: 'filemanager/show'
+                },
+                domain : apiHost
+            }
         },
         computed: {
             user(){
@@ -278,9 +278,9 @@
                         });
                         this.$router.push('/products');
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             getClients(){
                 axios.get('api/clients/lists')
@@ -288,9 +288,9 @@
                         this.clients = res.data.clients;
                         console.log(this.clients);
                     }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
             },
             prepare(image){
                 this.product.image = image.src;
@@ -303,27 +303,27 @@
                         this.product.image = res.data.image;
                         this.error = null;
                     }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
             },
             getBrands(){
                 axios.get('api/brands/lists')
                     .then(res => {
                         this.brands = res.data.brands;
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             getCollections(brand_id){
                 axios.get('api/collections/lists?brand_id=' + brand_id)
                     .then(res => {
                         this.collections = res.data.collections;
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             getCategories(){
                 axios.get('api/categories/tree')
@@ -331,9 +331,9 @@
                         this.categories = res.data.categories;
                         console.log(this.categories);
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             setBrand(){
                 if(this.product.brand_id > 0){
@@ -364,9 +364,9 @@
                             return object;
                         });
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             input(tag){
                 this.product.tag_ids = tag;

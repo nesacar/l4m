@@ -7,6 +7,7 @@ use App\Http\Requests\CreateMenuLinkRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Menu;
 use App\MenuLink;
+use App\Property;
 use Illuminate\Http\Request;
 use File;
 
@@ -38,10 +39,14 @@ class MenuLinksController extends Controller
 
     public function show($id){
         $link = MenuLink::find($id);
+        $properties = Property::with(['set', 'attribute'])->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
+        $links = MenuLink::where('menu_links.publish', 1)->where('menu_links.parent', 0)->orderBy('menu_links.order', 'ASC')->pluck('menu_links.title', 'menu_links.id')->prepend('Bez nad kategorije', 0);
 
         return response()->json([
             'link' => $link,
             'att_ids' => $link->attribute()->pluck('attributes.id'),
+            'properties' => $properties,
+            'links' => $links,
         ]);
     }
 
