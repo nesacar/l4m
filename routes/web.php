@@ -1,5 +1,7 @@
 <?php
 
+use App\MenuLink;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +49,8 @@ Route::get('/brands', function() {
 });
 
 Route::get('/registration', function() {
-  return view('themes.l4m.pages.registration');
+  $menu = MenuLink::getMenu();
+  return view('themes.l4m.pages.registration', compact('menu'));
 });
 
 Route::get('/checkout/step-1', function() {
