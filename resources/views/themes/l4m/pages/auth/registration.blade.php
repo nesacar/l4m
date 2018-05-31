@@ -10,8 +10,9 @@
 <div class="container" style="margin-bottom: 32px;">
   <h2 class="section-title with-lines">
     <span>Registracija</span>
-  </h2> 
-  <form>
+  </h2>
+  <form method="POST" action="{{ route('register') }}">
+    @csrf
     <div class="row">
       <div class="col-md-6">
         @textfield([
@@ -19,9 +20,8 @@
           'id' => 'name',
           'name' => 'name',
           'label' => 'Ime i prezime',
-          'helper_text' => 'Ovo polje je obavezno',
           'required' => true,
-          'error' => false,
+          'error_message' => $errors->first('name'),
           ])
         @endtextfield
       </div>
@@ -32,9 +32,8 @@
           'name' => 'email',
           'label' => 'email',
           'type' => 'email',
-          'helper_text' => 'Ovo polje je obavezno',
           'required' => true,
-          'error' => false,
+          'error_message' => $errors->first('email'),
           ])
         @endtextfield
       </div>
@@ -45,9 +44,8 @@
           'name' => 'password',
           'label' => 'Šifra',
           'type' => 'password',
-          'helper_text' => 'Ovo polje je obavezno',
           'required' => true,
-          'error' => false,
+          'error_message' => $errors->first('password'),
           ])
         @endtextfield
       </div>
@@ -58,9 +56,7 @@
           'name' => 'password_confirmation',
           'label' => 'Potvrdite šifru',
           'type' => 'password',
-          'helper_text' => 'Ovo polje je obavezno',
           'required' => true,
-          'error' => false,
           ])
         @endtextfield
       </div>
