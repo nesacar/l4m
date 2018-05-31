@@ -10,8 +10,9 @@
 <div class="container" style="margin-bottom: 32px;">
   <h2 class="section-title with-lines">
     <span>Logovanje</span>
-  </h2> 
-  <form>
+  </h2>
+  <form method="POST" action="{{ route('login') }}">
+    @csrf
     <div class="row">
       <div class="col-md-6">
         @textfield([

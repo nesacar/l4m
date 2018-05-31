@@ -37,6 +37,7 @@ class PagesController extends Controller
 
     public function index()
     {
+        //return auth()->check()? 'da' : 'ne';
         $posts = Post::getHomePosts();
         $latestProducts = ShopBar::getLatest();
         $featuredProducts = ShopBar::getFeatured();

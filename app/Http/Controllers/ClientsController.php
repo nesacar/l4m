@@ -28,6 +28,9 @@ class ClientsController extends Controller
         $client = Client::with(['brand' => function($query){
             $query->where('logo', '<>', null);
         }])->where('slug', $slug)->first();
+
+        if(empty($client)) return redirect('/');
+
         $products = $client->product()->withoutGlobalScope('attribute')->where('products.discount', '>', 0)->published()->take(4)->get();
         $posts = $client->post()->published()->take(3)->get();
         $template = 'home';
