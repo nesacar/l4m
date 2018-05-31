@@ -2,7 +2,7 @@
   $error = isset($error_message) && $error_message != "";
   $required = isset($required) ? $required : false;
 
-  $className = "select-box";
+  $className = "select-box select-carrot";
   $className = $error
     ? ($className." error")
     : $className;

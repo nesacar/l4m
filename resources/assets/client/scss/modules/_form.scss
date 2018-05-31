@@ -110,19 +110,25 @@ $active-color_: $theme-primary;
   min-width: 200px;
 }
 
-// SelectBox
-.select-box {
-  display: inline-flex;
+// Select
+.select {
   position: relative;
-  font-size: 14px;
-  color: inherit;
-  width: 100%;
-  overflow: hidden;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  margin-top: 16px;
-  margin-bottom: 8px;
-  background-color: rgba($theme-primary, .12);
+  display: inline-flex;
+
+  &_input {
+    background-color: transparent;
+    width: 100%;
+    padding: 4px 20px 4px 0;
+    font-size: 12px;
+    color: inherit;
+    border: none;
+    appearance: none;
+    outline: none;
+  }
+}
+
+.select-carrot {
+  position: relative;
 
   &::before {
     content: "";
@@ -139,6 +145,21 @@ $active-color_: $theme-primary;
     opacity: .54;
     pointer-events: none;
   }
+}
+
+// SelectBox
+.select-box {
+  display: inline-flex;
+  position: relative;
+  font-size: 14px;
+  color: inherit;
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  background-color: rgba($theme-primary, .12);
 
   &_input {
     width: 100%;
@@ -148,50 +169,6 @@ $active-color_: $theme-primary;
     border: 0;
     appearance: none;
     outline: none;
-  }
-}
-// /.select-box
-
-// Select
-.select {
-  position: relative;
-  display: inline-flex;
-  color: inherit;
-
-  &:after {
-    position: absolute;
-    top: 0.75em;
-    right: 0.5em;
-    width: 0;
-    height: 0;
-    padding: 0;
-    content: '';
-    border-left: 0.25em solid transparent;
-    border-right: 0.25em solid transparent;
-    border-top: 0.375em solid currentColor;
-    pointer-events: none;
-  }
-
-  &_input {
-    font-family: inherit;
-    background-color: transparent;
-    width: 100%;
-    padding: 4px 25px 4px 0;
-    font-size: 14px;
-    color: inherit;
-    border: none;
-    border-bottom: 1px solid $border-color;
-    appearance: none;
-
-    &:focus {
-      color: $theme-primary;
-      outline: none;
-      border-bottom-color: $theme-primary;
-    }
-    
-    option {
-      color: $text-primary-on-light;
-    }
   }
 }
 

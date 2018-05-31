@@ -60,4 +60,12 @@
     right: 56px;
     transform: translateY(-50%);
   }
+
+  &_currency {
+    font-weight: bold !important;
+    position: absolute;
+    top: 50%;
+    right: 96px;
+    transform: translateY(-50%);
+  }
 }

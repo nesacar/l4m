@@ -23,6 +23,15 @@
           <use xlink:href="#logo">
         </svg>
       </a>
+      <div class="header_currency">
+        @select([
+          'id' => 'currency',
+          'name' => 'currency',
+        ])
+          <option value="rsd" selected>RSD</option>
+          <option value="euro">EUR</option>
+        @endselect
+      </div>
       <div class="header_basket">
         <a href="{{ url('korpa') }}" class="icon-btn">
           <small class="chip js-basket-chip">{{ !! \Cart::count() ? \Cart::count() : '' }}</small>
