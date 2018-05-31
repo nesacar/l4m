@@ -62,7 +62,15 @@
           @address([
             'name' => 'Petar Petrovic',
             'telephone' => '+38123456789',
-            'address' => 'Kralja Petra 4',
+            'street' => 'Kralja Petra 4',
+            'city' => 'Beograd',
+            'country' => 'Srbija',
+          ])
+          @endaddress
+          @address([
+            'name' => 'Vladan Vladanovic',
+            'telephone' => '+38123456789',
+            'street' => 'Srpskih Vladara 3',
             'city' => 'Beograd',
             'country' => 'Srbija',
           ])

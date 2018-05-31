@@ -1,17 +1,35 @@
 .address {
-  border-radius: 2px;
-  border: 2px solid $theme-primary;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.address-selector {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .address-body {
-  background-color: rgba($theme-primary, .12);
+  color: $text-secondary-on-light;
   padding: 8px 16px;
+  background-color: rgba($theme-primary, .12);
+  border-radius: 2px;
+  border: 2px solid transparent;
+  
+  :checked ~ & {
+    color: $text-primary-on-light;
+    border-color: $theme-primary;
+  }
 }
 
 .address-row {
   display: flex;
   height: 18px;
   align-items: center;
+  color: inherit;
 
   :first-child {
     margin-right: 16px;
