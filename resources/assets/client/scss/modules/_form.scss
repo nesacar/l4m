@@ -114,12 +114,14 @@ $active-color_: $theme-primary;
 .select {
   position: relative;
   display: inline-flex;
+  color: inherit;
 
   &_input {
     background-color: transparent;
     width: 100%;
     padding: 4px 20px 4px 0;
     font-size: 12px;
+    font-weight: inherit;
     color: inherit;
     border: none;
     appearance: none;

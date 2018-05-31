@@ -62,7 +62,8 @@
   }
 
   &_currency {
-    font-weight: bold !important;
+    font-weight: $font-weight-bold;
+    color: $text-primary-on-light;
     position: absolute;
     top: 50%;
     right: 96px;
