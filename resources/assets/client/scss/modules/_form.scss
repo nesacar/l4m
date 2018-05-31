@@ -105,6 +105,52 @@ $active-color_: $theme-primary;
   }
 }
 
+.input-container {
+  display: block;
+  min-width: 200px;
+}
+
+// .select-box
+.select-box {
+  display: inline-flex;
+  position: relative;
+  font-size: 14px;
+  color: inherit;
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-bottom: 2 * $base-line;
+  background-color: rgba($theme-primary, .12);
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    padding: 0;
+    border-left: 0.25em solid transparent;
+    border-right: 0.25em solid transparent;
+    border-top: 0.375em solid currentColor;
+    pointer-events: none;
+  }
+
+  &_input {
+    width: 100%;
+    height: 44px;
+    padding: 12px 24px 4px 16px;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid $border-color-dark;
+    appearance: none;
+    outline: none;
+  }
+}
+// /.select-box
+
 // Select
 .select {
   position: relative;
@@ -161,11 +207,6 @@ $active-color_: $theme-primary;
   }
 }
 
-.text-field-container {
-  display: block;
-  min-width: 200px;
-}
-
 .text-field {
   font-size: 14px;
   display: inline-flex;
@@ -218,53 +259,6 @@ $active-color_: $theme-primary;
     border-top-right-radius: 2px;
   }
 
-  &_label {
-    position: absolute;
-    left: 16px;
-    bottom: 15px;
-    margin: 0;
-    z-index: 1;
-    line-height: 1.15;
-    line-height: 1;
-    font-weight: $font-weight-medium;
-    color: $text-secondary-on-light;
-    transform-origin: top left;
-    transition: transform .12s, color .12s;
-    will-change: transform;
-    pointer-events: none;
-
-    .required &::after {
-      content: "*";
-    }
-
-    .float & {
-      transform: translateY(-50%) scale(.75);
-    }
-
-    .error & {
-      color: $theme-error !important;
-    }
-  }
-
-  &_line {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: $theme-primary;
-    opacity: 0;
-    transform: scale(0);
-    transition: transform .12s, opacity .12s;
-    will-change: transform, opacity;
-
-    .error & {
-      background: $theme-error !important;
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
   &_helper-text {
     font-size: .75rem;
     line-height: 1.25rem;
@@ -278,13 +272,60 @@ $active-color_: $theme-primary;
       color: $theme-error !important;
     }
   }
+}
 
-  &_input:focus ~ &_line {
+.float-label {
+  position: absolute;
+  left: 16px;
+  bottom: 15px;
+  margin: 0;
+  z-index: 1;
+  line-height: 1.15;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+  color: $text-secondary-on-light;
+  transform-origin: top left;
+  transition: transform .12s, color .12s;
+  will-change: transform;
+  pointer-events: none;
+
+  .required &::after {
+    content: "*";
+  }
+
+  :focus ~ & {
+    color: $theme-primary;
+  }
+
+  .float & {
+    transform: translateY(-50%) scale(.75);
+  }
+
+  .error & {
+    color: $theme-error !important;
+  }
+}
+
+.ripple-line {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: $theme-primary;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform .12s, opacity .12s;
+  will-change: transform, opacity;
+
+  .error & {
+    background: $theme-error !important;
     opacity: 1;
     transform: scale(1);
   }
 
-  &_input:focus ~ &_label {
-    color: $theme-primary;
+  :focus ~ & {
+    opacity: 1;
+    transform: scale(1);
   }
 }

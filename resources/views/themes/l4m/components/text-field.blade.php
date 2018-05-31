@@ -13,7 +13,7 @@
     : $className;
 @endphp
 
-<div class="text-field-container">
+<div class="input-container">
   <div class="{{$className}}">
     <input class="text-field_input"
       type="{{$type}}"
@@ -22,8 +22,8 @@
       value="{{$value}}"
       @if($required) required @endif
     >
-    <label class="text-field_label" for="{{$id}}">{{$label}}</label>
-    <div class="text-field_line"></div>
+    <label class="float-label" for="{{$id}}">{{$label}}</label>
+    <div class="ripple-line"></div>
   </div>
   @if(isset($helper_text))
   <p class="text-field_helper-text">{{$helper_text}}</p>

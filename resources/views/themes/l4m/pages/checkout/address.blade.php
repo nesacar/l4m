@@ -98,6 +98,10 @@
             ])
             @endtextfield
           </div>
+          <div class="col-md-6">
+            @selectbox()
+            @endselectbox
+          </div>
         </div>
         <div>
           <button class="btn btn--primary">sačuvaj</button>
