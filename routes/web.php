@@ -62,7 +62,7 @@ Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');
 
-Route::get('proba', 'PagesController@proba');
+Route::get('proba', 'PagesController@proba')->middleware('auth');
 
 Route::get('shop/{slug}', 'PagesController@category');
 Route::get('shop/{slug1}/{slug2}', 'ShopController@category2');
@@ -82,6 +82,9 @@ Route::post('korpa', 'CartsController@getIds');
 Route::post('korpa/{id}/add', 'CartsController@add');
 Route::post('korpa/{id}/remove', 'CartsController@remove');
 Route::get('korpa/store', 'CartsController@store');
+
+Route::get('logovanje', 'CustomersController@login');
+Route::get('registracija', 'CustomersController@register');
 
 Route::get('{slug}', 'ClientsController@home');
 Route::get('{slug}/o-nama', 'ClientsController@about');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MenuLink;
 use App\Product;
 use App\ShoppingCart;
 use App\ShoppingCartOld;
@@ -24,7 +25,8 @@ class CartsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        return view('themes.' . $this->theme . '.pages.cart');
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.cart', compact('menu'));
     }
 
     /**
