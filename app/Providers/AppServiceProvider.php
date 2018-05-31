@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
       $components = 'themes.' . env('THEME_NAME', '') . '.components.';
       $partials = 'themes.' . env('THEME_NAME', '') . '.partials.';
 
+      Blade::component($components . 'address', 'address');
       Blade::component($components . 'select', 'select');
       Blade::component($components . 'select-box', 'selectbox');
       Blade::component($components . 'checkbox', 'checkbox');

@@ -53,7 +53,22 @@
       </section>
       <section>
         <h2 class="subtitle subtitle--sans-serif display-4">adresa slanja</h2>
+        @if(false)
         <p>Nemate sačuvanu adresu. Molimo Vas da unesete novu.</p>
+        @else
+        <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu isporuke.</p>
+
+        <div>
+          @address([
+            'name' => 'Petar Petrovic',
+            'telephone' => '+38123456789',
+            'address' => 'Kralja Petra 4',
+            'city' => 'Beograd',
+            'country' => 'Srbija',
+          ])
+          @endaddress
+        </div>
+        @endif
       </section>
       <section>
         <h2 class="subtitle subtitle--sans-serif display-4">nova adresa</h2>
