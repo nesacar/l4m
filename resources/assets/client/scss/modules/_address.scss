@@ -1,0 +1,19 @@
+.address {
+  border-radius: 2px;
+  border: 2px solid $theme-primary;
+}
+
+.address-body {
+  background-color: rgba($theme-primary, .12);
+  padding: 8px 16px;
+}
+
+.address-row {
+  display: flex;
+  height: 18px;
+  align-items: center;
+
+  :first-child {
+    margin-right: 16px;
+  }
+}
