@@ -1,5 +1,5 @@
 @php
-  $error = isset($error) ? $error : false;
+  $error = isset($error_message) && $error_message != "";
   $required = isset($required) ? $required : false;
   $type = isset($type) ? $type : "text";
   $value = isset($value) ? $value : "";
@@ -25,7 +25,7 @@
     <label class="float-label" for="{{$id}}">{{$label}}</label>
     <div class="ripple-line"></div>
   </div>
-  @if(isset($helper_text))
-  <p class="text-field_helper-text">{{$helper_text}}</p>
+  @if($error)
+  <p class="helper-text">{{$error_message}}</p>
   @endif
 </div>

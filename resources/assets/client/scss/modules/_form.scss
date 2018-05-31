@@ -136,6 +136,7 @@ $active-color_: $theme-primary;
     border-left: 0.25em solid transparent;
     border-right: 0.25em solid transparent;
     border-top: 0.375em solid currentColor;
+    opacity: .54;
     pointer-events: none;
   }
 
@@ -231,20 +232,6 @@ $active-color_: $theme-primary;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
   }
-
-  &_helper-text {
-    font-size: .75rem;
-    line-height: 1.25rem;
-    font-weight: $font-weight-normal;
-    letter-spacing: .03333em;
-    text-decoration: inherit;
-    text-transform: inherit;
-    margin: 0 16px 8px;
-
-    .error + & {
-      color: $theme-error !important;
-    }
-  }
 }
 
 // FloatLabel
@@ -330,5 +317,20 @@ $active-color_: $theme-primary;
 
   &.focus::after {
     opacity: .12;
+  }
+}
+
+// HelperText
+.helper-text {
+  font-size: .75rem;
+  line-height: 1.25rem;
+  font-weight: $font-weight-normal;
+  letter-spacing: .03333em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  margin: 0 16px 8px;
+
+  .error + & {
+    color: $theme-error !important;
   }
 }

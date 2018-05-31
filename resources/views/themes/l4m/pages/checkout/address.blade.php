@@ -64,7 +64,7 @@
               'name' => 'ime',
               'label' => 'Ime i prezime',
               'required' => true,
-              'helper_text' => 'Ovo polje je obavezno',
+              'error_message' => '',
             ])
             @endtextfield
           </div>
@@ -74,7 +74,7 @@
               'name' => 'telefon',
               'label' => 'Telefon',
               'required' => true,
-              'helper_text' => 'Ovo polje je obavezno',
+              'error_message' => '',
             ])
             @endtextfield
           </div>
@@ -84,7 +84,7 @@
               'name' => 'adresa',
               'label' => 'Ulica i broj',
               'required' => true,
-              'helper_text' => 'Ovo polje je obavezno',
+              'error_message' => '',
             ])
             @endtextfield
           </div>
@@ -94,7 +94,7 @@
               'name' => 'grad',
               'label' => 'Grad',
               'required' => true,
-              'helper_text' => 'Ovo polje je obavezno',
+              'error_message' => '',
             ])
             @endtextfield
           </div>
@@ -103,6 +103,8 @@
               'id' => 'Država',
               'name' => 'drzava',
               'label' => 'Država',
+              'required' => true,
+              'error_message' => ''
             ])
               <option value="srb">Srbija</option>
               <option value="hr">Hrvatska</option>
