@@ -41,49 +41,55 @@
       @endstepper
     </div>
     <div class="checkout-content">
-      <h2 class="subtitle subtitle--sans-serif display-4">nova adresa</h2>
-      <div class="row">
-        <div class="col-md-6">
-          @textfield([
-            'id' => 'name',
-            'name' => 'ime',
-            'label' => 'Ime',
-            'required' => true,
-            'helper_text' => 'Ovo polje je obavezno',
-          ])
-          @endtextfield
+      <section>
+        <h2 class="subtitle subtitle--sans-serif display-4">adresa slanja</h2>
+        <p>Nemate sačuvanu adresu. Molimo Vas da unesete novu.</p>
+      </section>
+      <section>
+        <h2 class="subtitle subtitle--sans-serif display-4">nova adresa</h2>
+        <div class="row">
+          <div class="col-md-6">
+            @textfield([
+              'id' => 'name',
+              'name' => 'ime',
+              'label' => 'Ime',
+              'required' => true,
+              'helper_text' => 'Ovo polje je obavezno',
+            ])
+            @endtextfield
+          </div>
+          <div class="col-md-6">
+            @textfield([
+              'id' => 'surname',
+              'name' => 'prezime',
+              'label' => 'Prezime',
+              'required' => true,
+              'helper_text' => 'Ovo polje je obavezno',
+            ])
+            @endtextfield
+          </div>
+          <div class="col-md-6">
+            @textfield([
+              'id' => 'address',
+              'name' => 'adresa',
+              'label' => 'Ulica i broj',
+              'required' => true,
+              'helper_text' => 'Ovo polje je obavezno',
+            ])
+            @endtextfield
+          </div>
+          <div class="col-md-6">
+            @textfield([
+              'id' => 'tel',
+              'name' => 'telefon',
+              'label' => 'Telefon',
+              'required' => true,
+              'helper_text' => 'Ovo polje je obavezno',
+            ])
+            @endtextfield
+          </div>
         </div>
-        <div class="col-md-6">
-          @textfield([
-            'id' => 'surname',
-            'name' => 'prezime',
-            'label' => 'Prezime',
-            'required' => true,
-            'helper_text' => 'Ovo polje je obavezno',
-          ])
-          @endtextfield
-        </div>
-        <div class="col-md-6">
-          @textfield([
-            'id' => 'address',
-            'name' => 'adresa',
-            'label' => 'Ulica i broj',
-            'required' => true,
-            'helper_text' => 'Ovo polje je obavezno',
-          ])
-          @endtextfield
-        </div>
-        <div class="col-md-6">
-          @textfield([
-            'id' => 'tel',
-            'name' => 'telefon',
-            'label' => 'Telefon',
-            'required' => true,
-            'helper_text' => 'Ovo polje je obavezno',
-          ])
-          @endtextfield
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 </div>

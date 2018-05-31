@@ -54,7 +54,8 @@ Route::get('/registration', function() {
 });
 
 Route::get('/checkout/step-1', function() {
-  return view('themes.l4m.pages.checkout.address');
+  $menu = MenuLink::getMenu();
+  return view('themes.l4m.pages.checkout.address', compact('menu'));
 });
 
 Auth::routes();
