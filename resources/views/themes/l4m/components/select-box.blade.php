@@ -1,13 +1,13 @@
 <div class="input-container">
-  <div class="select-box">
-    <select class="select-box_input"
-      name="hai"
-      id="hai"
+  <div class="select-box focusable js-input-field">
+    <select class="select-box_input js-input"
+      name="{{$name}}"
+      id="{{$id}}"
     >
-      <option>Hello</option>
-      <option>Hola</option>
+      <option disabled selected value></option>
+      {{$slot}}
     </select>
-    <label class="float-label" for="hai">Say hi!</label>
+    <label class="float-label" for="{{$id}}">{{$label}}</label>
     <div class="ripple-line"></div>
   </div>
 </div>

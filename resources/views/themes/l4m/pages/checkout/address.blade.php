@@ -62,7 +62,7 @@
             @textfield([
               'id' => 'name',
               'name' => 'ime',
-              'label' => 'Ime',
+              'label' => 'Ime i prezime',
               'required' => true,
               'helper_text' => 'Ovo polje je obavezno',
             ])
@@ -70,9 +70,9 @@
           </div>
           <div class="col-md-6">
             @textfield([
-              'id' => 'surname',
-              'name' => 'prezime',
-              'label' => 'Prezime',
+              'id' => 'tel',
+              'name' => 'telefon',
+              'label' => 'Telefon',
               'required' => true,
               'helper_text' => 'Ovo polje je obavezno',
             ])
@@ -90,16 +90,22 @@
           </div>
           <div class="col-md-6">
             @textfield([
-              'id' => 'tel',
-              'name' => 'telefon',
-              'label' => 'Telefon',
+              'id' => 'city',
+              'name' => 'grad',
+              'label' => 'Grad',
               'required' => true,
               'helper_text' => 'Ovo polje je obavezno',
             ])
             @endtextfield
           </div>
           <div class="col-md-6">
-            @selectbox()
+            @selectbox([
+              'id' => 'Država',
+              'name' => 'drzava',
+              'label' => 'Država',
+            ])
+              <option value="srb">Srbija</option>
+              <option value="hr">Hrvatska</option>
             @endselectbox
           </div>
         </div>

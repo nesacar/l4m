@@ -10,7 +10,7 @@ import View from './view';
 import Controller from './controller';
 import InvertableImage from './components/invertable-image';
 import accordion from './components/accordion';
-import TextField from './components/text-field';
+import InputField from './components/input-field';
 
 export function init () {
   window.Toast = Toast;
@@ -19,7 +19,7 @@ export function init () {
   Masthead.init();
   SearchWidget.init();
   Accordion.init();
-  TextField.init();
+  InputField.init();
 
   // Get initial state from the session
   window.store = new Store('cart', function(data) {

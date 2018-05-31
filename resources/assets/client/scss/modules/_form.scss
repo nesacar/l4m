@@ -110,7 +110,7 @@ $active-color_: $theme-primary;
   min-width: 200px;
 }
 
-// .select-box
+// SelectBox
 .select-box {
   display: inline-flex;
   position: relative;
@@ -120,10 +120,11 @@ $active-color_: $theme-primary;
   overflow: hidden;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
-  margin-bottom: 2 * $base-line;
+  margin-top: 16px;
+  margin-bottom: 8px;
   background-color: rgba($theme-primary, .12);
 
-  &:after {
+  &::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -141,10 +142,9 @@ $active-color_: $theme-primary;
   &_input {
     width: 100%;
     height: 44px;
-    padding: 12px 24px 4px 16px;
+    padding: 12px 24px 0 16px;
     background-color: transparent;
     border: 0;
-    border-bottom: 1px solid $border-color-dark;
     appearance: none;
     outline: none;
   }
@@ -207,6 +207,7 @@ $active-color_: $theme-primary;
   }
 }
 
+// TextField
 .text-field {
   font-size: 14px;
   display: inline-flex;
@@ -217,36 +218,8 @@ $active-color_: $theme-primary;
   margin-top: 16px;
   margin-bottom: 8px;
   background-color: rgba($theme-primary, .12);
-  border-bottom: 1px solid $border-color-dark;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
-
-  &:hover {
-    border-bottom-color: $theme-primary;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: $theme-primary;
-    opacity: 0;
-    will-change: opacity;
-    // transition: opacity .12s;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  &:hover::after {
-    opacity: .06;
-  }
-
-  &.focus::after {
-    opacity: .12;
-  }
 
   &_input {
     width: 100%;
@@ -274,6 +247,7 @@ $active-color_: $theme-primary;
   }
 }
 
+// FloatLabel
 .float-label {
   position: absolute;
   left: 16px;
@@ -293,7 +267,7 @@ $active-color_: $theme-primary;
     content: "*";
   }
 
-  :focus ~ & {
+  .focus & {
     color: $theme-primary;
   }
 
@@ -306,9 +280,10 @@ $active-color_: $theme-primary;
   }
 }
 
+// RippleLine
 .ripple-line {
   position: absolute;
-  bottom: -1px;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 2px;
@@ -324,8 +299,36 @@ $active-color_: $theme-primary;
     transform: scale(1);
   }
 
-  :focus ~ & {
+  .focus & {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+// Focusable
+.focusable {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $theme-primary;
+    opacity: 0;
+    will-change: opacity;
+    // transition: opacity .12s;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    opacity: .06;
+  }
+
+  &.focus::after {
+    opacity: .12;
   }
 }

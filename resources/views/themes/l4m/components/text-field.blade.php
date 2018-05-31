@@ -14,8 +14,8 @@
 @endphp
 
 <div class="input-container">
-  <div class="{{$className}}">
-    <input class="text-field_input"
+  <div class="{{$className}} focusable js-input-field">
+    <input class="text-field_input js-input"
       type="{{$type}}"
       name="{{$name}}"
       id="{{$id}}"
