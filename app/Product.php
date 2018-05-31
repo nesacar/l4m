@@ -98,12 +98,17 @@ class Product extends Model
         }
     }
 
-    public function getBreadcrumb(){
+    public function getBreadcrumb($slug){
         $str = '<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="'. url('/') . '">Home</a></li>';
-
+        $level = -1;
         if(count($this->category)>0){
             foreach ($this->category as $category){
-                $str .= '<li class="breadcrumb-item"><a href="' . $category->getLink() . '">' . $category->title . '</a></li>';
+                if(($level == -1 && $category->slug == $slug) || $level != -1){
+                    if($level != $category->level){
+                        $level = $category->level;
+                        $str .= '<li class="breadcrumb-item"><a href="' . $category->getLink() . '">' . $category->title . '</a></li>';
+                    }
+                }
             }
         }
 
@@ -169,7 +174,7 @@ class Product extends Model
     }
 
     public function photo(){
-        return $this->hasMany(Photo::class);
+        return $this->hasMany(Photo::class)->take(3);
     }
 
     public function tag(){

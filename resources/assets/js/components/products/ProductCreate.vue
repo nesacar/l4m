@@ -171,7 +171,7 @@
                         <div class="form-group">
                             <label>Kategorije</label>
                             <small class="form-text text-muted" v-if="error != null && error.cat_ids">{{ error.cat_ids[0] }}</small>
-                            <ol class="sortable" style="margin-left: -15px;">
+                            <ol style="margin-left: -15px;">
                                 <li :id="`list_${cat.id}`" v-for="cat in categories">
                                     <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id" @change="getProperties()"> {{ cat.title }}</div>
                                     <ol v-if="cat.children.length > 0">
