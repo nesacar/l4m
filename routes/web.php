@@ -58,7 +58,8 @@ Route::get('/checkout/step-1', function () {
     return view('themes.l4m.pages.checkout.address', compact('menu'));
 });
 
-//Auth::routes();
+Route::get('register', 'CustomersController@register');
+Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');
 
