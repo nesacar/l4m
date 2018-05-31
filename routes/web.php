@@ -58,11 +58,11 @@ Route::get('/checkout/step-1', function () {
     return view('themes.l4m.pages.checkout.address', compact('menu'));
 });
 
-Auth::routes();
+//Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');
 
-Route::get('proba', 'PagesController@proba')->middleware('auth');
+Route::get('proba', 'PagesController@proba');
 
 Route::get('shop/{slug}', 'PagesController@category');
 Route::get('shop/{slug1}/{slug2}', 'ShopController@category2');
