@@ -1,0 +1,14 @@
+.border {
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 2px;
+
+  &--primary {
+    border-color: $theme-primary;
+  }
+
+  &--secondary {
+    border-color: $theme-secondary;
+  }
+}

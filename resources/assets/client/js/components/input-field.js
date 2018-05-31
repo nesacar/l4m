@@ -1,12 +1,12 @@
-class TextField {
+class InputField {
   static init () {
-    const fields = document.querySelectorAll('.text-field');
-    fields.forEach(field => new TextField(field));
+    const fields = document.querySelectorAll('.js-input-field');
+    fields.forEach(field => new InputField(field));
   }
 
   constructor (root) {
     this._root = root;
-    this._input = this._root.querySelector('.text-field_input');
+    this._input = this._root.querySelector('.js-input');
 
     this._onBlur = this._onBlur.bind(this);
     this._onFocus = this._onFocus.bind(this);
@@ -36,4 +36,4 @@ class TextField {
   }
 }
 
-export default TextField;
+export default InputField;
