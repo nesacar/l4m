@@ -40,7 +40,17 @@
       ])
       @endstepper
     </div>
-    <div class="checkout-content">
+    <div class="checkout-content" style="margin-top: 32px;">
+      <section>
+        <div class="border border--primary checkout-box text--body2">
+          <label class="checkout-box_label">Potvrdite Vašu email adresu.</label>
+          <p>Vaša adresa nije potvrđena.</p>
+          <p>Da biste mogli u potpunosti da iskoristite sve pogodnosti koje Vam naš sajt pruža potrebno je da potvrdite email adresu koju ste uneli prilikom registracije.</p>
+          <p>Sve što je potrebno da uradite jeste da kliknete na link koji smo Vam poslali u poruci neposredno nakon registracije.</p>
+          <p>Ukoliko ste zagubili email poruku sa linkom za potvrdu kliknite na dugme "Pošalji poruku" i posaćemo Vam novi mail sa instrukcijama za aktiviranje Vašeg naloga.</p>
+          <button class="btn btn--primary">Pošalji poruku</button>
+        </div>
+      </section>
       <section>
         <h2 class="subtitle subtitle--sans-serif display-4">adresa slanja</h2>
         <p>Nemate sačuvanu adresu. Molimo Vas da unesete novu.</p>
@@ -88,6 +98,9 @@
             ])
             @endtextfield
           </div>
+        </div>
+        <div>
+          <button class="btn btn--primary">sačuvaj</button>
         </div>
       </section>
     </div>

@@ -19,3 +19,28 @@
 .checkout-content {
   flex-grow: 1;
 }
+
+.checkout-box {
+  position: relative;
+  padding: 24px 16px 16px;
+
+  p {
+    margin-bottom: 8px;
+
+    &:last-of-type {
+      margin-bottom: 24px;
+    }
+  }
+
+  &_label {
+    font-weight: $font-weight-bold;
+    line-height: 1em;
+    padding: 4px 8px;
+    background-color: #FFF;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 16px;
+    transform: translateY(-50%);
+  }
+}
