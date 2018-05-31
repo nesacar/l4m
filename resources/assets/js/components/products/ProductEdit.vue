@@ -293,7 +293,7 @@
             'vue-dropzone': vue2Dropzone,
             'select2': Select2,
         },
-        created(){
+        mounted(){
             this.getBrands();
             this.getTags();
             this.getCategories();
@@ -311,7 +311,6 @@
                         this.product.tag_ids = res.data.tag_ids;
                         this.getCollections(this.product.brand_id);
                         this.getProperties();
-                        console.log(this.product.att_ids);
                     })
                     .catch(e => {
                         console.log(e);

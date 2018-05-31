@@ -82,10 +82,10 @@
                             </form>
                         </div><!-- .card -->
 
-                        <div class="row" v-if="properties.length > 0">
+                        <div class="row" v-if="properties.length">
                             <div class="card col-md-4" v-for="property in properties">
                                 <div class="form-group">
-                                    <label>{{ property.title }} / <strong>{{ property.set[0].title }}</strong></label>
+                                    <label>{{ property.title}}</strong></label>
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="attribute in property.attribute">
                                             <input type="checkbox" v-model="link.att_ids" :value="attribute.id">
@@ -131,9 +131,8 @@
             'upload-image-helper': UploadImageHelper,
             'switches': Switches
         },
-        created(){
+        mounted(){
             this.getLink();
-            this.getParentLinks();
         },
         methods: {
             getLink(){
@@ -141,16 +140,7 @@
                     .then(res => {
                         this.link = res.data.link;
                         this.link.att_ids = res.data.att_ids;
-                        this.getProperties();
-                    })
-                    .catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getParentLinks(){
-                axios.get('api/menu-links/lists')
-                    .then(res => {
+                        this.properties = res.data.properties;
                         this.links = res.data.links;
                     })
                     .catch(e => {
@@ -171,15 +161,6 @@
                             timer: 1500
                         });
                         this.error = null;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getProperties(){
-                axios.get('api/properties/lists')
-                    .then(res => {
-                        this.properties = res.data.properties;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
