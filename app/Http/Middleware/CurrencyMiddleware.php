@@ -4,8 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Currency;
 use Closure;
-use Illuminate\Support\Str;
-use Session;
 
 class CurrencyMiddleware
 {
@@ -25,28 +23,28 @@ class CurrencyMiddleware
 
     private function checkRequest(){
         if(request('currency')){
-            if(Session::has('currency')){
-                $old = Session::get('currency');
-                if(Str::upper($old->code) != Str::upper(request('currency'))){
-                    $new = Currency::whereCode(Str::upper(request('currency')))->first();
+            if(session()->has('currency')){
+                $old = session('currency');
+                if(strtoupper($old->code) != strtoupper(request('currency'))){
+                    $new = Currency::whereCode(strtoupper(request('currency')))->first();
                     if(!empty($new)){
-                        Session::forget('currency');
-                        Session::put('currency', $new);
+                        session()->forget('currency');
+                        session(['currency' => $new]);
                     }
                 }
             }else{
-                $new = Currency::whereCode(Str::upper(request('currency')))->first();
+                $new = Currency::whereCode(strtoupper(request('currency')))->first();
                 if(!empty($new)){
-                    Session::put('currency', $new);
+                    session(['currency' => $new]);
                 }else{
                     $new = Currency::wherePrimary(1)->first();
-                    Session::put('currency', $new);
+                    session(['currency' => $new]);
                 }
             }
         }else{
-            if(!Session::has('currency')){
+            if(!session()->has('currency')){
                 $new = Currency::wherePrimary(1)->first();
-                Session::put('currency', $new);
+                session(['currency' => $new]);
             }
         }
     }
