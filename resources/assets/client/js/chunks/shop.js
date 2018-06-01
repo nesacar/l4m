@@ -44,14 +44,14 @@ function _isEmptyElement (element) {
   /**
    * Convenience function that submits the form.
    */
-  function submitForm () {
+  function submitForm (e) {
     form.submit();
   }
 
-  const form =  document.getElementById('filters');
+  const form = document.getElementById('filters');
   form.addEventListener('change', submitForm);
   document.getElementById('sort')
-    addEventListener('change', submitForm);
+    .addEventListener('change', submitForm);
   
   _initSliders(form);
   _removeEmptyFilters(form);

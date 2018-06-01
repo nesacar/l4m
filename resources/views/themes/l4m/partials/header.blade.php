@@ -35,7 +35,7 @@
                         'name' => 'currency',
                       ])
                     <option value="rsd" {{ session('currency')->code == 'RSD'? 'selected' : '' }}>RSD</option>
-                    <option value="euro" {{ session('currency')->code == 'EUR'? 'selected' : '' }}>EUR</option>
+                    <option value="eur" {{ session('currency')->code == 'EUR'? 'selected' : '' }}>EUR</option>
                     @endselect
                 </form>
             </div>

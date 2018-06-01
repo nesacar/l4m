@@ -11,6 +11,7 @@ import Controller from './controller';
 import InvertableImage from './components/invertable-image';
 import accordion from './components/accordion';
 import InputField from './components/input-field';
+import Currency from './currency';
 
 export function init () {
   window.Toast = Toast;
@@ -20,6 +21,7 @@ export function init () {
   SearchWidget.init();
   Accordion.init();
   InputField.init();
+  Currency.init();
 
   // Get initial state from the session
   window.store = new Store('cart', function(data) {
