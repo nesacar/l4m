@@ -6,6 +6,7 @@ class ImageZoomer {
    * @type {String}
    */
   set image(url) {
+    this.host.classList.add('active');
     this.host.style.backgroundImage = `url(${url})`;
     this._render();
   }

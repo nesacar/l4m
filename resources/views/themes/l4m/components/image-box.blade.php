@@ -18,7 +18,7 @@
   </div><!-- /.image-box_thumbnails -->
 
   <div class="image-box_image">
-    <div class="image-box_zoom">
+    <div class="image-box_zoom js-zoomer-trigger">
       <svg class="icon image-box_zoom-icon">
         <use xlink:href="#icon_zoom">
       </svg>

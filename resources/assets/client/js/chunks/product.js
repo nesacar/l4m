@@ -18,6 +18,7 @@ import Siema from '../components/siema';
   };
 
   let state = null;
+  let $zoomTrigger;
   let zoomer;
   let slider;
   let $thumbs;
@@ -32,7 +33,16 @@ import Siema from '../components/siema';
   function _init() {
     zoomer = new ImageZoomer(document.querySelector('.js-zoomer'));
     slider = new Siema(CONFIG);
-    
+
+    $zoomTrigger = document.querySelector('.js-zoomer-trigger');
+    // tmp
+    $zoomTrigger.addEventListener('click', function() {
+      const index = state.activeIndex;
+      const url = $thumbs[index].dataset.large;
+      // zoomer.image = url;
+      console.log('set zoomer image to', url);
+    });
+
     $thumbs = document.querySelectorAll('.image-gallery_thumbnails img');
     $prev = document.querySelector('.js-arrow--prev');
     $next = document.querySelector('.js-arrow--next');
@@ -99,9 +109,6 @@ import Siema from '../components/siema';
    */
   function _render() {
     const index = state.activeIndex;
-    const url = $thumbs[index].dataset.large;
-
-    zoomer.image = url;
     slider.goTo(index);
     _updateControls();
     _markActiveThumbnail();
