@@ -10,10 +10,15 @@
   background-repeat: no-repeat;
   transition: opacity .12s;
   z-index: 10000;
+  cursor: crosshair;
 
   &.active {
     pointer-events: auto;
     opacity: 1;
+  }
+
+  &:focus {
+    cursor: pointer;
   }
 }
 

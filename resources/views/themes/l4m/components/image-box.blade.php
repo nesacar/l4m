@@ -18,6 +18,11 @@
   </div><!-- /.image-box_thumbnails -->
 
   <div class="image-box_image">
+    <div class="image-box_zoom">
+      <svg class="icon image-box_zoom-icon">
+        <use xlink:href="#icon_zoom">
+      </svg>
+    </div>
     <div class="image-box_controls">
       <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev">
         <span class="arrow arrow--left" role="presentation"></span>
