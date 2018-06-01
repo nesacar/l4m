@@ -29,6 +29,7 @@ import Siema from '../components/siema';
    * Sets the stage up.
    */
   function _init() {
+    const zoomer = new ImageZoomer();
     slider = new Siema(CONFIG);
     $thumbs = document.querySelectorAll('.image-gallery_thumbnails img');
     $prev = document.querySelector('.js-arrow--prev');

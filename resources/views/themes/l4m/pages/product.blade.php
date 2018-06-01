@@ -6,6 +6,8 @@
 @endsection
 
 @section('content')
+    @zoomer()
+    @endzoomer
     <section class="container product js-product" data-id="{{ $product->id }}">
       <div class="expand--md">
         @include('themes.' . $theme . '.partials.breadcrumb')
