@@ -67,7 +67,7 @@ class PagesController extends Controller
 //        foreach ($attributes as $attribute){
 //            $attribute->update(['property_id' => 12]);
 //        }
-        return MenuLink::getFirstChild('zene');
+        //\Artisan::call('view:clear');
         return 'done2';
     }
 }
