@@ -29,7 +29,6 @@
             </a>
             <div class="header_currency">
                 <form method="GET" id="currency_form">
-                    @csrf
                     @select([
                         'id' => 'currency',
                         'name' => 'currency',

@@ -29,10 +29,10 @@
         <div class="col-md-4 footer_column">
           <h4 class="section-title footer_section-title">korisnički servis</h4>
           <div class="footer_nav">
-            <div class="footer_nav-item"><a href="/advertising">Reklamiranje</a></div>
-            <div class="footer_nav-item"><a href="/terms">Uslovi korišćenja</a></div>
-            <div class="footer_nav-item"><a href="/service">Korisnički servis</a></div>
-            <div class="footer_nav-item"><a href="/privacy">Privatnost</a></div>
+            <div class="footer_nav-item"><a href="{{ url('blog/info/reklamiranje/44') }}">Reklamiranje</a></div>
+            <div class="footer_nav-item"><a href="{{ url('blog/info/uslovi-koriscenja/45') }}">Uslovi korišćenja</a></div>
+            <div class="footer_nav-item"><a href="{{ url('blog/info/korisnicki-servis/46') }}">Korisnički servis</a></div>
+            <div class="footer_nav-item"><a href="{{ url('blog/info/provatnost/47') }}">Privatnost</a></div>
           </div>
         </div>
         <div class="col-md-4 footer_column">
