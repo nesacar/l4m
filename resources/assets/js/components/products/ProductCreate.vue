@@ -303,9 +303,9 @@
                         this.product.image = res.data.image;
                         this.error = null;
                     }).catch(e => {
-                    console.log(e);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             getBrands(){
                 axios.get('api/brands/lists')
@@ -331,9 +331,9 @@
                         this.categories = res.data.categories;
                         console.log(this.categories);
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             setBrand(){
                 if(this.product.brand_id > 0){
