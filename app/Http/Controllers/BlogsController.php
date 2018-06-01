@@ -61,8 +61,8 @@ class BlogsController extends Controller
                 $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
             }])->find($slug3);
             $post->increment('views');
-            $posts = Post::getLatest($category, $post);
-            $mostView = Post::getMostView($category, $post);
+            $posts = $slug1 != 'info'? Post::getLatest($category, $post) : null;
+            $mostView  = $slug1 != 'info'? Post::getMostView($category, $post) : null;
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
             $menu = MenuLink::getMenu();
@@ -79,8 +79,8 @@ class BlogsController extends Controller
                 $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
             }])->find($slug3);
             $post->increment('views');
-            $posts = Post::getLatest($category, $post);
-            $mostView = Post::getMostView($category, $post);
+            $posts = $slug2 != 'info'? Post::getLatest($category, $post) : null;
+            $mostView  = $slug2 != 'info'? Post::getMostView($category, $post) : null;
             Seo::blogPost($post);
             $breadcrumb = $post->getBreadcrumb();
             $menu = MenuLink::getMenu();

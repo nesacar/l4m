@@ -98,7 +98,7 @@ class Post extends Model
     }
 
     public static function getHomePosts($limit = 3){
-        return self::published()->limit($limit)->get();
+        return self::where('blog_id', '<>', 6)->published()->limit($limit)->get();
     }
 
     public function scopePublished($query){
