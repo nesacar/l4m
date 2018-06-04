@@ -93,6 +93,10 @@
     height: 100vh;
     pointer-events: none;
     z-index: -1;
+
+    .nav_item[data-visible] & {
+      pointer-events: auto;
+    }
   }
 
   &_content {
