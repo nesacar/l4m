@@ -14,13 +14,6 @@ class NavItem {
   }
 
   /**
-   * @type {String}
-   */
-  static get ACTIVE_CLASS() {
-    return 'active';
-  }
-
-  /**
    * @type {Boolean}
    */
   get visible() {
@@ -47,23 +40,54 @@ class NavItem {
    */
   constructor(host) {
     this.host = host;
-    this.host.addEventListener('click', this._onClick.bind(this));
+
+    this._hide = this._hide.bind(this);
+    this._show = this._show.bind(this);
+
+    this.host.addEventListener('click', this._show);
   }
 
   /**
-   * NavItem click handler.
+   * Show the NavItem sub-menu, and attach event listener on the
+   * document object.
    *
    * @param {Event} evt
    */
-  _onClick(evt) {
-    this.update();
+  _show(evt) {
+    // If it is allready visibile, just return.
+    if (this.visible) {
+      return;
+    }
+
+    this.visible = true;
+    // Quick Fix:
+    // When calling evt.stopPropagation(), alot of bugs appear
+    // when clicking on sibling elements. This seams to be the
+    // best (at the moment) solution. It pushes the event binding
+    // to the end of the callstack, after the visible attribute
+    // is set. Not sure about the possible drawbacks, though :/
+    setTimeout(() => {
+      document.addEventListener('click', this._hide);
+    }, 0);
   }
 
   /**
-   * Updates the host element based on the current state.
+   * Hide the NavItem sub-menu, and remove event lister from the
+   * document object.
+   *
+   * @param {Event} evt
    */
-  update() {
-    this.visible = !this.visible;
+  _hide(evt) {
+    const target = evt.target;
+    const isInside = target.closest('.js-mega-menu');
+
+    // If the click is inside sub-menu, do nothing
+    if (isInside) {
+      return;
+    }
+    // Else, hide it.
+    this.visible = false;
+    document.removeEventListener('click', this._hide);
   }
 }
 

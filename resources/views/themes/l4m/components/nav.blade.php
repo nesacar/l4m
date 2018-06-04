@@ -1,4 +1,4 @@
-<nav class="nav">
+<nav class="nav js-nav">
   @foreach($links as $i => $link)
     @php
       $linkClassName = $link->desc . (\App\Helper::activeLink($link->link)? ' ' . $link->desc . '--active' : '');
@@ -8,16 +8,18 @@
     @endphp
     <div class="{{ $itemClassName }}">
       @if(count($link->children)>0)
-        <span class="{{ $linkClassName }}">{{ $link->title}}</span>
+        <span class="{{ $linkClassName }}"
+          tabindex="0"
+        >{{ $link->title}}</span>
         <div class="mega-menu">
           <div class="mega-menu_scrim"></div>
-          <div class="mega-menu_content">
+          <div class="mega-menu_content js-mega-menu">
             <div class="container mega-menu_row">
               <div class="menu-list mega-menu_col">
                 @foreach($link->children as $subLink)
-                    <a class="menu-list_item"
-                      href="{{url($subLink->link . $subLink->sufix)}}"
-                    >{{$subLink->title}}</a>
+                  <a class="menu-list_item"
+                    href="{{url($subLink->link . $subLink->sufix)}}"
+                  >{{$subLink->title}}</a>
                 @endforeach
               </div>
               <!-- demo -->
