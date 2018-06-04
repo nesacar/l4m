@@ -13,6 +13,8 @@ import accordion from './components/accordion';
 import InputField from './components/input-field';
 import Currency from './currency';
 
+import NavItem from './components/nav';
+
 export function init () {
   window.Toast = Toast;
   Drawer.init();
@@ -22,6 +24,7 @@ export function init () {
   Accordion.init();
   InputField.init();
   Currency.init();
+  NavItem.init();
 
   // Get initial state from the session
   window.store = new Store('cart', function(data) {

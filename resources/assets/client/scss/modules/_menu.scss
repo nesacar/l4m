@@ -77,7 +77,7 @@
   width: 100%;
   will-change: opacity;
 
-  .nav_item:hover & {
+  .nav_item[data-visible] & {
     visibility: visible;
     pointer-events: auto;
     opacity: 1;
