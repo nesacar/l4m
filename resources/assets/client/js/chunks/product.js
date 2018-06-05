@@ -1,5 +1,6 @@
 import ImageZoomer from '../components/image-zoomer';
 import ImageGallery from '../components/image-gallery';
+import Dialog from '../components/dialog';
 import Siema from '../components/siema';
 
 (function() {
@@ -19,6 +20,7 @@ import Siema from '../components/siema';
 
   let state = null;
   let $zoomTrigger;
+  let dialog;
   let zoomer;
   let slider;
   let $thumbs;
@@ -34,13 +36,15 @@ import Siema from '../components/siema';
     zoomer = new ImageZoomer(document.querySelector('.js-zoomer'));
     slider = new Siema(CONFIG);
 
+    dialog = new Dialog(document.querySelector('.js-dialog'));
     $zoomTrigger = document.querySelector('.js-zoomer-trigger');
     // tmp
     $zoomTrigger.addEventListener('click', function() {
       const index = state.activeIndex;
       const url = $thumbs[index].dataset.large;
-      // zoomer.image = url;
-      console.log('set zoomer image to', url);
+      zoomer.image = url;
+      dialog.showModal();
+      // console.log('set zoomer image to', url);
     });
 
     $thumbs = document.querySelectorAll('.image-gallery_thumbnails img');

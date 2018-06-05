@@ -1,32 +1,58 @@
-dialog.dialog {
+.dialog {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+.dialog-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .6);
+  z-index: -1;
+}
+
+.dialog-body {
+  position: absolute;
   top: 16px;
   left: 16px;
   width: calc(100% - 32px);
   height: calc(100% - 32px);
-  padding: 0;
+  padding: 1rem;
   margin: 0;
   border: 0;
   border-radius: 2px;
-  z-index: 1000;
+  background-color: #FFF;
   box-shadow:
     0 3px 5px -1px rgba(0,0,0,.2),
     0 6px 10px 0 rgba(0,0,0,.14),
     0 1px 18px 0 rgba(0,0,0,.12);
-
-  &::backdrop {
-    background: rgba(0, 0, 0, .6);
-  }
 }
 
 .dialog-close-btn {
   position: absolute;
   top: 8px;
   right: 8px;
+  z-index: 3;
 }
 
-.dialog-body {
-  padding: 1rem;
+.dialog-content {
   width: 100%;
   height: 100%;
   position: relative;
