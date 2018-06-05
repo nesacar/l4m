@@ -44,7 +44,6 @@ import Siema from '../components/siema';
       const url = $thumbs[index].dataset.large;
       zoomer.image = url;
       dialog.showModal();
-      // console.log('set zoomer image to', url);
     });
 
     $thumbs = document.querySelectorAll('.image-gallery_thumbnails img');

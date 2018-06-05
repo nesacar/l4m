@@ -26,18 +26,42 @@ class ImageZoomer {
   constructor(host) {
     this.host = host;
 
+    this._onStart = this._onStart.bind(this);
+    this._onMove = this._onMove.bind(this);
+    this._onEnd = this._onEnd.bind(this);
+    this._onResize = this._onResize.bind(this);
+    this._render = this._render.bind(this);
+
+    this.host.addEventListener('mouseenter', this._onStart);
+    this.host.addEventListener('touchstart', this._onStart);
+    window.addEventListener('resize', this._onResize);
+    this._init();
+  }
+
+  /**
+   * Sets initial state, and calls render.
+   */
+  _init() {
     this.gBCR = this.host.getBoundingClientRect();
     this.x = this.gBCR.width / 2;
     this.y = this.gBCR.height / 2;
     this.trackingTouch = false;
-
-    this._onStart = this._onStart.bind(this);
-    this._onMove = this._onMove.bind(this);
-    this._onEnd = this._onEnd.bind(this);
-    this._render = this._render.bind(this);
-
-    this.host.addEventListener('mouseenter', this._onStart);
     this._render();
+  }
+
+  /**
+   * Updates the DOM
+   */
+  _render() {
+    const x = this.x / this.gBCR.width * 100;
+    const y = this.y / this.gBCR.height * 100;
+    this.host.style.backgroundPosition = `${x}% ${y}%`;
+
+    if (!this.trackingTouch) {
+      return;
+    }
+
+    requestAnimationFrame(this._render);
   }
 
   /**
@@ -80,18 +104,15 @@ class ImageZoomer {
   }
 
   /**
-   * Updates the DOM
+   * Resize handler.
+   * Waits for resize to end, and then re-initializes
+   * the component.
    */
-  _render() {
-    const x = this.x / this.gBCR.width * 100;
-    const y = this.y / this.gBCR.height * 100;
-    this.host.style.backgroundPosition = `${x}% ${y}%`;
-
-    if (!this.trackingTouch) {
-      return;
-    }
-
-    requestAnimationFrame(this._render);
+  _onResize() {
+    clearTimeout(this._resizeTimer);
+    this._resizeTimer = setTimeout(() => {
+      this._init();
+    }, 250);
   }
 
   /**
@@ -99,8 +120,11 @@ class ImageZoomer {
    * Fires on mouseenter/touchstart.
    */
   _addEventListeners() {
-    document.addEventListener('mousemove', this._onMove);
-    document.addEventListener('mouseleave', this._onEnd);
+    this.host.addEventListener('mousemove', this._onMove);
+    this.host.addEventListener('mouseleave', this._onEnd);
+    this.host.addEventListener('touchmove', this._onMove);
+    this.host.addEventListener('touchend', this._onEnd);
+    this.host.addEventListener('touchcancel', this._onEnd);
   }
 
   /**
@@ -108,8 +132,11 @@ class ImageZoomer {
    * Fires on mouseleave/touchend.
    */
   _removeEventListeners() {
-    document.removeEventListener('mousemove', this._onMove);
-    document.removeEventListener('mouseleave', this._onEnd);
+    this.host.removeEventListener('mousemove', this._onMove);
+    this.host.removeEventListener('mouseleave', this._onEnd);
+    this.host.removeEventListener('touchmove', this._onMove);
+    this.host.removeEventListener('touchend', this._onEnd);
+    this.host.removeEventListener('touchcancel', this._onEnd);
   }
 }
 
