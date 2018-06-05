@@ -44,3 +44,28 @@
     transform: translateY(-50%);
   }
 }
+
+.checkout-details {
+  border: 1px solid $theme-primary;
+}
+
+.checkout-detail {
+  &_header {
+    height: 48px;
+    background-color: rgba($theme-primary, .12);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &_body {
+    padding: 8px 16px;
+  }
+
+  &_line {
+    font-size: 13px;
+    font-weight: $font-weight-light;
+    line-height: 1.5;
+  }
+}

@@ -84,8 +84,16 @@
   font-size: 1.333em;
 }
 
+.display-5 {
+  font-size: 16px;
+}
+
 .text--serif {
   font-family: $font-family-header !important;
+}
+
+.text--sans-serif {
+  font-family: $font-family !important;
 }
 
 .subtitle {

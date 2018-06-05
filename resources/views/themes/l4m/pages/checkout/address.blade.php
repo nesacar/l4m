@@ -12,27 +12,27 @@
       @stepper([
         'steps' => [
           (object)[
-            'link' => '#first',
+            'link' => '/checkout/address',
             'text' => 'Adresa slanja',
             'disabled' => false,
           ],
           (object)[
-            'link' => '#second',
-            'text' => 'Način dostave',
-            'disabled' => false,
+            'link' => '/checkout/shipping',
+            'text' => 'Način slanja',
+            'disabled' => true,
           ],
           (object)[
-            'link' => '#second',
+            'link' => '/checkout/payment',
             'text' => 'Način plaćanja',
             'disabled' => true,
           ],
           (object)[
-            'link' => '#second',
+            'link' => '/checkout/confirmation',
             'text' => 'Potvrda porudžbine',
             'disabled' => true,
           ],
           (object)[
-            'link' => '#second',
+            'link' => '/checkout/checkout',
             'text' => 'Kraj',
             'disabled' => true,
           ],

@@ -53,10 +53,28 @@ Route::get('/registration', function () {
     return view('themes.l4m.pages.registration', compact('menu'));
 });
 
-Route::get('/checkout/step-1', function () {
+// Checkout steps.
+Route::get('/checkout/address', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.checkout.address', compact('menu'));
 });
+Route::get('/checkout/shipping', function () {
+    $menu = MenuLink::getMenu();
+    return view('themes.l4m.pages.checkout.shipping', compact('menu'));
+});
+Route::get('/checkout/payment', function () {
+    $menu = MenuLink::getMenu();
+    return view('themes.l4m.pages.checkout.payment', compact('menu'));
+});
+Route::get('/checkout/confirmation', function () {
+    $menu = MenuLink::getMenu();
+    return view('themes.l4m.pages.checkout.confirmation', compact('menu'));
+});
+Route::get('/checkout/checkout', function () {
+    $menu = MenuLink::getMenu();
+    return view('themes.l4m.pages.checkout.checkout', compact('menu'));
+});
+// /Checkout steps.
 
 Route::get('register', 'CustomersController@register');
 Auth::routes();
