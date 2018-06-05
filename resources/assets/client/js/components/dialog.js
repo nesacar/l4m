@@ -8,6 +8,13 @@ class Dialog {
   static get ACTIVE_CLASS() {
     return 'open';
   }
+
+  /**
+   * @return {Number}
+   */
+  static get ESC() {
+    return 27;
+  }
   
   /**
    * Creates new Dialog instance.
@@ -18,6 +25,7 @@ class Dialog {
     this.host = host;
     this.host.querySelector('.js-dialog-close-btn')
       .addEventListener('click', this.close.bind(this));
+    window.addEventListener('keydown', this._onKeyDown.bind(this));
   }
 
   /**
@@ -32,6 +40,19 @@ class Dialog {
    */
   close() {
     this.host.classList.remove(Dialog.ACTIVE_CLASS);
+  }
+
+  /**
+   * Keydown event handler.
+   * Calls this.close() on Esc press.
+   * @param {Event} evt
+   */
+  _onKeyDown(evt) {
+    // Ignore if its not an Esc key.
+    if (evt.keyCode !== Dialog.ESC) {
+      return;
+    }
+    this.close();
   }
 }
 
