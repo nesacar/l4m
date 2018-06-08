@@ -50,6 +50,8 @@
 }
 
 .checkout-detail {
+  overflow: hidden;
+
   &_header {
     height: 48px;
     background-color: rgba($theme-primary, .12);
@@ -67,5 +69,27 @@
     font-size: 13px;
     font-weight: $font-weight-light;
     line-height: 1.5;
+  }
+}
+
+.checkout-table {
+  width: 100%;
+  table-layout: auto;
+
+  &-wrap {
+    overflow-x: auto;
+  }
+
+  &_header {
+    background-color: rgba($theme-primary, .24);
+  }
+
+  th, td {
+    padding: 4px 16px;
+    word-wrap:break-word;
+  }
+
+  &_row {
+    border-top: 1px solid $border-color-dark;
   }
 }

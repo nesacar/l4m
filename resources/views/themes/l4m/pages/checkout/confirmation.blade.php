@@ -80,6 +80,34 @@
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">Sadržaj korpe</h4>
             </div>
+            <div class="checkout-table-wrap">
+              <table class="checkout-table">
+                <tr class="checkout-table_header">
+                  <th>Naziv</th>
+                  <th>Cena</th>
+                  <th>Kol.</th>
+                  <th>Ukupno</th>
+                </tr>
+                <tr class="checkout-table_row">
+                  <td valign="top">
+                    <div class="shop-item_name">Alfreds Futterkiste</div>
+                    <div class="shop-item_brand">suknja</div>
+                  </td>
+                  <td valign="top">3214.00</td>
+                  <td valign="top">2</td>
+                  <td valign="top">6428.00</td>
+                </tr>
+                <tr class="checkout-table_row">
+                  <td valign="top">
+                    <div class="shop-item_name">Alfreds Futterkiste</div>
+                    <div class="shop-item_brand">suknja</div>
+                  </td>
+                  <td valign="top">3214.00</td>
+                  <td valign="top">2</td>
+                  <td valign="top">6428.00</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </section>
         <a class="btn btn--primary" href="#">poruči</a>
