@@ -12,6 +12,70 @@ $active-color_: $theme-primary;
   }
 }
 
+.radio {
+  position: relative;
+  display: inline-block;
+  padding: 3px;
+  vertical-align: middle;
+
+  &_control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  &_background {
+    position: relative;
+    width: 14px;
+    height: 14px;
+  }
+
+  &_outer-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,.38);
+    transition: border-color .12s;
+  }
+
+  &_control:checked ~ &_background &_outer-circle {
+    border-color: $theme-primary;
+  }
+
+  &_inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $theme-primary;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform .12s;
+  }  
+
+  &_control:checked ~ &_background &_inner-circle {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &_label {
+    margin: 0;
+    padding-left: 12px;
+    vertical-align: middle;
+  }
+}
+
 .checkbox {
   position: relative;
   display: inline-block;

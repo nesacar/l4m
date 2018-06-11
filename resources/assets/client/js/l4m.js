@@ -9,7 +9,6 @@ import Store from './store';
 import View from './view';
 import Controller from './controller';
 import InvertableImage from './components/invertable-image';
-import accordion from './components/accordion';
 import InputField from './components/input-field';
 import Currency from './currency';
 
