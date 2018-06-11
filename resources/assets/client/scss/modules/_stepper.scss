@@ -57,14 +57,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: $theme-primary;
+    background: $theme-secondary;
     border-radius: 50%;
     font-size: 16px;
     font-weight: $font-weight-bold;
     color: #FFF;
 
     [disabled] & {
-      background: rgba($theme-primary, .3);
+      background: rgba(0,0,0,.38);
     }
 
     @include media-breakpoint-up(lg) {
