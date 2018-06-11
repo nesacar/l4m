@@ -49,7 +49,7 @@
               </h4>
             </div>
             <div class="checkout-detail_body">
-              <div class="chekcout-detail_line no-margin">
+              <div class="checkout-detail_line">
                 @radio([
                   'id' => 'radio-1',
                   'name' => 'shipping',
@@ -59,7 +59,7 @@
                 ])
                 @endradio
               </div>
-              <div class="chekcout-detail_line no-margin">
+              <div class="checkout-detail_line">
                 @radio([
                   'id' => 'radio-2',
                   'name' => 'shipping',
