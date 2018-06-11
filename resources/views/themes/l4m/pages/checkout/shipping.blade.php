@@ -41,7 +41,6 @@
         @endstepper
       </div>
       <div class="checkout-content" style="margin-top: 32px;">
-        shipping
         <section class="checkout-details">
           <div class="checkout-detail">
             <div class="checkout-detail_header">
@@ -72,6 +71,9 @@
             </div>
           </div>
         </section>
+        <a class="btn btn--primary"
+          href="/checkout/payment"
+        >nastavi</a>
       </div>
     </div>
   </div>

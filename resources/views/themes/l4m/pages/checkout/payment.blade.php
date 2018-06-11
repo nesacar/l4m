@@ -41,7 +41,40 @@
         @endstepper
       </div>
       <div class="checkout-content" style="margin-top: 32px;">
-        payment
+        <section class="checkout-details">
+          <div class="checkout-detail">
+            <div class="checkout-detail_header">
+              <h4 class="text--bold text--sans-serif display-5 no-margin">
+                Način plaćanja
+              </h4>
+            </div>
+            <div class="checkout-detail_body">
+              <div class="checkout-detail_line">
+                @radio([
+                  'id' => 'radio-1',
+                  'name' => 'payment',
+                  'value' => 'pouzecem',
+                  'checked' => true,
+                  'label' => 'Pouzećem',
+                ])
+                @endradio
+              </div>
+              <div class="checkout-detail_line">
+                @radio([
+                  'id' => 'radio-2',
+                  'name' => 'payment',
+                  'value' => 'credit-card',
+                  'checked' => true,
+                  'label' => 'Platnom karticom',
+                ])
+                @endradio
+              </div>
+            </div>
+          </div>
+        </section>
+        <a class="btn btn--primary"
+          href="/checkout/confirmation"
+        >nastavi</a>
       </div>
     </div>
   </div>

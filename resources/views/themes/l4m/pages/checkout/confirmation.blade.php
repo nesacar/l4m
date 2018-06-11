@@ -110,7 +110,9 @@
             </div>
           </div>
         </section>
-        <a class="btn btn--primary" href="#">poruči</a>
+        <a class="btn btn--primary"
+          href="/checkout/checkout"
+        >poruči</a>
       </div>
     </div>
   </div>
