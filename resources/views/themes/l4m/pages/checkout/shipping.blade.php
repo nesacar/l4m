@@ -42,6 +42,36 @@
       </div>
       <div class="checkout-content" style="margin-top: 32px;">
         shipping
+        <section class="checkout-details">
+          <div class="checkout-detail">
+            <div class="checkout-detail_header">
+              <h4 class="text--bold text--sans-serif display-5 no-margin">
+                Način dostave
+              </h4>
+            </div>
+            <div class="checkout-detail_body">
+              <div class="chekcout-detail_line no-margin">
+                @radio([
+                  'id' => 'radio-1',
+                  'name' => 'shipping',
+                  'value' => 'dhl',
+                  'checked' => true,
+                  'label' => 'DHL',
+                ])
+                @endradio
+              </div>
+              <div class="chekcout-detail_line no-margin">
+                @radio([
+                  'id' => 'radio-2',
+                  'name' => 'shipping',
+                  'value' => 'post-express',
+                  'label' => 'PostExpress',
+                ])
+                @endradio
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>
