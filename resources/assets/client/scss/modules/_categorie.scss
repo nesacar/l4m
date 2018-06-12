@@ -101,7 +101,13 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    margin-right: 16px;
+    font-size: 12px;
+    margin-right: 4px;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 14px;
+      margin-right: 16px;
+    }
     
     &:last-child {
       margin-right: 0;
