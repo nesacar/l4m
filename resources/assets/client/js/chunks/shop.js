@@ -1,5 +1,21 @@
 import DoubleSlider from '../components/double-slider';
 
+const ACTIVE_CLASS = 'active';
+
+let $filtersBtn;
+let $container;
+
+/**
+ * Toggles the filters visibility.
+ */
+function _toggleFilters() {
+  $container.classList.add(ACTIVE_CLASS);
+  document.querySelector('.js-filters-backdrop')
+    .addEventListener('click', function f(evt) {
+      $container.classList.remove(ACTIVE_CLASS);
+    });
+}
+
 /**
  * Instantiate all the sliders.
  */
@@ -48,7 +64,10 @@ function _isEmptyElement (element) {
     form.submit();
   }
 
+  $filtersBtn = document.querySelector('.js-filter-btn');
+  $container = document.querySelector('.js-filters-container');
   const form = document.getElementById('filters');
+  $filtersBtn.addEventListener('click', _toggleFilters);
   form.addEventListener('change', submitForm);
   document.getElementById('sort')
     .addEventListener('change', submitForm);

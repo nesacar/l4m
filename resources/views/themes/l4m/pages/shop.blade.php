@@ -20,7 +20,7 @@
        @include('themes.' . $theme . '.partials.breadcrumb')
 
       <div class="shop-results_header">
-        <div class="collapse--md shop_filter-btn">Filteri</div>
+        <div class="collapse--md shop_filter-btn js-filter-btn">Filteri</div>
         <div class="shop_sort-options">
           <div class="shop_sort-label">Sortiraj po:</div>
           <div class="shop_sort-options-wrap" id="sort">
@@ -67,9 +67,10 @@
       </div>
     
       <div class="row">
-        <aside class="col-lg-3 col-md-4 filters-container">
+        <aside class="col-lg-3 col-md-4 filters-container js-filters-container">
           @include('themes.' . $theme . '.partials.filters')
         </aside>
+        <div class="filters-backdrop js-filters-backdrop"></div>
 
         <div class="col-lg-9 col-md-8">
 
