@@ -25,12 +25,12 @@
               <!-- demo -->
               @if(!empty($link->image))
                 <div class="demo-img-box">
-                  <div class="image image--ultra-wide">
+                  <div class="image demo-img">
 
                     <img src="{{ url($link->image) }}" alt="{{ $link->link }}">
 
                   </div>
-                  <span class="demo-something">{{ $link->title }}</span>
+                  {{-- <span class="demo-something">{{ $link->title }}</span> --}}
                 </div>
                 <!-- /demo -->
               @endif
