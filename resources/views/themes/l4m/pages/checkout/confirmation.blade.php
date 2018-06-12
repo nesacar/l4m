@@ -51,6 +51,14 @@
           <div class="checkout-detail">
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">Adresa isporuke</h4>
+              <a class="icon-btn ml-auto"
+                href="/checkout/address"
+                title="izmeni"
+              >
+                <svg class="icon">
+                  <use xlink:href="#icon_edit">
+                </svg>
+              </a>
             </div>
             <div class="checkout-detail_body">
               <p class="chekcout-detail_line no-margin">Petar Petrovic</p>
@@ -63,6 +71,14 @@
           <div class="checkout-detail">
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">Način dostave</h4>
+              <a class="icon-btn ml-auto"
+                href="/checkout/shipping"
+                title="izmeni"
+                >
+                <svg class="icon">
+                  <use xlink:href="#icon_edit">
+                </svg>
+              </a>
             </div>
             <div class="checkout-detail_body">
               <p class="chekcout-detail_line no-margin">DHL</p>
@@ -71,6 +87,14 @@
           <div class="checkout-detail">
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">Način plaćanja</h4>
+              <a class="icon-btn ml-auto"
+                href="/checkout/payment"
+                title="izmeni"
+              >
+                <svg class="icon">
+                  <use xlink:href="#icon_edit">
+                </svg>
+              </a>
             </div>
             <div class="checkout-detail_body">
               <p class="chekcout-detail_line no-margin">Pouzećem</p>
@@ -79,6 +103,14 @@
           <div class="checkout-detail">
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">Sadržaj korpe</h4>
+              <a class="icon-btn ml-auto"
+                href="/korpa"
+                title="izmeni"
+              >
+                <svg class="icon">
+                  <use xlink:href="#icon_edit">
+                </svg>
+              </a>
             </div>
             <div class="checkout-table-wrap">
               <table class="checkout-table">
