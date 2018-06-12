@@ -90,7 +90,7 @@ class DoubleSlider {
 
     this._knob = evt.target.getAttribute('data-controls');
     this._eventTarget = this.controls[this._knob];
-    // this._gBCR = this.el.getBoundingClientRect();
+    this._gBCR = this.el.getBoundingClientRect();
 
     const pageX = evt.pageX || evt.touches[0].pageX;
     this._left = this._eventTarget.offsetLeft;
