@@ -40,8 +40,8 @@
         ])
         @endstepper
       </div>
-      <div class="checkout-content" style="margin-top: 32px;">
-        <section class="checkout-details">
+      <div class="checkout-content my-4">
+        <section class="checkout-details mb-2">
           <div class="checkout-detail">
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">

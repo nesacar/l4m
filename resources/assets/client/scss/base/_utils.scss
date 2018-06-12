@@ -106,9 +106,26 @@
   }
 }
 
-.py-1 {
-  padding-top: $base-line;
-  padding-bottom: $base-line;
+@for $i from 1 through 4 {
+  // margin utils
+  .mb-#{$i} {
+    margin-bottom: $i * $base-line;
+  }
+
+  .mt-#{$i} {
+    margin-top: $i * $base-line;
+  }
+
+  .my-#{$i} {
+    margin-top: $i * $base-line;
+    margin-bottom: $i * $base-line;
+  }
+
+  // vertical padding util
+  .py-#{$i} {
+    padding-top: $i * $base-line;
+    padding-bottom: $i * $base-line;
+  }
 }
 
 .no-margin {

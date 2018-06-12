@@ -40,8 +40,8 @@
       ])
       @endstepper
     </div>
-    <div class="checkout-content" style="margin-top: 32px;">
-      <section>
+    <div class="checkout-content my-4">
+      <section class="mb-4">
         <div class="border border--primary checkout-box text--body2">
           <label class="checkout-box_label">Potvrdite Vašu email adresu.</label>
           <p>Vaša adresa nije potvrđena.</p>
@@ -51,7 +51,7 @@
           <button class="btn btn--primary">Pošalji poruku</button>
         </div>
       </section>
-      <section>
+      <section class="mb-4">
         <h2 class="subtitle subtitle--sans-serif display-4">adresa slanja</h2>
         @if(false)
         <p>Nemate sačuvanu adresu. Molimo Vas da unesete novu.</p>
@@ -78,7 +78,7 @@
         </div>
         @endif
       </section>
-      <section>
+      <section class="mb-4">
         <h2 class="subtitle subtitle--sans-serif display-4">nova adresa</h2>
         <div class="row">
           <div class="col-md-6">

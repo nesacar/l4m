@@ -40,7 +40,7 @@
         ])
         @endstepper
       </div>
-      <div class="checkout-content" style="margin-top: 32px;">
+      <div class="checkout-content my-4">
         checkout
       </div>
     </div>

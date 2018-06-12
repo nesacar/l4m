@@ -40,14 +40,14 @@
         ])
         @endstepper
       </div>
-      <div class="checkout-content" style="margin-top: 32px;">
+      <div class="checkout-content my-4">
         <section>
           <h2 class="subtitle subtitle--sans-serif display-4">Potvrdite narudžbinu</h2>
           <p>Pažljivo pročitajte podatke o Vašoj porudžbini i ukoliko je sve uredu kliknite na dugme "Poruči".</p>
           <p>Poručujući robu izražavate saglasnost sa <a href="#terms-and-privacy" style="text-decoration: underline;">Uslovima online poslovanja i Politikom privatnosti</a></p>
         </section>
 
-        <section class="checkout-details">
+        <section class="checkout-details mb-2">
           <div class="checkout-detail">
             <div class="checkout-detail_header">
               <h4 class="text--bold text--sans-serif display-5 no-margin">Adresa isporuke</h4>

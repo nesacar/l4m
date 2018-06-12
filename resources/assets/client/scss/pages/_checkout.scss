@@ -18,6 +18,10 @@
 
 .checkout-content {
   flex-grow: 1;
+
+  @include media-breakpoint-up(lg) {
+    padding-left: 16px;
+  }
 }
 
 .checkout-box {
