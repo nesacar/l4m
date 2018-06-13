@@ -10,7 +10,7 @@ const product = (emitter) => {
 
   return {
     init() {
-      this.id = this.dataset.id;
+      this._id = this.dataset.id;
       this.isInCart = this.classList.contains(IN_CART_CLASS);
       this.isInwishlist = this.classList.contains(IN_WISHLIST_CLASS);
 
@@ -32,7 +32,7 @@ const product = (emitter) => {
       const btn = closest(evt.target, 'button');
       const target = btn.dataset.event;
       
-      emitter.emit(`product:add:${target}`, this.id);
+      emitter.emit(`product:add:${target}`, this._id);
     },
   };
 };

@@ -1,7 +1,8 @@
-import { product } from "./mixins/product";
+import { product } from './mixins/product';
+import { cartEntry } from './mixins/cart-entry';
 import Emitter from './components/emitter';
-import { extend } from "./utils";
-import { Toast } from "./components/toast";
+import { extend } from './utils';
+import { Toast } from './components/toast';
 import * as types from './actions/action-types';
 
 class View {
@@ -14,6 +15,13 @@ class View {
     document.querySelectorAll('.js-product')
       .forEach((item, i) => {
         const ext = product(this.emitter);
+        extend(item, ext);
+        item.init();
+      });
+    // Extend cart entries.
+    document.querySelectorAll('.js-cart-entry')
+      .forEach((item) => {
+        const ext = cartEntry(this.emitter);
         extend(item, ext);
         item.init();
       });
@@ -60,7 +68,7 @@ class View {
         break;
     }
 
-    if (payload.len) {
+    if (payload.hasOwnProperty('len')) {
       let {len} = payload;
       this._chip.innerHTML = len > 0 ? len : '';
     }
@@ -94,8 +102,13 @@ class View {
     if (!el) {
       return;
     }
+    
     if (el.classList.contains('is-in-cart')) {
       el.classList.remove('is-in-cart');
+    }
+
+    if (el.classList.contains('js-cart-entry')) {
+      el.parentElement.removeChild(el);
     }
   }
 

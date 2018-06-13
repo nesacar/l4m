@@ -58,12 +58,6 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-md-6">
-                        {{--<h2 class="cart_heading cart_heading--2">You may also like</h2>--}}
-                        {{--<ul>--}}
-                        {{--<li>item</li>--}}
-                        {{--</ul>--}}
-                    </div>
                 </div>
             </section>
         @endif
