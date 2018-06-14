@@ -1,6 +1,6 @@
 <footer id="footer">
   <div class="container footer">
-    <div class="footer_content">
+    {{-- <div class="footer_content">
       <div style="text-align: center;">
         <div class="logo-container">
           <svg class="logo" role="presentation">
@@ -67,6 +67,24 @@
             </div>
           </div>
         </div>
+      </div>
+    </div> --}}
+
+    <div class="row footer_row">
+      <div class="col-lg-2 col-md-3 footer_column">
+        <h4 class="section-title footer_section-title">kontakt</h4>
+      </div>
+      <div class="col-lg-2 col-md-3 footer_column">
+        <h4 class="section-title footer_section-title">info</h4>
+      </div>
+      <div class="col-lg-4 footer_column footer_column--first">
+        <h4>newsletter</h4>
+      </div>
+      <div class="col-lg-2 col-md-3 footer_column">
+        <h4 class="section-title footer_section-title">for me</h4>
+      </div>
+      <div class="col-lg-2 col-md-3 footer_column">
+        <h4 class="section-title footer_section-title">o nama</h4>
       </div>
     </div>
   </div>
