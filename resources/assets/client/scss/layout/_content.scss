@@ -4,4 +4,9 @@
   @include media-breakpoint-up(md) {
     padding-top: 121px;
   }
+
+  // footer adjust
+  > :last-child {
+    padding-bottom: 64px;
+  }
 }

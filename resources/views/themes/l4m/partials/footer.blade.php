@@ -48,6 +48,11 @@
                 <use xlink:href="#logo">
               </svg>
             </div>
+            <div>
+              <svg class="icon">
+                <use xlink:href="#icon_mail">
+              </svg>
+            </div>
             <form method="POST"
               action="{{ action('SubscribersController@subscribe') }}">
               @csrf
