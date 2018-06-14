@@ -111,7 +111,46 @@
         </div>
       </div>
       <div class="col-lg-4 footer_column footer_column--first">
-        <h4>newsletter</h4>
+        <div class="footer_newsletter-wrap">
+          <div class="footer_newsletter">
+            <form method="POST"
+              action="{{ action('SubscribersController@subscribe') }}">
+              @csrf
+              <div class="footer_newsletter-gender">
+                @radio([
+                  'id' => 'gender-1',
+                  'name' => 'gender',
+                  'value' => 'zene',
+                  'checked' => true,
+                  'label' => 'Žensko',
+                ])
+                @endradio
+                @radio([
+                  'id' => 'gender-2',
+                  'name' => 'gender',
+                  'value' => 'muskarci',
+                  'label' => 'Muško',
+                ])
+                @endradio
+              </div>
+              <div class="footer_newsletter-form">
+                <input
+                  type="email"
+                  name="email"
+                  id="nl-email"
+                  placeholder="Unesite email adresu"
+                  aria-label="email address"
+                />
+                <button class="with-flare"
+                  aria-label="subscribe to newsletter"
+                  type="submit"
+                ><span role="presentation" class="arrow arrow--right"></span>
+                </button>
+              </div>
+            </form>
+            <p>Prijavite se i otkrijte novosti i promocije.</p>
+          </div>
+        </div>
       </div>
       <div class="col-lg-2 col-md-3 footer_column">
         <h4 class="section-title footer_section-title">for me</h4>
