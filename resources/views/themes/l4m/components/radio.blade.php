@@ -1,8 +1,11 @@
 @php
   $checked = isset($checked) ? $checked : false;
+  $inverse = isset($inverse) ? $inverse : false;
+
+  $className = "radio".($inverse ? " radio--inverse" : "");
 @endphp
 <div class="radio-wrap">
-  <div class="radio">
+  <div class="{{$className}}">
     <input class="radio_control"
       id="{{$id}}"
       type="radio"

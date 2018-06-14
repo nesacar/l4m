@@ -51,6 +51,10 @@ $active-color_: $theme-primary;
     border-radius: 50%;
     border: 2px solid rgba(0,0,0,.38);
     transition: border-color .12s;
+
+    .radio--inverse & {
+      border-color: rgba(255,255,255,.5);
+    }
   }
 
   &_control:checked ~ &_background &_outer-circle {

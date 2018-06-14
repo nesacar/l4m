@@ -48,8 +48,8 @@
                 <use xlink:href="#logo">
               </svg>
             </div>
-            <div>
-              <svg class="icon">
+            <div class="newsletter-icon-wrap">
+              <svg class="icon newsletter-icon">
                 <use xlink:href="#icon_mail">
               </svg>
             </div>
@@ -63,6 +63,7 @@
                   'value' => 'zene',
                   'checked' => true,
                   'label' => 'Žensko',
+                  'inverse' => true,
                 ])
                 @endradio
                 @radio([
@@ -70,6 +71,7 @@
                   'name' => 'gender',
                   'value' => 'muskarci',
                   'label' => 'Muško',
+                  'inverse' => true,
                 ])
                 @endradio
               </div>
