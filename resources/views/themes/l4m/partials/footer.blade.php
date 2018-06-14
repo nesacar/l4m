@@ -128,3 +128,9 @@
     </div>
   </div>
 </footer>
+<div class="subfooter">
+  <div class="container subfooter_copy">
+    <span>Copyright &copy; {{ date("Y") }} Luxury 4 Me | All rights reserved.</span>
+    <span>Developed by <a href="https://ministudio.rs/" target="_blank" rel="noopener noreferrer">Mini STUDIO Publishing Group</a></span>
+  </div>
+</div>

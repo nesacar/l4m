@@ -144,3 +144,22 @@
   height: 32px;
   color: $theme-secondary;
 }
+
+.subfooter {
+  background-color: darken($theme-primary, 3%);
+
+  &_copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2 * $base-line;
+    padding-bottom: 2 * $base-line;
+    font-size: 12px;
+    color: $text-hint-on-primary;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
