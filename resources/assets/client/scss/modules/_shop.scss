@@ -89,6 +89,11 @@
     }
   }
 
+  &_name,
+  &_brand {
+    text-align: center;
+  }
+
   &_name {
     overflow: hidden;
     max-height: 2 * 1.5em;
