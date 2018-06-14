@@ -12,6 +12,10 @@ $active-color_: $theme-primary;
   }
 }
 
+.radio-wrap {
+  display: inline-block;
+}
+
 .radio {
   position: relative;
   display: inline-block;
@@ -50,7 +54,7 @@ $active-color_: $theme-primary;
   }
 
   &_control:checked ~ &_background &_outer-circle {
-    border-color: $theme-primary;
+    border-color: currentColor;
   }
 
   &_inner-circle {
@@ -60,7 +64,7 @@ $active-color_: $theme-primary;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: $theme-primary;
+    background-color: currentColor;
     transform: translate(-50%, -50%) scale(0);
     transition: transform .12s;
   }  
