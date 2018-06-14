@@ -73,18 +73,76 @@
     <div class="row footer_row">
       <div class="col-lg-2 col-md-3 footer_column">
         <h4 class="section-title footer_section-title">kontakt</h4>
+        <div class="footer_nav">
+          <div class="footer_nav-item">
+            <div><a href="tel:+381111234567">(+381) 11 123 4567</a></div>
+            <div><a href="tel:+381111234567">(+381) 11 123 4567</a></div>
+          </div>
+          <div class="footer_nav-item">
+            <div><a href="mailto:luxury@luxury4.me">luxury@luxury4.me</a></div>
+            <div><a href="mailto:support@luxury4.me">support@luxury4.me</a></div>
+          </div>
+        </div>
       </div>
       <div class="col-lg-2 col-md-3 footer_column">
         <h4 class="section-title footer_section-title">info</h4>
+        <div class="footer_nav">
+          <div class="footer_nav-item">
+            <a href="#">Kako kupiti online</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Najčepća pitanja</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Načini plaćanja</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Uslovi korišćenja</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Politika privatnosti</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Rokovi isporuke</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Reklamacije</a>
+          </div>
+        </div>
       </div>
       <div class="col-lg-4 footer_column footer_column--first">
         <h4>newsletter</h4>
       </div>
       <div class="col-lg-2 col-md-3 footer_column">
         <h4 class="section-title footer_section-title">for me</h4>
+        <div class="footer_nav">
+          <div class="footer_nav-item">
+            <a href="#">Login</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">My orders</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">My details</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Wishlist</a>
+          </div>
+        </div>
       </div>
       <div class="col-lg-2 col-md-3 footer_column">
         <h4 class="section-title footer_section-title">o nama</h4>
+        <div class="footer_nav">
+          <div class="footer_nav-item">
+            <a href="#">O kompaniji</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Karijera</a>
+          </div>
+          <div class="footer_nav-item">
+            <a href="#">Postani partner</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
