@@ -14,7 +14,7 @@
       </div>
 
         <div class="row">
-            <div class="col-12 collapse--md product_header--mobile">
+            <div class="col-12 collapse--md product_header product_header--mobile">
                 <h1 class="product_name">{{ $product->brand->title }}</h1>
                 <div class="product_brand">{{ $product->title }}</div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-md-6">
 
                 <div class="product_details">
-                    <div class="expand--md">
+                    <div class="expand--md product_header product_header--desktop">
                         <h1 class="product_name">{{ $product->brand->title }}</h1>
                         <div class="product_brand">{{ $product->title }}</div>
                     </div>
@@ -34,19 +34,46 @@
                         @endif
                         <span class="shop-item_price-tag">@currency(['price' => $product->totalPrice]) @endcurrency</span>
                     </div>
-                    <div class="product_options">
-                        @if(false)
-                            <span>
-                          <label for="count">Quantity:</label>
-                                @counter([ 'name' => 'quantity', 'id' => 'quantity', 'value' => 1 ])@endcounter
-                        </span>
-                            <span>
-                            <label for="size">Size:</label>
-                                @select([ 'name' => 'size', 'id' => 'size' ])
-                                <option value="onesize" selected>one size</option>
-                                @endselect
-                        </span>
-                        @endif
+                    <div class="product_section">
+                      <div class="product_section-title">boja</div>
+                      <div>
+                        @color([
+                          'colorName' => 'Zelena',
+                          'colorValue' => 'olivedrab',
+                        ])
+                        @endcolor
+                        @color([
+                          'colorName' => 'Plava',
+                          'colorValue' => 'royalblue',
+                          'checked' => true,
+                        ])
+                        @endcolor
+                        @color([
+                          'colorName' => 'Siva',
+                          'colorValue' => 'lightgray',
+                        ])
+                        @endcolor
+                      </div>
+                      <small class="product_section-follow-up">follow up</small>
+                    </div>
+                    <div class="product_section">
+                      <div class="product_section-title">veličina</div>
+                      <div>
+                        @size([
+                          'value' => 'l',
+                          'checked' => true,
+                        ])
+                        @endsize
+                        @size([
+                          'value' => 'xl',
+                        ])
+                        @endsize
+                        @size([
+                          'value' => 'xxl',
+                        ])
+                        @endsize
+                      </div>
+                      <small class="product_section-follow-up">follow up</small>
                     </div>
                     <div class="product_actions">
                         <button class="btn btn--primary btn--block"
@@ -66,31 +93,6 @@
 
             </div>
         </div>
-
-        @if(false)
-            <div class="tabs tabs--center product_info">
-                <input class="tab_control" type="radio" name="product-details" id="desc-tab" checked>
-                <label class="tab_label" for="desc-tab">OPIS</label>
-                @if($product->body2)
-                    <input class="tab_control" type="radio" name="product-details" id="info-tab">
-                    <label class="tab_label" for="info-tab">DODATAN OPIS</label>
-                @endif
-                {{--<input class="tab_control" type="radio" name="product-details" id="reviews-tab">--}}
-                {{--<label class="tab_label" for="reviews-tab">REVIEWS</label>--}}
-
-                <div class="tab_content" id="desc-content">
-                    {!! $product->body !!}
-                </div>
-                @if($product->body2)
-                    <div class="tab_content" id="info-content">
-                        {!! $product->body2 !!}
-                    </div>
-                @endif
-                {{--<div class="tab_content" id="reviews-content">--}}
-                {{--reviews...--}}
-                {{--</div>--}}
-            </div>
-        @endif
     </section>
 
     <section class="showcase">
