@@ -95,6 +95,26 @@
         </div>
     </section>
 
+    <!-- about brand -->
+    @if(!empty($product->brand->body))
+    <section class="container">
+      <h2 class="display-3 brand_name">{{$product->brand->title}}</h2>
+      <div class="brand_about js-collapse-container">
+        <div class="brand_about-content js-collapse-content">
+          {!! $product->brand->body !!}
+        </div>
+      </div>
+      <div style="text-align: center; padding: 8px 0;">
+        <button class="icon-btn brand_about-toggle js-collapse-toggle" data-expanded="false">
+          <svg class="icon">
+            <use xlink:href="#icon_arrow">
+          </svg>
+        </button>
+      </div>
+    </section>
+    @endif
+    <!-- /.about brand -->
+
     <section class="showcase">
         <div class="container">
 

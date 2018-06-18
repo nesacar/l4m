@@ -1,3 +1,4 @@
+// TODO: Extract to class.
 (function() {
   let toggleEl;
   let el;
@@ -15,6 +16,13 @@
     toggleEl = document.querySelector('.js-collapse-toggle');
     el = document.querySelector('.js-collapse-container');
     content = el.querySelector('.js-collapse-content');
+
+    // If any of the components is missing, just return.
+    if (!toggleEl && !el && !content) {
+      return;
+    }
+
+    // Else, do your thing.
     toggleEl.addEventListener('click', _toggleCollapse);
 
     // Initial render.
