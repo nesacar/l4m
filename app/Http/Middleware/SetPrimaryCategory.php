@@ -21,7 +21,6 @@ class SetPrimaryCategory
             \Session::put('primary', 'zene');
             \Session::put('category_id', 5);
         }
-        //\Session::put('category_id', 5);
 
         return $next($request);
     }

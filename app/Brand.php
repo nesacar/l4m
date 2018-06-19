@@ -6,6 +6,7 @@ use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use File;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 
 class Brand extends Model
 {
@@ -34,7 +35,9 @@ class Brand extends Model
     }
 
     public static function getLogos(){
-        return self::where('publish', 1)->where('logo', '<>', null)->where('logo', '<>', '')->get();
+        return Cache::remember(session('category_id').'.brands', Helper::getMinutesToTheNextHour(), function () {
+            return Category::find(session('category_id'))->brand()->where('publish', 1)->where('logo', '<>', null)->where('logo', '<>', '')->get();
+        });
     }
 
     public function setSlugAttribute($value){
