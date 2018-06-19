@@ -40,7 +40,7 @@ class PagesController extends Controller
         $posts = Post::getHomePosts();
         $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
-        $slider = Block::where('category_id', session('category_id'))->first()->box()->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
+        $slider = Block::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
