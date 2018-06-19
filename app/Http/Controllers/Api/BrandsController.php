@@ -40,6 +40,8 @@ class BrandsController extends Controller
     {
         $brand = Brand::create(request()->except('image', 'logo'));
 
+        $brand->category()->sync(request('category_ids'));
+
         return response()->json([
             'brand' => $brand
         ]);
@@ -54,7 +56,8 @@ class BrandsController extends Controller
     public function show(Brand $brand)
     {
         return response()->json([
-            'brand' => $brand
+            'brand' => $brand,
+            'category_ids' => $brand->category()->pluck('id'),
         ]);
     }
 
@@ -69,8 +72,11 @@ class BrandsController extends Controller
     {
         $brand->update(request()->except('image', 'logo'));
 
+        $brand->category()->sync(request('category_ids'));
+
         return response()->json([
-            'brand' => $brand->load('links')
+            'brand' => $brand->load('links'),
+            'category_ids' => $brand->category()->pluck('id'),
         ]);
     }
 

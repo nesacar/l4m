@@ -40,7 +40,7 @@ class PagesController extends Controller
         $posts = Post::getHomePosts();
         $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
-        $slider = Block::find(1)->box()->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
+        $slider = Block::where('category_id', session('category_id'))->first()->box()->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
@@ -56,7 +56,10 @@ class PagesController extends Controller
 
     public function proba()
     {
-        return ShopBar::first();
+        $brands = Brand::all();
+        foreach ($brands as $brand){
+            $brand->category()->sync([3,5,6,7]);
+        }
 //        $product = Product::first();
         //\Cart::destroy();
 //        \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $product->price, 'options' => ['size' => 'small']]);
@@ -68,6 +71,6 @@ class PagesController extends Controller
 //            $attribute->update(['property_id' => 12]);
 //        }
         //\Artisan::call('view:clear');
-        return 'done2';
+        return 'done';
     }
 }

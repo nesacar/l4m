@@ -32,6 +32,16 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
+                                <label for="category">Kategorija</label>
+                                <select name="category" id="category" class="form-control"
+                                        v-model="block.category_id">
+                                    <option :value="index" v-for="(block, index) in categories">{{ block }}</option>
+                                </select>
+                                <small class="form-text text-muted" v-if="error != null && error.category_id">{{
+                                    error.category_id[0] }}
+                                </small>
+                            </div>
+                            <div class="form-group">
                                 <label for="title">Naslov</label>
                                 <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="block.title">
                                 <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
@@ -61,6 +71,7 @@
         data(){
           return {
               block: {},
+              categories: {},
               error: null
           }
         },
@@ -69,9 +80,19 @@
             'switches': Switches,
         },
         created(){
+            this.getCategories();
             this.getBlock();
         },
         methods: {
+            getCategories(){
+                axios.get('api/categories/top-lists')
+                    .then(res => {
+                        this.categories = res.data.lists;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
             getBlock(){
                 axios.get('api/blocks/' + this.$route.params.id)
                     .then(res => {

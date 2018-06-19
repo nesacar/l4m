@@ -20,7 +20,7 @@ class BlocksController extends Controller
      */
     public function index()
     {
-        $blocks = Block::select('id', 'title', 'publish', 'created_at')->orderBy('created_at', 'DESC')->paginate(50);
+        $blocks = Block::select('id', 'category_id', 'title', 'publish', 'created_at')->with('category')->orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'blocks' => $blocks

@@ -68,4 +68,8 @@ class Brand extends Model
     public function client(){
         return $this->belongsToMany(Client::class);
     }
+
+    public function category(){
+        return $this->belongsToMany(Category::class);
+    }
 }

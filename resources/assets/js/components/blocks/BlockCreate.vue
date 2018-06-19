@@ -5,8 +5,12 @@
                 <div class="col-md-12">
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
-                            <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
+                            <li>
+                                <router-link tag="a" :to="'/home'">Početna</router-link>
+                            </li>
+                            <li>
+                                <router-link tag="a" :to="'/blocks'">Šabloni</router-link>
+                            </li>
                             <li>Kreiraj šablon</li>
                         </ul>
                     </div>
@@ -24,14 +28,30 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
+                                <div class="form-group">
+                                    <label for="category">Kategorija</label>
+                                    <select name="category" id="category" class="form-control"
+                                            v-model="block.category_id">
+                                        <option :value="index" v-for="(block, index) in categories">{{ block }}</option>
+                                    </select>
+                                    <small class="form-text text-muted" v-if="error != null && error.category_id">{{
+                                        error.category_id[0] }}
+                                    </small>
+                                </div>
                                 <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="block.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov"
+                                       v-model="block.title">
+                                <small class="form-text text-muted" v-if="error != null && error.title">{{
+                                    error.title[0] }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="desc">Opis</label>
-                                <input type="text" name="desc" class="form-control" id="desc" placeholder="Opis" v-model="block.desc">
-                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
+                                <input type="text" name="desc" class="form-control" id="desc" placeholder="Opis"
+                                       v-model="block.desc">
+                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0]
+                                    }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label>Publikovano</label><br>
@@ -58,16 +78,29 @@
 
     export default {
         data(){
-          return {
-              block: {},
-              error: null,
-          }
+            return {
+                block: {},
+                categories: {},
+                error: null,
+            }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'switches': Switches,
         },
+        created(){
+            this.getCategories();
+        },
         methods: {
+            getCategories(){
+                axios.get('api/categories/top-lists')
+                    .then(res => {
+                        this.categories = res.data.lists;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
             submit(){
                 axios.post('api/blocks', this.block)
                     .then(res => {

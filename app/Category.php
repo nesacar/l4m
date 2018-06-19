@@ -137,4 +137,12 @@ class Category extends Model
     public function property(){
         return $this->belongsToMany(Property::class);
     }
+
+    public function block(){
+        return $this->hasMany(Block::class);
+    }
+
+    public function brand(){
+        return $this->belongsToMany(Brand::class);
+    }
 }

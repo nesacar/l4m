@@ -65,6 +65,12 @@
                                 <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label>Kategorije</label>
+                                <select2 :options="categories" :multiple="true" :value="brand.category_ids" @input="input($event)">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
                                 <label>Publikovano</label><br>
                                 <switches v-model="brand.publish" theme="bootstrap" color="primary"></switches>
                             </div>
@@ -113,6 +119,7 @@
     import Ckeditor from 'vue-ckeditor2';
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
+    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
@@ -123,6 +130,7 @@
               },
               gallery: {},
               lists: {},
+              categories: {},
               error: null,
               config: {
                   toolbar: [
@@ -154,19 +162,35 @@
             'switches': Switches,
             'ckeditor': Ckeditor,
             'vue-dropzone': vue2Dropzone,
+            'select2': Select2,
         },
-        created(){
-            this.getBrand();
+        mounted(){
             this.getGallery();
+            this.getCategories();
         },
         methods: {
             getBrand(){
                 axios.get('api/brands/' + this.$route.params.id)
                     .then(res => {
                         this.brand = res.data.brand;
+                        this.brand.category_ids = res.data.category_ids;
                     })
                     .catch(e => {
                         console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            getCategories(){
+                axios.get('api/categories/top-lists')
+                    .then(res => {
+                        this.categories = _.map(res.data.categories, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
+                        this.getBrand();
+                    }).catch(e => {
+                        console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
@@ -188,6 +212,7 @@
                 axios.put('api/brands/' + this.brand.id, this.brand)
                     .then(res => {
                         this.brand = res.data.brand;
+                        this.brand.category_ids = res.data.category_ids;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -253,6 +278,9 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
+            },
+            input(category){
+                this.brand.category_ids = category;
             },
         }
     }
