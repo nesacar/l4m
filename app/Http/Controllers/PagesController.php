@@ -37,10 +37,9 @@ class PagesController extends Controller
 
     public function index()
     {
-        //return auth()->check()? 'da' : 'ne';
         $posts = Post::getHomePosts();
-        $latestProducts = ShopBar::getLatest();
-        $featuredProducts = ShopBar::getFeatured();
+        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
+        $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
         $slider = Block::find(1)->box()->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();

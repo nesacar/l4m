@@ -97,7 +97,9 @@ class Category extends Model
     public static function setPrimaryCategory($slug){
         if(\Session::has('primary')){
             if(\Session::get('primary') != $slug){
+                $category = Category::where('slug', $slug)->first();
                 \Session::put('primary', $slug);
+                \Session::put('category_id', $category->id);
             }
         }else{
             \Session::put('primary', $slug);

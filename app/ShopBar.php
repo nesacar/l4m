@@ -43,9 +43,11 @@ class ShopBar extends Model
         }
     }
 
-    public static function getLatest($template="home"){
-        return Cache::remember('najnoviji', Helper::getMinutesToTheNextHour(), function () use ($template) {
-            return self::where('template', $template)->where('desc', 'Najnoviji')->orderBy('order', 'ASC')->with(['category' => function($query){
+    public static function getLatest($parent, $template="home"){
+        $parent = $parent?: 5;
+        return Cache::remember($parent.'.najnoviji', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
+            return self::where('template', $template)->where('desc', 'Najnoviji')->where('parent_category_id', $parent)
+                ->orderBy('order', 'ASC')->with(['category' => function($query){
                 $query->withoutGlobalScopes();
             }])->with(['product' => function($query){
                 $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
@@ -53,9 +55,11 @@ class ShopBar extends Model
         });
     }
 
-    public static function getFeatured($template="home"){
-        return Cache::remember('istaknuti', Helper::getMinutesToTheNextHour(), function () use ($template) {
-            return self::where('template', $template)->where('desc', 'Istaknuti')->orderBy('order', 'ASC')->with(['category' => function($query){
+    public static function getFeatured($parent, $template="home"){
+        $parent = $parent?: 5;
+        return Cache::remember($parent.'.istaknuti', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
+            return self::where('template', $template)->where('desc', 'Istaknuti')->where('parent_category_id', $parent)
+                ->orderBy('order', 'ASC')->with(['category' => function($query){
                 $query->withoutGlobalScopes();
             }])->with(['product' => function($query){
                 $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
@@ -65,6 +69,10 @@ class ShopBar extends Model
 
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value ?: false;
+    }
+
+    public function setLatestAttribute($value){
+        $this->attributes['latest'] = $value ?: false;
     }
 
     public function category(){

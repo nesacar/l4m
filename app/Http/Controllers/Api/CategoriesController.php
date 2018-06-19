@@ -144,7 +144,7 @@ class CategoriesController extends Controller
     }
 
     public function childrenLists(){
-        $categories = Category::where('publish', 1)->where('parent', request('parent'))->orderBy('created_at', 'DESC')->get();
+        $categories = Category::where('publish', 1)->where('parent', request('category'))->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'categories' => $categories,

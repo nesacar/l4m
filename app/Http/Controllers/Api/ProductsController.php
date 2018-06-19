@@ -221,7 +221,7 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        if(request('category')){
+        if(request('category')>0){
             $products = Category::find(request('category'))->product()->withoutGlobalScope('attribute')->withoutGlobalScope('brand')->select('products.id', 'products.code', 'products.publish_at', 'products.image')
                 ->where('products.publish', 1)->orderBy('products.publish_at', 'DESC')->get();
         }else{

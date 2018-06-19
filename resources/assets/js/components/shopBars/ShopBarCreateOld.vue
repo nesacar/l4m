@@ -26,21 +26,14 @@
                             <div class="form-group">
                                 <label>Strana</label>
                                 <select class="form-control" v-model="shopBar.template">
-                                    <option value="home">Početna</option>
+                                    <option value="home" selected>Početna</option>
                                     <option value="blog">Blog</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="parent_category">Nad kategorija</label>
-                                <select name="parent_category" id="parent_category" class="form-control" v-model="shopBar.parent_category_id" @change="getCategories()">
-                                    <option :value="index" v-for="(set, index) in parents">{{ set }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.parent_category_id">{{ error.parent_category_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
                                 <label for="category">Kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="shopBar.category_id" @change="getProducts()">
-                                    <option :value="index" v-for="(category, index) in categories">{{ category }}</option>
+                                <select name="category" id="category" class="form-control" v-model="shopBar.category_id">
+                                    <option :value="index" v-for="(set, index) in categories">{{ set }}</option>
                                 </select>
                                 <small class="form-text text-muted" v-if="error != null && error.category_id">{{ error.category_id[0] }}</small>
                             </div>
@@ -59,39 +52,33 @@
                                 <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="shopBar.order">
                                 <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
                             </div>
-                            <div v-if="trigger">
-                                <div class="form-group">
-                                    <label>Proizvod 1</label>
-                                    <select2 :options="products" v-model="prod_id1">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Proizvod 2</label>
-                                    <select2 :options="products" v-model="prod_id2">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Proizvod 3</label>
-                                    <select2 :options="products" v-model="prod_id3">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Proizvod 4</label>
-                                    <select2 :options="products" v-model="prod_id4">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Prikazuj najnovije proizvode</label><br>
-                                    <switches v-model="shopBar.latest" theme="bootstrap" color="primary"></switches>
-                                </div>
-                                <div class="form-group">
-                                    <label>Publikovano</label><br>
-                                    <switches v-model="shopBar.publish" theme="bootstrap" color="primary"></switches>
-                                </div>
+                            <div class="form-group">
+                                <label>Proizvod 1</label>
+                                <select2 :options="products" v-model="prod_id1">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Proizvod 2</label>
+                                <select2 :options="products" v-model="prod_id2">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Proizvod 3</label>
+                                <select2 :options="products" v-model="prod_id3">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Proizvod 4</label>
+                                <select2 :options="products" v-model="prod_id4">
+                                    <option value="0" disabled>select one</option>
+                                </select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Publikovano</label><br>
+                                <switches v-model="shopBar.publish" theme="bootstrap" color="primary"></switches>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
@@ -118,14 +105,12 @@
         data(){
           return {
               shopBar: {
-                  prod_ids: []
+                  prod_ids: [],
               },
-              trigger: true,
               prod_id1: 0,
               prod_id2: 0,
               prod_id3: 0,
               prod_id4: 0,
-              parents: {},
               categories: {},
               products: {},
               error: null,
@@ -143,36 +128,22 @@
             'select2': Select2,
         },
         created(){
-            this.getParents();
+            this.getCategories();
             this.getProducts();
         },
         methods: {
-            getParents(){
-                axios.get('api/categories/top-lists')
-                    .then(res => {
-                        this.parents = res.data.lists;
-                        this.getCategories();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             getCategories(){
-                console.log(this.shopBar.parent_category_id);
-                axios.get('api/categories/children-lists?category=' + this.shopBar.parent_category_id)
+                axios.get('api/categories/lists')
                     .then(res => {
-                        this.categories = res.data.lists;
+                        this.categories = res.data.categories;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
             getProducts(){
-                let url = this.shopBar.category_id != null && this.shopBar.category_id != 0? '?category=' + this.shopBar.category_id : '?category=0';
-                this.trigger = false;
-                axios.get('api/products/lists' + url)
+                axios.get('api/products/lists')
                     .then(res => {
-                        this.trigger = true;
                         this.products = _.map(res.data.products, (data) => {
                             var pick = _.pick(data, 'code', 'id');
                             var object = {id: pick.id, text: pick.code};
@@ -202,6 +173,12 @@
             },
             input(product){
                 this.shopBar.prod_ids = product;
+            },
+            setModel(){
+                for (var x = 0; x < this.shopBar.prod_ids.length; x++) {
+                    var model = this.shopBar.prod_ids[x];
+                    this.shopBar.prod_ids.push(model);
+                }
             },
             doMagic(){
                 this.shopBar.prod_ids = [];

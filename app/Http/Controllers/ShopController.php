@@ -25,11 +25,11 @@ class ShopController extends Controller
     public function category($slug)
     {
         $category = Category::whereSlug($slug)->first();
+        Category::setPrimaryCategory($category);
         $data = Product::search($category);
         $properties = Category::getProperties($slug);
         Seo::shopCategory($category);
         $breadcrumb = $category->getBreadcrumb();
-        Category::setPrimaryCategory($slug);
         $menu = MenuLink::getMenu();
         return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb', 'menu'));
     }
