@@ -57,6 +57,7 @@ class PagesController extends Controller
 
     public function proba()
     {
+        return ShopBar::first();
 //        $product = Product::first();
         //\Cart::destroy();
 //        \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $product->price, 'options' => ['size' => 'small']]);

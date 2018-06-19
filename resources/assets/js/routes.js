@@ -82,9 +82,9 @@ export const router = new VueRouter({
         { path: "/tags/create", component: require('./components/tags/TagCreate.vue'), meta: { forAdmin: true } },
         { path: "/tags/:id/edit", component: require('./components/tags/TagEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAdmin: true } },
-        { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAdmin: true } },
-        { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAdmin: true } },
+        { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAuth: true } },
+        { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAuth: true } },
+        { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAuth: true } },
 
         { path: "/subscribers", component: require('./components/subscribers/SubscriberList.vue'), meta: { forAdmin: true } },
         { path: "/subscribers/create", component: require('./components/subscribers/SubscriberCreate.vue'), meta: { forAdmin: true } },

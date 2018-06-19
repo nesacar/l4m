@@ -10,7 +10,7 @@
       id="{{$id}}"
       type="radio"
       name="{{$name}}"
-      value="${{$value}}"
+      value="{{$value}}"
       @if($checked) checked @endif
     >
     <div class="radio_background">

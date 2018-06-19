@@ -31,11 +31,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="category">Kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="shopBar.category_id">
+                                <label for="parent_category">Nad kategorija</label>
+                                <select name="parent_category" id="parent_category" class="form-control" v-model="shopBar.parent_category_id">
                                     <option :value="index" v-for="(set, index) in categories">{{ set }}</option>
                                 </select>
-                                <small class="form-text text-muted" v-if="error != null && error.category_id">{{ error.category_id[0] }}</small>
+                                <small class="form-text text-muted" v-if="error != null && error.parent_category_id">{{ error.parent_category_id[0] }}</small>
                             </div>
                             <div class="form-group">
                                 <label for="title">Naziv</label>
@@ -133,9 +133,9 @@
         },
         methods: {
             getCategories(){
-                axios.get('api/categories/lists')
+                axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.categories = res.data.categories;
+                        this.categories = res.data.lists;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

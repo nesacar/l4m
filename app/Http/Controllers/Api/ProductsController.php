@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Attribute;
+use App\Category;
 use App\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
@@ -220,8 +221,13 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $products = Product::withoutGlobalScopes()->select('products.id', 'products.code', 'products.publish_at', 'products.image')
-            ->where('products.publish', 1)->orderBy('products.publish_at', 'DESC')->get();
+        if(request('category')){
+            $products = Category::find(request('category'))->product()->withoutGlobalScope('attribute')->withoutGlobalScope('brand')->select('products.id', 'products.code', 'products.publish_at', 'products.image')
+                ->where('products.publish', 1)->orderBy('products.publish_at', 'DESC')->get();
+        }else{
+            $products = Product::withoutGlobalScope('attribute')->withoutGlobalScope('brand')->select('products.id', 'products.code', 'products.publish_at', 'products.image')
+                ->where('products.publish', 1)->orderBy('products.publish_at', 'DESC')->get();
+        }
 
         return response()->json([
             'products' => $products
