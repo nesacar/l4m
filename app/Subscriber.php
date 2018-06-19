@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subscriber extends Model
 {
-    protected $fillable = ['email', 'name', 'verification', 'block'];
+    protected $fillable = ['email', 'name', 'gender', 'verification', 'block'];
 
     public static function createSubscriber(){
         $array = request()->all();
