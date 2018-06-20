@@ -67,7 +67,8 @@ class PagesController extends Controller
 
     public function proba()
     {
-        return Box::take(4)->pluck('title', 'id');
+        $category = Category::find(4);
+        return $product = Product::find(540)->getLink($category);
         return 'done';
     }
 }
