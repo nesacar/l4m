@@ -16,7 +16,7 @@ class Product extends Model
     use SearchableProductTraits, UploudableImageTrait;
 
     protected $fillable = [
-       'client_id', 'user_id', 'brand_id', 'collection_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'image', 'price',
+       'client_id', 'user_id', 'brand_id', 'collection_id', 'title', 'slug', 'short', 'body', 'body2', 'code', 'code_addition', 'image', 'price',
         'price_outlet', 'views', 'amount', 'color', 'water', 'diameter', 'discount', 'sold', 'publish_at', 'publish'
     ];
 
