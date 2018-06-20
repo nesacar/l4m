@@ -135,10 +135,20 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function topLists(){
-        $categories = Category::select('id', 'title')->where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+        $categories = Category::where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'categories' => $categories,
+            'lists' => $categories->pluck('title', 'id'),
+        ]);
+    }
+
+    public function childrenLists(){
+        $categories = Category::where('publish', 1)->where('parent', request('category'))->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'categories' => $categories,
+            'lists' => $categories->pluck('title', 'id'),
         ]);
     }
 

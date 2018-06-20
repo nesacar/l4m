@@ -41,6 +41,20 @@ export const store = new Vuex.Store({
         /** nav orders **/
         showOrdersItem: true,
         ordersItemActive: false,
+
+        /** search product **/
+        searchProduct: {
+            text: '',
+            list: 0,
+            page: 1,
+        },
+
+        /** search category **/
+        searchCategory: {
+            text: '',
+            list: 0,
+            page: 1,
+        },
     },
     getters: {
         /** auth **/
@@ -115,6 +129,16 @@ export const store = new Vuex.Store({
         getOrdersItemActive: state => {
             return state.ordersItemActive;
         },
+
+        /** search product **/
+        getSearchProduct: state => {
+            return state.searchProduct;
+        },
+
+        /** search category **/
+        getSearchCategory: state => {
+            return state.searchCategory;
+        },
     },
     mutations: {
         /** auth **/
@@ -167,6 +191,22 @@ export const store = new Vuex.Store({
         changeOrdersItemActive: state => {
             state.ordersItemActive = !state.ordersItemActive;
         },
+
+        /** search product **/
+        changeSearchProduct: (state, data) => {
+            state.searchProduct = data;
+        },
+        changeSearchProductPage: (state, data) => {
+            state.searchProduct.page = data;
+        },
+
+        /** search category **/
+        changeSearchCategory: (state, data) => {
+            state.searchCategory = data;
+        },
+        changeSearchCategoryPage: (state, data) => {
+            state.searchCategory.page = data;
+        },
     },
     actions: {
         /** auth **/
@@ -215,6 +255,22 @@ export const store = new Vuex.Store({
         /** nav orders **/
         changeOrdersItemActive: context => {
             context.commit('changeOrdersItemActive');
+        },
+
+        /** search products **/
+        changeSearchProduct: (context, data) => {
+            context.commit('changeSearchProduct', data);
+        },
+        changeSearchProductPage: (context, data) => {
+            context.commit('changeSearchProductPage', data);
+        },
+
+        /** search category **/
+        changeSearchCategory: (context, data) => {
+            context.commit('changeSearchCategory', data);
+        },
+        changeSearchCategoryPage: (context, data) => {
+            context.commit('changeSearchCategoryPage', data);
         },
     }
 });

@@ -5,10 +5,10 @@
                 <form>
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Pretraga" :value="text" @keyup="changeText($event)">
+                            <input type="text" class="form-control" placeholder="Pretraga" v-model="search.text">
                         </div>
                         <div class="col">
-                            <select name="lists" id="lists" class="form-control" @change="changeList($event)">
+                            <select name="lists" id="lists" class="form-control" v-model="search.list">
                                 <option :value="index" v-for="(list, index) in lists">{{ list }}</option>
                             </select>
                         </div>
@@ -24,27 +24,11 @@
 
 <script>
     export default {
-        data(){
-            return {
-                myText: null,
-                myList: 0
+        props: ['lists', 'search'],
+        methods: {
+            submit(){
+                this.$emit('updateSearch', this.search);
             }
         },
-        props: ['lists', 'text'],
-        methods: {
-            changeText(value){
-                this.myText = value.target.value;
-            },
-            changeList(value){
-                this.myList = value.target.value;
-            },
-            submit(){
-                let data = {
-                    text: this.myText,
-                    list: this.myList
-                };
-                this.$emit('updateSearch', data);
-            }
-        }
     }
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\Block;
+use App\Box;
 use App\Brand;
 use App\BrandLink;
 use App\Category;
@@ -37,11 +38,10 @@ class PagesController extends Controller
 
     public function index()
     {
-        //return auth()->check()? 'da' : 'ne';
         $posts = Post::getHomePosts();
-        $latestProducts = ShopBar::getLatest();
-        $featuredProducts = ShopBar::getFeatured();
-        $slider = Block::find(1)->box()->where('boxes.publish', 1)->orderBy('boxes.order', 'ASC')->get();
+        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
+        $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
+        $slider = Block::getSlider();
         $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
@@ -52,22 +52,22 @@ class PagesController extends Controller
     public function category($slug)
     {
         Category::setPrimaryCategory($slug);
-        return redirect(MenuLink::getFirstChild($slug));
+        $posts = Post::getHomePosts();
+        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
+        $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
+        $slider = Block::getSlider();
+        $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
+        $brands = Brand::getLogos();
+        Seo::home($this->settings);
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.home', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands', 'menu'));
+//        Category::setPrimaryCategory($slug);
+//        return redirect(MenuLink::getFirstChild($slug));
     }
 
     public function proba()
     {
-//        $product = Product::first();
-        //\Cart::destroy();
-//        \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $product->price, 'options' => ['size' => 'small']]);
-//        return $products = \Cart::content();
-        //\Cart::store('nebojsart1409@yahoo.com');
-        //\Session::forget('currency');
-//        $attributes = Attribute::where('property_id', 20)->get();
-//        foreach ($attributes as $attribute){
-//            $attribute->update(['property_id' => 12]);
-//        }
-        //\Artisan::call('view:clear');
-        return 'done2';
+        return Box::take(4)->pluck('title', 'id');
+        return 'done';
     }
 }

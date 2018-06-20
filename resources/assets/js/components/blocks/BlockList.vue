@@ -27,6 +27,7 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">naslov</th>
+                                <th scope="col">kategorija</th>
                                 <th scope="col">publikovano</th>
                                 <th scope="col">kreirano</th>
                                 <th>akcija</th>
@@ -36,10 +37,11 @@
                             <tr v-for="row in blocks">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
+                                <td>{{ row.category? row.category.title : '/' }}</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
-                                    <router-link tag="a" :to="'blocks/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'blocks/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>

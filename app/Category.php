@@ -97,7 +97,9 @@ class Category extends Model
     public static function setPrimaryCategory($slug){
         if(\Session::has('primary')){
             if(\Session::get('primary') != $slug){
+                $category = Category::where('slug', $slug)->first();
                 \Session::put('primary', $slug);
+                \Session::put('category_id', $category->id);
             }
         }else{
             \Session::put('primary', $slug);
@@ -134,5 +136,13 @@ class Category extends Model
 
     public function property(){
         return $this->belongsToMany(Property::class);
+    }
+
+    public function block(){
+        return $this->hasMany(Block::class);
+    }
+
+    public function brand(){
+        return $this->belongsToMany(Brand::class);
     }
 }

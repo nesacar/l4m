@@ -54,8 +54,8 @@ class MenuLink extends Model
     }
 
     public static function getMenu(){
-        return Cache::remember('menu.'.\Session::get('primary'), Helper::getMinutesToTheNextHour(), function () {
-            $menu = Menu::whereSlug(\Session::get('primary'))->first();
+        return Cache::remember('menu.'.session('primary'), Helper::getMinutesToTheNextHour(), function () {
+            $menu = Menu::whereSlug(session('primary'))->first();
             return self::tree($menu->id);
         });
     }
