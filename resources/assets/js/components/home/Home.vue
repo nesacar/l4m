@@ -38,12 +38,12 @@
             /** auth **/
             storeUser(){
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$auth.getToken();
-                console.log('hello from home');
                 if(this.$store.getters.getUser == null){
                     axios.get('api/user')
                         .then(res => {
                             if(res.data.role_id < 1){
-                                this.$router.push('/logout');
+                                this.$auth.destroyToken();
+                                this.$router.push('/login');
                             }else{
                                 this.$store.dispatch('changeUser', res.data);
                             }

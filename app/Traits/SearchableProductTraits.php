@@ -39,7 +39,7 @@ trait SearchableProductTraits
         }
 
         $products = $products->select('*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
-            ->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->groupBy('id');
+            ->published()->orderByRaw(DB::raw('totalPrice') . ' DESC')->groupBy('code');
 
         $productIds = $products->pluck('id')->toArray();
 
@@ -96,7 +96,7 @@ trait SearchableProductTraits
             $products->discountFilter();
         }
 
-        $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.id')->get(['products.id', 'products.price']);
+        $products = $products->select('products.id', 'products.price')->published()->orderBy('products.price', 'DESC')->groupBy('products.code')->get(['products.id', 'products.price']);
         $productIds = $products->pluck('id')->toArray();
 
         return self::query()->select('products.*', DB::raw("CASE WHEN price_outlet THEN price_outlet ELSE price END as totalPrice"))
@@ -108,7 +108,7 @@ trait SearchableProductTraits
     {
         return $query->whereHas('attribute', function ($q) use ($ids) {
             $q->whereIn('attributes.id', $ids)
-                ->groupBy('products.id')
+                ->groupBy('products.code')
                 ->havingRaw('COUNT(DISTINCT attributes.id) = ' . count($ids));
         });
     }

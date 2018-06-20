@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Client;
+use App\MenuLink;
 use App\Product;
 use App\Seo;
-use App\Set;
 use App\Theme;
 use Illuminate\Http\Request;
 
@@ -34,7 +34,8 @@ class ClientsController extends Controller
         $products = $client->product()->withoutGlobalScope('attribute')->where('products.discount', '>', 0)->published()->take(4)->get();
         $posts = $client->post()->published()->take(3)->get();
         $template = 'home';
-        return view('themes.' . $this->theme . '.pages.client.home', compact('client', 'products', 'posts', 'template'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.client.home', compact('client', 'products', 'posts', 'template', 'menu'));
     }
 
     /**
@@ -49,7 +50,8 @@ class ClientsController extends Controller
         }])->where('slug', $slug)->first();
         $posts = $client->post()->published()->take(3)->get();
         $template = 'about';
-        return view('themes.' . $this->theme . '.pages.client.about', compact('client', 'posts', 'template'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.client.about', compact('client', 'posts', 'template', 'menu'));
     }
 
     /**
@@ -63,10 +65,11 @@ class ClientsController extends Controller
         $category = $client->category->first();
         $data = Product::search($category, false, $client);
         Seo::shopCategory($category);
-        $properties = Set::getProperties($category->set);
+        $properties = Category::getProperties($category->slug);
         $breadcrumb = $client->getBreadcrumb();
         $template = 'shop';
-        return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template', 'menu'));
     }
 
     /**
@@ -80,10 +83,11 @@ class ClientsController extends Controller
         $category = $client->category->first();
         $data = Product::search($category, false, $client, true);
         Seo::shopCategory($category);
-        $properties = Set::getProperties($category->set);
+        $properties = Category::getProperties($category->slug);
         $breadcrumb = $client->getBreadcrumb();
         $template = 'action';
-        return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.client.shop', compact('client', 'category', 'data', 'properties', 'breadcrumb', 'template', 'menu'));
     }
 
     public function blog($slug){
@@ -92,6 +96,7 @@ class ClientsController extends Controller
         $posts = $client->post()->published()->paginate(9);
         $breadcrumb = $client->getBreadcrumb();
         $template = 'blog';
-        return view('themes.' . $this->theme . '.pages.client.blog', compact('client', 'posts', 'breadcrumb', 'template'));
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.client.blog', compact('client', 'posts', 'breadcrumb', 'template', 'menu'));
     }
 }

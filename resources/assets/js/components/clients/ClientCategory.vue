@@ -36,7 +36,7 @@
                                                     <div> <input type="checkbox" :value="category.id" name="cats[]" v-model="ids"> <span>{{ category.title }}</span></div>
                                                 </div>
                                             </div>
-                                            <div class="tree-node-children" v-if="category.children">
+                                            <div class="tree-node-children" v-if="false">
                                                 <div id="tree_49_node_p0LA4" data-level="2" class="tree-node open" v-for="sub in category.children">
                                                     <div class="tree-node-inner-back"
                                                          style="margin-bottom: 10px; padding-left: 30px;">
@@ -83,7 +83,6 @@
                 axios.get('api/categories/tree')
                     .then(res => {
                         this.categories = res.data.categories;
-                        console.log(this.categories);
                         this.getClientCategoryIds();
                     })
                     .catch(e => {
@@ -94,7 +93,6 @@
                 axios.get('api/clients/' + this.$route.params.id + '/categories')
                     .then(res => {
                         this.ids = res.data.category_ids;
-                        console.log(this.ids);
                     })
                     .catch(e => {
                         console.log(e);
