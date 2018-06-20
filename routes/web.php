@@ -34,23 +34,33 @@ Route::get('/registration', function () {
 });
 
 // Checkout steps.
-Route::get('/checkout/address', function () {
+
+Route::get('placanje/adresa-slanja', 'CheckoutController@step1');
+Route::get('placanje/nacin-slanja', 'CheckoutController@step2');
+Route::get('placanje/nacim-placanja', 'CheckoutController@step3');
+Route::get('placanje/potvrda-porudzbine', 'CheckoutController@step4');
+Route::get('placanje/kraj', 'CheckoutController@step5');
+
+Route::post('nova-adresa', 'ProfilesController@createAddress')->name('create.address');
+
+Route::get('checkout/address', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.checkout.address', compact('menu'));
 });
-Route::get('/checkout/shipping', function () {
+Route::get('checkout/shipping', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.checkout.shipping', compact('menu'));
 });
-Route::get('/checkout/payment', function () {
+
+Route::get('checkout/payment', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.checkout.payment', compact('menu'));
 });
-Route::get('/checkout/confirmation', function () {
+Route::get('checkout/confirmation', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.checkout.confirmation', compact('menu'));
 });
-Route::get('/checkout/checkout', function () {
+Route::get('checkout/checkout', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.checkout.checkout', compact('menu'));
 });

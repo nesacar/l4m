@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-md-6">
         @textfield([
-          'value' => '',
+          'value' => old('name'),
           'id' => 'name',
           'name' => 'name',
           'label' => 'Ime i prezime',
@@ -27,7 +27,7 @@
       </div>
       <div class="col-md-6">
         @textfield([
-          'value' => '',
+          'value' => old('email'),
           'id' => 'email',
           'name' => 'email',
           'label' => 'email',

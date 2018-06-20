@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Customer extends Model
 {
-    protected $fillable = ['user_id', 'block'];
+    protected $fillable = ['user_id', 'active'];
 
     protected static function boot()
     {
@@ -27,13 +27,22 @@ class Customer extends Model
         });
     }
 
+    public static function checkCustomer(){
+        if(empty(auth()->user()->customer)){
+            $customer = new Customer();
+            $customer->user_id = auth()->id();
+            $customer->save();
+        }
+        return self::where('user_id', auth()->id())->first();
+    }
+
     public static function createCustomer(){
         $user = new User();
         $user->name = request('name');
         $user->email = request('email');
         $user->password = bcrypt(request('password'));
         $user->role_id = 0;
-        $user->block = 0;
+        $user->active = 0;
         $user->save();
 
         return $user->customer()->create(request()->all());
@@ -45,7 +54,7 @@ class Customer extends Model
         $user->name = request('name');
         $user->email = request('email');
         request('password')? $user->password = bcrypt(request('password')) : '';
-        $user->block = request('block');
+        $user->active = request('active');
         $user->update();
 
         $customer->update(request()->all());

@@ -54,7 +54,7 @@
                         @if(\Cart::count()>0)
                             <div class="cart_actions">
                                 <a href="/shop" class="btn btn--outline btn--block">nastavi kupovinu</a>
-                                <button class="btn btn--primary btn--block">Idite na plaćanje</button>
+                                <a class="btn btn--primary btn--block" href="{{ url('placanje/adresa-slanja') }}">Idite na plaćanje</a>
                             </div>
                         @endif
                     </div>

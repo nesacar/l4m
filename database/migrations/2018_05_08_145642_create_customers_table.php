@@ -16,7 +16,7 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->index()->unsigned();
-            $table->boolean('block')->nullable()->default(0);
+            $table->boolean('active')->default(0);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
