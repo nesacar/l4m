@@ -67,8 +67,14 @@ class PagesController extends Controller
 
     public function proba()
     {
-        $category = Category::find(4);
-        return $product = Product::find(540)->getLink($category);
+        //\Artisan::call('cache:clear');
+//        $products = Product::where('slug', null)->get();
+//        foreach ($products as $product){
+//            $product->slug = str_slug($product->title);
+//            $product->update();
+//        }
+//        $category = Category::find(76);
+//        return $product = Product::find(459)->getLink($category);
         return 'done';
     }
 }
