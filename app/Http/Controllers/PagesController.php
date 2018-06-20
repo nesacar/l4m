@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attribute;
 use App\Block;
+use App\Box;
 use App\Brand;
 use App\BrandLink;
 use App\Category;
@@ -66,7 +67,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-
+        return Box::take(4)->pluck('title', 'id');
         return 'done';
     }
 }

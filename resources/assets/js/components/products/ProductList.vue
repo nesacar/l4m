@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <search-helper :lists="categories" :text="''" @updateSearch="search($event)"></search-helper>
+            <search-helper :lists="categories" :search="searchProduct" @updateSearch="search($event)"></search-helper>
 
             <div class="row">
                 <div class="col-md-12">
@@ -90,7 +90,7 @@
                 products: {},
                 paginate: {},
                 categories: {},
-                error: {}
+                error: {},
             }
         },
         components: {
@@ -99,13 +99,19 @@
             'font-awesome-icon': FontAwesomeIcon,
             'preview-image': PreviewImage,
         },
-        created(){
+        computed: {
+            searchProduct(){
+                return this.$store.getters.getSearchProduct;
+            },
+        },
+        mounted(){
             this.getProducts();
             this.getCategories();
         },
         methods: {
             getProducts(){
-                axios.get('api/products')
+                this.$store.dispatch('changeSearchProductPage', 1);
+                axios.post('api/products/search', this.searchProduct)
                     .then(res => {
                         this.products = res.data.products.data;
                         this.paginate = res.data.products;
@@ -147,7 +153,8 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/products?page=' + index)
+                this.$store.dispatch('changeSearchProductPage', index);
+                axios.post('api/products/search', this.searchProduct)
                     .then(res => {
                         this.products = res.data.products.data;
                         this.paginate = res.data.products;
@@ -157,18 +164,19 @@
                     });
             },
             getCategories(){
-                axios.get('api/categories/lists')
+                axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.categories = res.data.categories;
+                        this.categories = res.data.lists;
+                        this.categories[0] = 'Odaberi kategoriju';
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
             search(value){
+                this.$store.dispatch('changeSearchProduct', value);
                 axios.post('api/products/search', value)
                     .then(res => {
-                        console.log(res.data.products);
                         this.products = res.data.products.data;
                         this.paginate = res.data.products;
                     })
@@ -192,7 +200,6 @@
             editCode(row){
                 axios.post('api/products/' + row.id + '/code', {'code': row.code})
                     .then(res => {
-                        console.log(res);
                         swal(
                             'Izmenjeno!',
                             'Šifra je uspešno izmenjena.',
@@ -208,6 +215,6 @@
             previewRow(row){
                 window.open(row.link, '_blank');
             },
-        }
+        },
     }
 </script>
