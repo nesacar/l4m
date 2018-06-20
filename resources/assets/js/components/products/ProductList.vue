@@ -175,7 +175,7 @@
             },
             search(value){
                 this.$store.dispatch('changeSearchProduct', value);
-                axios.post('api/products/search', value)
+                axios.post('api/products/search', this.searchProduct)
                     .then(res => {
                         this.products = res.data.products.data;
                         this.paginate = res.data.products;

@@ -11,7 +11,6 @@
   $product = isset($item) 
   ? isset($product) ? $product : $item
   : $product;
-
 @endphp
 
 <a href="{{ $product->getLink(isset($category)? $category : false) }}" data-id="{{ $product->id }}" class="shop-item no-link js-product">

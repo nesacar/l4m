@@ -113,7 +113,8 @@ class PropertiesController extends Controller
         $properties = Property::with(['set', 'attribute'])->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
 
         return response()->json([
-            'properties' => $properties
+            'properties' => $properties,
+            'lists' => $properties->pluck('title', 'id'),
         ]);
     }
 

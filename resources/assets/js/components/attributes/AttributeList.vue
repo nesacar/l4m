@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <search-helper :lists="properties" :text="''" @updateSearch="search($event)"></search-helper>
+            <search-helper :lists="properties" :search="searchAttribute" :enableList="true" @updateSearch="search($event)"></search-helper>
 
             <div class="row">
                 <div class="col-md-12">
@@ -76,13 +76,19 @@
             'font-awesome-icon': FontAwesomeIcon,
             'search-helper': SearchHelper,
         },
-        created(){
+        computed: {
+            searchAttribute(){
+                return this.$store.getters.getSearchAttribute;
+            },
+        },
+        mounted(){
             this.getAttributes();
             this.getProperties();
         },
         methods: {
             getAttributes(){
-                axios.get('api/attributes')
+                this.$store.dispatch('changeSearchAttributePage', 1);
+                axios.post('api/attributes/search', this.searchAttribute)
                     .then(res => {
                         this.attributes = res.data.attributes.data;
                         this.paginate = res.data.attributes;
@@ -94,7 +100,8 @@
             getProperties(){
                 axios.get('api/properties/lists')
                     .then(res => {
-                        this.properties = res.data.properties;
+                        this.properties = res.data.lists;
+                        this.properties[0] = 'izaberi osobinu';
                     })
                     .catch(e => {
                         console.log(e);
@@ -132,7 +139,8 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/attributes?page=' + index)
+                this.$store.dispatch('changeSearchAttributePage', index);
+                axios.post('api/attributes/search', this.searchAttribute)
                     .then(res => {
                         this.attributes = res.data.attributes.data;
                         this.paginate = res.data.attributes;
@@ -145,7 +153,8 @@
                 this.$router.push('/attributes/create');
             },
             search(value){
-                axios.post('api/attributes/search', value)
+                this.$store.dispatch('changeSearchAttribute', value);
+                axios.post('api/attributes/search', this.searchAttribute)
                     .then(res => {
                         this.attributes = res.data.attributes.data;
                         this.paginate = res.data.attributes;

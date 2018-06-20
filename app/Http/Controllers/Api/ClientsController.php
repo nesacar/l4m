@@ -132,4 +132,23 @@ class ClientsController extends Controller
             'category_ids' => request('client_id'),
         ]);
     }
+
+    /**
+     * Client search
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(){
+        $text = request('text');
+        $clients = Client::where(function ($query) use ($text){
+                if($text != ''){
+                    $query->where('name', 'like', '%'.$text.'%')->orWhere('slug', 'like', '%'.$text.'%');
+                }
+            })
+            ->orderBy('created_at', 'DESC')->paginate(50);
+
+        return response()->json([
+            'clients' => $clients,
+        ]);
+    }
 }

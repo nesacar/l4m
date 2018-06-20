@@ -12,6 +12,8 @@
                 </div>
             </div>
 
+            <search-helper :lists="[]" :search="searchClient" :enableList="false" @updateSearch="search($event)"></search-helper>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -73,12 +75,18 @@
             'paginate-helper': PaginateHelper,
             'font-awesome-icon': FontAwesomeIcon
         },
-        created(){
+        computed: {
+            searchClient(){
+                return this.$store.getters.getSearchClient;
+            },
+        },
+        mounted(){
             this.getClients();
         },
         methods: {
             getClients(){
-                axios.get('api/clients')
+                this.$store.dispatch('changeSearchClientPage', 1);
+                axios.post('api/clients/search', this.searchClient)
                     .then(res => {
                         this.clients = res.data.clients.data;
                         this.paginate = res.data.clients;
@@ -120,7 +128,8 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/clients?page=' + index)
+                this.$store.dispatch('changeSearchClientPage', index);
+                axios.post('api/clients/search', this.searchClient)
                     .then(res => {
                         this.clients = res.data.clients.data;
                         this.paginate = res.data.clients;
@@ -131,7 +140,18 @@
             },
             addRow(){
                 this.$router.push('/clients/create');
-            }
+            },
+            search(value){
+                this.$store.dispatch('changeSearchClient', value);
+                axios.post('api/clients/search', this.searchClient)
+                    .then(res => {
+                        this.clients = res.data.clients.data;
+                        this.paginate = res.data.clients;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
         }
     }
 </script>
