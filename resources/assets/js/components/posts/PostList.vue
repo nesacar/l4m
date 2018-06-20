@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <search-helper :lists="blogs" :text="''" @updateSearch="search($event)"></search-helper>
+            <search-helper :lists="blogs" :search="searchPost" :enableList="true" @updateSearch="search($event)"></search-helper>
 
             <div class="row">
                 <div class="col-md-12">
@@ -84,15 +84,22 @@
             'search-helper': SearchHelper,
             'font-awesome-icon': FontAwesomeIcon
         },
-        created(){
+        computed: {
+            searchPost(){
+                return this.$store.getters.getSearchPost;
+            },
+        },
+        mounted(){
             this.getPosts();
             this.getBlogs();
         },
         methods: {
             getPosts(){
-                axios.get('api/posts')
+                this.$store.dispatch('changeSearchPostPage', 1);
+                axios.post('api/posts/search', this.searchPost)
                     .then(res => {
                         this.posts = res.data.posts.data;
+                        console.log(this.posts);
                         this.paginate = res.data.posts;
                     })
                     .catch(e => {
@@ -132,7 +139,8 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/posts?page=' + index)
+                this.$store.dispatch('changeSearchPostPage', index);
+                axios.post('api/posts/search', this.searchPost)
                     .then(res => {
                         this.posts = res.data.posts.data;
                         this.paginate = res.data.posts;
@@ -151,7 +159,8 @@
                     });
             },
             search(value){
-                axios.post('api/posts/search', value)
+                this.$store.dispatch('changeSearchPost', value);
+                axios.post('api/posts/search', this.searchPost)
                     .then(res => {
                         this.posts = res.data.posts.data;
                         this.paginate = res.data.posts;

@@ -108,7 +108,7 @@ class AttributesController extends Controller
     public function search(){
         $text = request('text');
         $property_id = request('list')?: false;
-        $attributes = Attribute::with(['property' => function($query){ $query->with(['set' => function($q){ $q->select('title'); }]); }])
+        $attributes = Attribute::with('property')
             ->where(function ($query) use ($text){
                 if($text != ''){
                     $query->where('attributes.title', 'like', '%'.$text.'%')->orWhere('attributes.slug', 'like', '%'.$text.'%');

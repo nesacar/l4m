@@ -163,7 +163,7 @@ class PostsController extends Controller
     public function search(){
         $blog = request('list');
         $text = request('text');
-        $posts = Post::select('posts.*')->with('blog')->where(function ($query) use ($blog){
+        $posts = Post::with('Blog')->with('Product')->where(function ($query) use ($blog){
                 if($blog > 0){
                     $query->where('posts.blog_id', $blog);
                 }
