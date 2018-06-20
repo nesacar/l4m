@@ -59,7 +59,8 @@ class ShopController extends Controller
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);
             $breadcrumb = $product->getBreadcrumb($slug1);
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu'));
+            $sizes = $product->sizes()->get();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes'));
         }else{
             $parent1 = Category::whereSlug($slug1)->first();
             $parent2 = Category::where('parent', $parent1->id)->whereSlug($slug2)->first();
@@ -84,7 +85,8 @@ class ShopController extends Controller
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);
             $breadcrumb = $product->getBreadcrumb($slug1);
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu'));
+            $sizes = $product->sizes()->get();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes'));
         }else{
             $category = Category::whereSlug($slug4)->first();
             $data = Product::search($category);
@@ -107,7 +109,8 @@ class ShopController extends Controller
             $related = Product::getRelated($product, $category, $limit=6);
             Seo::shopProduct($product, $category);
             $breadcrumb = $product->getBreadcrumb($slug1);
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu'));
+            $sizes = $product->sizes()->get();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes'));
         }else{
             $category = Category::whereSlug($slug5)->first();
             $data = Product::search($category);

@@ -8,5 +8,5 @@
     value="{{$value}}"
     @if($checked) checked @endif  
   />
-  <div class="size-picker_value">{{$value}}</div>
+  <div class="size-picker_value">{{$label}}</div>
 </div>

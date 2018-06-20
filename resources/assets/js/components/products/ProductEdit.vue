@@ -88,6 +88,11 @@
                                 <small class="form-text text-muted" v-if="error != null && error.code">{{ error.code[0] }}</small>
                             </div>
                             <div class="form-group">
+                                <label for="code_addition">Dodatak šifri</label>
+                                <input type="text" name="code_addition" class="form-control" id="code_addition" placeholder="Dodatak šifri" v-model="product.code_addition">
+                                <small class="form-text text-muted" v-if="error != null && error.code_addition">{{ error.code_addition[0] }}</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="short">Kratak opis</label>
                                 <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="product.short"></textarea>
                                 <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>

@@ -59,7 +59,7 @@ class Product extends Model
         });
 
         static::addGlobalScope('photo', function (Builder $builder) {
-            $builder->with(['photo']);
+            $builder->with('photo');
         });
     }
 
@@ -195,5 +195,13 @@ class Product extends Model
 
     public function client(){
         return $this->belongsTo(Client::class);
+    }
+
+    public function sizes(){
+        return $this->belongsToMany(Attribute::class)->where('property_id', 11);
+    }
+
+    public function colors(){
+        return $this->belongsToMany(Attribute::class)->where('property_id', 9);
     }
 }
