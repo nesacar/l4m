@@ -28,26 +28,6 @@ Route::get('/admin', function () {
     return view('layouts.admin-app');
 });
 
-Route::get('/client/about', function () {
-    return view('themes.l4m.pages.client.about');
-});
-
-Route::get('/client/shop', function () {
-    return view('themes.l4m.pages.client.shop');
-});
-
-Route::get('/client/akcije', function () {
-    return view('themes.l4m.pages.client.akcije');
-});
-
-Route::get('/client/blog', function () {
-    return view('themes.l4m.pages.client.blog');
-});
-
-Route::get('/brands', function () {
-    return view('themes.l4m.pages.brands');
-});
-
 Route::get('/registration', function () {
     $menu = MenuLink::getMenu();
     return view('themes.l4m.pages.registration', compact('menu'));

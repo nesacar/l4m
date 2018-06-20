@@ -48,10 +48,10 @@ class ShopBar extends Model
         return Cache::remember($parent.'.najnoviji', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
             return self::where('template', $template)->where('desc', 'Najnoviji')->where('parent_category_id', $parent)
                 ->orderBy('order', 'ASC')->with(['category' => function($query){
-                $query->withoutGlobalScopes();
-            }])->with(['product' => function($query){
-                $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
-            }])->get();
+                    $query->withoutGlobalScopes();
+                }])->with(['product' => function($query){
+                    $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
+                }])->get();
         });
     }
 

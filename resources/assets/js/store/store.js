@@ -41,6 +41,9 @@ export const store = new Vuex.Store({
         /** nav orders **/
         showOrdersItem: true,
         ordersItemActive: false,
+
+        /** search product **/
+        searchProduct: '',
     },
     getters: {
         /** auth **/
@@ -115,6 +118,11 @@ export const store = new Vuex.Store({
         getOrdersItemActive: state => {
             return state.ordersItemActive;
         },
+
+        /** search product **/
+        getSearchProduct: state => {
+            return state.searchProduct;
+        },
     },
     mutations: {
         /** auth **/
@@ -167,6 +175,11 @@ export const store = new Vuex.Store({
         changeOrdersItemActive: state => {
             state.ordersItemActive = !state.ordersItemActive;
         },
+
+        /** search product **/
+        changeSearchProduct: (state, data) => {
+            state.searchProduct = data;
+        },
     },
     actions: {
         /** auth **/
@@ -215,6 +228,11 @@ export const store = new Vuex.Store({
         /** nav orders **/
         changeOrdersItemActive: context => {
             context.commit('changeOrdersItemActive');
+        },
+
+        /** search products **/
+        changeSearchProduct: (context, data) => {
+            context.commit('changeSearchProduct', data);
         },
     }
 });
