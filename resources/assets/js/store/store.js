@@ -75,6 +75,12 @@ export const store = new Vuex.Store({
             list: 0,
             page: 1,
         },
+
+        /** search client **/
+        searchClient: {
+            text: '',
+            page: 1,
+        },
     },
     getters: {
         /** auth **/
@@ -174,6 +180,11 @@ export const store = new Vuex.Store({
         getSearchPost: state => {
             return state.searchPost;
         },
+
+        /** search client **/
+        getSearchClient: state => {
+            return state.searchClient;
+        },
     },
     mutations: {
         /** auth **/
@@ -266,6 +277,14 @@ export const store = new Vuex.Store({
         changeSearchPostPage: (state, data) => {
             state.searchPost.page = data;
         },
+
+        /** search client **/
+        changeSearchClient: (state, data) => {
+            state.searchClient = data;
+        },
+        changeSearchClientPage: (state, data) => {
+            state.searchClient.page = data;
+        },
     },
     actions: {
         /** auth **/
@@ -354,6 +373,14 @@ export const store = new Vuex.Store({
         },
         changeSearchPostPage: (context, data) => {
             context.commit('changeSearchPostPage', data);
+        },
+
+        /** search client **/
+        changeSearchClient: (context, data) => {
+            context.commit('changeSearchClient', data);
+        },
+        changeSearchClientPage: (context, data) => {
+            context.commit('changeSearchClientPage', data);
         },
     }
 });

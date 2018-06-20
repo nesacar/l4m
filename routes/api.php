@@ -128,6 +128,7 @@ Route::resource('shopping-carts', 'Api\ShoppingCartsController');
 Route::resource('currencies', 'Api\CurrenciesController');
 
 Route::get('clients/lists', 'Api\ClientsController@lists');
+Route::post('clients/search', 'Api\ClientsController@search');
 Route::resource('clients', 'Api\ClientsController');
 Route::post('clients/{id}/image', 'Api\ClientsController@uploadImage');
 Route::get('clients/{id}/categories', 'Api\ClientsController@categories');

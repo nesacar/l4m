@@ -70,9 +70,9 @@ export const router = new VueRouter({
         { path: "/menu-links/:id/create", component: require('./components/menuLinks/MenuLinkCreate.vue'), meta: { forAdmin: true } },
         { path: "/menu-links/:id/edit", component: require('./components/menuLinks/MenuLinkEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/blocks", component: require('./components/blocks/BlockList.vue'), meta: { forAuth: true } },
-        { path: "/blocks/create", component: require('./components/blocks/BlockCreate.vue'), meta: { forAuth: true } },
-        { path: "/blocks/:id/edit", component: require('./components/blocks/BlockEdit.vue'), meta: { forAuth: true } },
+        { path: "/blocks", component: require('./components/blocks/BlockList.vue'), meta: { forAdmin: true } },
+        { path: "/blocks/create", component: require('./components/blocks/BlockCreate.vue'), meta: { forAdmin: true } },
+        { path: "/blocks/:id/edit", component: require('./components/blocks/BlockEdit.vue'), meta: { forAdmin: true } },
 
         { path: "/boxes", component: require('./components/boxes/BoxList.vue'), meta: { forAdmin: true } },
         { path: "/boxes/create", component: require('./components/boxes/BoxCreate.vue'), meta: { forAdmin: true } },
