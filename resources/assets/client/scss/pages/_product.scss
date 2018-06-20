@@ -66,6 +66,17 @@
     }
   }
 
+  &_secondary-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &_share {
+    display: flex;
+    align-items: center;
+  }
+
   &_description {
     margin-top: 2 * $base-line;
   }

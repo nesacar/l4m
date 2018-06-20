@@ -54,7 +54,7 @@
                         ])
                         @endcolor
                       </div>
-                      <small class="product_section-follow-up">follow up</small>
+                      <small class="product_section-follow-up">selected color name</small>
                     </div>
                     <div class="product_section">
                       <div class="product_section-title">veličina</div>
@@ -73,7 +73,7 @@
                         ])
                         @endsize
                       </div>
-                      <small class="product_section-follow-up">follow up</small>
+                      <a class="product_section-follow-up" href="#">size guide</a>
                     </div>
                     <div class="product_actions">
                         <button class="btn btn--primary btn--block"
@@ -84,11 +84,11 @@
                           data-event="wishlist"
                         >dodaj u listu želja</button>
                     </div>
-                    <div class="product_id">Šifra: {{ $product->code }}</div>
-                    @accordion(['product' => $product]) @endaccordion
-                    <div class="product_social">
-                        @social()
+                    <div class="product_secondary-actions">
+                      <div class="product_id">Šifra: {{ $product->code }}</div>
+                      <div class="product_share">share:&nbsp;@social()</div>
                     </div>
+                    @accordion(['product' => $product]) @endaccordion
                 </div>
 
             </div>
