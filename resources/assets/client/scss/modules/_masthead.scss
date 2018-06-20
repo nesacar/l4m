@@ -2,29 +2,6 @@
   position: relative;
   overflow: hidden;
 
-  &_image {
-    @include media-breakpoint-down(md) {
-      padding-top: 42 * $base-line;
-
-      img {
-        height: 100%;
-        width: auto;
-      }
-    }
-
-    &--full-width {
-      img {
-        height: 100%;
-        width: auto;
-      }
-      
-      @include media-breakpoint-up(lg) {
-        // Height of ultra wide images
-        padding-top: map-get($container-max-widths, lg) * (9/21);
-      }
-    }
-  }
-
   &_title {
     margin-top: 0;
   }
@@ -57,18 +34,27 @@
         text-align: right;
       }
     }
+  }
+}
 
-    .masthead_title {
-      @include media-breakpoint-down(md) {
-        font-size: $font-size-display-2;
-      }
-    }
+$_HOMEPAGE_IMAGE_HEIGHT: 300px;
+.masthead-image {
+  &--homepage {
+    padding-top: $_HOMEPAGE_IMAGE_HEIGHT;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-top: 300px;
+  }
+
+  img {
+    width: auto;
+    height: 100%;
   }
 }
 
 .masthead-carousel {
   padding: 0;
-  overflow: visible !important;
 
   &.is-loading {
     display: flex;
@@ -159,7 +145,7 @@
     }
   }
 
-  &_content--full-width {
+  &_content--homepage {
     color: $text-primary-on-light;
 
     @include media-breakpoint-up(md) {
@@ -169,6 +155,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding: 0 64px;
       width: 100%;
       height: 100%;
       z-index: 1;

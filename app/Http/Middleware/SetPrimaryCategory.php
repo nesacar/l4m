@@ -19,7 +19,9 @@ class SetPrimaryCategory
     {
         if(!\Session::has('primary')){
             \Session::put('primary', 'zene');
-            \Session::put('category_id', 5);
+        }
+        if(!\Session::has('category_id')){
+          \Session::put('category_id', 5);
         }
 
         return $next($request);

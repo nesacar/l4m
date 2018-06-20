@@ -7,14 +7,21 @@
 
 @section('content')
 
-    @component('themes.' . $theme . '.components.masthead-carousel', [
+    {{-- @component('themes.' . $theme . '.components.masthead-carousel', [
       'data' => $slider,
       'options' => (object)[
         'controls' => false,
         'fullWidth' => true,
       ],
     ])
-    @endcomponent
+    @endcomponent --}}
+    @homepagecarousel([
+      'data' => $slider,
+      'options' => (object)[
+        'controls' => false,
+      ],
+    ])
+    @endhomepagecarousel
 
     <section class="container">
         <h2 class="display-3 section-title--serif">Istaknuti proizvodi</h2>
