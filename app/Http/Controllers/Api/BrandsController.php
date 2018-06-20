@@ -164,4 +164,23 @@ class BrandsController extends Controller
             'message' => 'done'
         ]);
     }
+
+    /**
+     * Brand search
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(){
+        $text = request('text');
+        $brands = Brand::where(function ($query) use ($text){
+                if($text != ''){
+                    $query->where('title', 'like', '%'.$text.'%')->orWhere('slug', 'like', '%'.$text.'%');
+                }
+            })
+            ->orderBy('created_at', 'DESC')->paginate(50);
+
+        return response()->json([
+            'brands' => $brands,
+        ]);
+    }
 }

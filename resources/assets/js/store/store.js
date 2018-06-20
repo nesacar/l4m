@@ -55,6 +55,12 @@ export const store = new Vuex.Store({
             list: 0,
             page: 1,
         },
+
+        /** search brand **/
+        searchBrand: {
+            text: '',
+            page: 1,
+        },
     },
     getters: {
         /** auth **/
@@ -139,6 +145,11 @@ export const store = new Vuex.Store({
         getSearchCategory: state => {
             return state.searchCategory;
         },
+
+        /** search brand **/
+        getSearchBrand: state => {
+            return state.searchBrand;
+        },
     },
     mutations: {
         /** auth **/
@@ -207,6 +218,14 @@ export const store = new Vuex.Store({
         changeSearchCategoryPage: (state, data) => {
             state.searchCategory.page = data;
         },
+
+        /** search brand **/
+        changeSearchBrand: (state, data) => {
+            state.searchBrand = data;
+        },
+        changeSearchBrandPage: (state, data) => {
+            state.searchBrand.page = data;
+        },
     },
     actions: {
         /** auth **/
@@ -271,6 +290,14 @@ export const store = new Vuex.Store({
         },
         changeSearchCategoryPage: (context, data) => {
             context.commit('changeSearchCategoryPage', data);
+        },
+
+        /** search brand **/
+        changeSearchBrand: (context, data) => {
+            context.commit('changeSearchBrand', data);
+        },
+        changeSearchBrandPage: (context, data) => {
+            context.commit('changeSearchBrandPage', data);
         },
     }
 });

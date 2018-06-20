@@ -55,6 +55,7 @@ Route::get('tags/lists', 'Api\TagsController@lists');
 Route::resource('tags', 'Api\TagsController');
 
 Route::get('brands/lists', 'Api\BrandsController@lists');
+Route::post('brands/search', 'Api\BrandsController@search');
 Route::resource('brands', 'Api\BrandsController');
 Route::post('brands/{id}/image', 'Api\BrandsController@uploadImage');
 Route::post('brands/{id}/logo-image', 'Api\BrandsController@uploadLogoImage');

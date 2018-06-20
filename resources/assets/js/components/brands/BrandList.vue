@@ -12,8 +12,9 @@
                 </div>
             </div>
 
-            <div class="row">
+            <search-helper :search="searchBrand" :enableList="false" @updateSearch="search($event)"></search-helper>
 
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Brendovi</h5>
@@ -73,12 +74,18 @@
             'paginate-helper': PaginateHelper,
             'font-awesome-icon': FontAwesomeIcon
         },
-        created(){
+        computed: {
+            searchBrand(){
+                return this.$store.getters.getSearchBrand;
+            },
+        },
+        mounted(){
             this.getBrands();
         },
         methods: {
             getBrands(){
-                axios.get('api/brands')
+                this.$store.dispatch('changeSearchBrandPage', 1);
+                axios.post('api/brands/search', this.searchBrand)
                     .then(res => {
                         this.brands = res.data.brands.data;
                         this.paginate = res.data.brands;
@@ -119,7 +126,8 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/brands?page=' + index)
+                this.$store.dispatch('changeSearchBrandPage', index);
+                axios.post('api/brands/search', this.searchBrand)
                     .then(res => {
                         this.brands = res.data.brands.data;
                         this.paginate = res.data.brands;
@@ -133,6 +141,17 @@
             },
             linkRow(row){
                 this.$router.push('/brand-links/' + row.id);
+            },
+            search(value){
+                this.$store.dispatch('changeSearchBrand', value);
+                axios.post('api/brands/search', this.searchBrand)
+                    .then(res => {
+                        this.brands = res.data.brands.data;
+                        this.paginate = res.data.brands;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
             },
         }
     }
