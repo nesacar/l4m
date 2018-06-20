@@ -67,7 +67,3 @@
         </nav>
     </div>
 @endsection
-
-@section('scripts')
-    <script src="{{ url('themes/' . $theme . '/js/brand.js') }}"></script>
-@endsection

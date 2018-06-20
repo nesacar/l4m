@@ -3,6 +3,7 @@ import * as Masthead from './components/masthead';
 import Drawer from './components/drawer';
 import SearchWidget from './components/search-widget';
 import Accordion from './components/accordion';
+import RevealAccordion from './components/reveal-accordion';
 import Siema from './components/siema';
 import { Toast } from './components/toast';
 import Store from './store';
@@ -21,6 +22,7 @@ export function init () {
   Masthead.init();
   SearchWidget.init();
   Accordion.init();
+  RevealAccordion.init();
   InputField.init();
   Currency.init();
   NavItem.init();
