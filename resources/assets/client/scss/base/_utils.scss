@@ -106,6 +106,16 @@
   }
 }
 
+.overflow {
+  &--hidden {
+    overflow: hidden !important;
+  }
+
+  &--visible {
+    overflow: visible !important;
+  }
+}
+
 .ml-auto {
   margin-left: auto;
 }
