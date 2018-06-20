@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <search-helper :lists="parents" :text="''" @updateSearch="search($event)"></search-helper>
+            <search-helper :lists="parents" :search="searchCategory" :enableList="false" @updateSearch="search($event)"></search-helper>
 
             <div class="row">
                 <div class="col-md-12">
@@ -39,7 +39,13 @@
                             <tr v-for="row in categories">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td v-if="row.parent_category">{{ row.parent_category.title }}</td><td v-else>Bez</td>
+                                <td>
+                                    <span v-if="row.parent_category">
+                                        {{ row.parent_category.title }}
+                                        <span v-if="row.parent_category.parent_category"> / {{ row.parent_category.parent_category.title}}</span>
+                                    </span>
+                                    <span v-else>Bez</span>
+                                </td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>
                                     <router-link tag="a" :to="'categories/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
@@ -79,13 +85,19 @@
             'search-helper': SearchHelper,
             'font-awesome-icon': FontAwesomeIcon
         },
-        created(){
+        computed: {
+            searchCategory(){
+                return this.$store.getters.getSearchCategory;
+            },
+        },
+        mounted(){
             this.getCategories();
             this.getParents();
         },
         methods: {
             getCategories(){
-                axios.get('api/categories')
+                this.$store.dispatch('changeSearchCategoryPage', 1);
+                axios.post('api/categories/search', this.searchCategory)
                     .then(res => {
                         this.categories = res.data.categories.data;
                         this.paginate = res.data.categories;
@@ -139,7 +151,8 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/categories?page=' + index)
+                this.$store.dispatch('changeSearchCategoryPage', index);
+                axios.post('api/categories/search', this.searchCategory)
                     .then(res => {
                         this.categories = res.data.categories.data;
                         this.paginate = res.data.categories;
@@ -149,7 +162,7 @@
                     });
             },
             search(value){
-                console.log(value);
+                this.$store.dispatch('changeSearchCategory', value);
                 axios.post('api/categories/search', value)
                     .then(res => {
                         this.categories = res.data.categories.data;
@@ -161,7 +174,7 @@
             },
             addRow(){
                 this.$router.push('/categories/create');
-            }
+            },
         }
     }
 </script>

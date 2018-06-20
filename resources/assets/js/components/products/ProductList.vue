@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <search-helper :lists="categories" :search="searchProduct" @updateSearch="search($event)"></search-helper>
+            <search-helper :lists="categories" :search="searchProduct" :enableList="true" @updateSearch="search($event)"></search-helper>
 
             <div class="row">
                 <div class="col-md-12">

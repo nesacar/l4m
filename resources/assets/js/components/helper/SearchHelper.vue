@@ -7,7 +7,7 @@
                         <div class="col">
                             <input type="text" class="form-control" placeholder="Pretraga" v-model="search.text">
                         </div>
-                        <div class="col">
+                        <div class="col" v-if="enableList">
                             <select name="lists" id="lists" class="form-control" v-model="search.list">
                                 <option :value="index" v-for="(list, index) in lists">{{ list }}</option>
                             </select>
@@ -24,7 +24,7 @@
 
 <script>
     export default {
-        props: ['lists', 'search'],
+        props: ['lists', 'search', 'enableList'],
         methods: {
             submit(){
                 this.$emit('updateSearch', this.search);

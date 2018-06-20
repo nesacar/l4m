@@ -173,7 +173,9 @@ class CategoriesController extends Controller
     public function search(){
         $text = request('text');
         $parent = request('list')?: false;
-        $categories = Category::select('id', 'title', 'publish', 'created_at')->with('parentCategory')
+        $categories = Category::with(['parentCategory' => function($query){
+                $query->with('parentCategory');
+            }])
             ->where(function ($query) use ($text){
                 if($text != ''){
                     $query->where('title', 'like', '%'.$text.'%')->orWhere('slug', 'like', '%'.$text.'%');
