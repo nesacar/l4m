@@ -77,4 +77,8 @@ class Customer extends Model
     public function order(){
         return $this->hasMany(Order::class);
     }
+
+    public function shoppingCart(){
+        return $this->hasMany(ShoppingCart::class);
+    }
 }

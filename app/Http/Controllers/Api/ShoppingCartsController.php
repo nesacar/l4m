@@ -18,7 +18,7 @@ class ShoppingCartsController extends Controller
 
     public function index()
     {
-        $shoppingCarts = ShoppingCart::orderBy('id', 'DESC')->paginate(50);
+        $shoppingCarts = ShoppingCart::with('customer')->orderBy('id', 'DESC')->paginate(50);
 
         return response()->json([
             'shoppingCarts' => $shoppingCarts,

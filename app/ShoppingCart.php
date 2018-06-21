@@ -21,7 +21,9 @@ class ShoppingCart extends Model
         parent::boot();
 
         static::addGlobalScope('customer', function (Builder $builder) {
-            $builder->with('customer');
+            $builder->with(['customer' => function($query){
+                $query->withoutGlobalScope('address');
+            }]);
         });
 
         static::addGlobalScope('payment', function (Builder $builder) {
@@ -31,13 +33,18 @@ class ShoppingCart extends Model
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->with('order');
         });
+
+        static::addGlobalScope('address', function (Builder $builder) {
+            $builder->with('address');
+        });
     }
 
     public static function store(){
         if(!empty(\Cart::content())){
             $shoppingCart = ShoppingCart::create([
-                'customer_id' => auth()->id(),
+                'customer_id' => auth()->user()->customer->id,
                 'payment_id' => session('payment'),
+                'address_id' => session('address'),
             ]);
             foreach (\Cart::content() as $product){
 
@@ -82,5 +89,9 @@ class ShoppingCart extends Model
 
     public function payment(){
         return $this->belongsTo(Payment::class);
+    }
+
+    public function address(){
+        return $this->belongsTo(Address::class);
     }
 }

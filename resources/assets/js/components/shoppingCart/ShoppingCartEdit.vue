@@ -19,9 +19,9 @@
                     <div class="card">
                         <h3>Podaci o kupcu</h3>
                         <ul class="list-item" v-if="shoppingCart" style="padding-left: 0">
-                            <li class="list-group-item">Kupac: {{ shoppingCart.customer.name }} {{ shoppingCart.customer.lastname }}</li>
+                            <li class="list-group-item">Kupac: {{ shoppingCart.address.name }}</li>
                             <li class="list-group-item">Email: {{ shoppingCart.customer.user.email }}</li>
-                            <li class="list-group-item">Broj telefona: {{ shoppingCart.customer.phone }}</li>
+                            <li class="list-group-item">Broj telefona: {{ shoppingCart.address.phone }}</li>
                             <li class="list-group-item"></li>
                         </ul>
                     </div>
@@ -36,30 +36,22 @@
                                 <th scope="col">naziv</th>
                                 <th scope="col">šifra</th>
                                 <th scope="col">slika</th>
+                                <th scope="col">veličina</th>
+                                <th scope="col">boja</th>
                                 <th scope="col">kategorija</th>
                                 <th scope="col">vidljivo</th>
-                                <th scope="col">vidljivo od</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="row in shoppingCart.order">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.product.title }}</td>
-                                <td v-if="!row.edit" @click="row.edit = !row.edit" style="cursor: pointer;">{{ row.product.code }}</td>
-                                <td v-else>
-                                    <div class="form-group">
-                                        <textarea class="form-control" v-model="row.product.code"></textarea>
-                                        <small class="form-text text-muted text-center" v-if="error != null && error.code">{{ error.code[0] }}</small>
-                                    </div>
-                                    <div class="text-center">
-                                        <button class="btn btn-primary btn-sm" @click="editCode(row)">Izmeni</button>
-                                        <button class="btn btn-link btn-sm btn-small" @click="row.edit = !row.edit">Odustani</button>
-                                    </div>
-                                </td>
-                                <td v-if="row.product.tmb"><img :src="row.product.tmb" :alt="row.product.title"></td> <td v-else><preview-image :product_id="row.product.id"></preview-image></td>
+                                <td>{{ row.product.code }}</td>
+                                <td v-if="row.product.tmb"><a :href="row.product.link" target="_blank"><img :src="row.product.tmb" :alt="row.product.title"></a></td>
+                                <td>{{ row.size? row.size : '/' }}</td>
+                                <td>{{ row.color? row.color : '/' }}</td>
                                 <td v-if="row.product.category.length > 0">{{ row.product.category[0].title }}</td><td v-else>/</td>
                                 <td>{{ row.product.publish? 'Da' : 'Ne' }}</td>
-                                <td>{{ row.product.publish_at }}</td>
                             </tr>
                             </tbody>
                         </table>

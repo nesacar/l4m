@@ -36,10 +36,10 @@
                             <tbody>
                             <tr v-for="row in shoppingCarts">
                                 <td>{{ row.id }}</td>
-                                <td>{{ row.customer.name }}</td>
+                                <td>{{ row.customer.user.name }}</td>
                                 <td>{{ formatPrice(row.total) }} rsd</td>
                                 <td>{{ row.order.length }}</td>
-                                <td>{{ row.paid }}</td>
+                                <td>{{ row.paid? 'Plaćeno' : 'Na čekanju' }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
                                     <router-link tag="a" :to="'shopping-carts/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>

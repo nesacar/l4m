@@ -11,4 +11,8 @@ class Address extends Model
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
+
+    public function shoppingCart(){
+        return $this->belongsTo(ShoppingCart::class);
+    }
 }
