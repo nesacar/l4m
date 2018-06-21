@@ -61,7 +61,7 @@
                     @else
                         <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu isporuke.</p>
 
-                        <form method="POST" action="{{ url('checkout.step1') }}">
+                        <form method="POST" id="address-form" action="{{ url('checkout.step1') }}">
                             @csrf
                             @foreach($customer->address as $address)
                                 @address([
@@ -147,4 +147,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+  (function() {
+    var form = document.getElementById('address-form');
+    form.onchange = function() {
+      form.submit();
+    }
+  }());
+</script>
 @endsection
