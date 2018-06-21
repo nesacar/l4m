@@ -43,6 +43,7 @@
                                       'colorName' => $activeColor->title,
                                       'colorValue' => $activeColor->extra,
                                       'link' => $product->link,
+                                      'active' => true,
                                     ])
                                     @endcolor
                                 @endif

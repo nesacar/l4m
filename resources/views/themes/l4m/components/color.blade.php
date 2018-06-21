@@ -1,15 +1,8 @@
 @php
-  $checked = isset($checked) ? $checked : false;
+  $active = isset($active) ? $active : false;
+  $classname = 'color-picker'.($active ? ' active' : '');
 @endphp
-<div class="color-picker"
+<a class="{{$classname}}"
+  href="{{$link}}"
   style="color: {{$colorValue}};"
->
-  <input class="color-picker_control"
-    type="radio"
-    name="color"
-    value="{{$colorName}}"
-    @if($checked) checked @endif
-  />
-  <div class="color-picker_outer-circle"></div>
-  <div class="color-picker_inner-circle"></div>
-</div>
+></a>
