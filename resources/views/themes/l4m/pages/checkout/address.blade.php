@@ -62,9 +62,11 @@
                         <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu
                             isporuke.</p>
 
-                        <form method="POST">
+                        <form method="POST" action="{{ url('checkout.step1') }}">
+                            @csrf
                             @foreach($customer->address as $address)
                                 @address([
+                                  'id' => $address->id,
                                   'name' => $address->name,
                                   'telephone' => $address->phone,
                                   'street' => $address->address,

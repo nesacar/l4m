@@ -201,6 +201,10 @@ class Product extends Model
         return $this->belongsToMany(Attribute::class)->where('property_id', 11);
     }
 
+    public function scopeSame(){
+        return $this->where('id', '<>', $this->id)->where('code', $this->code);
+    }
+
     public function colors(){
         return $this->belongsToMany(Attribute::class)->where('property_id', 9);
     }
