@@ -22,7 +22,7 @@
                       'disabled' => false,
                     ],
                     (object)[
-                      'link' => '/placanje/nacim-placanja',
+                      'link' => '/placanje/nacin-placanja',
                       'text' => 'Način plaćanja',
                       'disabled' => true,
                     ],
@@ -40,41 +40,42 @@
                 ])
                 @endstepper
             </div>
-            <div class="checkout-content my-4">
-                <section class="checkout-details mb-2">
-                    <div class="checkout-detail">
-                        <div class="checkout-detail_header">
-                            <h4 class="text--bold text--sans-serif display-5 no-margin">
-                                Način dostave
-                            </h4>
-                        </div>
-                        <div class="checkout-detail_body">
-                            <div class="checkout-detail_line">
-                                @radio([
-                                  'id' => 'radio-1',
-                                  'name' => 'shipping',
-                                  'value' => 'dhl',
-                                  'checked' => true,
-                                  'label' => 'DHL',
-                                ])
-                                @endradio
+            <form action="{{ route('checkout.step2') }}" method="POST">
+                @csrf
+                <div class="checkout-content my-4">
+                    <section class="checkout-details mb-2">
+                        <div class="checkout-detail">
+                            <div class="checkout-detail_header">
+                                <h4 class="text--bold text--sans-serif display-5 no-margin">
+                                    Način dostave
+                                </h4>
                             </div>
-                            <div class="checkout-detail_line">
-                                @radio([
-                                  'id' => 'radio-2',
-                                  'name' => 'shipping',
-                                  'value' => 'post-express',
-                                  'label' => 'PostExpress',
-                                ])
-                                @endradio
+                            <div class="checkout-detail_body">
+                                <div class="checkout-detail_line">
+                                    @radio([
+                                      'id' => 'radio-1',
+                                      'name' => 'shipping',
+                                      'value' => 'dhl',
+                                      'checked' => true,
+                                      'label' => 'DHL',
+                                    ])
+                                    @endradio
+                                </div>
+                                <div class="checkout-detail_line">
+                                    @radio([
+                                      'id' => 'radio-2',
+                                      'name' => 'shipping',
+                                      'value' => 'post-express',
+                                      'label' => 'PostExpress',
+                                    ])
+                                    @endradio
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <a class="btn btn--primary"
-                   href="/checkout/payment"
-                >nastavi</a>
-            </div>
+                    </section>
+                    <button class="btn btn--primary" type="submit">nastavi</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

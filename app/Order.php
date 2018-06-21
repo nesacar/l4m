@@ -18,6 +18,14 @@ class Order extends Model
         });
     }
 
+    public static function cartUpdate(){
+        if(count(request('rowIds'))>0){
+            for($i=0;$i<count(request('rowIds'));$i++){
+                \Cart::update(request('rowIds')[$i], ['qty' => request('qty')[$i]]);
+            }
+        }
+    }
+
     public function shoppingCart(){
         return $this->belongsTo(ShoppingCart::class);
     }

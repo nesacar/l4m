@@ -22,7 +22,7 @@
                       'disabled' => true,
                     ],
                     (object)[
-                      'link' => '/placanje/nacim-placanja',
+                      'link' => '/placanje/nacin-placanja',
                       'text' => 'Način plaćanja',
                       'disabled' => true,
                     ],
@@ -62,7 +62,7 @@
                         <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu
                             isporuke.</p>
 
-                        <form method="POST" id="address-form" action="{{ url('checkout.step1') }}">
+                        <form method="POST" id="address-form" action="{{ route('checkout.step1') }}">
                             @csrf
                             @foreach($customer->address as $address)
                                 @address([
@@ -151,12 +151,18 @@
 @endsection
 
 @section('scripts')
-<script>
-  (function() {
-    var form = document.getElementById('address-form');
-    form.onchange = function() {
-      form.submit();
-    }
-  }());
-</script>
+    <script>
+        (function () {
+            var form = document.getElementById('address-form');
+            @if(count($customer->address) == 1)
+            form.onclick = function (e) {
+                form.submit();
+            }
+            @else
+            form.onchange = function (e) {
+                form.submit();
+            }
+            @endif
+        }());
+    </script>
 @endsection

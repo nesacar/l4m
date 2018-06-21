@@ -20,9 +20,10 @@
     </div>
   </div>
   <div class="cart_table-cell cart_entry-column">
+    <input type="hidden" name="rowIds[]" value="{{ $product->rowId }}">
     @counter([
       'id' => $product->id,
-      'name' => 'Količina',
+      'name' => 'qty[]',
       'value' => $product->qty,
     ])
     @endcounter

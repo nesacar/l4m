@@ -36,8 +36,8 @@ class ShoppingCart extends Model
     public static function store(){
         if(!empty(\Cart::content())){
             $shoppingCart = ShoppingCart::create([
-                'customer_id' => 1,
-                'payment_id' => 1,
+                'customer_id' => auth()->id(),
+                'payment_id' => session('payment'),
             ]);
             foreach (\Cart::content() as $product){
 
@@ -56,6 +56,7 @@ class ShoppingCart extends Model
             }
             $shoppingCart->update(['price' => self::$price, 'total' => self::$total]);
             \Cart::destroy();
+            session()->forget(['address', 'shipping', 'payment']);
             return true;
         }
         return false;

@@ -39,9 +39,14 @@ Route::get('placanje/adresa-slanja', 'CheckoutController@step1');
 Route::post('placanje/adresa-slanja', 'CheckoutController@step1Update')->name('checkout.step1');
 
 Route::get('placanje/nacin-slanja', 'CheckoutController@step2');
+Route::post('placanje/nacin-slanja', 'CheckoutController@step2Update')->name('checkout.step2');
 
-Route::get('placanje/nacim-placanja', 'CheckoutController@step3');
+Route::get('placanje/nacin-placanja', 'CheckoutController@step3');
+Route::post('placanje/nacin-placanja', 'CheckoutController@step3Update')->name('checkout.step3');
+
 Route::get('placanje/potvrda-porudzbine', 'CheckoutController@step4');
+Route::post('placanje/potvrda-porudzbine', 'CheckoutController@step4Update')->name('checkout.step4');
+
 Route::get('placanje/kraj', 'CheckoutController@step5');
 
 Route::post('nova-adresa', 'ProfilesController@createAddress')->name('create.address');
@@ -96,6 +101,7 @@ Route::post('korpa', 'CartsController@getIds');
 Route::post('korpa/{id}/add', 'CartsController@add');
 Route::post('korpa/{id}/remove', 'CartsController@remove');
 Route::get('korpa/store', 'CartsController@store');
+Route::post('korpa/update', 'CartsController@update')->name('cart.update');
 
 Route::get('logovanje', 'CustomersController@login');
 Route::get('registracija', 'CustomersController@register');

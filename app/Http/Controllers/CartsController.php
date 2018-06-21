@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MenuLink;
+use App\Order;
 use App\Product;
 use App\ShoppingCart;
 use App\ShoppingCartOld;
@@ -18,7 +19,7 @@ class CartsController extends Controller
     public function __construct()
     {
         $this->theme = Theme::getTheme();
-        //$this->middleware('auth')->only('store');
+        $this->middleware('auth')->only('store');
     }
 
     /**
@@ -26,7 +27,8 @@ class CartsController extends Controller
      */
     public function index(){
         $menu = MenuLink::getMenu();
-        return view('themes.' . $this->theme . '.pages.cart', compact('menu'));
+        $cart = \Cart::content();
+        return view('themes.' . $this->theme . '.pages.cart', compact('menu', 'cart'));
     }
 
     /**
@@ -37,7 +39,7 @@ class CartsController extends Controller
         $product = Product::withoutGlobalScope('attribute')->find($id);
         if(self::isExists($product) == false){
             $price = (float) $product->totalPrice;
-            \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $price]);
+            \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $price, 'options' => ['brand' => $product->brand->title]]);
 
             return response([
                 'message' => 'added'
@@ -71,7 +73,7 @@ class CartsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(){
-        $res = ShoppingCart::store();
+        ShoppingCart::store();
         return redirect('/')->with('message', 'Korpa je sačuvana');
     }
 
@@ -90,5 +92,16 @@ class CartsController extends Controller
      */
     public function getIds(){
         return ShoppingCart::getIds();
+    }
+
+    /**
+     * Update shopping cart and redirect to the checkout
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request){
+        Order::cartUpdate();
+        return redirect('placanje/adresa-slanja');
     }
 }

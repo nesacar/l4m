@@ -57,7 +57,7 @@
                                 @endforeach
 
                             </div>
-                            <small class="product_section-follow-up">selected color name</small>
+                            <small class="product_section-follow-up">odaberite boju</small>
                         </div>
                     @endif
                     @if(count($sizes)>0)
