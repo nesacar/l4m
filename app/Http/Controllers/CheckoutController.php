@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\Customer;
 use App\MenuLink;
+use App\Shipping;
 use App\ShoppingCart;
 use App\Theme;
 use Illuminate\Http\Request;
@@ -51,7 +52,8 @@ class CheckoutController extends Controller
      */
     public function step2(){
         $menu = MenuLink::getMenu();
-        return view('themes.' . $this->theme . '.pages.checkout.shipping', compact('menu'));
+        $shippings = Shipping::where('publish', 1)->orderBy('order', 'ASC')->get();
+        return view('themes.' . $this->theme . '.pages.checkout.shipping', compact('menu', 'shippings'));
     }
 
     /**

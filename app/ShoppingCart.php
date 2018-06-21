@@ -10,7 +10,7 @@ class ShoppingCart extends Model
     protected static $price = 0;
     protected static $total = 0;
 
-    protected $fillable = ['customer_id', 'payment_id', 'coupon_id', 'price', 'tax', 'total', 'paid', 'paid_at'];
+    protected $fillable = ['customer_id', 'payment_id', 'coupon_id', 'shipping_id', 'address_id', 'price', 'tax', 'total', 'paid', 'paid_at'];
 
     /**
      * The "booting" method of the model.
@@ -37,6 +37,10 @@ class ShoppingCart extends Model
         static::addGlobalScope('address', function (Builder $builder) {
             $builder->with('address');
         });
+
+        static::deleting(function($cart){
+            $cart->order->each->delete();
+        });
     }
 
     public static function store(){
@@ -45,6 +49,7 @@ class ShoppingCart extends Model
                 'customer_id' => auth()->user()->customer->id,
                 'payment_id' => session('payment'),
                 'address_id' => session('address'),
+                'shipping_id' => session('shipping'),
             ]);
             foreach (\Cart::content() as $product){
 
@@ -93,5 +98,9 @@ class ShoppingCart extends Model
 
     public function address(){
         return $this->belongsTo(Address::class);
+    }
+
+    public function shipping(){
+        return $this->belongsTo(Shipping::class);
     }
 }

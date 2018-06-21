@@ -50,27 +50,22 @@
                                     Način dostave
                                 </h4>
                             </div>
-                            <div class="checkout-detail_body">
-                                <div class="checkout-detail_line">
-                                    @radio([
-                                      'id' => 'radio-1',
-                                      'name' => 'shipping',
-                                      'value' => 'dhl',
-                                      'checked' => true,
-                                      'label' => 'DHL',
-                                    ])
-                                    @endradio
+                            @if(count($shippings)>0)
+                                <div class="checkout-detail_body">
+                                    @foreach($shippings as $shipping)
+                                        <div class="checkout-detail_line">
+                                            @radio([
+                                              'id' => 'radio-' . $shipping->id,
+                                              'name' => 'shipping',
+                                              'value' => $shipping->id,
+                                              'checked' => true,
+                                              'label' => $shipping->title,
+                                            ])
+                                            @endradio
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <div class="checkout-detail_line">
-                                    @radio([
-                                      'id' => 'radio-2',
-                                      'name' => 'shipping',
-                                      'value' => 'post-express',
-                                      'label' => 'PostExpress',
-                                    ])
-                                    @endradio
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </section>
                     <button class="btn btn--primary" type="submit">nastavi</button>

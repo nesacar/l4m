@@ -27,8 +27,18 @@ class ShoppingCartsController extends Controller
 
     public function show($id){
         $shoppingCart = ShoppingCart::find($id);
+
         return response()->json([
             'shoppingCart' => $shoppingCart,
+        ]);
+    }
+
+    public function destroy($id){
+        $cart = ShoppingCart::find($id);
+        $cart->delete();
+
+        return response()->json([
+            'message' => 'done',
         ]);
     }
 
