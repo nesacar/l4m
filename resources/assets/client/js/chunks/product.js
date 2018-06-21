@@ -1,5 +1,4 @@
 import ImageZoomer from '../components/image-zoomer';
-import ImageGallery from '../components/image-gallery';
 import Dialog from '../components/dialog';
 import Siema from '../components/siema';
 

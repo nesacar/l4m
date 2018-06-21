@@ -1,3 +1,6 @@
+/**
+ * EventEmmiter class (message buss)
+ */
 class Emitter {
   /**
    * Creates new event emitter.

@@ -69,11 +69,11 @@
                     @endif
                     <div class="product_actions">
                         <button class="btn btn--primary btn--block js-cart-btn"
-                          data-event="cart"
+                          data-event="add:cart"
                         >dodaj u korpu
                         </button>
                         <button class="btn btn--outline btn--block"
-                          data-event="wishlist"
+                          data-event="add:wishlist"
                         >dodaj u listu želja
                         </button>
                     </div>

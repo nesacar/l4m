@@ -108,3 +108,7 @@
     opacity: .21;
   }
 }
+
+[data-event] > * {
+  pointer-events: none;
+}

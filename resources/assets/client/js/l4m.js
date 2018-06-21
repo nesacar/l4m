@@ -6,14 +6,12 @@ import Accordion from './components/accordion';
 import RevealAccordion from './components/reveal-accordion';
 import Siema from './components/siema';
 import { Toast } from './components/toast';
-import Store from './store';
-import View from './view';
-import Controller from './controller';
 import InvertableImage from './components/invertable-image';
 import InputField from './components/input-field';
 import Currency from './currency';
 
 import NavItem from './components/nav';
+import app from './app/app';
 
 export function init () {
   window.Toast = Toast;
@@ -27,17 +25,11 @@ export function init () {
   Currency.init();
   NavItem.init();
 
-  // Get initial state from the session
-  window.store = new Store('cart', function(data) {
-    cartController.setView(data);
-  });
-  window.view = new View();
-  window.cartController = new Controller(store, view);
-
-  window.addEventListener('load', function() {
+  window.addEventListener('load', () => {
     // Wait for evertything to load before applying images.
     InvertableImage.init();
-  });
+    app.init();
+  }, {once: true});
 
   const defaultOptions = {
     perPage: {

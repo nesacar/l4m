@@ -1,6 +1,6 @@
 @php $productItem = \App\Product::find($product->id); @endphp
 
-<div class="cart_table-row cart_entry js-cart-entry" data-id="{{$product->id}}">
+<div class="cart_table-row cart_entry js-product" data-id="{{$product->id}}">
   <div class="cart_table-cell expand--md">
     <div class="shop-item_image">
       <div class="image image--square lazy-image"
@@ -31,6 +31,6 @@
     <span class="shop-item_price-tag">{{ number_format($product->total, 2, ',', '.') }}</span>
   </div>
   <div class="cart_table-cell cart_entry-column">
-    <button class="icon-btn js-remove-entry">&times;</button>
+    <button class="icon-btn js-remove-entry" data-event="remove:cart">&times;</button>
   </div>
 </div>
