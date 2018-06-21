@@ -62,7 +62,7 @@
                         <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu
                             isporuke.</p>
 
-                        <div>
+                        <form method="POST">
                             @foreach($customer->address as $address)
                                 @address([
                                   'name' => $address->name,
@@ -73,7 +73,7 @@
                                 ])
                                 @endaddress
                             @endforeach
-                        </div>
+                        </form>
                     @endif
                 </section>
                 <section class="mb-4">
