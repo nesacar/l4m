@@ -37,7 +37,9 @@ Route::get('/registration', function () {
 
 Route::get('placanje/adresa-slanja', 'CheckoutController@step1');
 Route::post('placanje/adresa-slanja', 'CheckoutController@step1Update')->name('checkout.step1');
+
 Route::get('placanje/nacin-slanja', 'CheckoutController@step2');
+
 Route::get('placanje/nacim-placanja', 'CheckoutController@step3');
 Route::get('placanje/potvrda-porudzbine', 'CheckoutController@step4');
 Route::get('placanje/kraj', 'CheckoutController@step5');

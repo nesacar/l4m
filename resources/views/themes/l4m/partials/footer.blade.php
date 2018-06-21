@@ -97,9 +97,20 @@
             <div class="col-lg-2 col-md-3 footer_column">
                 <h4 class="section-title footer_section-title">za mene</h4>
                 <div class="footer_nav">
-                    <div class="footer_nav-item">
-                        <a href="{{ url('logovanje') }}">Logovanje</a>
-                    </div>
+                    @if(auth()->check())
+                        <div class="footer_nav-item">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Odjava
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    @else
+                        <div class="footer_nav-item">
+                            <a href="{{ url('logovanje') }}">Logovanje</a>
+                        </div>
+                    @endif
                     <div class="footer_nav-item">
                         <a href="{{ url('registracija') }}">Registracija</a>
                     </div>

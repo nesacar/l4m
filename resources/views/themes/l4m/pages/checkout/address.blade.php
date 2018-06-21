@@ -59,7 +59,8 @@
                     @if(count($customer->address)== 0)
                         <p>Nemate sačuvanu adresu. Molimo Vas da unesete novu.</p>
                     @else
-                        <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu isporuke.</p>
+                        <p>Odaberite adresu na koju želite da isporučimo Vašu porudžbenicu ili unesite novu adresu
+                            isporuke.</p>
 
                         <form method="POST" action="{{ url('checkout.step1') }}">
                             @csrf

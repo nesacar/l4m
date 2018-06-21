@@ -27,7 +27,8 @@ class CheckoutController extends Controller
     }
 
     public function step1Update(Request $request){
-        return request()->all();
+        session(['address_id' => 'id']);
+        return redirect('placanje/nacin-slanja')->with('message', 'Uspešno je odabrana adresa');
     }
 
     public function step2(){
