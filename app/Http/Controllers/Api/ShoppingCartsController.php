@@ -26,7 +26,7 @@ class ShoppingCartsController extends Controller
     }
 
     public function show($id){
-        $shoppingCart = ShoppingCart::find($id);
+        $shoppingCart = ShoppingCart::with('shipping')->with('address')->find($id);
 
         return response()->json([
             'shoppingCart' => $shoppingCart,

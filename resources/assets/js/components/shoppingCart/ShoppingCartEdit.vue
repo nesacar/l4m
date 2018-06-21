@@ -35,10 +35,11 @@
                                 <th scope="col">id</th>
                                 <th scope="col">naziv</th>
                                 <th scope="col">šifra</th>
+                                <th scope="col">kategorija</th>
                                 <th scope="col">slika</th>
                                 <th scope="col">veličina</th>
                                 <th scope="col">boja</th>
-                                <th scope="col">kategorija</th>
+                                <th scope="col">dostava</th>
                                 <th scope="col">vidljivo</th>
                             </tr>
                             </thead>
@@ -47,10 +48,11 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.product.title }}</td>
                                 <td>{{ row.product.code }}</td>
+                                <td v-if="row.product.category.length > 0">{{ row.product.category[0].title }}</td><td v-else>/</td>
                                 <td v-if="row.product.tmb"><a :href="row.product.link" target="_blank"><img :src="row.product.tmb" :alt="row.product.title"></a></td>
                                 <td>{{ row.size? row.size : '/' }}</td>
                                 <td>{{ row.color? row.color : '/' }}</td>
-                                <td v-if="row.product.category.length > 0">{{ row.product.category[0].title }}</td><td v-else>/</td>
+                                <td>{{ row.shipping.title }}</td>
                                 <td>{{ row.product.publish? 'Da' : 'Ne' }}</td>
                             </tr>
                             </tbody>

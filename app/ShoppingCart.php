@@ -34,10 +34,6 @@ class ShoppingCart extends Model
             $builder->with('order');
         });
 
-        static::addGlobalScope('address', function (Builder $builder) {
-            $builder->with('address');
-        });
-
         static::deleting(function($cart){
             $cart->order->each->delete();
         });
