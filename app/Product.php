@@ -10,6 +10,7 @@ use File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 //use DB;
+use Illuminate\Support\Facades\Cache;
 
 class Product extends Model
 {
@@ -202,7 +203,11 @@ class Product extends Model
     }
 
     public function scopeSame(){
-        return $this->where('id', '<>', $this->id)->where('code', $this->code);
+        return Cache::remember($this->id.'.colors', Helper::getMinutesToTheNextHour(), function () {
+            return $this->query()->with(['attribute' => function($query){
+                $query->select('id', 'title', 'extra')->where('property_id', 9)->first();
+            }])->where('id', '<>', $this->id)->where('code', $this->code)->get();
+        });
     }
 
     public function colors(){
