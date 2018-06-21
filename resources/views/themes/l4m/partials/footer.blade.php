@@ -95,10 +95,13 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 footer_column">
-                <h4 class="section-title footer_section-title">for me</h4>
+                <h4 class="section-title footer_section-title">za mene</h4>
                 <div class="footer_nav">
                     <div class="footer_nav-item">
-                        <a href="#">Login</a>
+                        <a href="{{ url('logovanje') }}">Logovanje</a>
+                    </div>
+                    <div class="footer_nav-item">
+                        <a href="{{ url('registracija') }}">Registracija</a>
                     </div>
                     <div class="footer_nav-item">
                         <a href="#">My orders</a>
