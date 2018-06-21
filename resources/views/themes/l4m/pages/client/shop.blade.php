@@ -11,10 +11,10 @@
 
     <section class="container" style="padding-top: 1px;">
         <div class="shop-results_header">
-            <div class="collapse--md shop_filter-btn">Filteri</div>
+            <div class="collapse--md shop_filter-btn js-filter-btn">Filteri</div>
             <div class="shop_sort-options">
                 <div class="shop_sort-label">Sortiraj po:</div>
-                <div class="shop_sort-options-wrap">
+                <div class="shop_sort-options-wrap" id="sort">
                     <div class="shop_sort-option">
                         <input
                                 type="radio"
