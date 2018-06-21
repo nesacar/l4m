@@ -1,4 +1,4 @@
-import {openHelper, closeHelper, bindTogglerWithTarget} from '../utils';
+import {closeHelper, bindTogglerWithTarget} from '../utils';
 
 function init() {
   Array.from(document.querySelectorAll('.cc-drawer'))
