@@ -110,8 +110,8 @@ $spacer: 8px;
   }
 
   &_image-wrap {
-    // position: relative;
-    // overflow: hidden;
+    border: 2px solid #FFF;
+
     .loading & {
       flex-shrink: 0;
       width: 100% !important;
