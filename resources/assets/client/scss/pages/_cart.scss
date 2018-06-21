@@ -2,6 +2,10 @@
   padding-top: 4 * $base-line;
   padding-bottom: 4 * $base-line;
 
+  &_entry:not(.is-in-cart) {
+    display: none !important;
+  }
+
   &_heading {
     font-family: $font-family-roboto;
     text-transform: uppercase;
