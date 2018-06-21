@@ -34,10 +34,18 @@
                         @endif
                         <span class="shop-item_price-tag">@currency(['price' => $product->totalPrice]) @endcurrency</span>
                     </div>
-                    @if(count($colors)>0)
+                    @if(count($colors)>0 || $product->checkColor())
                         <div class="product_section">
                             <div class="product_section-title">boja</div>
                             <div>
+                                @if($product->checkColor())
+                                    @color([
+                                      'colorName' => $activeColor->title,
+                                      'colorValue' => $activeColor->extra,
+                                      'link' => $product->link,
+                                    ])
+                                    @endcolor
+                                @endif
                                 @foreach($colors as $product)
                                     @color([
                                       'colorName' => $product->attribute->first()? $product->attribute->first()->title: '',

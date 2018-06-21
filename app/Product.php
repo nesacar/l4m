@@ -33,6 +33,8 @@ class Product extends Model
 
     protected static $simplePaginate = 16;
 
+    protected static $colorId = 9;
+
     /**
      * The "booting" method of the model.
      *
@@ -150,6 +152,46 @@ class Product extends Model
         return ($this->price_outlet != null || $this->price_outlet) != 0 ? $this->price_outlet: $this->price;
     }
 
+    public function sizes(){
+        return $this->belongsToMany(Attribute::class)->where('property_id', 11);
+    }
+
+    public function scopeSame(){
+        return Cache::remember($this->id.'.colors', Helper::getMinutesToTheNextHour(), function () {
+            return $this->query()->with(['attribute' => function($query){
+                $query->select('id', 'title', 'extra')->where('property_id', self::$colorId)->first();
+            }])->where('id', '<>', $this->id)->where('code', $this->code)->get();
+        });
+    }
+
+    public function colors(){
+        return $this->belongsToMany(Attribute::class)->where('property_id', self::$colorId);
+    }
+
+    public function checkColor(){
+        $res = false;
+        if(count($this->attribute)>0){
+            foreach ($this->attribute as $attribute){
+                if($attribute->property_id == self::$colorId){
+                    $res = true;
+                }
+            }
+        }
+        return $res;
+    }
+
+    public function getColor(){
+        $res = false;
+        if(count($this->attribute)>0){
+            foreach ($this->attribute as $attribute){
+                if($attribute->property_id == self::$colorId){
+                    $res = $attribute;
+                }
+            }
+        }
+        return $res;
+    }
+
     public function brand(){
         return $this->belongsTo(Brand::class);
     }
@@ -196,21 +238,5 @@ class Product extends Model
 
     public function client(){
         return $this->belongsTo(Client::class);
-    }
-
-    public function sizes(){
-        return $this->belongsToMany(Attribute::class)->where('property_id', 11);
-    }
-
-    public function scopeSame(){
-        return Cache::remember($this->id.'.colors', Helper::getMinutesToTheNextHour(), function () {
-            return $this->query()->with(['attribute' => function($query){
-                $query->select('id', 'title', 'extra')->where('property_id', 9)->first();
-            }])->where('id', '<>', $this->id)->where('code', $this->code)->get();
-        });
-    }
-
-    public function colors(){
-        return $this->belongsToMany(Attribute::class)->where('property_id', 9);
     }
 }

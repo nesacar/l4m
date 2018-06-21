@@ -52,7 +52,7 @@ class ShopController extends Controller
         Category::setPrimaryCategory($slug1);
         $menu = MenuLink::getMenu();
         if(is_numeric($slug3)){
-            $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
+            $product = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
                 $query->with('children');
             }])->with('photo')->find($slug3);
             $category = Category::whereSlug($slug1)->first();
@@ -61,7 +61,8 @@ class ShopController extends Controller
             $breadcrumb = $product->getBreadcrumb($slug1);
             $sizes = $product->sizes()->get();
             $colors = $product->same();
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors'));
+            $activeColor = $product->getColor();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors', 'activeColor'));
         }else{
             $parent1 = Category::whereSlug($slug1)->first();
             $parent2 = Category::where('parent', $parent1->id)->whereSlug($slug2)->first();
@@ -79,7 +80,7 @@ class ShopController extends Controller
         Category::setPrimaryCategory($slug1);
         $menu = MenuLink::getMenu();
         if(is_numeric($slug4)){
-            $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
+            $product = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
                 $query->with('children');
             }])->with('photo')->find($slug4);
             $category = Category::whereSlug($slug2)->first();
@@ -88,7 +89,8 @@ class ShopController extends Controller
             $breadcrumb = $product->getBreadcrumb($slug1);
             $sizes = $product->sizes()->get();
             $colors = $product->same();
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors'));
+            $activeColor = $product->getColor();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors','activeColor'));
         }else{
             $category = Category::whereSlug($slug4)->first();
             $data = Product::search($category);
@@ -104,7 +106,7 @@ class ShopController extends Controller
         Category::setPrimaryCategory($slug1);
         $menu = MenuLink::getMenu();
         if(is_numeric($slug5)){
-            $product = Product::withoutGlobalScope('attribute', 'category')->with(['category' => function($query){
+            $product = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
                 $query->with('children');
             }])->with('photo')->find($slug5);
             $category = Category::whereSlug($slug3)->first();
@@ -113,7 +115,8 @@ class ShopController extends Controller
             $breadcrumb = $product->getBreadcrumb($slug1);
             $sizes = $product->sizes()->get();
             $colors = $product->same();
-            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors'));
+            $activeColor = $product->getColor();
+            return view('themes.' . $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors', 'activeColor'));
         }else{
             $category = Category::whereSlug($slug5)->first();
             $data = Product::search($category);
