@@ -1,5 +1,5 @@
 <div class="address">
-  <input class="address-selector" name="address" type="radio">
+  <input class="address-selector" name="address" value="{{ $id }}" type="radio" checked>
   <div class="address-body text--body2">
     <div class="address-row">
       <span class="text--bold">Ime i prezime:</span>

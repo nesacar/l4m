@@ -26,6 +26,10 @@ class CheckoutController extends Controller
         return view('themes.' . $this->theme . '.pages.checkout.address', compact('menu', 'customer'));
     }
 
+    public function step1Update(Request $request){
+        return request()->all();
+    }
+
     public function step2(){
         $menu = MenuLink::getMenu();
         return view('themes.' . $this->theme . '.pages.checkout.shipping', compact('menu'));

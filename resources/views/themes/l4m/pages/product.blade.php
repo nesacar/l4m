@@ -34,28 +34,23 @@
                         @endif
                         <span class="shop-item_price-tag">@currency(['price' => $product->totalPrice]) @endcurrency</span>
                     </div>
-                    <div class="product_section">
-                        <div class="product_section-title">boja</div>
-                        <div>
-                            @color([
-                              'colorName' => 'Zelena',
-                              'colorValue' => 'olivedrab',
-                            ])
-                            @endcolor
-                            @color([
-                              'colorName' => 'Plava',
-                              'colorValue' => 'royalblue',
-                              'checked' => true,
-                            ])
-                            @endcolor
-                            @color([
-                              'colorName' => 'Siva',
-                              'colorValue' => 'lightgray',
-                            ])
-                            @endcolor
+                    @if(count($colors)>0)
+                        <div class="product_section">
+                            <div class="product_section-title">boja</div>
+                            <div>
+                                @foreach($colors as $product)
+                                    @color([
+                                      'colorName' => $product->attribute->first()? $product->attribute->first()->title: '',
+                                      'colorValue' => $product->attribute->first()? $product->attribute->first()->extra: '',
+                                      'link' => $product->link,
+                                    ])
+                                    @endcolor
+                                @endforeach
+
+                            </div>
+                            <small class="product_section-follow-up">selected color name</small>
                         </div>
-                        <small class="product_section-follow-up">selected color name</small>
-                    </div>
+                    @endif
                     @if(count($sizes)>0)
                         <div class="product_section">
                             <div class="product_section-title">veličina</div>
