@@ -1,15 +1,11 @@
 import ImageZoomer from '../components/image-zoomer';
 import Dialog from '../components/dialog';
-import Siema from '../components/siema';
+import {createCarousel} from '../components/carousel';
 
 (function() {
   const ACTIVE_CLASS = 'active';
   const CONFIG = {
-    selector: '.demo-siema',
     perPage: 1,
-    onInit: function() {
-      this.selector.classList.remove('loading');
-    },
     onChange: _onChange,
   };
 
@@ -33,7 +29,7 @@ import Siema from '../components/siema';
    */
   function _init() {
     zoomer = new ImageZoomer(document.querySelector('.js-zoomer'));
-    slider = new Siema(CONFIG);
+    slider = createCarousel('.demo-siema', CONFIG);
 
     dialog = new Dialog(document.querySelector('.js-dialog'));
     $zoomTrigger = document.querySelector('.js-zoomer-trigger');
