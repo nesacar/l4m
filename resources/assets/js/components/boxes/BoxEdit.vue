@@ -26,6 +26,7 @@
                             :image="box.image"
                             :defaultImage="null"
                             :titleImage="'slajda'"
+                            :dimensions="'996x300'"
                             :error="error"
                             @uploadImage="upload($event)"
                             @removeRow="remove($event)"
