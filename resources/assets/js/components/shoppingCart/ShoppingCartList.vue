@@ -36,7 +36,7 @@
                             <tbody>
                             <tr v-for="row in shoppingCarts">
                                 <td>{{ row.id }}</td>
-                                <td>{{ row.customer.user.name }}</td>
+                                <td><span v-if="row.customer">{{ row.customer.user.name }}</span><span v-else>/</span></td>
                                 <td>{{ formatPrice(row.total) }} rsd</td>
                                 <td>{{ row.order.length }}</td>
                                 <td>{{ row.paid? 'Plaćeno' : 'Na čekanju' }}</td>
@@ -84,6 +84,7 @@
                 axios.get('api/shopping-carts')
                     .then(res => {
                         this.shoppingCarts = res.data.shoppingCarts.data;
+                        console.log(this.shoppingCarts);
                         this.paginate = res.data.shoppingCarts;
                     })
                     .catch(e => {
