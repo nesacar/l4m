@@ -27,7 +27,7 @@ class ProfilesController extends Controller
     }
 
     public function emailConfirmation($slug){
-        $customer = Customer::where('verification', $slug)->first();
+        $customer = Customer::where('activation', $slug)->first();
         $customer->update(['active' => 1]);
 
         auth()->loginUsingId($customer->user->id, true);

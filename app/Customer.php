@@ -30,10 +30,11 @@ class Customer extends Model
     public static function checkCustomer($user){
         if(empty($user->customer)){
             $customer = new Customer();
-            $customer->user_id = auth()->id();
+            $customer->user_id = $user->id;
+            $customer->activation = str_random(32);
             $customer->save();
         }
-        return self::where('user_id', auth()->id())->first();
+        return self::where('user_id', $user->id)->first();
     }
 
     public static function createCustomer(){
