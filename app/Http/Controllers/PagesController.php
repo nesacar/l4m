@@ -42,7 +42,7 @@ class PagesController extends Controller
         $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
         $slider = Block::getSlider();
-        $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
+        $categories = Category::where(['parent' => session('category_id'), 'publish' => 1, 'featured' => 1])->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
         $menu = MenuLink::getMenu();
@@ -56,7 +56,7 @@ class PagesController extends Controller
         $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
         $slider = Block::getSlider();
-        $categories = Category::where('parent', 0)->where('publish', 1)->orderBy('order', 'ASC')->get();
+        $categories = Category::where(['parent' => session('category_id'), 'publish' => 1, 'featured' => 1])->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();
         Seo::home($this->settings);
         $menu = MenuLink::getMenu();

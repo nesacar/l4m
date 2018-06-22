@@ -7,14 +7,6 @@
 
 @section('content')
 
-    {{-- @component('themes.' . $theme . '.components.masthead-carousel', [
-      'data' => $slider,
-      'options' => (object)[
-        'controls' => false,
-        'fullWidth' => true,
-      ],
-    ])
-    @endcomponent --}}
     @homepagecarousel([
       'data' => $slider,
       'options' => (object)[

@@ -11,7 +11,7 @@ class Category extends Model
 {
     use UploudableImageTrait;
 
-    protected $fillable = ['title', 'slug', 'seoTitle', 'seoKeywords', 'seoShort', 'order', 'parent', 'level', 'image', 'box_image', 'publish'];
+    protected $fillable = ['title', 'slug', 'seoTitle', 'seoKeywords', 'seoShort', 'order', 'parent', 'level', 'image', 'box_image', 'featured', 'publish'];
 
     protected static function boot(){
         parent::boot();
@@ -83,6 +83,10 @@ class Category extends Model
 
     public function setSlugAttribute($value){
         $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
+    }
+
+    public function setFeaturedAttribute($value){
+        $this->attributes['featured'] = $value?: false;
     }
 
     public function setPublishAttribute($value){

@@ -5,8 +5,12 @@
                 <div class="col-md-12">
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
-                            <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/categories'">Kategorije proizvoda</router-link></li>
+                            <li>
+                                <router-link tag="a" :to="'/home'">Početna</router-link>
+                            </li>
+                            <li>
+                                <router-link tag="a" :to="'/categories'">Kategorije proizvoda</router-link>
+                            </li>
                             <li>Kreiranje kategorije</li>
                         </ul>
                     </div>
@@ -28,37 +32,61 @@
                                 <select name="category" id="category" class="form-control" v-model="category.parent">
                                     <option :value="index" v-for="(parent, index) in lists">{{ parent }}</option>
                                 </select>
-                                <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
+                                <small class="form-text text-muted" v-if="error != null && error.parent">{{
+                                    error.parent[0] }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="category.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov"
+                                       v-model="category.title">
+                                <small class="form-text text-muted" v-if="error != null && error.title">{{
+                                    error.title[0] }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="category.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
+                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug"
+                                       v-model="category.slug">
+                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0]
+                                    }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="order">Redosled</label>
-                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="category.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
+                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled"
+                                       v-model="category.order">
+                                <small class="form-text text-muted" v-if="error != null && error.order">{{
+                                    error.order[0] }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="seoTitle">Seo naslov</label>
-                                <input type="text" name="short" id="seoTitle" class="form-control" placeholder="Seo naslov" v-model="category.seoTitle">
-                                <small class="form-text text-muted" v-if="error != null && error.seoTitle">{{ error.seoTitle[0] }}</small>
+                                <input type="text" name="short" id="seoTitle" class="form-control"
+                                       placeholder="Seo naslov" v-model="category.seoTitle">
+                                <small class="form-text text-muted" v-if="error != null && error.seoTitle">{{
+                                    error.seoTitle[0] }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="seoKeywords">Seo ključne reči</label>
-                                <input type="text" name="seoKeywords" id="seoKeywords" class="form-control" placeholder="Seo ključne reči" v-model="category.seoKeywords">
-                                <small class="form-text text-muted" v-if="error != null && error.seoKeywords">{{ error.seoKeywords[0] }}</small>
+                                <input type="text" name="seoKeywords" id="seoKeywords" class="form-control"
+                                       placeholder="Seo ključne reči" v-model="category.seoKeywords">
+                                <small class="form-text text-muted" v-if="error != null && error.seoKeywords">{{
+                                    error.seoKeywords[0] }}
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="short">Seo opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Seo opis" v-model="category.seoShort"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.seoShort">{{ error.seoShort[0] }}</small>
+                                <textarea name="short" id="short" cols="3" rows="4" class="form-control"
+                                          placeholder="Seo opis" v-model="category.seoShort"></textarea>
+                                <small class="form-text text-muted" v-if="error != null && error.seoShort">{{
+                                    error.seoShort[0] }}
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label>Istaknuto</label><br>
+                                <switches v-model="category.featured" theme="bootstrap" color="primary"></switches>
                             </div>
                             <div class="form-group">
                                 <label>Publikovano</label><br>
@@ -87,7 +115,7 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
+    import {apiHost} from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
@@ -96,23 +124,26 @@
 
     export default {
         data(){
-          return {
-              image: {},
-              category: {},
-              lists: {},
-              error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
-              domain : apiHost
-          }
+            return {
+                image: {},
+                category: {},
+                lists: {},
+                error: null,
+                config: {
+                    toolbar: [
+                        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source'],
+                        {
+                            name: 'paragraph',
+                            items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                        },
+                        '/',
+                        {name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize']},
+                    ],
+                    height: 300,
+                    filebrowserBrowseUrl: 'filemanager/show'
+                },
+                domain: apiHost
+            }
         },
         computed: {
             user(){
@@ -143,9 +174,9 @@
                         });
                         this.$router.push('/categories');
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             prepare(image){
                 this.category.image = image.src;
@@ -158,18 +189,18 @@
                         this.category.image = res.data.image;
                         this.error = null;
                     }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e);
+                    this.error = e.response.data.errors;
+                });
             },
             getList(){
                 axios.get('api/categories/lists?parent=1')
                     .then(res => {
                         this.lists = res.data.categories;
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
         }
     }

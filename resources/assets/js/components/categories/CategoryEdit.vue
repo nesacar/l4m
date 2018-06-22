@@ -45,6 +45,10 @@
                             <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
                         </div>
                         <div class="form-group">
+                            <label>Istaknuto</label><br>
+                            <switches v-model="category.featured" theme="bootstrap" color="primary"></switches>
+                        </div>
+                        <div class="form-group">
                             <label>Publikovano</label><br>
                             <switches v-model="category.publish" theme="bootstrap" color="primary"></switches>
                         </div>
