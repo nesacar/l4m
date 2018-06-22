@@ -31,7 +31,7 @@
                                 <th scope="col">ime</th>
                                 <th scope="col">email</th>
                                 <th scope="col">korpe</th>
-                                <th scope="col">mesto</th>
+                                <th scope="col">grad</th>
                                 <th scope="col">kreiran</th>
                                 <th>akcija</th>
                             </tr>
@@ -39,10 +39,10 @@
                             <tbody>
                             <tr v-for="row in customers">
                                 <td>{{ row.id }}</td>
-                                <td>{{ row.name }}</td>
+                                <td>{{ row.user.name }}</td>
                                 <td>{{ row.user.email }}</td>
-                                <td>{{ row.order_count }}</td>
-                                <td>{{ row.town }}</td>
+                                <td>{{ row.shopping_cart_count }}</td>
+                                <td>{{ row.shopping_cart[0].address.town }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="pencil-alt" @click="editRow(row)"/>
@@ -86,6 +86,7 @@
                 axios.get('api/customers')
                     .then(res => {
                         this.customers = res.data.customers.data;
+                        console.log(this.customers);
                         this.paginate = res.data.customers;
                     })
                     .catch(e => {

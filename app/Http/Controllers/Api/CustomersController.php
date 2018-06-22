@@ -23,7 +23,9 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $customers = Customer::withCount('order')->orderBy('created_at', 'DESC')->paginate(50);
+        $customers = Customer::withCount('shoppingCart')->with(['shoppingCart' => function($query){
+            $query->withoutGlobalScope('payment')->withoutGlobalScope('customer')->withoutGlobalScope('order')->with('address');
+        }])->orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'customers' => $customers,

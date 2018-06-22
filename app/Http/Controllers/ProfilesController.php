@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Customer;
 use App\Http\Requests\CreateAddressRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
 {
@@ -22,5 +24,14 @@ class ProfilesController extends Controller
         $array['customer_id'] = auth()->user()->customer->id;
         Address::create($array);
         return redirect('placanje/adresa-slanja');
+    }
+
+    public function emailConfirmation($slug){
+        $customer = Customer::where('verification', $slug)->first();
+        $customer->update(['active' => 1]);
+
+        auth()->loginUsingId($customer->user->id, true);
+
+        return redirect('profile');
     }
 }

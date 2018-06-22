@@ -128,6 +128,17 @@
                                 @endtextfield
                             </div>
                             <div class="col-md-6">
+                                @textfield([
+                                  'value' => old('postcode'),
+                                  'id' => 'postcode',
+                                  'name' => 'postcode',
+                                  'label' => 'Poštanski broj',
+                                  'required' => true,
+                                  'error_message' => $errors->has('postcode')? $errors->first('postcode'): '',
+                                ])
+                                @endtextfield
+                            </div>
+                            <div class="col-md-6">
                                 @selectbox([
                                   'id' => 'Država',
                                   'name' => 'country',

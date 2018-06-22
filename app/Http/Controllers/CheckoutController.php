@@ -29,7 +29,6 @@ class CheckoutController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function step1(){
-        $customer = Customer::checkCustomer();
         $menu = MenuLink::getMenu();
         return view('themes.' . $this->theme . '.pages.checkout.address', compact('menu', 'customer'));
     }

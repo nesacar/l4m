@@ -1,20 +1,7 @@
 <?php
 
-use App\MenuLink;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 // filemanager
-Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
+Route::middleware('admin')->get('filemanager/show', 'FilemanagerController@index');
 
 Route::get('/', 'PagesController@index');
 
@@ -26,11 +13,6 @@ Route::post('unSubscribe/{verification}', 'SubscribersController@unSubscribe');
 
 Route::get('/admin', function () {
     return view('layouts.admin-app');
-});
-
-Route::get('/registration', function () {
-    $menu = MenuLink::getMenu();
-    return view('themes.l4m.pages.registration', compact('menu'));
 });
 
 // Checkout steps.
@@ -51,35 +33,15 @@ Route::get('placanje/kraj', 'CheckoutController@step5');
 
 Route::post('nova-adresa', 'ProfilesController@createAddress')->name('create.address');
 
-Route::get('checkout/address', function () {
-    $menu = MenuLink::getMenu();
-    return view('themes.l4m.pages.checkout.address', compact('menu'));
-});
-Route::get('checkout/shipping', function () {
-    $menu = MenuLink::getMenu();
-    return view('themes.l4m.pages.checkout.shipping', compact('menu'));
-});
+Route::get('profile/{registration}/confirmation', 'ProfilesController@emailConfirmation');
+Route::get('profile', 'ProfilesController@profile');
 
-Route::get('checkout/payment', function () {
-    $menu = MenuLink::getMenu();
-    return view('themes.l4m.pages.checkout.payment', compact('menu'));
-});
-Route::get('checkout/confirmation', function () {
-    $menu = MenuLink::getMenu();
-    return view('themes.l4m.pages.checkout.confirmation', compact('menu'));
-});
-Route::get('checkout/checkout', function () {
-    $menu = MenuLink::getMenu();
-    return view('themes.l4m.pages.checkout.checkout', compact('menu'));
-});
 // /Checkout steps.
 
 Route::get('register', 'CustomersController@register');
 Auth::routes();
 
 //Route::get('home', 'HomeController@index')->name('home');
-
-Route::get('profil', 'ProfilesController@profile');
 
 Route::get('proba', 'PagesController@proba');
 

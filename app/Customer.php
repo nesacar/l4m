@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Customer extends Model
 {
-    protected $fillable = ['user_id', 'active'];
+    protected $fillable = ['user_id', 'activation', 'active'];
 
     protected static function boot()
     {
@@ -18,17 +18,17 @@ class Customer extends Model
             $builder->with('user');
         });
 
-        static::addGlobalScope('address', function (Builder $builder) {
-            $builder->with('address');
-        });
+//        static::addGlobalScope('address', function (Builder $builder) {
+//            $builder->with('address');
+//        });
 
         static::deleting(function($customer){
             $customer->user->delete();
         });
     }
 
-    public static function checkCustomer(){
-        if(empty(auth()->user()->customer)){
+    public static function checkCustomer($user){
+        if(empty($user->customer)){
             $customer = new Customer();
             $customer->user_id = auth()->id();
             $customer->save();
@@ -45,7 +45,10 @@ class Customer extends Model
         $user->active = 0;
         $user->save();
 
-        return $user->customer()->create(request()->all());
+        $array = request()->all();
+        $array['activation'] = str_random(32);
+
+        return $user->customer()->create($array);
     }
 
     public static function updateCustomer($customer_id){
@@ -57,7 +60,10 @@ class Customer extends Model
         $user->active = request('active');
         $user->update();
 
-        $customer->update(request()->all());
+        $array = request()->all();
+        $array['activation'] = str_random(32);
+
+        $customer->update($array);
     }
 
     /**

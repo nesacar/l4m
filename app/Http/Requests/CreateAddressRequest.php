@@ -29,6 +29,7 @@ class CreateAddressRequest extends FormRequest
             'address' => 'required',
             'town' => 'required',
             'country' => 'required',
+            'postcode' => 'required',
         ];
     }
 
@@ -40,6 +41,7 @@ class CreateAddressRequest extends FormRequest
             'address.required' => 'Adresa je obavezna',
             'town.required' => 'Grad je obavezan',
             'country.required' => 'Država je obavezna',
+            'postcode.required' => 'Poštanski broj je obavezan',
         ];
     }
 }
