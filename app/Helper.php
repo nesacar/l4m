@@ -28,7 +28,7 @@ class Helper extends Model
     }
 
     public static function getMinutesToTheNextHour(){
-        return Carbon::now()->diffInMinutes(Carbon::now()->addHour()->format('Y-m-d H:00:00'));
-        //return 1;
+        //return Carbon::now()->diffInMinutes(Carbon::now()->addHour()->format('Y-m-d H:00:00'));
+        return 0;
     }
 }
