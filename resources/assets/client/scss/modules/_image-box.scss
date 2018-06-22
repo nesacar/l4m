@@ -104,7 +104,7 @@ $spacer: 8px;
     }
   }
   
-  .loading {
+  .is-loading {
     display: flex;
     flex-wrap: nowrap;
   }
@@ -112,7 +112,7 @@ $spacer: 8px;
   &_image-wrap {
     border: 2px solid #FFF;
 
-    .loading & {
+    .is-loading & {
       flex-shrink: 0;
       width: 100% !important;
       max-width: none;
