@@ -27,8 +27,8 @@ export const router = new VueRouter({
         { path: "/posts/:id/products", component: require('./components/posts/PostProducts.vue'), meta: { forAdmin: true } },
 
         { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAdmin: true } },
-        { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAdmin: true } },
-        { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAdmin: true } },
+        { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAuth: true } },
+        { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAuth: true } },
 
         { path: "/collections", component: require('./components/collections/CollectionList.vue'), meta: { forAdmin: true } },
         { path: "/collections/create", component: require('./components/collections/CollectionCreate.vue'), meta: { forAdmin: true } },

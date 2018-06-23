@@ -34,46 +34,23 @@
                 </div>
 
                 <div class="col-sm-8">
-                    <div class="card">
+                    <div class="card" v-if="brand">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="brand.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="brand.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="slug" class="form-control" id="order" placeholder="Redosled" v-model="brand.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="brand.short"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                    <label>Opis</label>
-                                <ckeditor
-                                        v-model="brand.body"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Kategorije</label>
-                                <select2 :options="categories" :multiple="true" :value="brand.category_ids" @input="input($event)">
-                                    <option value="0" disabled>select one</option>
-                                </select2>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="brand.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="brand.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="brand.title = $event"></text-field>
+
+                            <text-field :value="brand.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="brand.slug = $event"></text-field>
+
+                            <text-field :value="brand.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="brand.order = $event"></text-field>
+
+                            <text-area-field :value="brand.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="brand.short = $event"></text-area-field>
+
+                            <text-area-ckeditor-field :value="brand.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="brand.body = $event"></text-area-ckeditor-field>
+
+                            <select2-field :value="brand.category_ids" :lists="categories" :label="'Kategorije'" @changeValue="brand.category_ids = $event"></select2-field>
+
+                            <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>
@@ -115,33 +92,17 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
-    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
-              brand: {
-                  desc: null,
-                  publish: false,
-              },
+              brand: false,
               gallery: {},
               lists: {},
               categories: {},
               error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
               dropzoneOptions: {
                   url: 'api/brands/' + this.$route.params.id + '/gallery',
                   thumbnailWidth: 150,
@@ -159,10 +120,7 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor,
             'vue-dropzone': vue2Dropzone,
-            'select2': Select2,
         },
         mounted(){
             this.getGallery();
@@ -174,6 +132,7 @@
                     .then(res => {
                         this.brand = res.data.brand;
                         this.brand.category_ids = res.data.category_ids;
+                        console.log(this.brand);
                     })
                     .catch(e => {
                         console.log(e);
@@ -278,9 +237,6 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
-            },
-            input(category){
-                this.brand.category_ids = category;
             },
         }
     }

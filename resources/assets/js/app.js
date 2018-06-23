@@ -30,6 +30,12 @@ Vue.component('upload-pdf-helper', require('./components/helper/UploadPdfHelper.
 Vue.component('select2-helper', require('./components/helper/Select2Helper.vue'));
 Vue.component('preview-image', require('./components/helper/PreviewImage.vue'));
 
+/** FORM HELPER **/
+Vue.component('text-field', require('./components/helper/form/TextField.vue'));
+Vue.component('text-area-field', require('./components/helper/form/TextAreaField.vue'));
+Vue.component('text-area-ckeditor-field', require('./components/helper/form/TextAreaCKeditorField.vue'));
+Vue.component('select2-field', require('./components/helper/form/Select2Field.vue'));
+Vue.component('checkbox-field', require('./components/helper/form/CheckBoxField.vue'));
 
 import { store } from './store/store';
 import { router } from './routes';
