@@ -23,46 +23,21 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="brand">Brend</label>
-                                <select name="brand" id="brand" class="form-control" v-model="collection.brand_id">
-                                    <option value="0" selected>Odaberite brend</option>
-                                    <option :value="brand.id" v-for="brand in lists">{{ brand.title }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.brand_id">{{ error.brand_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="collection.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="collection.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="slug" class="form-control" id="order" placeholder="Redosled" v-model="collection.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="collection.short"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                    <label>Opis</label>
-                                <ckeditor
-                                        v-model="collection.body"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="collection.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <select2-field :lists="lists" :label="'Brend'" :error="error? error.brand_id : ''" :required="true" @changeValue="collection.brand_id = $event"></select2-field>
+
+                            <text-field :value="collection.title" :label="'Naziv'" :error="error? error.title : ''" :required="true" @changeValue="collection.title = $event"></text-field>
+
+                            <text-field :value="collection.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="collection.slug = $event"></text-field>
+
+                            <text-field :value="collection.order" :label="'Redosled'" :error="error? error.order : ''" :required="true" @changeValue="collection.order = $event"></text-field>
+
+                            <text-area-field :value="collection.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="collection.short = $event"></text-area-field>
+
+                            <text-area-ckeditor-field :value="collection.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="collection.body = $event"></text-area-ckeditor-field>
+
+                            <checkbox-field :value="collection.publish" :label="'Publikovano'" @changeValue="collection.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -90,8 +65,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
 
     export default {
         data(){
@@ -104,16 +77,6 @@
               },
               lists: {},
               error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
               domain : apiHost
           }
         },
@@ -125,10 +88,8 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor
         },
-        created(){
+        mounted(){
             this.getList();
         },
         methods: {

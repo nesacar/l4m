@@ -21,32 +21,19 @@
                 </div>
 
                 <div class="col-sm-8">
-                    <div class="card">
+                    <div class="card" v-if="menu">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naziv" v-model="menu.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="prefix">Prefix</label>
-                                <input type="text" name="prefix" class="form-control" id="prefix" placeholder="Prefix" v-model="menu.prefix">
-                                <small class="form-text text-muted" v-if="error != null && error.prefix">{{ error.prefix[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="sufix">Sufix</label>
-                                <input type="text" name="sufix" class="form-control" id="sufix" placeholder="Sufix" v-model="menu.sufix">
-                                <small class="form-text text-muted" v-if="error != null && error.sufix">{{ error.sufix[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="class">Class</label>
-                                <input type="text" name="class" class="form-control" id="class" placeholder="Class" v-model="menu.class">
-                                <small class="form-text text-muted" v-if="error != null && error.class">{{ error.class[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="menu.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="menu.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="menu.title = $event"></text-field>
+
+                            <text-field :value="menu.prefix" :label="'Prefix'" :error="error? error.prefix : ''" @changeValue="menu.prefix = $event"></text-field>
+
+                            <text-field :value="menu.sufix" :label="'Sufix'" :error="error? error.sufix : ''" @changeValue="menu.sufix = $event"></text-field>
+
+                            <text-field :value="menu.class" :label="'Class'" :error="error? error.class : ''" @changeValue="menu.class = $event"></text-field>
+
+                            <checkbox-field :value="menu.publish" :label="'Publikovano'" @changeValue="menu.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>
@@ -73,29 +60,25 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
           return {
-              menu: {},
+              menu: false,
               error: null
           }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches
         },
-        created(){
+        mounted(){
             this.getMenu();
         },
         methods: {
             getMenu(){
                 axios.get('api/menus/' + this.$route.params.id)
                     .then(res => {
-                        if(res.data.menu != null){
-                            this.menu = res.data.menu;
-                        }
+                        this.menu = res.data.menu;
                     })
                     .catch(e => {
                         console.log(e);
@@ -103,7 +86,7 @@
                     });
             },
             submit(){
-                axios.patch('api/menus/' + this.menu.id, this.menu)
+                axios.put('api/menus/' + this.menu.id, this.menu)
                     .then(res => {
                         swal({
                             position: 'center',

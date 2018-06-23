@@ -31,7 +31,6 @@
                                 <th scope="col">ime</th>
                                 <th scope="col">email</th>
                                 <th scope="col">korpe</th>
-                                <th scope="col">grad</th>
                                 <th scope="col">kreiran</th>
                                 <th>akcija</th>
                             </tr>
@@ -42,7 +41,6 @@
                                 <td>{{ row.user.name }}</td>
                                 <td>{{ row.user.email }}</td>
                                 <td>{{ row.shopping_cart_count }}</td>
-                                <td>{{ row.shopping_cart[0].address.town }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="pencil-alt" @click="editRow(row)"/>

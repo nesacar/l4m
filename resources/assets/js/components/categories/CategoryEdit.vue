@@ -36,22 +36,13 @@
                 -->
 
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="form-group">
-                            <label for="category">Nad kategorija</label>
-                            <select name="category" id="category" class="form-control" v-model="category.parent">
-                                <option :value="index" v-for="(parent, index) in lists">{{ parent }}</option>
-                            </select>
-                            <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
-                        </div>
-                        <div class="form-group">
-                            <label>Istaknuto</label><br>
-                            <switches v-model="category.featured" theme="bootstrap" color="primary"></switches>
-                        </div>
-                        <div class="form-group">
-                            <label>Publikovano</label><br>
-                            <switches v-model="category.publish" theme="bootstrap" color="primary"></switches>
-                        </div>
+                    <div class="card" v-if="category">
+
+                        <select2-field :lists="lists" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="category.parent = $event"></select2-field>
+
+                        <checkbox-field :value="category.featured" :label="'Istaknuto'" @changeValue="category.featured = $event"></checkbox-field>
+
+                        <checkbox-field :value="category.publish" :label="'Publikovano'" @changeValue="category.publish = $event"></checkbox-field>
 
                         <upload-image-helper
                                 :image="category.image"
@@ -79,35 +70,23 @@
                     -->
                 </div>
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card" v-if="category">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="srb" role="tabpanel" aria-labelledby="srb-tab">
                                 <form @submit.prevent="submit()">
-                                    <div class="form-group">
-                                        <label for="title">Naslov</label>
-                                        <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="category.title">
-                                        <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="slug">Slug</label>
-                                        <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="category.slug">
-                                        <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="seoTitle">Seo naslov</label>
-                                        <input type="text" name="short" id="seoTitle" class="form-control" placeholder="Seo naslov" v-model="category.seoTitle">
-                                        <small class="form-text text-muted" v-if="error != null && error.seoTitle">{{ error.seoTitle[0] }}</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="seoKeywords">Seo ključne reči</label>
-                                        <input type="text" name="seoKeywords" id="seoKeywords" class="form-control" placeholder="Seo ključne reči" v-model="category.seoKeywords">
-                                        <small class="form-text text-muted" v-if="error != null && error.seoKeywords">{{ error.seoKeywords[0] }}</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="short">Seo opis</label>
-                                        <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Seo opis" v-model="category.seoShort"></textarea>
-                                        <small class="form-text text-muted" v-if="error != null && error.seoShort">{{ error.seoShort[0] }}</small>
-                                    </div>
+
+                                    <text-field :value="category.title" :label="'Naslov'" :error="error? error.title : ''" @changeValue="category.title = $event"></text-field>
+
+                                    <text-field :value="category.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="category.slug = $event"></text-field>
+
+                                    <text-field :value="category.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="category.order = $event"></text-field>
+
+                                    <text-field :value="category.seoTitle" :label="'Seo naslov'" :error="error? error.seoTitle : ''" @changeValue="category.seoTitle = $event"></text-field>
+
+                                    <text-field :value="category.seoKeywords" :label="'Seo ključne reči'" :error="error? error.seoKeywords : ''" @changeValue="category.seoKeywords = $event"></text-field>
+
+                                    <text-field :value="category.seoShort" :label="'Seo opis'" :error="error? error.seoShort : ''" @changeValue="category.seoShort = $event"></text-field>
+
                                     <div class="form-group">
                                         <button class="btn btn-primary" type="submit">Izmeni</button>
                                     </div>
@@ -135,7 +114,7 @@
     export default {
         data(){
           return {
-              category: {},
+              category: false,
               error: null,
               lists: {},
               config: {

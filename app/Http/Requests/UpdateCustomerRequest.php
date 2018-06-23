@@ -25,13 +25,8 @@ class UpdateCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'lastname' => 'required',
             'email' => 'required|email|unique:users,email,'.$this->segment(5),
             'password' => 'confirmed|min:6',
-            'phone' => 'required',
-            'address' => 'required',
-            'town' => 'required',
-            'postcode' => 'required',
         ];
     }
 
@@ -39,17 +34,12 @@ class UpdateCustomerRequest extends FormRequest
     {
         return [
             'name.required' => 'Ime je obavezno',
-            'lastname.required' => 'Prezime je obavezno',
             'email.required' => 'Email adresa je obavezna',
             'email.email' => 'Email adresa nije u ispravnom formatu',
             'email.unique' => 'Email adresa već postoji u našem sistemu',
             'password.required' => 'Lozinka je obavezna',
             'password.confirmed' => 'Niste dobro potvrdili lozinku',
             'password.min' => 'Lozinka mora imati minimum 6 karaktera',
-            'phone.required' => 'Telefon je obavezan',
-            'address.required' => 'Adresa je obavezna',
-            'town.required' => 'Grad je obavezan',
-            'postcode.required' => 'Poštanski broj je obavezan',
         ];
     }
 }

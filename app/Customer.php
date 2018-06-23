@@ -43,7 +43,6 @@ class Customer extends Model
         $user->email = request('email');
         $user->password = bcrypt(request('password'));
         $user->role_id = 0;
-        $user->active = 0;
         $user->save();
 
         $array = request()->all();
@@ -58,7 +57,6 @@ class Customer extends Model
         $user->name = request('name');
         $user->email = request('email');
         request('password')? $user->password = bcrypt(request('password')) : '';
-        $user->active = request('active');
         $user->update();
 
         $array = request()->all();

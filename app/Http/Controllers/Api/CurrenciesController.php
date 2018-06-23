@@ -16,7 +16,7 @@ class CurrenciesController extends Controller
      */
     public function index()
     {
-        $currencies = Currency::paginate(50);
+        $currencies = Currency::orderBy('id', 'DESC')->paginate(50);
 
         return response([
             'currencies' => $currencies,

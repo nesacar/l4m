@@ -23,39 +23,21 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="name">Naziv <span>*</span></label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Ime" v-model="currency.name">
-                                <small class="form-text text-muted" v-if="error != null && error.name">{{ error.name[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="code">Kod <span>*</span></label>
-                                <input type="text" name="code" class="form-control" id="code" placeholder="Kod" v-model="currency.code">
-                                <small class="form-text text-muted" v-if="error != null && error.code">{{ error.code[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="symbol">Simbol</label>
-                                <input type="text" name="email" class="form-control" id="symbol" placeholder="Simbol" v-model="currency.symbol">
-                                <small class="form-text text-muted" v-if="error != null && error.symbol">{{ error.symbol[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="decimals">Broj decimala</label>
-                                <input type="text" name="decimals" class="form-control" id="decimals" placeholder="Broj decimala" v-model="currency.decimals">
-                                <small class="form-text text-muted" v-if="error != null && error.decimals">{{ error.decimals[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="exchange_rate">Vrednost <span>*</span></label>
-                                <input type="text" name="exchange_rate" class="form-control" id="exchange_rate" placeholder="Vrednost" v-model="currency.exchange_rate">
-                                <small class="form-text text-muted" v-if="error != null && error.exchange_rate">{{ error.exchange_rate[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Primarna valute</label><br>
-                                <switches v-model="currency.primary" theme="bootstrap" color="primary"></switches>
-                            </div>
-                            <div class="form-group">
-                                <label>Aktivna</label><br>
-                                <switches v-model="currency.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="currency.name" :label="'Naziv'" :required="true" :error="error? error.name : ''" @changeValue="currency.name = $event"></text-field>
+
+                            <text-field :value="currency.code" :label="'Kod'" :required="true" :error="error? error.code : ''" @changeValue="currency.code = $event"></text-field>
+
+                            <text-field :value="currency.symbol" :label="'Simbol'" :error="error? error.symbol : ''" @changeValue="currency.symbol = $event"></text-field>
+
+                            <text-field :value="currency.decimals" :label="'Broj decimala'" :error="error? error.decimals : ''" @changeValue="currency.decimals = $event"></text-field>
+
+                            <text-field :value="currency.exchange_rate" :label="'Vrednost'" :required="true" :error="error? error.exchange_rate : ''" @changeValue="currency.exchange_rate = $event"></text-field>
+
+                            <checkbox-field :value="currency.primary" :label="'Primarna valute'" @changeValue="currency.primary = $event"></checkbox-field>
+
+                            <checkbox-field :value="currency.publish" :label="'Aktivna'" @changeValue="currency.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary">Kreiraj</button>
                             </div>
@@ -71,7 +53,6 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -82,7 +63,6 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
         methods: {
             submit(){
@@ -104,9 +84,3 @@
         }
     }
 </script>
-
-<style scored>
-    span{
-        color: red;
-    }
-</style>

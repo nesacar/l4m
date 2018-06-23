@@ -21,9 +21,9 @@ export const router = new VueRouter({
         { path: "/blogs/create", component: require('./components/blogs/BlogCreate.vue'), meta: { forAdmin: true } },
         { path: "/blogs/:id/edit", component: require('./components/blogs/BlogEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAuth: true } },
-        { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAuth: true } },
-        { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAuth: true } },
+        { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAdmin: true } },
+        { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAdmin: true } },
+        { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAdmin: true } },
         { path: "/posts/:id/products", component: require('./components/posts/PostProducts.vue'), meta: { forAdmin: true } },
 
         { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAdmin: true } },
@@ -57,9 +57,9 @@ export const router = new VueRouter({
         { path: "/themes/create", component: require('./components/themes/ThemeCreate.vue'), meta: { forAdmin: true } },
         { path: "/themes/:id/edit", component: require('./components/themes/ThemeEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAdmin: true } },
-        { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAdmin: true } },
-        { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAdmin: true } },
+        { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAuth: true } },
+        { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAuth: true } },
+        { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAuth: true } },
         { path: "/menus/:id/sort", component: require('./components/menus/MenuSort.vue'), meta: { forAdmin: true } },
 
         { path: "/menu-links/:id", component: require('./components/menuLinks/MenuLinks.vue'), meta: { forAdmin: true } },

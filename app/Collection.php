@@ -13,7 +13,7 @@ class Collection extends Model
     protected $fillable = ['brand_id', 'title', 'slug', 'short', 'body', 'order', 'image', 'publish'];
 
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = str_slug($value);
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
 
     public function brand(){

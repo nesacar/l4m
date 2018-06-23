@@ -17,17 +17,12 @@ class Currency extends Model
     protected static function boot(){
         parent::boot();
 
-        static::creating(function($currency){
+        static::created(function($currency){
             $currency->historical()->save(new Historical(['exchange_rate' => $currency->exchange_rate, 'date' => Carbon::now()->format('Y-m-d')]));
         });
 
-        static::updating(function($currency){
-            $historical = $currency->historical()->where('date', Carbon::now()->format('Y-m-d'))->first();
-            if(!empty($historical)){
-                $historical->update(['exchange_rate' => $currency->exchange_rate]);
-            }else{
-                $currency->historical()->save(new Historical(['exchange_rate' => $currency->exchange_rate, 'date' => Carbon::now()->format('Y-m-d')]));
-            }
+        static::updated(function($currency){
+            $currency->historical()->save(new Historical(['exchange_rate' => $currency->exchange_rate, 'date' => Carbon::now()->format('Y-m-d')]));
         });
     }
 

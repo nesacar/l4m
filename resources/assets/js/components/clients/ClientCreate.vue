@@ -21,51 +21,25 @@
                 </div>
 
                 <div class="col-sm-8">
-                    <div class="card">
+                    <div class="card" v-if="brands">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="name">Ime klijenta <span>*</span></label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Ime klijenta" v-model="client.name">
-                                <small class="form-text text-muted" v-if="error != null && error.name">{{ error.name[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="client.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="fullName">Puno ime klijenta</label>
-                                <input type="text" name="name" class="form-control" id="fullName" placeholder="Puno ime klijenta" v-model="client.fullName">
-                                <small class="form-text text-muted" v-if="error != null && error.fullName">{{ error.fullName[0] }}</small>
-                            </div>
-                            <div class="form-group" v-if="brands">
-                                <label>Brendovi</label>
-                                <select2 :options="brands" :multiple="true" @input="input($event)">
-                                    <option value="0" disabled>select one</option>
-                                </select2>
-                            </div>
-                            <div class="form-group">
-                                <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="client.short"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Opis</label>
-                                <ckeditor
-                                        v-model="client.body"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="client.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="client.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="client.name" :label="'Ime klijenta'" :required="true" :error="error? error.name : ''" @changeValue="client.name = $event"></text-field>
+
+                            <text-field :value="client.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="client.slug = $event"></text-field>
+
+                            <text-field :value="client.fullName" :label="'Puno ime klijenta'" :error="error? error.fullName : ''" @changeValue="client.fullName = $event"></text-field>
+
+                            <select2-multiple-field :lists="brands" :label="'Brendovi'" @changeValue="client.brand_ids = $event"></select2-multiple-field>
+
+                            <text-area-field :value="client.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="client.short = $event"></text-area-field>
+
+                            <text-area-ckeditor-field :value="client.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="client.body = $event"></text-area-ckeditor-field>
+
+                            <text-field :value="client.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="client.order = $event"></text-field>
+
+                            <checkbox-field :value="client.publish" :label="'Publikovano'" @changeValue="client.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -100,8 +74,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
     import Select2 from '../helper/Select2Helper.vue';
 
     export default {
@@ -109,27 +81,14 @@
           return {
               image: {},
               cover: {},
-              client: {},
-              brands: {},
+              client: false,
+              brands: false,
               error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'media'
-              }
           }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor,
-            'select2': Select2,
         },
         mounted(){
             this.getBrands();
@@ -157,11 +116,12 @@
             getBrands(){
                 axios.get('api/brands/lists')
                     .then(res => {
-                        this.brands = _.map(res.data.brands, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.brands = res.data.brands;
+//                        this.brands = _.map(res.data.brands, (data) => {
+//                            var pick = _.pick(data, 'title', 'id');
+//                            var object = {id: pick.id, text: pick.title};
+//                            return object;
+//                        });
                         this.error = null;
                     }).catch(e => {
                         console.log(e);
@@ -198,15 +158,6 @@
                         this.error = e.response.data.errors;
                     });
             },
-            input(brand){
-                this.client.brand_ids = brand;
-            },
         }
     }
 </script>
-
-<style scoped>
-    span{
-        color: red;
-    }
-</style>
