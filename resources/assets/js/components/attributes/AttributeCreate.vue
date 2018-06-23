@@ -23,33 +23,17 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="property">Osobina</label>
-                                <select name="property" id="property" class="form-control" v-model="attribute.property_id">
-                                    <option value="0">Bez osobine</option>
-                                    <option :value="set.id" v-for="set in lists">{{ set.title }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.property_id">{{ error.property_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="attribute.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="slug" class="form-control" id="order" placeholder="Redosled" v-model="attribute.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="extra">Dodatak</label>
-                                <input type="text" name="extra" class="form-control" id="extra" placeholder="Dodatak" v-model="attribute.extra">
-                                <small class="form-text text-muted" v-if="error != null && error.extra">{{ error.extra[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="attribute.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <select2-field :lists="lists" :value="attribute.property_id" :label="'Osobina'" :error="error? error.property_id : ''" @changeValue="attribute.property_id = $event"></select2-field>
+
+                            <text-field :value="attribute.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="attribute.title = $event"></text-field>
+
+                            <text-field :value="attribute.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="attribute.order = $event"></text-field>
+
+                            <text-field :value="attribute.extra" :label="'Dodatak'" :error="error? error.extra : ''" @changeValue="attribute.extra = $event"></text-field>
+
+                            <checkbox-field :value="attribute.publish" :label="'Publikovano'" @changeValue="attribute.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -68,7 +52,6 @@
     import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -86,7 +69,6 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
         created(){
             this.getProperties();
@@ -95,7 +77,6 @@
             getProperties(){
                 axios.get('api/properties/lists')
                     .then(res => {
-                        console.log(res.data.properties);
                         this.lists = res.data.properties;
                     }).catch(e => {
                         console.log(e.response);

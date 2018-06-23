@@ -42,9 +42,9 @@ export const router = new VueRouter({
         { path: "/properties/create", component: require('./components/properties/PropertyCreate.vue'), meta: { forAdmin: true } },
         { path: "/properties/:id/edit", component: require('./components/properties/PropertyEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/attributes", component: require('./components/attributes/AttributeList.vue'), meta: { forAuth: true } },
-        { path: "/attributes/create", component: require('./components/attributes/AttributeCreate.vue'), meta: { forAdmin: true } },
-        { path: "/attributes/:id/edit", component: require('./components/attributes/AttributeEdit.vue'), meta: { forAdmin: true } },
+        { path: "/attributes", component: require('./components/attributes/AttributeList.vue'), meta: { forAdmin: true } },
+        { path: "/attributes/create", component: require('./components/attributes/AttributeCreate.vue'), meta: { forAuth: true } },
+        { path: "/attributes/:id/edit", component: require('./components/attributes/AttributeEdit.vue'), meta: { forAuth: true } },
 
         { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAdmin: true } },
         { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAdmin: true } },

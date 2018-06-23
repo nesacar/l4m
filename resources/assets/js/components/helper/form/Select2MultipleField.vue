@@ -1,10 +1,9 @@
 <template>
     <div class="form-group">
-        <label :for="label">{{ label }}</label>
-        <select :id="label" :value="value" class="form-control" @input="$emit('changeValue', $event.target.value)" ref="input">
-            <option value="0">Bez osobine</option>
-            <option :value="item.id" v-for="item in lists">{{ item.title }}</option>
-        </select>
+        <label>{{ label }}</label>
+        <select2 :options="lists" :value="value" :multiple="true" @input="input($event)">
+            <option value="0" disabled>select one</option>
+        </select2>
         <small class="form-text text-muted" v-if="error != null && error">{{ error[0] }}</small>
     </div>
 </template>
@@ -15,5 +14,10 @@
     export default {
         props: ['label', 'value', 'lists', 'error'],
         components: { Select2 },
+        methods: {
+            input(value){
+                this.$emit('changeValue', value)
+            },
+        },
     }
 </script>
