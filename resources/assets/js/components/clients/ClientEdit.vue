@@ -49,7 +49,7 @@
 
                         <form @submit.prevent="submit()">
 
-                            <text-field :value="client.name" :label="'Ime klijenta'" :required="true" :error="error? error.name : ''" @changeValue="client.name = $event"></text-field>
+                            <text-field :value="client.title" :label="'Ime klijenta'" :required="true" :error="error? error.title : ''" @changeValue="client.title = $event"></text-field>
 
                             <text-field :value="client.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="client.slug = $event"></text-field>
 

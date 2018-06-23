@@ -127,7 +127,7 @@ class PostsController extends Controller
 
     public function uploadImage(UploadImageRequest $request, $id){
         $post = Post::find($id);
-        if(request('slider')){
+        if(request('cover_image')){
             $post->update(['slider' => $post->storeImage('file', 'slider')]);
 
             return response()->json([

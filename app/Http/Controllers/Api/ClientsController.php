@@ -113,6 +113,7 @@ class ClientsController extends Controller
 
         return response()->json([
             'clients' => $clients,
+            'lists' => $clients->pluck('title', 'id'),
         ]);
     }
 

@@ -99,7 +99,6 @@
                 axios.post('api/posts/search', this.searchPost)
                     .then(res => {
                         this.posts = res.data.posts.data;
-                        console.log(this.posts);
                         this.paginate = res.data.posts;
                     })
                     .catch(e => {
@@ -152,7 +151,7 @@
             getBlogs(){
                 axios.get('api/blogs/lists')
                     .then(res => {
-                        this.blogs = res.data.blogs;
+                        this.blogs = res.data.lists;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

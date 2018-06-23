@@ -10,7 +10,7 @@ class Client extends Model
 {
     use UploudableImageTrait;
 
-    protected $fillable = ['user_id', 'name', 'slug', 'fullName', 'short', 'body', 'image', 'cover', 'order', 'publish'];
+    protected $fillable = ['user_id', 'title', 'slug', 'fullName', 'short', 'body', 'image', 'cover', 'order', 'publish'];
 
     /**
      * The "booting" method of the model.
@@ -44,7 +44,7 @@ class Client extends Model
     }
 
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['name']);
+        $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
 
     public function getBreadcrumb(){

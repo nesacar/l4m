@@ -23,80 +23,37 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group" v-if="admin">
-                                <label for="client">Klijent</label>
-                                <select name="client" id="client" class="form-control" v-model="post.client_id">
-                                    <option :value="client.id" v-for="client in clients">{{ client.name }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.client_id">{{ error.client_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="category">Kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="post.blog_id">
-                                    <option :value="index" v-for="(blog, index) in lists">{{ blog }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.blog_id">{{ error.blog_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="brand">Brend</label>
-                                <select name="brand" id="brand" class="form-control" v-model="post.brand_id">
-                                    <option :value="brand.id" v-for="brand in brands">{{ brand.title }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.brand_id">{{ error.brand_id[0] }}</small>
-                            </div>
+
+                            <select2-field v-if="admin" :lists="clients" :label="'Klijent'" @changeValue="post.client_id = $event"></select2-field>
+
+                            <select2-field :lists="lists" :label="'Kategorija'" :error="error? error.blog_id : ''" :required="true" @changeValue="post.blog_id = $event"></select2-field>
+
+                            <select2-field :lists="brands" :label="'Brend'" @changeValue="post.brand_id = $event"></select2-field>
+
+
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="date">Publikovano od:</label>
-                                        <input type="date" name="title" class="form-control" id="date" placeholder="Published at" v-model="post.date">
-                                        <small class="form-text text-muted" v-if="error != null && error.publish_at">{{ error.publish_at[0] }}</small>
-                                    </div>
+                                    <date-field :value="post.date" :label="'Publikovano od:'" :error="error? error.publish_at : ''" @changeValue="post.date = $event"></date-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="time">&nbsp;</label>
-                                        <input type="time" name="title" class="form-control" id="time" placeholder="Published at" v-model="post.time">
-                                    </div>
+                                    <time-field :value="post.time" :label="''" @changeValue="post.time = $event"></time-field>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="post.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="post.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="post.short"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
-                            </div>
-                            <div class="form-group" v-if="post.category_id == 3">
-                                <label for="author">Autor</label>
-                                <input type="text" name="author" class="form-control" id="author" placeholder="Autor" v-model="post.author">
-                                <small class="form-text text-muted" v-if="error != null && error.author">{{ error.author[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                    <label>Opis</label>
-                                <ckeditor
-                                        v-model="post.body"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Tagovi</label>
-                                <select2 :options="tags" :multiple="true" @input="input($event)">
-                                    <option value="0" disabled>select one</option>
-                                </select2>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="post.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="post.title" :label="'Naslov'" :error="error? error.title : ''" :required="true" @changeValue="post.title = $event"></text-field>
+
+                            <text-field :value="post.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="post.slug = $event"></text-field>
+
+                            <text-area-field :value="post.short" :label="'Kratak opis'" :error="error? error.short : ''" :required="true" @changeValue="post.short = $event"></text-area-field>
+
+                            <text-field v-if="post.category_id == 3" :value="post.author" :label="'Autor'" :error="error? error.author : ''" @changeValue="post.author = $event"></text-field>
+
+                            <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
+
+                            <select2-multiple-field :lists="tags" :label="'Tagovi'" @changeValue="post.tag_ids = $event"></select2-multiple-field>
+
+                            <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -135,10 +92,7 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
     import moment from 'moment';
-    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
@@ -159,16 +113,6 @@
               tags: {},
               brands: {},
               error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source', 'Cleanup' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
               domain : apiHost
           }
         },
@@ -186,9 +130,6 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor,
-            'select2': Select2,
         },
         mounted(){
             this.getList();
@@ -248,7 +189,7 @@
                 this.slider.append('file', slider.file);
             },
             sendSliderImage(){
-                axios.post('api/posts/' + this.post.id + '/image?slider=1', this.slider)
+                axios.post('api/posts/' + this.post.id + '/image?cover_image=1', this.slider)
                     .then(res => {
                         this.post.slider = res.data.image;
                         this.error = null;
@@ -287,9 +228,6 @@
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
-            },
-            input(tag){
-                this.post.tag_ids = tag;
             },
         }
     }

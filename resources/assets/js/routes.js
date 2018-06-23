@@ -57,9 +57,9 @@ export const router = new VueRouter({
         { path: "/themes/create", component: require('./components/themes/ThemeCreate.vue'), meta: { forAdmin: true } },
         { path: "/themes/:id/edit", component: require('./components/themes/ThemeEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAuth: true } },
-        { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAuth: true } },
-        { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAuth: true } },
+        { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAdmin: true } },
+        { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAdmin: true } },
+        { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAdmin: true } },
         { path: "/menus/:id/sort", component: require('./components/menus/MenuSort.vue'), meta: { forAdmin: true } },
 
         { path: "/menu-links/:id", component: require('./components/menuLinks/MenuLinks.vue'), meta: { forAdmin: true } },

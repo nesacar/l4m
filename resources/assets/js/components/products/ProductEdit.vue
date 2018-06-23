@@ -34,115 +34,51 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="card" v-if="tags">
                         <form @submit.prevent="submit()">
-                            <div class="form-group" v-if="admin">
-                                <label for="client">Klijent</label>
-                                <select name="client" id="client" class="form-control" v-model="product.client_id">
-                                    <option :value="client.id" v-for="client in clients">{{ client.name }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.client_id">{{ error.client_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="brand">Brend</label>
-                                <select name="brand" id="brand" class="form-control" v-model="product.brand_id" @change="setBrand()">
-                                    <option :value="brand.id" v-for="brand in brands">{{ brand.title }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.brand_id">{{ error.brand_id[0] }}</small>
-                            </div>
-                            <div class="form-group" v-if="collections.length > 0">
-                                <label for="collection">Kolekcija</label>
-                                <select name="collection" id="collection" class="form-control" v-model="product.collection_id">
-                                    <option :value="collection.id" v-for="collection in collections">{{ collection.title }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.collection_id">{{ error.collection_id[0] }}</small>
-                            </div>
+
+                            <select2-field v-if="admin" :lists="clients" :value="product.client_id" :label="'Klijent'" @changeValue="product.client_id = $event"></select2-field>
+
+                            <select2-field :lists="brands" :label="'Brend'" :value="product.brand_id" @changeValue="product.brand_id = $event; setBrand()"></select2-field>
+
+                            <select2-field v-if="collections.length > 0" :lists="collections"  :value="product.collection_id" :label="'Kolekcija'" @changeValue="product.collection_id = $event"></select2-field>
+
+
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="date">Publikovano od:</label>
-                                        <input type="date" name="title" class="form-control" id="date" placeholder="Published at" v-model="product.date">
-                                        <small class="form-text text-muted" v-if="error != null && error.publish_at">{{ error.publish_at[0] }}</small>
-                                    </div>
+                                    <date-field :value="product.date" :label="'Publikovano od:'" :error="error? error.publish_at : ''" @changeValue="product.date = $event"></date-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="time">&nbsp;</label>
-                                        <input type="time" name="title" class="form-control" id="time" placeholder="Published at" v-model="product.time">
-                                    </div>
+                                    <time-field :value="product.time" :label="''" :error="error? error.time : ''" @changeValue="product.time = $event"></time-field>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="product.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="product.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="code">Šifra</label>
-                                <input type="text" name="code" class="form-control" id="code" placeholder="Šifra" v-model="product.code">
-                                <small class="form-text text-muted" v-if="error != null && error.code">{{ error.code[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="code_addition">Dodatak šifri</label>
-                                <input type="text" name="code_addition" class="form-control" id="code_addition" placeholder="Dodatak šifri" v-model="product.code_addition">
-                                <small class="form-text text-muted" v-if="error != null && error.code_addition">{{ error.code_addition[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="short">Kratak opis</label>
-                                <textarea name="short" id="short" cols="3" rows="4" class="form-control" placeholder="Kratak opis" v-model="product.short"></textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.short">{{ error.short[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Opis</label>
-                                <ckeditor
-                                        v-model="product.body"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.body">{{ error.body[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Dodatak</label>
-                                <ckeditor
-                                        v-model="product.body2"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.body2">{{ error.body2[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="price">Cena</label>
-                                <input type="text" name="price" class="form-control" id="price" placeholder="Cena" v-model="product.price">
-                                <small class="form-text text-muted" v-if="error != null && error.price">{{ error.price[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="discount">Popust (%)</label>
-                                <input type="text" name="discount" class="form-control" id="discount" placeholder="Popust" v-model="product.discount" @change="discountPrice()">
-                                <small class="form-text text-muted" v-if="error != null && error.discount">{{ error.discount[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="price_outlet">Outlet cena</label>
-                                <input type="text" name="price_outlet" class="form-control" id="price_outlet" placeholder="Outlet cena" v-model="product.price_outlet">
-                                <small class="form-text text-muted" v-if="error != null && error.price_outlet">{{ error.price_outlet[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="amount">Količina</label>
-                                <input type="text" name="amount" class="form-control" id="amount" placeholder="Količina" v-model="product.amount">
-                                <small class="form-text text-muted" v-if="error != null && error.amount">{{ error.amount[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Tags</label>
-                                <select2 :options="tags" :value="product.tag_ids" :multiple="true" @input="input($event)">
-                                    <option value="0" disabled>select one</option>
-                                </select2>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="product.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="product.title" :label="'Naslov'" :error="error? error.title : ''" :required="true" @changeValue="product.title = $event"></text-field>
+
+                            <text-field :value="product.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="product.slug = $event"></text-field>
+
+                            <text-field :value="product.code" :label="'Šifra'" :error="error? error.code : ''" :required="true" @changeValue="product.code = $event"></text-field>
+
+                            <text-field :value="product.code_addition" :label="'Dodatak šifri'" :error="error? error.code_addition : ''" @changeValue="product.code_addition = $event"></text-field>
+
+                            <text-area-field :value="product.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="product.short = $event"></text-area-field>
+
+                            <text-area-ckeditor-field :value="product.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="product.body = $event"></text-area-ckeditor-field>
+
+                            <text-area-ckeditor-field :value="product.body2" :label="'Isporuka i povraćaj'" :error="error? error.body2 : ''" @changeValue="product.body2 = $event"></text-area-ckeditor-field>
+
+                            <text-field :value="product.price" :label="'Cena'" :error="error? error.price : ''" :required="true" @changeValue="product.price = $event"></text-field>
+
+                            <text-field :value="product.discount" :label="'Popust (%)'" :error="error? error.discount : ''" @changeValue="product.discount = $event; discountPrice();"></text-field>
+
+                            <text-field :value="product.price_outlet" :label="'Outlet cena'" :error="error? error.price_outlet : ''" @changeValue="product.price_outlet = $event"></text-field>
+
+                            <text-field :value="product.amount" :label="'Količina'" :error="error? error.amount : ''" @changeValue="product.amount = $event"></text-field>
+
+                            <select2-multiple-field :lists="tags"  :value="product.tag_ids" :label="'Tagovi'" @changeValue="product.tag_ids = $event"></select2-multiple-field>
+
+                            <checkbox-field v-if="product" :value="product.publish" :label="'Publikovano'" @changeValue="product.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>
@@ -237,39 +173,22 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
     import moment from 'moment';
-    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
-              product: {
-                  cat_ids: [],
-                  att_ids: [],
-                  tag_ids: [],
-              },
+              product: false,
               brands: {},
               collections: {},
               categories: {},
               properties: {},
               photos: {},
               clients: {},
-              tags: {},
+              tags: false,
               error: null,
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
               dropzoneOptions: {
                   url: 'api/products/' + this.$route.params.id + '/gallery',
                   thumbnailWidth: 150,
@@ -293,10 +212,7 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor,
             'vue-dropzone': vue2Dropzone,
-            'select2': Select2,
         },
         mounted(){
             this.getBrands();
@@ -354,11 +270,10 @@
                 axios.get('api/clients/lists')
                     .then(res => {
                         this.clients = res.data.clients;
-                        console.log(this.clients);
                     }).catch(e => {
-                    console.log(e);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             upload(image){
                 let data = new FormData();
@@ -419,21 +334,19 @@
                 axios.get('api/collections/lists?brand_id=' + brand_id)
                     .then(res => {
                         this.collections = res.data.collections;
-                        console.log(this.collections);
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             getCategories(){
                 axios.get('api/categories/tree')
                     .then(res => {
                         this.categories = res.data.categories;
-                        console.log(this.categories);
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             setBrand(){
                 if(this.product.brand_id > 0){
@@ -492,9 +405,6 @@
                     console.log(e.response);
                     this.error = e.response.data.errors;
                 });
-            },
-            input(tag){
-                this.product.tag_ids = tag;
             },
             discountPrice(){
                 if(this.product.price > 0){
