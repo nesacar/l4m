@@ -132,9 +132,9 @@
                             return object;
                         });
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             prepare(image){
                 this.brand.image = image.src;

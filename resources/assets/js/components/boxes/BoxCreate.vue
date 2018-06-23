@@ -23,49 +23,23 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="block">Šablon</label>
-                                <select name="block" id="block" class="form-control" v-model="box.block_id">
-                                    <option :value="index" v-for="(block, index) in lists">{{ block }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.block_id">{{ error.block_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="category">Kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="box.category_id">
-                                    <option :value="index" v-for="(category, index) in categories">{{ category }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.category_id">{{ error.category_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="box.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="subtitle">Podnaslov</label>
-                                <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Opis" v-model="box.subtitle">
-                                <small class="form-text text-muted" v-if="error != null && error.subtitle">{{ error.subtitle[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="button">Dugme</label>
-                                <input type="text" name="button" class="form-control" id="button" placeholder="Dugme" v-model="box.button">
-                                <small class="form-text text-muted" v-if="error != null && error.button">{{ error.button[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="link">Link</label>
-                                <input type="text" name="link" class="form-control" id="link" placeholder="Dugme" v-model="box.link">
-                                <small class="form-text text-muted" v-if="error != null && error.link">{{ error.link[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="link" class="form-control" id="order" placeholder="Redosled" v-model="box.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="box.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <select2-field :lists="lists" :value="box.block_id" :label="'Šablon'" :error="error? error.block_id : ''" @changeValue="box.block_id = $event"></select2-field>
+
+                            <select2-field :lists="categories" :value="box.category_id" :label="'Kategorija'" :error="error? error.category_id : ''" @changeValue="box.category_id = $event"></select2-field>
+
+                            <text-field :value="box.title" :label="'Naslov'" :error="error? error.title : ''" @changeValue="box.title = $event"></text-field>
+
+                            <text-field :value="box.subtitle" :label="'Podnaslov'" :error="error? error.subtitle : ''" @changeValue="box.subtitle = $event"></text-field>
+
+                            <text-field :value="box.button" :label="'Dugme'" :error="error? error.button : ''" @changeValue="box.button = $event"></text-field>
+
+                            <text-field :value="box.link" :label="'Link'" :error="error? error.link : ''" @changeValue="box.link = $event"></text-field>
+
+                            <text-field :value="box.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="box.order = $event"></text-field>
+
+                            <checkbox-field :value="box.publish" :label="'Publikovano'" @changeValue="box.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -91,7 +65,6 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
 
     export default {
@@ -106,11 +79,9 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
             'upload-image-helper': UploadImageHelper,
         },
-        created(){
-            this.getBlocks();
+        mounted(){
             this.getCategories();
         },
         methods: {
@@ -147,7 +118,7 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getBlocks(){
+            getBlock(){
                 axios.get('api/blocks/lists')
                     .then(res => {
                         this.lists = res.data.blocks;
@@ -160,6 +131,7 @@
                 axios.get('api/categories/lists')
                     .then(res => {
                         this.categories = res.data.categories;
+                        this.getBlock();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

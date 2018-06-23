@@ -32,6 +32,8 @@ Vue.component('preview-image', require('./components/helper/PreviewImage.vue'));
 
 /** FORM HELPER **/
 Vue.component('text-field', require('./components/helper/form/TextField.vue'));
+Vue.component('password-field', require('./components/helper/form/PasswordField.vue'));
+Vue.component('email-field', require('./components/helper/form/EmailField.vue'));
 Vue.component('text-area-field', require('./components/helper/form/TextAreaField.vue'));
 Vue.component('text-area-ckeditor-field', require('./components/helper/form/TextAreaCKeditorField.vue'));
 Vue.component('select2-multiple-field', require('./components/helper/form/Select2MultipleField.vue'));

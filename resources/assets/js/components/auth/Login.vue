@@ -6,15 +6,11 @@
                     Login
                 </div>
                 <form @submit.prevent="login()">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email adresa</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email adresa" v-model="email">
-                        <small class="form-text text-muted" v-if="error != null">{{ error.error }}</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Lozinka</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Lozinka" v-model="password">
-                    </div>
+
+                    <email-field :value="''" :label="'Email adresa'" :error="error? error.error : ''" @changeValue="email = $event"></email-field>
+
+                    <password-field :value="''" :label="'Lozinka'" :error="error? error.error : ''" @changeValue="password = $event"></password-field>
+
                     <button type="submit" class="btn btn-primary">Potvrdi</button>
                 </form>
             </div>

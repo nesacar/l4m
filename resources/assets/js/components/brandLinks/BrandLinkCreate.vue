@@ -23,25 +23,15 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="title">Naziv <span>*</span></label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naziv" v-model="link.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Link <span>*</span></label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Link" v-model="link.link">
-                                <small class="form-text text-muted" v-if="error != null && error.link">{{ error.link[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="link.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="link.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="link.title" :label="'Naziv'" :required="true" :error="error? error.title : ''" @changeValue="link.title = $event"></text-field>
+
+                            <text-field :value="link.link" :label="'Link'" :required="true" :error="error? error.link : ''" @changeValue="link.link = $event"></text-field>
+
+                            <text-field :value="link.order" :label="'Redosled'" :required="false" :error="error? error.order : ''" @changeValue="link.order = $event"></text-field>
+
+                            <checkbox-field :value="link.publish" :label="'Publikovano'" @changeValue="link.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -57,7 +47,6 @@
     import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -75,12 +64,11 @@
                 return this.$store.getters.getUser;
             },
         },
-        created(){
+        mounted(){
             this.getBrand();
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
         methods: {
             getBrand(){
@@ -112,9 +100,3 @@
         }
     }
 </script>
-
-<style scope>
-    span {
-        color: red;
-    }
-</style>

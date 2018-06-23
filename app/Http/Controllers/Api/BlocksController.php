@@ -96,10 +96,11 @@ class BlocksController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $blocks = Block::where('publish', 1)->orderBy('title', 'ASC')->pluck('title', 'id')->prepend('Bez šablona', 0);
+        $blocks = Block::where('publish', 1)->orderBy('title', 'ASC')->get();
 
         return response()->json([
-            'blocks' => $blocks
+            'blocks' => $blocks,
+            'lists' => $blocks->pluck('title', 'id'),
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-        <label>{{ label }}</label>
+        <label>{{ label }} <span v-if="required">*</span></label>
         <ckeditor v-model="model" :config="config" @input="$emit('changeValue', model)"></ckeditor>
         <small class="form-text text-muted" v-if="error != null && error">{{ error[0] }}</small>
     </div>
@@ -25,7 +25,11 @@
                 },
             }
         },
-        props: ['label', 'value', 'error'],
+        props: ['label', 'value', 'error', 'required'],
         components: { Ckeditor },
     }
 </script>
+
+<style scoped>
+    span { color: red; }
+</style>

@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="row bela">
+            <div class="row bela" v-if="blog">
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Izmena kategorije</h5>
@@ -22,10 +22,8 @@
 
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="form-group">
-                            <label>Publikovano</label><br>
-                            <switches v-model="blog.publish" theme="bootstrap" color="primary"></switches>
-                        </div>
+
+                        <checkbox-field :value="blog.publish" :label="'Publikovano'" @changeValue="blog.publish = $event"></checkbox-field>
 
                         <upload-image-helper
                                 :image="blog.image"
@@ -40,31 +38,15 @@
                 <div class="col-md-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="category">Nad kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="blog.parent">
-                                    <option :value="index" v-for="(parent, index) in lists">{{ parent }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.parent">{{ error.parent[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="blog.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="blog.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Opis</label>
-                                <ckeditor
-                                        v-model="blog.short"
-                                        :config="config">
-                                </ckeditor>
-                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
-                            </div>
+
+                            <select2-field :lists="lists" :value="blog.parent" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="blog.parent = $event"></select2-field>
+
+                            <text-field :value="blog.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="blog.title = $event"></text-field>
+
+                            <text-field :value="blog.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="blog.slug = $event"></text-field>
+
+                            <text-area-ckeditor-field :value="blog.short" :label="'Opis'" :error="error? error.short : ''" @changeValue="blog.short = $event"></text-area-ckeditor-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>
@@ -80,35 +62,20 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
 
     export default {
         data(){
           return {
-              blog: {},
+              blog: false,
               error: null,
               lists: [],
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'media'
-              }
           }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor
         },
         created(){
-            this.getCategory();
             this.getList();
         },
         methods: {
@@ -163,10 +130,11 @@
                 axios.get('api/blogs/lists?parent=1')
                     .then(res => {
                         this.lists = res.data.blogs;
+                        this.getCategory();
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
         }
     }

@@ -121,10 +121,11 @@ class BlogsController extends Controller
                 if($parent){
                     $query->where('parent', 0);
                 }
-            })->orderBy('created_at', 'DESC')->pluck('title', 'id')->prepend('Bez nad kategorije', 0);
+            })->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'blogs' => $blogs,
+            'lists' => $blogs->pluck('title', 'id'),
         ]);
     }
 }

@@ -22,35 +22,19 @@
 
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="form-group">
-                            <label>Publikovano</label><br>
-                            <switches v-model="block.publish" theme="bootstrap" color="primary"></switches>
-                        </div>
+                        <checkbox-field :value="block.publish" :label="'Publikovano'" @changeValue="block.publish = $event"></checkbox-field>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="category">Kategorija</label>
-                                <select name="category" id="category" class="form-control"
-                                        v-model="block.category_id">
-                                    <option :value="index" v-for="(block, index) in categories">{{ block }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.category_id">{{
-                                    error.category_id[0] }}
-                                </small>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="block.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="desc">Opis</label>
-                                <input type="text" name="title" class="form-control" id="desc" placeholder="Opis" v-model="block.desc">
-                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
-                            </div>
+
+                            <select2-field :lists="categories" :value="block.category_id" :label="'Kategorija'" :error="error? error.category_id : ''" @changeValue="block.category_id = $event"></select2-field>
+
+                            <text-field :value="block.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="block.title = $event"></text-field>
+
+                            <text-field :value="block.desc" :label="'Opis'" :error="error? error.desc : ''" @changeValue="block.desc = $event"></text-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>
@@ -65,7 +49,6 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -77,17 +60,16 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
-        created(){
+        mounted(){
             this.getCategories();
-            this.getBlock();
         },
         methods: {
             getCategories(){
                 axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.categories = res.data.lists;
+                        this.categories = res.data.categories;
+                        this.getBlock();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
