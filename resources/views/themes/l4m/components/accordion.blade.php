@@ -6,7 +6,7 @@
                     aria-controls="#_sub-id-1"
                     aria-expanded="true"
             >
-                OPIS
+                O PROIZVODU
                 <svg class="icon">
                     <use xlink:href="#icon_arrow">
                 </svg>
@@ -41,7 +41,7 @@
             <button class="js-accordion_toggle product_description-tab"
                     aria-controls="#_sub-id-2"
             >
-                DODATNI OPIS
+                ISPORUKA I POVRAĆAJ
                 <svg class="icon">
                     <use xlink:href="#icon_arrow">
                 </svg>
