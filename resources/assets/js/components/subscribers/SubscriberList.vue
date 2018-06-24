@@ -28,7 +28,7 @@
                             <th scope="col">id</th>
                             <th scope="col">ime</th>
                             <th scope="col">email</th>
-                            <th scope="col">block</th>
+                            <th scope="col">blokiran</th>
                             <th scope="col">prijavljen</th>
                             <th>akcija</th>
                         </tr>

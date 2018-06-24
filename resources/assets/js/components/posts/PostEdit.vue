@@ -119,7 +119,6 @@
     import swal from 'sweetalert2';
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
-    import moment from 'moment';
 
     export default {
         data(){

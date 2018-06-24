@@ -38,8 +38,6 @@ class PropertiesController extends Controller
     public function store(CreatePropertyRequest $request)
     {
         $property = Property::create(request()->all());
-
-        //$property->set()->sync(request('set_ids'));
         $property->category()->sync(request('cat_ids'));
 
         return response()->json([
@@ -55,13 +53,11 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
-        //$sets = $property->set()->pluck('sets.id');
         $categories = $property->category()->pluck('categories.id');
 
         return response()->json([
             'property' => $property,
-            //'sets' => $sets,
-            'categories' => $categories,
+            'cat_ids' => $categories,
         ]);
     }
 
@@ -75,17 +71,12 @@ class PropertiesController extends Controller
     public function update(CreatePropertyRequest $request, Property $property)
     {
         $property->update(request()->all());
-
-        //$property->set()->sync(request('set_ids'));
         $property->category()->sync(request('cat_ids'));
-
-        //$sets = $property->set()->pluck('sets.id');
         $cats = $property->category()->pluck('categories.id');
 
         return response()->json([
             'property' => $property,
-            //'sets' => $sets,
-            'categories' => $cats,
+            'cat_ids' => $cats,
         ]);
     }
 

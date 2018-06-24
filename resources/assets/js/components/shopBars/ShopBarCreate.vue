@@ -116,21 +116,21 @@
 
     export default {
         data(){
-          return {
-              shopBar: {
-                  prod_ids: []
-              },
-              trigger: true,
-              prod_id1: 0,
-              prod_id2: 0,
-              prod_id3: 0,
-              prod_id4: 0,
-              parents: {},
-              categories: {},
-              products: {},
-              error: null,
-              domain : apiHost
-          }
+            return {
+                shopBar: {
+                    prod_ids: []
+                },
+                trigger: true,
+                prod_id1: 0,
+                prod_id2: 0,
+                prod_id3: 0,
+                prod_id4: 0,
+                parents: {},
+                categories: {},
+                products: {},
+                error: null,
+                domain : apiHost
+            }
         },
         computed: {
             user(){
@@ -153,9 +153,9 @@
                         this.parents = res.data.lists;
                         this.getCategories();
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             getCategories(){
                 console.log(this.shopBar.parent_category_id);
@@ -163,9 +163,9 @@
                     .then(res => {
                         this.categories = res.data.lists;
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             getProducts(){
                 let url = this.shopBar.category_id != null && this.shopBar.category_id != 0? '?category=' + this.shopBar.category_id : '?category=0';
@@ -179,9 +179,9 @@
                             return object;
                         });
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             submit(){
                 this.doMagic();
@@ -196,9 +196,9 @@
                         });
                         this.$router.push('/shop-bars');
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             input(product){
                 this.shopBar.prod_ids = product;

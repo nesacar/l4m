@@ -102,7 +102,7 @@
               clients: {},
               post: {
                   date: moment().format('YYYY-MM-DD'),
-                  time: moment().format('HH:mm'),
+                  time: moment().format('HH:00'),
                   desc: null,
                   publish: false,
                   blog_id: 0,

@@ -23,20 +23,13 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="name">Ime</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Ime" v-model="subscriber.name">
-                                <small class="form-text text-muted" v-if="error != null && error.name">{{ error.name[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" class="form-control" id="email" placeholder="Email adresa" v-model="subscriber.email">
-                                <small class="form-text text-muted" v-if="error != null && error.email">{{ error.email[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Blokiran</label><br>
-                                <switches v-model="subscriber.block" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="subscriber.name" :label="'Ime'" :error="error? error.name : ''" @changeValue="subscriber.name = $event"></text-field>
+
+                            <email-field :value="subscriber.email" :label="'Email'" :error="error? error.email : ''" :required="true" @changeValue="subscriber.email = $event"></email-field>
+
+                            <checkbox-field :value="subscriber.block" :label="'Blokiran'" @changeValue="subscriber.block = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>
@@ -55,7 +48,6 @@
     import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -72,9 +64,8 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
-        created(){
+        mounted(){
             this.getSubscriber();
         },
         methods: {

@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <search-helper :lists="[]" :text="''" @updateSearch="search($event)"></search-helper>
+            <!--<search-helper :lists="[]" :text="''" @updateSearch="search($event)"></search-helper>-->
 
             <div class="row">
                 <div class="col-md-12">
@@ -45,7 +45,7 @@
                                 <td>{{ row.publish }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
-                                    <router-link tag="a" :to="'tags/' + row['id'] + '/edit'" class="edit-link" target="_blank"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'tags/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>

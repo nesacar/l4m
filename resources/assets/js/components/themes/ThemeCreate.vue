@@ -23,46 +23,25 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
+
+                            <text-field :value="theme.title" :label="'Naziv'" :error="error? error.title : ''" :required="true" @changeValue="theme.title = $event"></text-field>
+
+                            <text-field :value="theme.version" :label="'Verzija'" :error="error? error.version : ''" @changeValue="theme.version = $event"></text-field>
+
+                            <text-field :value="theme.author" :label="'Autor'" :error="error? error.author : ''" @changeValue="theme.author = $event"></text-field>
+
+                            <text-field :value="theme.author_address" :label="'Adresa autora'" :required="true" :error="error? error.author_address : ''" @changeValue="theme.author_address = $event"></text-field>
+
+                            <text-field :value="theme.author_email" :label="'Email autora'" :error="error? error.author_email : ''" @changeValue="theme.author_email = $event"></text-field>
+
+                            <text-field :value="theme.developer" :label="'Programer'" :error="error? error.developer : ''" @changeValue="theme.developer = $event"></text-field>
+
+                            <checkbox-field :value="theme.publish" :label="'Publikovano'" @changeValue="theme.publish = $event"></checkbox-field>
+
+                            <checkbox-field :value="theme.active" :label="'Aktivna'" @changeValue="theme.active = $event"></checkbox-field>
+
                             <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Title" v-model="theme.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="version">Version</label>
-                                <input type="text" name="Version" class="form-control" id="version" placeholder="version" v-model="theme.version">
-                                <small class="form-text text-muted" v-if="error != null && error.version">{{ error.version[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="author">Author</label>
-                                <input type="text" name="Author" class="form-control" id="author" placeholder="version" v-model="theme.author">
-                                <small class="form-text text-muted" v-if="error != null && error.author">{{ error.author[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="author_address">Author address</label>
-                                <input type="text" name="author_address" class="form-control" id="author_address" placeholder="Author address" v-model="theme.author_address">
-                                <small class="form-text text-muted" v-if="error != null && error.author_address">{{ error.author_address[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="author_email">Author email</label>
-                                <input type="text" name="author_email" class="form-control" id="author_email" placeholder="Author email" v-model="theme.author_email">
-                                <small class="form-text text-muted" v-if="error != null && error.author_email">{{ error.author_email[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="developer">Developer</label>
-                                <input type="text" name="developer" class="form-control" id="developer" placeholder="developer" v-model="theme.developer">
-                                <small class="form-text text-muted" v-if="error != null && error.developer">{{ error.developer[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Published</label><br>
-                                <switches v-model="theme.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
-                            <div class="form-group">
-                                <label>Active</label><br>
-                                <switches v-model="theme.active" theme="bootstrap" color="primary"></switches>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Create</button>
+                                <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
                         </form>
                     </div>
@@ -86,7 +65,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -99,7 +77,6 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches
         },
         methods: {
             submit(){

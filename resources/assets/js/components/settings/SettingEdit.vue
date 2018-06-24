@@ -22,96 +22,47 @@
                 <div class="col-md-4">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="Phone1">Telefon 1</label>
-                                <input type="text" name="Phone1" class="form-control" id="Phone1" placeholder="Telefon 1" v-model="setting.phone1">
-                                <small class="form-text text-muted" v-if="error != null && error.phone1">{{ error.phone1[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="Phone1">Telefon 2</label>
-                                <input type="text" name="Phone2" class="form-control" id="Phone2" placeholder="Telefon 2" v-model="setting.phone2">
-                                <small class="form-text text-muted" v-if="error != null && error.phone2">{{ error.phone2[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="Email1">Email 1</label>
-                                <input type="email" name="Email1" class="form-control" id="Email1" placeholder="Enter email 1" v-model="setting.email1">
-                                <small class="form-text text-muted" v-if="error != null && error.email1">{{ error.email1[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="Email2">Email 2</label>
-                                <input type="email" name="Email2" class="form-control" id="Email2" placeholder="Enter email 2" v-model="setting.email2">
-                                <small class="form-text text-muted" v-if="error != null && error.email2">{{ error.email2[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="facebook">Facebook</label>
-                                <input type="text" name="Email2" class="form-control" id="facebook" placeholder="Enter facebook" v-model="setting.facebook">
-                                <small class="form-text text-muted" v-if="error != null && error.facebook">{{ error.facebook[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="facebook">Twitter</label>
-                                <input type="text" name="Twitter" class="form-control" id="twitter" placeholder="Enter twitter" v-model="setting.twitter">
-                                <small class="form-text text-muted" v-if="error != null && error.twitter">{{ error.twitter[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="instagram">Instagram</label>
-                                <input type="text" name="Instagram" class="form-control" id="instagram" placeholder="Enter instagram" v-model="setting.instagram">
-                                <small class="form-text text-muted" v-if="error != null && error.instagram">{{ error.instagram[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="pinterest">Pinterest</label>
-                                <input type="text" name="pinterest" class="form-control" id="pinterest" placeholder="Enter pinterest" v-model="setting.pinterest">
-                                <small class="form-text text-muted" v-if="error != null && error.pinterest">{{ error.pinterest[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="google">Google +</label>
-                                <input type="text" name="google" class="form-control" id="google" placeholder="Enter google plus" v-model="setting.google">
-                                <small class="form-text text-muted" v-if="error != null && error.google">{{ error.google[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="youtube">Youtube</label>
-                                <input type="text" name="youtube" class="form-control" id="youtube" placeholder="Enter youtube" v-model="setting.youtube">
-                                <small class="form-text text-muted" v-if="error != null && error.youtube">{{ error.youtube[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="analytics">Google Analitika</label>
-                                <textarea name="Analytics" id="analytics" cols="5" rows="5" v-model="setting.analytics" class="form-control">{{ setting.analytics}}</textarea>
-                                <small class="form-text text-muted" v-if="error != null && error.analytics">{{ error.analytics[0] }}</small>
-                            </div>
+
+                            <text-field :value="setting.phone1" :label="'Telefon 1'" :error="error? error.phone1 : ''" @changeValue="setting.phone1 = $event"></text-field>
+
+                            <text-field :value="setting.phone2" :label="'Telefon 2'" :error="error? error.phone2 : ''" @changeValue="setting.phone2 = $event"></text-field>
+
+                            <email-field :value="setting.email1" :label="'Email 1'" :error="error? error.email1 : ''" @changeValue="setting.email1 = $event"></email-field>
+
+                            <email-field :value="setting.email2" :label="'Email 2'" :error="error? error.email2 : ''" @changeValue="setting.email2 = $event"></email-field>
+
+                            <text-field :value="setting.facebook" :label="'Facebook'" :error="error? error.facebook : ''" @changeValue="setting.facebook = $event"></text-field>
+
+                            <text-field :value="setting.twitter" :label="'Twitter'" :error="error? error.twitter : ''" @changeValue="setting.twitter = $event"></text-field>
+
+                            <text-field :value="setting.instagram" :label="'Instagram'" :error="error? error.instagram : ''" @changeValue="setting.instagram = $event"></text-field>
+
+                            <text-field :value="setting.pinterest" :label="'Pinterest'" :error="error? error.pinterest : ''" @changeValue="setting.pinterest = $event"></text-field>
+
+                            <text-field :value="setting.google" :label="'Google +'" :error="error? error.google : ''" @changeValue="setting.google = $event"></text-field>
+
+                            <text-field :value="setting.youtube" :label="'Youtube'" :error="error? error.youtube : ''" @changeValue="setting.youtube = $event"></text-field>
+
+                            <text-area-field :value="setting.analytics" :label="'Google Analitika'" :error="error? error.analytics : ''" @changeValue="setting.analytics = $event"></text-area-field>
+
                         </form>
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card" v-if="setting">
 
                             <form @submit.prevent="submit()">
-                                <div class="form-group">
-                                    <label for="address">Adresa</label>
-                                    <input type="text" name="address" class="form-control" id="address" placeholder="Adresa" v-model="setting.address">
-                                    <small class="form-text text-muted" v-if="error != null && error.address">{{ error.address[0] }}</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Naslov sajta</label>
-                                    <input type="text" name="title" class="form-control" id="title" placeholder="Naslov sajta" v-model="setting.title">
-                                    <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="keywords">Ključne reči</label>
-                                    <input type="text" name="keywords" class="form-control" id="keywords" placeholder="Ključne reči" v-model="setting.keywords">
-                                    <small class="form-text text-muted" v-if="error != null && error.keywords">{{ error.keywords[0] }}</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="desc">Opis</label>
-                                    <textarea name="desc" id="desc" class="form-control" v-model="setting.desc"></textarea>
-                                    <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
-                                </div>
-                                <div class="form-group">
-                                    <label>Footer tekst</label>
-                                    <ckeditor
-                                            v-model="setting.footer"
-                                            :config="config">
-                                    </ckeditor>
-                                    <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.footer[0] }}</small>
-                                </div>
+
+                                <text-field :value="setting.address" :label="'Adresa'" :error="error? error.address : ''" @changeValue="setting.address = $event"></text-field>
+
+                                <text-field :value="setting.title" :label="'Naslov sajta'" :error="error? error.title : ''" @changeValue="setting.title = $event"></text-field>
+
+                                <text-field :value="setting.keywords" :label="'Ključne reči'" :error="error? error.keywords : ''" @changeValue="setting.keywords = $event"></text-field>
+
+                                <text-area-field :value="setting.desc" :label="'Opis'" :error="error? error.desc : ''" @changeValue="setting.desc = $event"></text-area-field>
+
+                                <text-area-ckeditor-field v-if="setting.footer" :value="setting.footer" :label="'Opis'" :error="error? error.footer : ''" @changeValue="setting.footer = $event"></text-area-ckeditor-field>
+
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Izmeni</button>
                                 </div>
@@ -127,29 +78,18 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Ckeditor from 'vue-ckeditor2';
 
     export default {
         data(){
           return {
-              setting: {},
+              setting: false,
               error: null,
-              config: {
-                  toolbar: [
-                      ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image']
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'media'
-              }
           }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
-            'ckeditor': Ckeditor
         },
-        created(){
+        mounted(){
             this.getSetting();
         },
         methods: {

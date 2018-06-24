@@ -23,25 +23,15 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="name">Ime</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Ime" v-model="user.name">
-                                <small class="form-text text-muted" v-if="error != null && error.name">{{ error.name[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email adresa</label>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email adresa" v-model="user.email">
-                                <small class="form-text text-muted" v-if="error != null && error.email">{{ error.email[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Lozinka</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Lozinka" v-model="user.password">
-                                <small class="form-text text-muted" v-if="error != null && error.password">{{ error.password[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="password_confirmation">Potvrda lozinke</label>
-                                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Potvrda lozinke" v-model="user.password_confirmation">
-                            </div>
+
+                            <text-field :value="user.name" :label="'Ime'" :error="error? error.name : ''" :required="true" @changeValue="user.name = $event"></text-field>
+
+                            <email-field :value="user.email" :label="'Email adresa'" :error="error? error.email : ''" :required="true" @changeValue="user.email = $event"></email-field>
+
+                            <password-field :value="user.password" :label="'Lozinka'" :error="error? error.password : ''" :required="true" @changeValue="user.password = $event"></password-field>
+
+                            <password-field :value="user.password_confirmation" :label="'Potvrda lozinke'" :required="true" @changeValue="user.password_confirmation = $event"></password-field>
+
                             <div class="form-group">
                                 <label for="role">Pravo pristupa</label>
                                 <select name="role" class="form-control" id="role" v-model="user.role_id">
@@ -49,10 +39,9 @@
                                     <option value="2">Admin</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="user.block" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <checkbox-field :value="user.publish" :label="'Publikovano'" @changeValue="user.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary">Kreiraj</button>
                             </div>
@@ -78,7 +67,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -93,7 +81,6 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
         },
         methods: {
             submit(){

@@ -67,7 +67,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-        return ShoppingCart::first();
+        return User::first();
         //return Attribute::find(41)->product;
 //        $product = Product::find(225);
 //        return $product->colors()->first();

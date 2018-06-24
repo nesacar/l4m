@@ -23,20 +23,13 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="old-password">Stara lozinka</label>
-                                <input type="password" name="oldpassword" class="form-control" id="old-password" placeholder="Stara lozinka" v-model="user.oldpassword">
-                                <small class="form-text text-muted" v-if="error != null && error.oldpassword">{{ error.oldpassword[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Nova lozinka</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Nova lozinka" v-model="user.password">
-                                <small class="form-text text-muted" v-if="error != null && error.password">{{ error.password[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="password_confirmation">Potvrda nove lozinke</label>
-                                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Potvrda nove lozinke" v-model="user.password_confirmation">
-                            </div>
+
+                            <password-field :value="user.oldpassword" :label="'Stara lozinka'" :error="error? error.oldpassword : ''" :required="true" @changeValue="user.oldpassword = $event"></password-field>
+
+                            <password-field :value="user.password" :label="'Nova lozinka'" :error="error? error.password : ''" :required="true" @changeValue="user.password = $event"></password-field>
+
+                            <password-field :value="user.password_confirmation" :label="'Potvrda nove lozinke'" :error="error? error.password_confirmation : ''" :required="true" @changeValue="user.password_confirmation = $event"></password-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary">Izmeni</button>
                             </div>

@@ -36,7 +36,7 @@
                                     <date-field :value="product.date" :label="'Publikovano od:'" :error="error? error.publish_at : ''" @changeValue="product.date = $event"></date-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <date-field :value="product.time" :label="''" :error="error? error.time : ''" @changeValue="product.time = $event"></date-field>
+                                    <time-field :value="product.time" :label="''" :error="error? error.time : ''" @changeValue="product.time = $event"></time-field>
                                 </div>
                             </div>
 
@@ -149,7 +149,7 @@
                 image: {},
                 product: {
                     date: moment().format('YYYY-MM-DD'),
-                    time: moment().format('HH:mm'),
+                    time: moment().format('HH:00'),
                     cat_ids: [],
                     att_ids: [],
                     tag_ids: [],
@@ -211,11 +211,10 @@
                 axios.get('api/clients/lists')
                     .then(res => {
                         this.clients = res.data.clients;
-                        console.log(this.clients);
                     }).catch(e => {
-                    console.log(e);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
             },
             prepare(image){
                 this.product.image = image.src;

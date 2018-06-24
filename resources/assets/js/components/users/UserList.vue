@@ -35,7 +35,7 @@
 
                                 <td v-if="row.role_id == 2">/</td>
                                 <td v-else>
-                                    <span v-if="row.client.length > 0">[<template v-for="client in row.client">{{ client.name }}</template>,]</span>
+                                    <span v-if="row.client.length > 0">[<template v-for="client in row.client">{{ client.title }}</template>,]</span>
                                     <span v-else>  <font-awesome-icon icon="exclamation" /> </span>
                                 </td>
 

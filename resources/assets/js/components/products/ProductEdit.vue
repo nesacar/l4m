@@ -175,7 +175,6 @@
     import swal from 'sweetalert2';
     import vue2Dropzone from 'vue2-dropzone';
     import 'vue2-dropzone/dist/vue2Dropzone.css';
-    import moment from 'moment';
 
     export default {
         data(){
@@ -232,6 +231,7 @@
                         this.product.tag_ids = res.data.tag_ids;
                         this.getCollections(this.product.brand_id);
                         this.getProperties();
+                        this.authorized();
                     })
                     .catch(e => {
                         console.log(e);
@@ -299,7 +299,6 @@
             getPhotos(){
                 axios.get('api/products/' + this.$route.params.id + '/gallery')
                     .then(res => {
-                        console.log(res);
                         this.photos = res.data.photos;
                     }).catch(e => {
                         console.log(e.response);
@@ -402,13 +401,18 @@
                         });
                         this.getProduct();
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             discountPrice(){
                 if(this.product.price > 0){
                     this.product.price_outlet = this.product.price - (this.product.discount / 100) * this.product.price;
+                }
+            },
+            authorized(){
+                if(!this.admin && !in_array(this.product.client_id, this.user.client_ids)){
+                    this.$router.push('/products')
                 }
             },
         },

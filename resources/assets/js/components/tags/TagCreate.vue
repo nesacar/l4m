@@ -23,20 +23,13 @@
                 <div class="col-sm-8">
                     <div class="card">
                         <form @submit.prevent="submit()">
-                            <div class="form-group">
-                                <label for="title">Naslov</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="tag.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Slug" v-model="tag.slug">
-                                <small class="form-text text-muted" v-if="error != null && error.slug">{{ error.slug[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Publikovano</label><br>
-                                <switches v-model="tag.publish" theme="bootstrap" color="primary"></switches>
-                            </div>
+
+                            <text-field :value="tag.title" :label="'Naslov'" :error="error? error.title : ''" :required="true" @changeValue="tag.title = $event"></text-field>
+
+                            <text-field :value="tag.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="tag.slug = $event"></text-field>
+
+                            <checkbox-field :value="tag.publish" :label="'Publikovano'" @changeValue="tag.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>
@@ -54,7 +47,6 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -65,7 +57,6 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
         methods: {
             submit(){
