@@ -30,68 +30,28 @@
                                     <option value="blog">Blog</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="parent_category">Nad kategorija</label>
-                                <select name="parent_category" id="parent_category" class="form-control" v-model="shopBar.parent_category_id" @change="getCategories()">
-                                    <option :value="index" v-for="(set, index) in parents">{{ set }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.parent_category_id">{{ error.parent_category_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="category">Kategorija</label>
-                                <select name="category" id="category" class="form-control" v-model="shopBar.category_id" @change="getProducts()">
-                                    <option :value="index" v-for="(category, index) in categories">{{ category }}</option>
-                                </select>
-                                <small class="form-text text-muted" v-if="error != null && error.category_id">{{ error.category_id[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Naziv</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="Naslov" v-model="shopBar.title">
-                                <small class="form-text text-muted" v-if="error != null && error.title">{{ error.title[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="desc">Pomoćni opis</label>
-                                <input type="text" name="desc" class="form-control" id="desc" placeholder="Pomoćni opis" v-model="shopBar.desc">
-                                <small class="form-text text-muted" v-if="error != null && error.desc">{{ error.desc[0] }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="order">Redosled</label>
-                                <input type="text" name="order" class="form-control" id="order" placeholder="Redosled" v-model="shopBar.order">
-                                <small class="form-text text-muted" v-if="error != null && error.order">{{ error.order[0] }}</small>
-                            </div>
+
+                            <select2-field :lists="parents" :label="'Nad kategorija'" @changeValue="shopBar.parent_category_id = $event; getCategories();"></select2-field>
+
+                            <select2-field :lists="categories" :label="'Kategorija'" @changeValue="shopBar.category_id = $event"></select2-field>
+
+                            <text-field :value="shopBar.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="shopBar.title = $event"></text-field>
+
+                            <text-field :value="shopBar.desc" :label="'Pomoćni opis'" :error="error? error.desc : ''" @changeValue="shopBar.desc = $event"></text-field>
+
+                            <text-field :value="shopBar.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="shopBar.order = $event"></text-field>
+
+
                             <div v-if="trigger">
-                                <div class="form-group">
-                                    <label>Proizvod 1</label>
-                                    <select2 :options="products" v-model="prod_id1">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Proizvod 2</label>
-                                    <select2 :options="products" v-model="prod_id2">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Proizvod 3</label>
-                                    <select2 :options="products" v-model="prod_id3">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Proizvod 4</label>
-                                    <select2 :options="products" v-model="prod_id4">
-                                        <option value="0" disabled>select one</option>
-                                    </select2>
-                                </div>
-                                <div class="form-group">
-                                    <label>Prikazuj najnovije proizvode</label><br>
-                                    <switches v-model="shopBar.latest" theme="bootstrap" color="primary"></switches>
-                                </div>
-                                <div class="form-group">
-                                    <label>Publikovano</label><br>
-                                    <switches v-model="shopBar.publish" theme="bootstrap" color="primary"></switches>
-                                </div>
+
+                                <select2-field :lists="products" :label="'Proizvod 1'" @changeValue="prod_id1 = $event"></select2-field>
+                                <select2-field :lists="products" :label="'Proizvod 2'" @changeValue="prod_id2 = $event"></select2-field>
+                                <select2-field :lists="products" :label="'Proizvod 3'" @changeValue="prod_id3 = $event"></select2-field>
+                                <select2-field :lists="products" :label="'Proizvod 4'" @changeValue="prod_id4 = $event"></select2-field>
+
+                                <checkbox-field :value="shopBar.latest" :label="'Prikazuj najnovije proizvode'" @changeValue="shopBar.latest = $event"></checkbox-field>
+                                <checkbox-field :value="shopBar.publish" :label="'Publikovano'" @changeValue="shopBar.publish = $event"></checkbox-field>
+
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
@@ -111,8 +71,6 @@
     import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
@@ -139,10 +97,8 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
-            'select2': Select2,
         },
-        created(){
+        mounted(){
             this.getParents();
             this.getProducts();
         },
@@ -150,22 +106,21 @@
             getParents(){
                 axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.parents = res.data.lists;
+                        this.parents = res.data.categories;
                         this.getCategories();
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             getCategories(){
-                console.log(this.shopBar.parent_category_id);
                 axios.get('api/categories/children-lists?category=' + this.shopBar.parent_category_id)
                     .then(res => {
-                        this.categories = res.data.lists;
+                        this.categories = res.data.categories;
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             getProducts(){
                 let url = this.shopBar.category_id != null && this.shopBar.category_id != 0? '?category=' + this.shopBar.category_id : '?category=0';
@@ -175,13 +130,13 @@
                         this.trigger = true;
                         this.products = _.map(res.data.products, (data) => {
                             var pick = _.pick(data, 'code', 'id');
-                            var object = {id: pick.id, text: pick.code};
+                            var object = {id: pick.id, title: pick.code};
                             return object;
                         });
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             submit(){
                 this.doMagic();
@@ -199,9 +154,6 @@
                     console.log(e.response);
                     this.error = e.response.data.errors;
                 });
-            },
-            input(product){
-                this.shopBar.prod_ids = product;
             },
             doMagic(){
                 this.shopBar.prod_ids = [];

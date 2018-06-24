@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <div class="card" v-if="category">
 
-                        <select2-field :lists="lists" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="category.parent = $event"></select2-field>
+                        <select2-field v-if="false" :lists="lists" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="category.parent = $event"></select2-field>
 
                         <checkbox-field :value="category.featured" :label="'Istaknuto'" @changeValue="category.featured = $event"></checkbox-field>
 
@@ -117,16 +117,6 @@
               category: false,
               error: null,
               lists: {},
-              config: {
-                  toolbar: [
-                      [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],
-                      { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                      '/',
-                      { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                  ],
-                  height: 300,
-                  filebrowserBrowseUrl: 'filemanager/show'
-              },
               domain : apiHost
           }
         },
@@ -139,10 +129,7 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'ckeditor': Ckeditor,
             'vue-dropzone': vue2Dropzone,
-            'select2': Select2,
         },
         created(){
             this.getList();

@@ -39,7 +39,7 @@ class MenuLinksController extends Controller
 
     public function show($id){
         $link = MenuLink::find($id);
-        $properties = Property::with(['set', 'attribute'])->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
+        $properties = Property::with(['attribute'])->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
         $links = MenuLink::where('menu_links.publish', 1)->where('menu_links.parent', 0)->orderBy('menu_links.order', 'ASC')->get();
 
         return response()->json([

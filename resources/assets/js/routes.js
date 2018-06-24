@@ -42,10 +42,10 @@ export const router = new VueRouter({
         { path: "/attributes/create", component: require('./components/attributes/AttributeCreate.vue'), meta: { forAdmin: true } },
         { path: "/attributes/:id/edit", component: require('./components/attributes/AttributeEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAdmin: true } },
-        { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAdmin: true } },
-        { path: "/categories/sort", component: require('./components/categories/CategorySort.vue'), meta: { forAdmin: true } },
-        { path: "/categories/:id/edit", component: require('./components/categories/CategoryEdit.vue'), meta: { forAdmin: true } },
+        { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAuth: true } },
+        { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAuth: true } },
+        { path: "/categories/sort", component: require('./components/categories/CategorySort.vue'), meta: { forAuth: true } },
+        { path: "/categories/:id/edit", component: require('./components/categories/CategoryEdit.vue'), meta: { forAuth: true } },
 
         { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAdmin: true } },
         { path: "/products/create", component: require('./components/products/ProductCreate.vue'), meta: { forAdmin: true } },
@@ -78,9 +78,9 @@ export const router = new VueRouter({
         { path: "/tags/create", component: require('./components/tags/TagCreate.vue'), meta: { forAdmin: true } },
         { path: "/tags/:id/edit", component: require('./components/tags/TagEdit.vue'), meta: { forAdmin: true } },
 
-        { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAdmin: true } },
-        { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAdmin: true } },
-        { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAdmin: true } },
+        { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAuth: true } },
+        { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAuth: true } },
+        { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAuth: true } },
 
         { path: "/subscribers", component: require('./components/subscribers/SubscriberList.vue'), meta: { forAdmin: true } },
         { path: "/subscribers/create", component: require('./components/subscribers/SubscriberCreate.vue'), meta: { forAdmin: true } },

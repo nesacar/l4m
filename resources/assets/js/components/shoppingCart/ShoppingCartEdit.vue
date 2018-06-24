@@ -19,9 +19,9 @@
                     <div class="card">
                         <h3>Podaci o kupcu</h3>
                         <ul class="list-item" v-if="shoppingCart" style="padding-left: 0">
-                            <li class="list-group-item">Kupac: {{ shoppingCart.address.name }}</li>
+                            <li class="list-group-item">Kupac: {{ shoppingCart.customer.user.name }}</li>
                             <li class="list-group-item">Email: {{ shoppingCart.customer.user.email }}</li>
-                            <li class="list-group-item">Broj telefona: {{ shoppingCart.address.phone }}</li>
+                            <li class="list-group-item" v-if="shoppingCart.address">Broj telefona: {{ shoppingCart.address.phone }}</li>
                             <li class="list-group-item"></li>
                         </ul>
                     </div>
@@ -48,11 +48,11 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.product.title }}</td>
                                 <td>{{ row.product.code }}</td>
-                                <td v-if="row.product.category.length > 0">{{ row.product.category[0].title }}</td><td v-else>/</td>
+                                <td v-if="row.product.category">{{ row.product.category[0].title }}</td><td v-else>/</td>
                                 <td v-if="row.product.tmb"><a :href="row.product.link" target="_blank"><img :src="row.product.tmb" :alt="row.product.title"></a></td>
                                 <td>{{ row.size? row.size : '/' }}</td>
                                 <td>{{ row.color? row.color : '/' }}</td>
-                                <td>{{ row.shipping.title }}</td>
+                                <td v-if="row.shipping">{{ row.shipping.title }}</td><td v-else></td>
                                 <td>{{ row.product.publish? 'Da' : 'Ne' }}</td>
                             </tr>
                             </tbody>
