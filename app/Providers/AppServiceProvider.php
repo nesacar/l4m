@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
       Blade::component($components . 'drawer', 'drawer');
       Blade::component($components . 'stepper', 'stepper');
       Blade::component($components . 'zoomer', 'zoomer');
+      Blade::component($components . 'filter', 'filter');
 
       // carousel stuff.
       Blade::component($components . 'carousel-controls', 'carouselcontrols');

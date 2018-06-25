@@ -88,3 +88,14 @@ $filter-height: 20px;
     height: $filter-height;
   }
 }
+
+.applied-filter-list {
+  margin-bottom: 16px;
+}
+.applied-filter-list_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,.21);
+}

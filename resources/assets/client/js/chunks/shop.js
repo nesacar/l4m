@@ -1,81 +1,193 @@
 import DoubleSlider from '../components/double-slider';
+import {button, div, li} from '../html';
 
-const ACTIVE_CLASS = 'active';
-
-let $filtersBtn;
-let $container;
-
-/**
- * Toggles the filters visibility.
- */
-function _toggleFilters() {
-  $container.classList.add(ACTIVE_CLASS);
-  document.querySelector('.js-filters-backdrop')
-    .addEventListener('click', function f(evt) {
-      $container.classList.remove(ACTIVE_CLASS);
-    });
-}
+// Prevent content flashes
+// form.classList.remove('filters--loading');
+// form.classList.add('filters--has-loaded');
 
 /**
- * Instantiate all the sliders.
+ * Helper class for controling filter drawer.
  */
-function _initSliders (el) {
-  Array.from(el.querySelectorAll('.double-slider'))
-    .forEach((slider) => {
-      return new DoubleSlider(slider);
-    });
-}
-
-/**
- * Goes through all the filters, and removes the ones
- * without values.
- */
-function _removeEmptyFilters (el) {
-  Array.from(el.querySelectorAll('.filter'))
-    .forEach((filter) => {
-      let filterList = filter.querySelector('.filter-list');
-      // Ignore if it's slider.
-      if (!filterList) {
-        return;
-      }
-
-      if (_isEmptyElement(filterList)) {
-        filter.parentElement.removeChild(filter);
-      }
-    });
-}
-
-/**
- * Convenience funtion that checks if element has
- * any children.
- * 
- * @param {Element} element - DOM Element to test if it's empty.
- * @return {Boolean}
- */
-function _isEmptyElement (element) {
-  return element.children.length < 1;
-}
-
-(function () {
+class FilterDrawer {
   /**
-   * Convenience function that submits the form.
+   * @type {string}
    */
-  function submitForm (e) {
-    form.submit();
+  static get ACTIVE_CLASS() {
+    return 'active';
+  }
+  
+  /**
+   * Creates new instance of the FilterDrawer helper component.
+   */
+  constructor() {
+    this.btn = document.querySelector('.js-filter-btn');
+    this.el = document.querySelector('.js-filters-container');
+    this.backdrop = document.querySelector('.js-filters-backdrop');
+
+    this.state = {
+      active: this.el.classList.contains(FilterDrawer.ACTIVE_CLASS),
+    };
+
+    this.btn.addEventListener('click', this.open.bind(this));
+    this.backdrop.addEventListener('click', this.close.bind(this));
   }
 
-  $filtersBtn = document.querySelector('.js-filter-btn');
-  $container = document.querySelector('.js-filters-container');
-  const form = document.getElementById('filters');
-  $filtersBtn.addEventListener('click', _toggleFilters);
-  form.addEventListener('change', submitForm);
-  document.getElementById('sort')
-    .addEventListener('change', submitForm);
-  
-  _initSliders(form);
-  _removeEmptyFilters(form);
+  /**
+   * opens the components el.
+   */
+  open() {
+    this.setState({
+      active: true,
+    });
+  }
 
-  // Prevent content flashes
-  form.classList.remove('filters--loading');
-  form.classList.add('filters--has-loaded');
-}());
+  /**
+   * closes the compoents el.
+   */
+  close() {
+    this.setState({
+      active: false,
+    });
+  }
+
+  /**
+   * Updates the state and calls render.
+   *
+   * @param {Object} partialState
+   */
+  setState(partialState) {
+    this.state = Object.assign({}, this.state, partialState);
+    this.render();
+  }
+
+  /**
+   * Updates the DOM to represent the state.
+   */
+  render() {
+    const {active} = this.state;
+
+    if (active) {
+      this.el.classList.add(FilterDrawer.ACTIVE_CLASS);
+    } else {
+      this.el.classList.remove(FilterDrawer.ACTIVE_CLASS);
+    }
+  }
+}
+
+/**
+ * Checks if element has any child elements.
+ *
+ * @param {HTMLElement} el
+ * @return {Boolean}
+ */
+const isEmpty = (el) => el.children.length < 1;
+
+/**
+ * Removes the element from the DOM.
+ *
+ * @param {HTMLElement} el
+ * @return {HTMLElement}
+ */
+const removeElement = (el) => el.parentElement.removeChild(el);
+
+/**
+ * Returns elements parent element.
+ *
+ * @param {HTMLElement} el
+ * @return {HTMLElement}
+ */
+const parentElement = (el) => el.parentElement;
+
+/**
+ * Creates DoubleSlider wrapper.
+ *
+ * @param {HTMLElement} el
+ * @return {DoubleSlider}
+ */
+const createSlider = (el) => new DoubleSlider(el);
+
+/**
+ * Extract values from the dataset.
+ *
+ * @param {HTMLElement} el
+ * @return {Object}
+ */
+const extractData = (el) => el.dataset;
+
+/**
+ * Creates applied filter.
+ *
+ * @param {Object} dataset
+ * @property {string} dataset.id
+ * @property {string} dataset.value
+ * @property {string} dataset.category
+ * @return {string}
+ */
+const createAppliedFilter = (dataset) => {
+  const {id, value, category} = dataset;
+  const item = li({class: 'applied-filter-list_item', 'data-id': id});
+  const wrap = div();
+  const cat = div({class: 'text--xs text--bold text--uppercase text--hint'});
+  cat.innerHTML = category;
+  const val = div({class: 'text--s text--bold'});
+  val.innerHTML = value;
+  wrap.appendChild(cat);
+  wrap.appendChild(val);
+  const btn = button({class: 'icon-btn'});
+  btn.innerHTML = '&times;';
+  item.appendChild(wrap);
+  item.appendChild(btn);
+  return item;
+};
+
+/**
+ * unchecks the filter with the given id.
+ *
+ * @param {string} id
+ * @return {Function} event handler.
+ */
+const removeFilter = (id) => () => {
+  document.getElementById(id).checked = false;
+};
+
+/**
+ * Attaches event listener that removes the filter.
+ *
+ * @param {HTMLElement} el
+ * @return {HTMLElement}
+ */
+const bindEvents = (el) => {
+  const btn = el.querySelector('.icon-btn');
+  const id = el.dataset.id;
+  btn.addEventListener('click', removeFilter(id));
+  return el;
+};
+
+const formEl = document.querySelector('#filters');
+const sortEl = document.querySelector('#sort');
+const listEl = document.querySelector('.js-applied-list');
+
+new FilterDrawer();
+
+// init sliders.
+Array.from(formEl.querySelectorAll('.double-slider'))
+  .map(createSlider);
+
+// remove the filters without values.
+Array.from(formEl.querySelectorAll('.filter-list'))
+  .filter(isEmpty)
+  .map(parentElement)
+  .map(removeElement);
+
+// render applied filters.
+Array.from(formEl.querySelectorAll('[data-checked]'))
+  .map(extractData)
+  .map(createAppliedFilter)
+  .map(bindEvents)
+  .map((el) => listEl.appendChild(el));
+
+// submit form on change.
+[formEl, sortEl].map((el) => {
+  el.addEventListener('change', formEl.submit);
+  return el;
+});
