@@ -153,6 +153,7 @@
                 this.$router.push('/attributes/create');
             },
             search(value){
+                this.$store.dispatch('changeSearchAttributePage', 1);
                 this.$store.dispatch('changeSearchAttribute', value);
                 axios.post('api/attributes/search', this.searchAttribute)
                     .then(res => {

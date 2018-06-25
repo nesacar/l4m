@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Attribute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAttributeRequest;
+use App\Property;
 use Illuminate\Http\Request;
 
 class AttributesController extends Controller
@@ -39,7 +40,7 @@ class AttributesController extends Controller
         $attribute = Attribute::create(request()->all());
 
         return response()->json([
-            'attribute' => $attribute
+            'attribute' => $attribute,
         ]);
     }
 
@@ -51,8 +52,11 @@ class AttributesController extends Controller
      */
     public function show(Attribute $attribute)
     {
+        $properties = Property::with(['attribute'])->where('properties.publish', 1)->orderBy('properties.title', 'ASC')->get();
+
         return response()->json([
-            'attribute' => $attribute
+            'attribute' => $attribute,
+            'properties' => $properties,
         ]);
     }
 

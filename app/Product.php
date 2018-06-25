@@ -120,6 +120,19 @@ class Product extends Model
         return $str;
     }
 
+    public static function filter($array = []){
+        if(count($array)>0){
+            $res = [];
+            $tagsIds = self::pluck('id')->toArray();
+            foreach ($array as $item){
+                if(in_array($item, $tagsIds)){
+                    $res[] = $item;
+                }
+            }
+            return $res;
+        }
+    }
+
     public static function getHomeLatest(){
         return Category::where('publish', 1)->where('parent', 0)->get()->map(function($category){
             $category->products4;

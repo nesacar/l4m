@@ -24,14 +24,14 @@ class CreateClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'title' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Naziv je obavezan',
+            'title.required' => 'Naziv je obavezan',
         ];
     }
 }

@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="col-sm-8">
-                    <div class="card" v-if="lists">
+                    <div class="card" v-if="collection">
                         <form @submit.prevent="submit()">
 
                             <select2-field :lists="lists" :label="'Brend'" :value="collection.brand_id" :error="error? error.brand_id : ''" :required="true" @changeValue="collection.brand_id = $event"></select2-field>
@@ -69,10 +69,7 @@
     export default {
         data(){
           return {
-              collection: {
-                  desc: null,
-                  publish: false,
-              },
+              collection: false,
               lists: {},
               error: null,
               domain : apiHost
@@ -88,12 +85,13 @@
             'upload-image-helper': UploadImageHelper,
         },
         mounted(){
-            this.getList();
+            this.getCollection();
         },
         methods: {
             getCollection(){
                 axios.get('api/collections/' + this.$route.params.id)
                     .then(res => {
+                        this.lists = res.data.brands;
                         this.collection = res.data.collection;
                     })
                     .catch(e => {
@@ -140,16 +138,6 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getList(){
-                axios.get('api/brands/lists')
-                    .then(res => {
-                        this.lists = res.data.brands;
-                        this.getCollection();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            }
         }
     }
 </script>

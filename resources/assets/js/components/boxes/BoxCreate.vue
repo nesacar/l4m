@@ -85,6 +85,25 @@
             this.getCategories();
         },
         methods: {
+            getBlock(){
+                axios.get('api/blocks/lists')
+                    .then(res => {
+                        this.lists = res.data.blocks;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            getCategories(){
+                axios.get('api/categories/lists')
+                    .then(res => {
+                        this.categories = res.data.categories;
+                        this.getBlock();
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
             submit(){
                 axios.post('api/boxes', this.box)
                     .then(res => {
@@ -115,25 +134,6 @@
                         this.error = null;
                     }).catch(e => {
                         console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getBlock(){
-                axios.get('api/blocks/lists')
-                    .then(res => {
-                        this.lists = res.data.blocks;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getCategories(){
-                axios.get('api/categories/lists')
-                    .then(res => {
-                        this.categories = res.data.categories;
-                        this.getBlock();
-                    }).catch(e => {
-                        console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },

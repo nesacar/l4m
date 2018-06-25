@@ -131,13 +131,14 @@
             'upload-image-helper': UploadImageHelper,
             'vue-dropzone': vue2Dropzone,
         },
-        created(){
-            this.getList();
+        mounted(){
+            this.getCategory();
         },
         methods: {
             getCategory(){
                 axios.get('api/categories/' + this.$route.params.id)
                     .then(res => {
+                        this.lists = res.data.categories;
                         this.category = res.data.category;
                     })
                     .catch(e => {
@@ -199,16 +200,6 @@
                         });
                     }).catch(e => {
                         console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getList(){
-                axios.get('api/categories/lists?parent=1')
-                    .then(res => {
-                        this.lists = res.data.categories;
-                        this.getCategory();
-                    }).catch(e => {
-                        console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },

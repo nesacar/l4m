@@ -158,6 +158,7 @@
                     });
             },
             search(value){
+                this.$store.dispatch('changeSearchPostPage', 1);
                 this.$store.dispatch('changeSearchPost', value);
                 axios.post('api/posts/search', this.searchPost)
                     .then(res => {

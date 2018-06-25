@@ -36,7 +36,7 @@
                             <tbody>
                             <tr v-for="row in clients">
                                 <td>{{ row.id }}</td>
-                                <td>{{ row.name }}</td>
+                                <td>{{ row.title }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
                                     <!--<router-link tag="a" :to="'client-bars/' + row['id']" class="edit-link"><font-awesome-icon icon="th-large"/></router-link>-->
@@ -142,6 +142,7 @@
                 this.$router.push('/clients/create');
             },
             search(value){
+                this.$store.dispatch('changeSearchClientPage', 1);
                 this.$store.dispatch('changeSearchClient', value);
                 axios.post('api/clients/search', this.searchClient)
                     .then(res => {

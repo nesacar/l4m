@@ -143,6 +143,7 @@
                 this.$router.push('/brand-links/' + row.id);
             },
             search(value){
+                this.$store.dispatch('changeSearchBrandPage', 1);
                 this.$store.dispatch('changeSearchBrand', value);
                 axios.post('api/brands/search', this.searchBrand)
                     .then(res => {

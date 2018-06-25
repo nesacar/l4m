@@ -93,7 +93,7 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
-        created(){
+        mounted(){
             this.getList();
         },
         methods: {

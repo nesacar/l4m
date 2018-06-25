@@ -123,43 +123,23 @@
             'vue-dropzone': vue2Dropzone,
         },
         mounted(){
-            this.getGallery();
-            this.getCategories();
+            this.getBrand();
         },
         methods: {
             getBrand(){
                 axios.get('api/brands/' + this.$route.params.id)
-                    .then(res => {
-                        this.brand = res.data.brand;
-                        this.brand.category_ids = res.data.category_ids;
-                        console.log(this.brand);
-                    })
-                    .catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getCategories(){
-                axios.get('api/categories/top-lists')
                     .then(res => {
                         this.categories = _.map(res.data.categories, (data) => {
                             var pick = _.pick(data, 'title', 'id');
                             var object = {id: pick.id, text: pick.title};
                             return object;
                         });
-                        this.getBrand();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getGallery(){
-                axios.get('api/brands/' + this.$route.params.id + '/gallery')
-                    .then(res => {
                         this.gallery = res.data.images;
-                        console.log(this.gallery);
-                    }).catch(e => {
-                        console.log(e.response);
+                        this.brand = res.data.brand;
+                        this.brand.category_ids = res.data.category_ids;
+                    })
+                    .catch(e => {
+                        console.log(e);
                         this.error = e.response.data.errors;
                     });
             },

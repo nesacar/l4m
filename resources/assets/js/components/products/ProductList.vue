@@ -174,6 +174,7 @@
                     });
             },
             search(value){
+                this.$store.dispatch('changeSearchProductPage', 1);
                 this.$store.dispatch('changeSearchProduct', value);
                 axios.post('api/products/search', this.searchProduct)
                     .then(res => {

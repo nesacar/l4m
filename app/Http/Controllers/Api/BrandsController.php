@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Brand;
 use App\BrandImage;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBrandRequest;
 use App\Http\Requests\UploadImageRequest;
@@ -55,9 +56,14 @@ class BrandsController extends Controller
      */
     public function show(Brand $brand)
     {
+        $categories = Category::where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+        $images = $brand->slider()->get();
+
         return response()->json([
             'brand' => $brand,
             'category_ids' => $brand->category()->pluck('id'),
+            'categories' => $categories,
+            'images' => $images,
         ]);
     }
 

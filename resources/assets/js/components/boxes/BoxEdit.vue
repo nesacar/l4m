@@ -91,14 +91,15 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
-        created(){
-            this.getBlocks();
-            this.getCategories();
+        mounted(){
+            this.getBox();
         },
         methods: {
             getBox(){
                 axios.get('api/boxes/' + this.$route.params.id)
                     .then(res => {
+                        this.categories = res.data.categories;
+                        this.lists = res.data.blocks;
                         this.box = res.data.box;
                     })
                     .catch(e => {
@@ -118,16 +119,6 @@
                             timer: 1500
                         });
                         this.error = null;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getBlocks(){
-                axios.get('api/blocks/lists')
-                    .then(res => {
-                        this.lists = res.data.blocks;
-                        this.getBox();
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
@@ -174,15 +165,6 @@
                     this.error = e.response.data.errors;
                 });
             },
-            getCategories(){
-                axios.get('api/categories/lists')
-                    .then(res => {
-                        this.categories = res.data.categories;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            }
         }
     }
 </script>

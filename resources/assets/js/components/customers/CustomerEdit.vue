@@ -67,7 +67,7 @@
             'font-awesome-icon': FontAwesomeIcon,
             'switches': Switches,
         },
-        created(){
+        mounted(){
             this.getCustomer();
         },
         methods: {

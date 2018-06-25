@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Brand;
 use App\Category;
 use App\Client;
 use App\Http\Requests\CreateClientRequest;
@@ -51,9 +52,12 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Client $client){
+        $brands = Brand::select('id', 'title', 'short')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
+
         return response()->json([
             'client' => $client->load('brand'),
             'brand_ids' => $client->brand()->pluck('id')->toArray(),
+            'brands' => $brands,
         ]);
     }
 

@@ -63,6 +63,7 @@ class ClientsController extends Controller
     public function shop($slug){
         $client = Client::where('slug', $slug)->first();
         $category = $client->category->first();
+        $category = $category?: Category::find(5);
         $data = Product::search($category, false, $client);
         Seo::shopCategory($category);
         $properties = Category::getProperties($category->slug);
@@ -81,6 +82,7 @@ class ClientsController extends Controller
     public function action($slug){
         $client = Client::where('slug', $slug)->first();
         $category = $client->category->first();
+        $category = $category?: Category::find(5);
         $data = Product::search($category, false, $client, true);
         Seo::shopCategory($category);
         $properties = Category::getProperties($category->slug);

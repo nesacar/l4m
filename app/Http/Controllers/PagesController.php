@@ -22,6 +22,7 @@ use App\Set;
 use App\Setting;
 use App\ShopBar;
 use App\ShoppingCart;
+use App\Tag;
 use App\Theme;
 use App\User;
 
@@ -67,7 +68,13 @@ class PagesController extends Controller
 
     public function proba()
     {
-        return User::first();
+//        factory('App\Tag', 30)->create();
+        $clients = Client::where('id', '<', 3)->get();
+        if(count($clients)>0){
+            foreach ($clients as $client){
+                $client->delete();
+            }
+        }
         //return Attribute::find(41)->product;
 //        $product = Product::find(225);
 //        return $product->colors()->first();

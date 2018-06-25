@@ -71,23 +71,15 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
         },
-        created(){
-            this.getProperties();
+        mounted(){
+            this.getAttribute();
         },
         methods: {
-            getProperties(){
-                axios.get('api/properties/lists')
-                    .then(res => {
-                        this.lists = res.data.properties;
-                        this.getAttribute();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             getAttribute(){
                 axios.get('api/attributes/' + this.$route.params.id)
                     .then(res => {
+                        this.lists = res.data.properties;
+                        console.log(this.lists);
                         this.attribute = res.data.attribute;
                     })
                     .catch(e => {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Brand;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCollectionRequest;
@@ -54,8 +55,11 @@ class CollectionsController extends Controller
      */
     public function show(Collection $collection)
     {
+        $brands = Brand::select('id', 'title', 'short')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
+
         return response()->json([
-            'collection' => $collection
+            'collection' => $collection,
+            'brands' => $brands,
         ]);
     }
 

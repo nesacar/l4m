@@ -23,7 +23,7 @@ export const router = new VueRouter({
 
         { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAdmin: true } },
         { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAdmin: true } },
-        { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAdmin: true } },
+        { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAuth: true } },
         { path: "/posts/:id/products", component: require('./components/posts/PostProducts.vue'), meta: { forAdmin: true } },
 
         { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAdmin: true } },

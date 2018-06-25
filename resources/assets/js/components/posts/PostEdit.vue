@@ -95,7 +95,7 @@
 
                                     <text-area-ckeditor-field v-if="post.body" :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                                    <select2-multiple-field :lists="tags" :value="post.tag_ids" :label="'Tagovi'" @changeValue="post.tag_ids = $event"></select2-multiple-field>
+                                    <select2-multiple-field v-if="post" :lists="tags" :value="post.tag_ids" :label="'Tagovi'" @changeValue="input($event)"></select2-multiple-field>
 
                                     <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 
@@ -123,9 +123,7 @@
     export default {
         data(){
           return {
-              post: {
-                  tag_ids: []
-              },
+              post: false,
               error: null,
               lists: false,
               gallery: {},
@@ -161,18 +159,25 @@
             'vue-dropzone': vue2Dropzone,
         },
         mounted(){
-            this.getList();
-            this.getTags();
-            this.getGallery();
-            this.getBrands();
-            this.getClients();
+            this.getPost();
         },
         methods: {
             getPost(){
                 axios.get('api/posts/' + this.$route.params.id)
                     .then(res => {
+                        this.lists = res.data.blogs;
+                        this.clients = res.data.clients;
+                        this.brands = res.data.brands;
+                        this.gallery = res.data.photos;
+                        this.tags = _.map(res.data.tags, (data) => {
+                            var pick = _.pick(data, 'title', 'id');
+                            var object = {id: pick.id, text: pick.title};
+                            return object;
+                        });
                         this.post = res.data.post;
                         this.post.tag_ids = res.data.tag_ids;
+                        console.log('get from API: ' + this.post.tag_ids);
+                        console.log('typeog API: ' + typeof this.post.tag_ids);
                     })
                     .catch(e => {
                         console.log(e);
@@ -182,19 +187,10 @@
                         }
                     });
             },
-            getClients(){
-                axios.get('api/clients/lists')
-                    .then(res => {
-                        this.clients = res.data.clients;
-                        this.getPost();
-                    }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
             submit(){
                 this.post.user_id = this.user.id;
                 this.post.publish_at = this.publish_at;
+                console.log('submit: ' + this.post.tag_ids);
                 axios.put('api/posts/' + this.post.id, this.post)
                     .then(res => {
                         this.post = res.data.post;
@@ -254,35 +250,6 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getList(){
-                axios.get('api/blogs/lists')
-                    .then(res => {
-                        this.lists = res.data.blogs;
-                        this.getClients();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getBrands(){
-                axios.get('api/brands/lists')
-                    .then(res => {
-                        this.brands = res.data.brands;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getGallery(){
-                axios.get('api/posts/' + this.$route.params.id + '/gallery')
-                    .then(res => {
-                        this.gallery = res.data.photos;
-                        console.log(this.gallery);
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             deletePhoto(photo){
                 axios.post('api/galleries/' + photo.id + '/destroy')
                     .then(res => {
@@ -297,18 +264,9 @@
             showSuccess(){
                 this.getGallery();
             },
-            getTags(){
-                axios.get('api/tags/lists')
-                    .then(res => {
-                        this.tags = _.map(res.data.tags, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
-                    }).catch(e => {
-                    console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+            input(tags){
+                console.log('tags: ' + tags);
+                this.post.tag_ids = tags;
             },
         }
     }

@@ -54,8 +54,11 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
+        $categories = Category::where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+
         return response()->json([
             'category' => $category,
+            'categories' => $categories,
         ]);
     }
 

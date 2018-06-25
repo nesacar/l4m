@@ -162,6 +162,7 @@
                     });
             },
             search(value){
+                this.$store.dispatch('changeSearchCategoryPage', 1);
                 this.$store.dispatch('changeSearchCategory', value);
                 axios.post('api/categories/search', value)
                     .then(res => {

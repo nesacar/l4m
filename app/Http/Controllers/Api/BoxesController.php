@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Block;
 use App\Box;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBoxRequest;
 use App\Http\Requests\UploadImageRequest;
@@ -56,8 +58,13 @@ class BoxesController extends Controller
      */
     public function show(Box $box)
     {
+        $blocks = Block::where('publish', 1)->orderBy('title', 'ASC')->get();
+        $categories = Category::where('publish', 1)->orderBy('created_at', 'DESC')->get();
+
         return response()->json([
-            'box' => $box
+            'box' => $box,
+            'blocks' => $blocks,
+            'categories' => $categories,
         ]);
     }
 

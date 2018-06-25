@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Block;
+use App\Blog;
+use App\Brand;
 use App\Client;
 use App\Gallery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Post;
+use App\Product;
+use App\Tag;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use File;
@@ -48,8 +53,8 @@ class PostsController extends Controller
         $post = Post::create(request()->except('image', 'slider'));
         if(empty(request('client_id'))) $post->update(['client_id' => Client::getClientId()]);
 
-        if(request('tag_ids')) $post->tag()->sync(request('tag_ids'));
-        if(request('product_ids')) $post->product()->sync(request('product_ids'));
+        $post->tag()->sync(Tag::filter(request('tag_ids')));
+       $post->product()->sync(Product::filter(request('product_ids')));
 
         return response()->json([
             'post' => $post
@@ -70,13 +75,23 @@ class PostsController extends Controller
             ], 401);
         }
 
-        $postIds = $post->tag()->pluck('tags.id');
-        $productIds = $post->product()->pluck('products.id');
+        $postIds = $post->tag()->pluck('tags.id')->toArray();
+        $productIds = $post->product()->pluck('products.id')->toArray();
+        $clients = Client::select('id', 'title')->where('publish', 1)->get();
+        $blogs = Blog::select('id', 'title')->where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+        $brands = Brand::select('id', 'title')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
+        $photos = $post->gallery;
+        $tags = Tag::select('id', 'title')->where('publish', 1)->orderBy('title', 'ASC')->get();
 
         return response()->json([
             'post' => $post,
             'tag_ids' => $postIds,
             'product_ids' => $productIds,
+            'clients' => $clients,
+            'blogs' => $blogs,
+            'brands' => $brands,
+            'photos' => $photos,
+            'tags' => $tags,
         ]);
     }
 
@@ -92,8 +107,8 @@ class PostsController extends Controller
         $post->update(request()->except('image', 'slider'));
         if(empty(request('client_id'))) $post->update(['client_id' => Client::getClientId()]);
 
-        $post->tag()->sync(request('tag_ids'));
-        $post->product()->sync(request('product_ids'));
+        $post->tag()->sync(Tag::filter(request('tag_ids')));
+        $post->product()->sync(Product::filter(request('product_ids')));
 
         $postIds = $post->tag()->pluck('tags.id');
         $productIds = $post->product()->pluck('products.id');

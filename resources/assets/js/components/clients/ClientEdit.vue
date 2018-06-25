@@ -92,27 +92,17 @@
             'upload-image-helper': UploadImageHelper,
         },
         mounted(){
-            this.getBrands();
+            this.getClient();
         },
         methods: {
-            getBrands(){
-                axios.get('api/brands/lists')
+            getClient(){
+                axios.get('api/clients/' + this.$route.params.id)
                     .then(res => {
                         this.brands = _.map(res.data.brands, (data) => {
                             var pick = _.pick(data, 'title', 'id');
                             var object = {id: pick.id, text: pick.title};
                             return object;
                         });
-                        this.getClient();
-                        this.error = null;
-                    }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getClient(){
-                axios.get('api/clients/' + this.$route.params.id)
-                    .then(res => {
                         this.client = res.data.client;
                         this.client.brand_ids = res.data.brand_ids;
                     })
