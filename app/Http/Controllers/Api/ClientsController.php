@@ -113,11 +113,9 @@ class ClientsController extends Controller
     }
 
     public function lists(){
-        $clients = Client::with('user')->get();
-
         return response()->json([
-            'clients' => $clients,
-            'lists' => $clients->pluck('title', 'id'),
+            'clients' => Client::where('publish', 1)->with('user')->get(),
+            'lists' => Client::where('publish', 1)->get(['title', 'id']),
         ]);
     }
 

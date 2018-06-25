@@ -24,11 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field v-if="admin" :lists="clients" :label="'Klijent'" @changeValue="post.client_id = $event"></select2-field>
+                            <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :value="null" :multiple="false" @changeValue="post.client_id = $event"></select-field>
 
-                            <select2-field :lists="lists" :label="'Kategorija'" :error="error? error.blog_id : ''" :required="true" @changeValue="post.blog_id = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="null" :multiple="false" @changeValue="post.blog_id = $event"></select-field>
 
-                            <select2-field :lists="brands" :label="'Brend'" @changeValue="post.brand_id = $event"></select2-field>
+                            <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="null" :multiple="false" @changeValue="post.brand_id = $event"></select-field>
 
 
                             <div class="row">
@@ -50,7 +50,7 @@
 
                             <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                            <select2-multiple-field :lists="tags" :label="'Tagovi'" @changeValue="post.tag_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="tags" :multiple="true" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 
@@ -99,7 +99,7 @@
           return {
               image: {},
               slider: {},
-              clients: {},
+              clients: false,
               post: {
                   date: moment().format('YYYY-MM-DD'),
                   time: moment().format('HH:00'),
@@ -109,9 +109,9 @@
                   tag_ids: [],
                   product_ids: [],
               },
-              lists: {},
-              tags: {},
-              brands: {},
+              lists: false,
+              tags: false,
+              brands: false,
               error: null,
               domain : apiHost
           }
@@ -162,7 +162,7 @@
             getClients(){
                 axios.get('api/clients/lists')
                     .then(res => {
-                        this.clients = res.data.clients;
+                        this.clients = res.data.lists;
                     }).catch(e => {
                         console.log(e);
                         this.error = e.response.data.errors;
@@ -219,11 +219,12 @@
             getTags(){
                 axios.get('api/tags/lists')
                     .then(res => {
-                        this.tags = _.map(res.data.tags, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.tags = res.data.tags;
+//                        this.tags = _.map(res.data.tags, (data) => {
+//                            var pick = _.pick(data, 'title', 'id');
+//                            var object = {id: pick.id, text: pick.title};
+//                            return object;
+//                        });
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

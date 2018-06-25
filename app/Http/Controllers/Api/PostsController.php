@@ -75,7 +75,7 @@ class PostsController extends Controller
             ], 401);
         }
 
-        $postIds = $post->tag()->pluck('tags.id')->toArray();
+        $postIds = $post->tag()->select('tags.title', 'tags.id')->get();
         $productIds = $post->product()->pluck('products.id')->toArray();
         $clients = Client::select('id', 'title')->where('publish', 1)->get();
         $blogs = Blog::select('id', 'title')->where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
@@ -85,6 +85,9 @@ class PostsController extends Controller
 
         return response()->json([
             'post' => $post,
+            'client_id' => $post->client()->select('title', 'id')->first(),
+            'blog_id' => $post->blog()->select('title', 'id')->first(),
+            'brand_id' => $post->brand()->select('title', 'id')->first(),
             'tag_ids' => $postIds,
             'product_ids' => $productIds,
             'clients' => $clients,

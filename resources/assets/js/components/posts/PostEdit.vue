@@ -69,12 +69,11 @@
                             <div class="tab-pane fade show active" id="srb" role="tabpanel" aria-labelledby="srb-tab">
                                 <form @submit.prevent="submit()">
 
-                                    <select2-field v-if="admin" :lists="clients" :value="post.client_id" :label="'Klijent'" @changeValue="post.client_id = $event"></select2-field>
+                                    <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :value="post.client_id" :multiple="false" @changeValue="post.client_id = $event"></select-field>
 
-                                    <select2-field :lists="lists" :label="'Kategorija'" :value="post.blog_id" :error="error? error.blog_id : ''" :required="true" @changeValue="post.blog_id = $event"></select2-field>
+                                    <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="post.blog_id" :multiple="false" @changeValue="post.blog_id = $event"></select-field>
 
-                                    <select2-field :lists="brands" :label="'Brend'" :value="post.brand_id" @changeValue="post.brand_id = $event"></select2-field>
-
+                                    <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="post.brand_id" :multiple="false" @changeValue="post.brand_id = $event"></select-field>
 
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -95,7 +94,7 @@
 
                                     <text-area-ckeditor-field v-if="post.body" :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                                    <select2-multiple-field v-if="post" :lists="tags" :value="post.tag_ids" :label="'Tagovi'" @changeValue="input($event)"></select2-multiple-field>
+                                    <select-multiple-field :options="tags" :multiple="true" :value="post.tag_ids" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                                     <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 
@@ -123,13 +122,14 @@
     export default {
         data(){
           return {
+              selected: {},
               post: false,
               error: null,
               lists: false,
               gallery: {},
               clients: {},
               brands: {},
-              tags: {},
+              tags: false,
               dropzoneOptions: {
                   url: 'api/posts/' + this.$route.params.id + '/gallery',
                   thumbnailWidth: 150,
@@ -169,15 +169,12 @@
                         this.clients = res.data.clients;
                         this.brands = res.data.brands;
                         this.gallery = res.data.photos;
-                        this.tags = _.map(res.data.tags, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.tags = res.data.tags;
                         this.post = res.data.post;
+                        this.post.client_id = res.data.client_id;
+                        this.post.blog_id = res.data.blog_id;
+                        this.post.brand_id = res.data.brand_id;
                         this.post.tag_ids = res.data.tag_ids;
-                        console.log('get from API: ' + this.post.tag_ids);
-                        console.log('typeog API: ' + typeof this.post.tag_ids);
                     })
                     .catch(e => {
                         console.log(e);
@@ -264,10 +261,6 @@
             showSuccess(){
                 this.getGallery();
             },
-            input(tags){
-                console.log('tags: ' + tags);
-                this.post.tag_ids = tags;
-            },
-        }
+        },
     }
 </script>

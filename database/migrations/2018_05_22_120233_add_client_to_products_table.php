@@ -14,7 +14,7 @@ class AddClientToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('client_id')->after('user_id')->unsigned()->index()->default(500);
+            $table->integer('client_id')->after('user_id')->unsigned()->index()->default(1);
         });
     }
 

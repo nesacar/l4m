@@ -69,12 +69,6 @@ class PagesController extends Controller
     public function proba()
     {
 //        factory('App\Tag', 30)->create();
-        $clients = Client::where('id', '<', 3)->get();
-        if(count($clients)>0){
-            foreach ($clients as $client){
-                $client->delete();
-            }
-        }
         //return Attribute::find(41)->product;
 //        $product = Product::find(225);
 //        return $product->colors()->first();

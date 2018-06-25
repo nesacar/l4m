@@ -41,6 +41,8 @@ Vue.component('text-area-ckeditor-field', require('./components/helper/form/Text
 Vue.component('select2-multiple-field', require('./components/helper/form/Select2MultipleField.vue'));
 Vue.component('select2-field', require('./components/helper/form/Select2Field.vue'));
 Vue.component('checkbox-field', require('./components/helper/form/CheckBoxField.vue'));
+Vue.component('select-multiple-field', require('./components/helper/form/SelectMultiple.vue'));
+Vue.component('select-field', require('./components/helper/form/Select.vue'));
 
 import { store } from './store/store';
 import { router } from './routes';
