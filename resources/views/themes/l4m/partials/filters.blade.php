@@ -1,5 +1,26 @@
 <form method="GET" class="filters" id="filters">
 
+    <div class="filter">
+      <h4 class="filter_name">primenjeni filteri:</h4>
+      <ul class="applied-filter-list">
+        <li class="applied-filter-list_item">
+          <div>
+            <div class="text--xs text--bold text--uppercase text--hint">category</div>
+            <div class="text--s text--bold">Hello, world!</div>
+          </div>
+          <button class="icon-btn">&times;</button>
+        </li>
+        <li class="applied-filter-list_item">
+          <div>
+            <div class="text--xs text--bold text--uppercase text--hint">category</div>
+            <div class="text--s text--bold">Hai, Mars!</div>
+          </div>
+          <button class="icon-btn" type="reset">&times;</button>
+        </li>
+      </ul>
+      <button class="btn btn--primary btn--block">ponisti sve</button>
+    </div>
+
     @if(count($properties)>0)
         @foreach($properties as $property)
             <div class="filter">

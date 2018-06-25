@@ -109,6 +109,14 @@
   }
 }
 
+.text--xs {
+  font-size: 9px;
+}
+
+.text--s {
+  font-size: 12px;
+}
+
 .text--body2 {
   font-size: 13px;
   font-weight: 400;
@@ -124,4 +132,12 @@
 
 .text--bold {
   font-weight: $font-weight-bold;
+}
+
+.text--uppercase {
+  text-transform: uppercase;
+}
+
+.text--hint {
+  color: rgba($color: #000000, $alpha: 0.38);
 }
