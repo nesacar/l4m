@@ -83,6 +83,14 @@ class FilterDrawer {
 const isEmpty = (el) => el.children.length < 1;
 
 /**
+ * Checks if passed argument is null.
+ *
+ * @param {any} el
+ * @return {Boolean}
+ */
+const isNull = (el) => el === null;
+
+/**
  * Removes the element from the DOM.
  *
  * @param {HTMLElement} el
@@ -147,25 +155,23 @@ const createAppliedFilter = (dataset) => {
  * @return {Function} event handler.
  */
 const removeFilter = (id) => () => {
-  document.getElementById(id).checked = false;
+  return document.getElementById(id).removeAttribute('checked');
 };
 
 /**
- * Attaches event listener that removes the filter.
+ * Removes all the filters.
  *
- * @param {HTMLElement} el
- * @return {HTMLElement}
+ * @param {HTMLElement[]} filters applied filter elements.
  */
-const bindEvents = (el) => {
-  const btn = el.querySelector('.icon-btn');
-  const id = el.dataset.id;
-  btn.addEventListener('click', removeFilter(id));
-  return el;
+const removeAllFilters = (filters=[]) => () => {
+  return filters.map((el) => removeFilter(el.dataset.id))
+    .map(f => f());
 };
 
 const formEl = document.querySelector('#filters');
 const sortEl = document.querySelector('#sort');
 const listEl = document.querySelector('.js-applied-list');
+const resetBtn = document.querySelector('.js-reset-btn');
 
 new FilterDrawer();
 
@@ -186,13 +192,25 @@ Array.from(formEl.querySelectorAll('.filter-list'))
   .map(removeElement);
 
 // render applied filters.
-Array.from(formEl.querySelectorAll('[data-checked]'))
-  .map(extractData)
-  .map(createAppliedFilter)
-  .map(bindEvents)
-  .map((el) => listEl.appendChild(el));
+const appliedFilters =
+  Array.from(formEl.querySelectorAll('[data-checked]'))
+    .map(extractData)
+    .map(createAppliedFilter)
+    .map((el) => {
+      const btn = el.querySelector('.icon-btn');
+      btn.addEventListener('click', removeFilter(el.dataset.id));
+      return el;
+    })
+    .map((el) => listEl.appendChild(el));
 
 // remove listEl if is empty.
 [listEl].filter(isEmpty)
   .map(parentElement)
   .map(removeElement);
+
+// clears all filter
+[resetBtn].filter((el) => !isNull(el))
+  .map((el) => {
+    el.addEventListener('click', removeAllFilters(appliedFilters));
+    return el;
+  });

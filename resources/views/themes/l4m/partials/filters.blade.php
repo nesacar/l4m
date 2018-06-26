@@ -11,7 +11,7 @@
           <button class="icon-btn">&times;</button>
         </li> --}}
       </ul>
-      <button class="btn btn--outline btn--block" type="reset">poništi sve</button>
+      <button class="btn btn--outline btn--block js-reset-btn">poništi sve</button>
     </div>
 
     @if(count($properties)>0)
