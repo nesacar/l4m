@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="card" v-if="collections">
+                    <div class="card" v-if="tags">
                         <form @submit.prevent="submit()">
 
                             <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :error="error? error.client_id : ''" :value="product.clients" @changeValue="product.client_id = $event"></select-field>
@@ -231,12 +231,11 @@
                         this.product.tag_ids = res.data.tag_ids;
                         this.product.brands = res.data.brands;
                         this.product.clients = res.data.clients;
-                        this.product.collections = res.data.collections;
+                        this.product.collections = res.data.collection_ids;
                         this.product.tags = res.data.tags;
-                        this.getCollections(this.product.brand_id);
+                        this.collections = res.data.collections;
                         this.getProperties();
                         this.authorized();
-                        console.log(this.product);
                     })
                     .catch(e => {
                         console.log(e);

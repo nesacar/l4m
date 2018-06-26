@@ -95,8 +95,9 @@ class ProductsController extends Controller
             'tags' => $tags,
             'clients' => Client::select('id', 'title')->find($product->client_id),
             'brands' => Brand::select('id', 'title')->find($product->brand_id),
-            'collections' => Collection::select('id', 'title')->find($product->collection_id),
+            'collection_ids' => Collection::select('id', 'title')->find($product->collection_id),
             'properties' => $properties,
+            'collections' => Collection::select('id', 'title')->where('brand_id', $product->brand_id)->where('publish', 1)->orderBy('created_at', 'DESC')->get(),
         ]);
     }
 
