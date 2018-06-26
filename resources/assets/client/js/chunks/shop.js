@@ -169,6 +169,12 @@ const listEl = document.querySelector('.js-applied-list');
 
 new FilterDrawer();
 
+// submit form on change.
+[formEl, sortEl].map((el) => {
+  el.addEventListener('change', formEl.submit);
+  return el;
+});
+
 // init sliders.
 Array.from(formEl.querySelectorAll('.double-slider'))
   .map(createSlider);
@@ -186,8 +192,7 @@ Array.from(formEl.querySelectorAll('[data-checked]'))
   .map(bindEvents)
   .map((el) => listEl.appendChild(el));
 
-// submit form on change.
-[formEl, sortEl].map((el) => {
-  el.addEventListener('change', formEl.submit);
-  return el;
-});
+// remove listEl if is empty.
+[listEl].filter(isEmpty)
+  .map(parentElement)
+  .map(removeElement);

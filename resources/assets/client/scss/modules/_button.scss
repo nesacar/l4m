@@ -4,11 +4,12 @@
   align-items: center;
   justify-content: center;
   height: 42px;
-  padding: 0 (2 * $base-line);
+  font-size: 12px;
   text-transform: uppercase;
   border: 0;
-  text-decoration: none !important;
   outline: none !important;
+  padding: 0 (2 * $base-line);
+  text-decoration: none !important;
 
   @include media-breakpoint-up(sm) {
     height: 36px;
