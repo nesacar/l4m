@@ -48,5 +48,5 @@
         ])
         @enddoubleslider
     </div>
-    <button class="btn btn--primary" type="submit">filtriraj</button>
+    <button class="btn btn--primary btn--block" type="submit">filtriraj</button>
 </form>
