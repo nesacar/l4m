@@ -27,6 +27,6 @@ class SendCustomerConfirmationMail
      */
     public function handle(CustomerRegisteredEvent $event)
     {
-        \Mail::to($event->customer->user->email)->send(new CustomerConfirmationLinkMail($event->customer->user));
+        \Mail::to($event->customer->user->email)->send(new CustomerConfirmationLinkMail($event->customer));
     }
 }
