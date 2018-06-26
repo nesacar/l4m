@@ -24,7 +24,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :value="attribute.property_id" :label="'Osobina'" :error="error? error.property_id : ''" @changeValue="attribute.property_id = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Osobina'" :options="lists" :error="error? error.property_id : ''" :value="null" @changeValue="attribute.property_id = $event"></select-field>
 
                             <text-field :value="attribute.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="attribute.title = $event"></text-field>
 
@@ -57,7 +57,7 @@
         data(){
           return {
               attribute: {},
-              lists: {},
+              lists: false,
               error: null,
               domain : apiHost
           }

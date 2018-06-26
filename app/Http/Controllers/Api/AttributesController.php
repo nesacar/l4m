@@ -57,6 +57,7 @@ class AttributesController extends Controller
         return response()->json([
             'attribute' => $attribute,
             'properties' => $properties,
+            'property' => Property::select('id', 'title')->find($attribute->property_id),
         ]);
     }
 

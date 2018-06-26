@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Block;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlockRequest;
 use Illuminate\Http\Request;
@@ -52,8 +53,12 @@ class BlocksController extends Controller
      */
     public function show(Block $block)
     {
+        $categories = Category::where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+
         return response()->json([
-            'block' => $block
+            'block' => $block,
+            'categories' => $categories,
+            'category' => Category::select('id', 'title')->find($block->category_id),
         ]);
     }
 

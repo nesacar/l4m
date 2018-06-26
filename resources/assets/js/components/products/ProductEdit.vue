@@ -34,14 +34,14 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="card" v-if="tags">
+                    <div class="card" v-if="collections">
                         <form @submit.prevent="submit()">
 
-                            <select2-field v-if="admin" :lists="clients" :value="product.client_id" :label="'Klijent'" @changeValue="product.client_id = $event"></select2-field>
+                            <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :error="error? error.client_id : ''" :value="product.clients" @changeValue="product.client_id = $event"></select-field>
 
-                            <select2-field :lists="brands" :label="'Brend'" :value="product.brand_id" @changeValue="product.brand_id = $event; setBrand()"></select2-field>
+                            <select-field v-if="brands" :labela="'Brend'" :options="brands" :error="error? error.brand_id : ''" :value="product.brands" @changeValue="product.brand_id = $event"></select-field>
 
-                            <select2-field v-if="collections.length > 0" :lists="collections"  :value="product.collection_id" :label="'Kolekcija'" @changeValue="product.collection_id = $event"></select2-field>
+                            <select-field v-if="collections" :labela="'Kolekcija'" :options="collections" :error="error? error.collection_id : ''" :value="product.collections" @changeValue="product.collection_id = $event"></select-field>
 
 
                             <div class="row">
@@ -75,7 +75,7 @@
 
                             <text-field :value="product.amount" :label="'Količina'" :error="error? error.amount : ''" @changeValue="product.amount = $event"></text-field>
 
-                            <select2-multiple-field :lists="tags"  :value="product.tag_ids" :label="'Tagovi'" @changeValue="product.tag_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="tags" :labela="'Tagovi'" :options="tags" :error="error? error.tag_ids : ''" :value="product.tags" @changeValue="product.tag_ids = $event"></select-multiple-field>
 
                             <checkbox-field v-if="product" :value="product.publish" :label="'Publikovano'" @changeValue="product.publish = $event"></checkbox-field>
 
@@ -180,12 +180,12 @@
         data(){
           return {
               product: false,
-              brands: {},
-              collections: {},
+              brands: false,
+              collections: false,
               categories: {},
               properties: {},
               photos: {},
-              clients: {},
+              clients: false,
               tags: false,
               error: null,
               dropzoneOptions: {
@@ -229,9 +229,14 @@
                         this.product.cat_ids = res.data.cat_ids;
                         this.product.att_ids = res.data.att_ids;
                         this.product.tag_ids = res.data.tag_ids;
+                        this.product.brands = res.data.brands;
+                        this.product.clients = res.data.clients;
+                        this.product.collections = res.data.collections;
+                        this.product.tags = res.data.tags;
                         this.getCollections(this.product.brand_id);
                         this.getProperties();
                         this.authorized();
+                        console.log(this.product);
                     })
                     .catch(e => {
                         console.log(e);
@@ -251,7 +256,7 @@
                         this.properties = res.data.properties;
                         this.product.cat_ids = res.data.cat_ids;
                         this.product.att_ids = res.data.att_ids;
-                        this.product.tag_ids = res.data.tag_ids;
+                        this.product.tags = res.data.tags;
                         this.getCollections(this.product.brand_id);
                         swal({
                             position: 'center',
@@ -394,11 +399,12 @@
             getTags(){
                 axios.get('api/tags/lists')
                     .then(res => {
-                        this.tags = _.map(res.data.tags, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.tags = res.data.tags;
+//                        this.tags = _.map(res.data.tags, (data) => {
+//                            var pick = _.pick(data, 'title', 'id');
+//                            var object = {id: pick.id, text: pick.title};
+//                            return object;
+//                        });
                         this.getProduct();
                     }).catch(e => {
                         console.log(e.response);

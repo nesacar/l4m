@@ -28,7 +28,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="category.parent = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Nad kategorija'" :options="lists" :error="error? error.parent : ''" :value="null" @changeValue="category.parent = $event"></select-field>
 
                             <text-field :value="category.title" :label="'Naslov'" :error="error? error.title : ''" @changeValue="category.title = $event"></text-field>
 
@@ -79,7 +79,7 @@
             return {
                 image: {},
                 category: {},
-                lists: {},
+                lists: false,
                 error: null,
                 domain: apiHost
             }

@@ -36,7 +36,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="links" :label="'Nad link'" :error="error? error.parent : ''" @changeValue="link.parent = $event"></select2-field>
+                            <select-field v-if="links" :labela="'Nad link'" :options="links" :error="error? error.parent : ''" :value="null" @changeValue="link.parent = $event"></select-field>
 
                             <text-field :value="link.title" :label="'Naziv'" :error="error? error.title : ''" :required="true" @changeValue="link.title = $event"></text-field>
 
@@ -72,7 +72,7 @@
           return {
               image: {},
               link: {},
-              links: {},
+              links: false,
               error: null,
           }
         },

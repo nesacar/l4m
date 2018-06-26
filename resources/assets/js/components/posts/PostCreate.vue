@@ -24,12 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :value="null" :multiple="false" @changeValue="post.client_id = $event"></select-field>
+                            <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :value="null" :error="error? error.client_id : ''" @changeValue="post.client_id = $event"></select-field>
 
-                            <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="null" :multiple="false" @changeValue="post.blog_id = $event"></select-field>
+                            <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="null" :error="error? error.blog_id : ''" @changeValue="post.blog_id = $event"></select-field>
 
-                            <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="null" :multiple="false" @changeValue="post.brand_id = $event"></select-field>
-
+                            <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="null" :error="error? error.brand_id : ''" @changeValue="post.brand_id = $event"></select-field>
 
                             <div class="row">
                                 <div class="col-sm-6">
@@ -50,7 +49,7 @@
 
                             <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                            <select-multiple-field v-if="tags" :multiple="true" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
+                            <select-multiple-field v-if="tags" :error="error? error.tag_ids : ''" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 

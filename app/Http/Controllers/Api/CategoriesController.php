@@ -59,6 +59,7 @@ class CategoriesController extends Controller
         return response()->json([
             'category' => $category,
             'categories' => $categories,
+            'parent' => Category::select('id', 'title')->find($category->parent),
         ]);
     }
 

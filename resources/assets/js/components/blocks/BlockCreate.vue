@@ -28,7 +28,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="categories" :value="block.category_id" :label="'Kategorija'" :error="error? error.category_id : ''" @changeValue="block.category_id = $event"></select2-field>
+                            <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :value="null" :error="error? error.category_id : ''" @changeValue="block.category_id = $event"></select-field>
 
                             <text-field :value="block.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="block.title = $event"></text-field>
 
@@ -58,7 +58,7 @@
         data(){
             return {
                 block: {},
-                categories: {},
+                categories: false,
                 error: null,
             }
         },

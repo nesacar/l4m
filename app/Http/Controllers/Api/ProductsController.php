@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Attribute;
+use App\Brand;
 use App\Category;
 use App\Client;
+use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
@@ -16,6 +18,7 @@ use App\Set;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
+use DB;
 
 class ProductsController extends Controller
 {
@@ -81,14 +84,18 @@ class ProductsController extends Controller
         }
         $catIds = $product->category->pluck('id');
         $attIds = $product->attribute->pluck('id');
-        $tagIds = $product->tag->pluck('id');
+        $tags = DB::table('tags')->select('tags.id', 'tags.title')->join('product_tag', 'tags.id', '=', 'product_tag.tag_id')
+            ->where('product_tag.product_id', $product->id)->get();
         $properties = Property::getPropertyByCategories($catIds);
 
         return response()->json([
             'product' => $product,
             'cat_ids' => $catIds,
             'att_ids' => $attIds,
-            'tag_ids' => $tagIds,
+            'tags' => $tags,
+            'clients' => Client::select('id', 'title')->find($product->client_id),
+            'brands' => Brand::select('id', 'title')->find($product->brand_id),
+            'collections' => Collection::select('id', 'title')->find($product->collection_id),
             'properties' => $properties,
         ]);
     }

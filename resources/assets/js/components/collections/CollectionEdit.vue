@@ -21,10 +21,10 @@
                 </div>
 
                 <div class="col-sm-8">
-                    <div class="card" v-if="collection">
+                    <div class="card" v-if="lists">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :label="'Brend'" :value="collection.brand_id" :error="error? error.brand_id : ''" :required="true" @changeValue="collection.brand_id = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Brend'" :options="lists" :error="error? error.brand_id : ''" :value="collection.brand" @changeValue="collection.brand_id = $event"></select-field>
 
                             <text-field :value="collection.title" :label="'Naziv'" :error="error? error.title : ''" :required="true" @changeValue="collection.title = $event"></text-field>
 
@@ -69,8 +69,8 @@
     export default {
         data(){
           return {
-              collection: false,
-              lists: {},
+              collection: {},
+              lists: false,
               error: null,
               domain : apiHost
           }
@@ -93,6 +93,7 @@
                     .then(res => {
                         this.lists = res.data.brands;
                         this.collection = res.data.collection;
+                        this.collection.brand = res.data.brand;
                     })
                     .catch(e => {
                         console.log(e);

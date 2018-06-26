@@ -25,13 +25,10 @@
                     <div class="card">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="srb" role="tabpanel" aria-labelledby="srb-tab">
-                                <form @submit.prevent="submit()">
-                                    <div class="form-group">
-                                        <label>Proizvodi</label>
-                                        <select2 :options="products" :multiple="true" :value="post.product_ids" @input="input($event)">
-                                            <option value="0" disabled>select one</option>
-                                        </select2>
-                                    </div>
+                                <form @submit.prevent="submit()" v-if="trigger">
+
+                                    <select-multiple-field v-if="products" :error="error? error.product_ids : ''" :value="post.products" :options="products" :labela="'Proizvodi'" @changeValue="post.product_ids = $event"></select-multiple-field>
+
                                     <div class="form-group">
                                         <button class="btn btn-primary" type="submit">Izmeni</button>
                                     </div>
@@ -54,13 +51,11 @@
     export default {
         data(){
           return {
-              post: {
-                  product_ids: []
-              },
-              ids: [],
+              post: {},
               error: null,
-              products: {},
-              domain : apiHost
+              products: false,
+              domain : apiHost,
+              trigger: false,
           }
         },
         computed: {
@@ -72,7 +67,7 @@
             'font-awesome-icon': FontAwesomeIcon,
             'select2': Select2,
         },
-        created(){
+        mounted(){
             this.getProducts();
         },
         methods: {
@@ -80,7 +75,8 @@
                 axios.get('api/posts/' + this.$route.params.id)
                     .then(res => {
                         this.post = res.data.post;
-                        this.post.product_ids = res.data.product_ids;
+                        this.post.products = res.data.product_ids;
+                        this.trigger = true;
                     })
                     .catch(e => {
                         console.log(e);
@@ -88,7 +84,7 @@
                     });
             },
             submit(){
-                axios.post('api/posts/' + this.$route.params.id + '/products', {'product_ids': this.ids})
+                axios.post('api/posts/' + this.$route.params.id + '/products', {'product_ids': this.post.product_ids})
                     .then(res => {
                         this.post = res.data.post;
                         this.post.product_ids = res.data.product_ids;
@@ -110,7 +106,7 @@
                     .then(res => {
                         this.products = _.map(res.data.products, (data) => {
                             var pick = _.pick(data, 'code', 'id');
-                            var object = {id: pick.id, text: pick.code};
+                            var object = {id: pick.id, title: pick.code};
                             return object;
                         });
                         this.getPost();

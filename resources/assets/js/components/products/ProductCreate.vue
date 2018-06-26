@@ -24,12 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field v-if="admin" :lists="clients" :label="'Klijent'" @changeValue="product.client_id = $event"></select2-field>
+                            <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :error="error? error.client_id : ''" :value="null" @changeValue="product.client_id = $event"></select-field>
 
-                            <select2-field :lists="brands" :label="'Brend'" @changeValue="product.brand_id = $event; setBrand()"></select2-field>
+                            <select-field v-if="brands" :labela="'Brend'" :options="brands" :error="error? error.brand_id : ''" :value="null" @changeValue="product.brand_id = $event"></select-field>
 
-                            <select2-field v-if="collections.length > 0" :lists="collections" :label="'Kolekcija'" @changeValue="product.collection_id = $event"></select2-field>
-
+                            <select-field v-if="collections" :labela="'Kolekcija'" :options="collections" :error="error? error.collection_id : ''" :value="null" @changeValue="product.collection_id = $event"></select-field>
 
                             <div class="row">
                                 <div class="col-sm-6">
@@ -62,7 +61,7 @@
 
                             <text-field :value="product.amount" :label="'Količina'" :error="error? error.amount : ''" @changeValue="product.amount = $event"></text-field>
 
-                            <select2-multiple-field :lists="tags" :label="'Tagovi'" @changeValue="product.tag_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="tags" :labela="'Tagovi'" :options="tags" :error="error? error.tag_ids : ''" :value="null" @changeValue="product.tag_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="product.publish" :label="'Publikovano'" @changeValue="product.publish = $event"></checkbox-field>
 
@@ -155,11 +154,11 @@
                     tag_ids: [],
                     price_outlet: 0,
                 },
-                brands: {},
-                collections: {},
-                categories: {},
-                tags: {},
-                clients: {},
+                brands: false,
+                collections: false,
+                categories: false,
+                tags: false,
+                clients: false,
                 properties: {},
                 error: null,
                 domain : apiHost
@@ -180,7 +179,7 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
-        created(){
+        mounted(){
             this.getBrands();
             this.getCategories();
             this.getTags();
@@ -283,11 +282,12 @@
             getTags(){
                 axios.get('api/tags/lists')
                     .then(res => {
-                        this.tags = _.map(res.data.tags, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.tags = res.data.tags;
+//                        this.tags = _.map(res.data.tags, (data) => {
+//                            var pick = _.pick(data, 'title', 'id');
+//                            var object = {id: pick.id, text: pick.title};
+//                            return object;
+//                        });
                     }).catch(e => {
                     console.log(e.response);
                     this.error = e.response.data.errors;

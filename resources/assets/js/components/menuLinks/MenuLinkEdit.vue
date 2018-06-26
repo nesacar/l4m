@@ -37,7 +37,7 @@
                     <div class="card" v-if="link">
                             <form @submit.prevent="submit()">
 
-                                <select2-field :lists="links" :value="link.parent" :label="'Nad link'" :error="error? error.parent : ''" @changeValue="link.parent = $event"></select2-field>
+                                <select-field v-if="links" :labela="'Nad link'" :options="links" :error="error? error.parent : ''" :value="link.parent_link" @changeValue="link.parent = $event"></select-field>
 
                                 <text-field :value="link.title" :label="'Naziv'" :error="error? error.title : ''" :required="true" @changeValue="link.title = $event"></text-field>
 
@@ -93,10 +93,10 @@
     export default {
         data(){
           return {
-              link: false,
+              link: {},
               properties: {},
               error: null,
-              links: []
+              links: false,
           }
         },
         components: {
@@ -113,6 +113,7 @@
                     .then(res => {
                         this.link = res.data.link;
                         this.link.att_ids = res.data.att_ids;
+                        this.link.parent_link = res.data.parent;
                         this.properties = res.data.properties;
                         this.links = res.data.links;
                     })

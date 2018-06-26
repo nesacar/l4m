@@ -34,7 +34,7 @@
 
                             <text-area-ckeditor-field :value="brand.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="brand.body = $event"></text-area-ckeditor-field>
 
-                            <select2-multiple-field :lists="categories" :label="'Kategorije'" @changeValue="brand.category_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :error="error? error.category_ids : ''" :value="null" @changeValue="brand.category_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
 
@@ -80,12 +80,8 @@
           return {
               image: {},
               logo: {},
-              brand: {
-                  desc: null,
-                  publish: false,
-              },
-              categories: {},
-              lists: {},
+              brand: {},
+              categories: false,
               error: null,
               domain : apiHost
           }
@@ -126,11 +122,7 @@
             getCategories(){
                 axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.categories = _.map(res.data.categories, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.categories = res.data.categories;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

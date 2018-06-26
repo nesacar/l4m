@@ -60,6 +60,7 @@ class CollectionsController extends Controller
         return response()->json([
             'collection' => $collection,
             'brands' => $brands,
+            'brand' => Brand::select('id', 'title')->find($collection->brand_id),
         ]);
     }
 

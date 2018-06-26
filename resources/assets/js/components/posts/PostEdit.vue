@@ -69,11 +69,11 @@
                             <div class="tab-pane fade show active" id="srb" role="tabpanel" aria-labelledby="srb-tab">
                                 <form @submit.prevent="submit()">
 
-                                    <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :value="post.client_id" :multiple="false" @changeValue="post.client_id = $event"></select-field>
+                                    <select-field v-if="admin && clients" :labela="'Klijent'" :options="clients" :value="post.client" :error="error? error.client_id : ''" @changeValue="post.client_id = $event"></select-field>
 
-                                    <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="post.blog_id" :multiple="false" @changeValue="post.blog_id = $event"></select-field>
+                                    <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="post.blog" :error="error? error.blog_id : ''" @changeValue="post.blog_id = $event"></select-field>
 
-                                    <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="post.brand_id" :multiple="false" @changeValue="post.brand_id = $event"></select-field>
+                                    <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="post.brand" :error="error? error.brand_id : ''" @changeValue="post.brand_id = $event"></select-field>
 
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -94,7 +94,7 @@
 
                                     <text-area-ckeditor-field v-if="post.body" :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                                    <select-multiple-field :options="tags" :multiple="true" :value="post.tag_ids" @changeValue="post.tag_ids = $event"></select-multiple-field>
+                                    <select-multiple-field :options="tags" :error="error? error.tag_ids : ''" :value="post.tags" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                                     <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 
@@ -123,7 +123,7 @@
         data(){
           return {
               selected: {},
-              post: false,
+              post: {},
               error: null,
               lists: false,
               gallery: {},
@@ -171,10 +171,10 @@
                         this.gallery = res.data.photos;
                         this.tags = res.data.tags;
                         this.post = res.data.post;
-                        this.post.client_id = res.data.client_id;
-                        this.post.blog_id = res.data.blog_id;
-                        this.post.brand_id = res.data.brand_id;
-                        this.post.tag_ids = res.data.tag_ids;
+                        this.post.client = res.data.client_id;
+                        this.post.blog = res.data.blog_id;
+                        this.post.brand = res.data.brand_id;
+                        this.post.tags = res.data.tag_ids;
                     })
                     .catch(e => {
                         console.log(e);

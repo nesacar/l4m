@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <div class="card" v-if="category">
 
-                        <select2-field v-if="false" :lists="lists" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="category.parent = $event"></select2-field>
+                        <select-field v-if="lists" :labela="'Nad kategorija'" :options="lists" :error="error? error.parent : ''" :value="category.parent_category" @changeValue="category.parent = $event"></select-field>
 
                         <checkbox-field :value="category.featured" :label="'Istaknuto'" @changeValue="category.featured = $event"></checkbox-field>
 
@@ -116,7 +116,7 @@
           return {
               category: false,
               error: null,
-              lists: {},
+              lists: false,
               domain : apiHost
           }
         },
@@ -140,6 +140,7 @@
                     .then(res => {
                         this.lists = res.data.categories;
                         this.category = res.data.category;
+                        this.category.parent_category = res.data.parent;
                     })
                     .catch(e => {
                         console.log(e);

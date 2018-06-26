@@ -56,7 +56,7 @@ class ClientsController extends Controller
 
         return response()->json([
             'client' => $client->load('brand'),
-            'brand_ids' => $client->brand()->pluck('id')->toArray(),
+            'brand_ids' => $client->brand()->select('id', 'title')->get(),
             'brands' => $brands,
         ]);
     }

@@ -65,6 +65,8 @@ class BoxesController extends Controller
             'box' => $box,
             'blocks' => $blocks,
             'categories' => $categories,
+            'block' => Block::select('id', 'title')->find($box->block_id),
+            'category' => Category::select('id', 'title')->find($box->category_id),
         ]);
     }
 

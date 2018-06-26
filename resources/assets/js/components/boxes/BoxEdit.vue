@@ -46,9 +46,9 @@
 
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :value="box.block_id" :label="'Šablon'" :error="error? error.block_id : ''" @changeValue="box.block_id = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Šablon'" :options="lists" :value="box.block" :error="error? error.block_id : ''" @changeValue="box.block_id = $event"></select-field>
 
-                            <select2-field :lists="categories" :value="box.category_id" :label="'Kategorija'" :error="error? error.category_id : ''" @changeValue="box.category_id = $event"></select2-field>
+                            <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :value="box.category" :error="error? error.category_id : ''" @changeValue="box.category_id = $event"></select-field>
 
                             <text-field :value="box.title" :label="'Naslov'" :error="error? error.title : ''" @changeValue="box.title = $event"></text-field>
 
@@ -82,8 +82,8 @@
         data(){
           return {
               box: false,
-              lists: {},
-              categories: {},
+              lists: false,
+              categories: false,
               error: null
           }
         },
@@ -101,6 +101,8 @@
                         this.categories = res.data.categories;
                         this.lists = res.data.blocks;
                         this.box = res.data.box;
+                        this.box.block = res.data.block;
+                        this.box.category = res.data.category;
                     })
                     .catch(e => {
                         console.log(e);

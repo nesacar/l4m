@@ -30,7 +30,7 @@
 
                             <text-field :value="client.fullName" :label="'Puno ime klijenta'" :error="error? error.fullName : ''" @changeValue="client.fullName = $event"></text-field>
 
-                            <select2-multiple-field :lists="brands" :label="'Brendovi'" @changeValue="client.brand_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="brands" :labela="'Brendovi'" :options="brands" :error="error? error.brand_ids : ''" :value="null" @changeValue="client.brand_ids = $event"></select-multiple-field>
 
                             <text-area-field :value="client.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="client.short = $event"></text-area-field>
 
@@ -81,7 +81,7 @@
           return {
               image: {},
               cover: {},
-              client: false,
+              client: {},
               brands: false,
               error: null,
           }

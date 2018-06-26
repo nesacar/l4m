@@ -47,7 +47,7 @@
 
                             <text-area-ckeditor-field :value="brand.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="brand.body = $event"></text-area-ckeditor-field>
 
-                            <select2-multiple-field :value="brand.category_ids" :lists="categories" :label="'Kategorije'" @changeValue="brand.category_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :value="brand.categories :error="error? error.category_ids : ''"" @changeValue="brand.category_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
 
@@ -100,8 +100,7 @@
           return {
               brand: false,
               gallery: {},
-              lists: {},
-              categories: {},
+              categories: false,
               error: null,
               dropzoneOptions: {
                   url: 'api/brands/' + this.$route.params.id + '/gallery',
@@ -129,14 +128,10 @@
             getBrand(){
                 axios.get('api/brands/' + this.$route.params.id)
                     .then(res => {
-                        this.categories = _.map(res.data.categories, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.categories = res.data.categories
                         this.gallery = res.data.images;
                         this.brand = res.data.brand;
-                        this.brand.category_ids = res.data.category_ids;
+                        this.brand.categories = res.data.category_ids;
                     })
                     .catch(e => {
                         console.log(e);

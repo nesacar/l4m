@@ -24,7 +24,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :label="'Brend'" :error="error? error.brand_id : ''" :required="true" @changeValue="collection.brand_id = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Brend'" :options="lists" :error="error? error.brand_id : ''" :value="null" @changeValue="collection.brand_id = $event"></select-field>
 
                             <text-field :value="collection.title" :label="'Naziv'" :error="error? error.title : ''" :required="true" @changeValue="collection.title = $event"></text-field>
 
@@ -70,12 +70,8 @@
         data(){
           return {
               image: {},
-              collection: {
-                  brand_id: 0,
-                  desc: null,
-                  publish: false,
-              },
-              lists: {},
+              collection: {},
+              lists: false,
               error: null,
               domain : apiHost
           }

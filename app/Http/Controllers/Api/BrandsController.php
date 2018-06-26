@@ -61,7 +61,7 @@ class BrandsController extends Controller
 
         return response()->json([
             'brand' => $brand,
-            'category_ids' => $brand->category()->pluck('id'),
+            'category_ids' => $brand->category()->select('id', 'title')->get(),
             'categories' => $categories,
             'images' => $images,
         ]);

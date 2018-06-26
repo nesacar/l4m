@@ -29,7 +29,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="categories" :value="block.category_id" :label="'Kategorija'" :error="error? error.category_id : ''" @changeValue="block.category_id = $event"></select2-field>
+                            <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :value="block.category" :error="error? error.category_id : ''" @changeValue="block.category_id = $event"></select-field>
 
                             <text-field :value="block.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="block.title = $event"></text-field>
 
@@ -54,7 +54,7 @@
         data(){
           return {
               block: {},
-              categories: {},
+              categories: false,
               error: null
           }
         },
@@ -62,23 +62,15 @@
             'font-awesome-icon': FontAwesomeIcon,
         },
         mounted(){
-            this.getCategories();
+            this.getBlock();
         },
         methods: {
-            getCategories(){
-                axios.get('api/categories/top-lists')
-                    .then(res => {
-                        this.categories = res.data.categories;
-                        this.getBlock();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             getBlock(){
                 axios.get('api/blocks/' + this.$route.params.id)
                     .then(res => {
+                        this.categories = res.data.categories;
                         this.block = res.data.block;
+                        this.block.category = res.data.category;
                     })
                     .catch(e => {
                         console.log(e);

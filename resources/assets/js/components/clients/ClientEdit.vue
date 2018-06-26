@@ -23,8 +23,6 @@
                 <div class="col-md-4">
                     <div class="card"  v-if="client">
 
-                        <checkbox-field :value="client.publish" :label="'Publikovano'" @changeValue="client.publish = $event"></checkbox-field>
-
                         <upload-image-helper
                                 :image="client.image"
                                 :defaultImage="null"
@@ -55,13 +53,15 @@
 
                             <text-field :value="client.fullName" :label="'Puno ime klijenta'" :error="error? error.fullName : ''" @changeValue="client.fullName = $event"></text-field>
 
-                            <select2-multiple-field :lists="brands" :label="'Brendovi'" :value="client.brand_ids" @changeValue="client.brand_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="brands" :labela="'Brendovi'" :options="brands" :error="error? error.brand_ids : ''" :value="client.brands" @changeValue="client.brand_ids = $event"></select-multiple-field>
 
                             <text-area-field :value="client.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="client.short = $event"></text-area-field>
 
                             <text-area-ckeditor-field v-if="client" :value="client.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="client.body = $event"></text-area-ckeditor-field>
 
                             <text-field :value="client.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="client.order = $event"></text-field>
+
+                            <checkbox-field :value="client.publish" :label="'Publikovano'" @changeValue="client.publish = $event"></checkbox-field>
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
@@ -82,7 +82,7 @@
     export default {
         data(){
           return {
-              client: false,
+              client: {},
               brands: false,
               error: null,
           }
@@ -98,13 +98,9 @@
             getClient(){
                 axios.get('api/clients/' + this.$route.params.id)
                     .then(res => {
-                        this.brands = _.map(res.data.brands, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.brands = res.data.brands;
                         this.client = res.data.client;
-                        this.client.brand_ids = res.data.brand_ids;
+                        this.client.brands = res.data.brand_ids;
                     })
                     .catch(e => {
                         console.log(e);

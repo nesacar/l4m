@@ -47,6 +47,7 @@ class MenuLinksController extends Controller
             'att_ids' => $link->attribute()->pluck('attributes.id'),
             'properties' => $properties,
             'links' => $links,
+            'parent' => MenuLink::select('id', 'title')->find($link->parent),
         ]);
     }
 

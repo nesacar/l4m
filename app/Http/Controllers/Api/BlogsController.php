@@ -54,8 +54,12 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
+        $blogs = Blog::where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+
         return response()->json([
-            'blog' => $blog
+            'blog' => $blog,
+            'blogs' => $blogs,
+            'parent' => Blog::select('id', 'title')->find($blog->parent),
         ]);
     }
 

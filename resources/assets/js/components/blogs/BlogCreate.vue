@@ -24,7 +24,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :value="blog.parent" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="blog.parent = $event"></select2-field>
+                            <select-multiple-field v-if="lists" :labela="'Nad kategorija'" :options="lists" :value="null" :error="error? error.parent : ''" @changeValue="blog.parent = $event"></select-multiple-field>
 
                             <text-field :value="blog.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="blog.title = $event"></text-field>
 
@@ -64,11 +64,8 @@
         data(){
           return {
               image: {},
-              blog: {
-                  short: null,
-                  publish: false
-              },
-              lists: [],
+              blog: {},
+              lists: false,
               error: null,
           }
         },
@@ -76,7 +73,7 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
-        created(){
+        mounted(){
             this.getList();
         },
         methods: {

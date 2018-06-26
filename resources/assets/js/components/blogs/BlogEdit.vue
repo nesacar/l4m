@@ -23,8 +23,6 @@
                 <div class="col-md-4">
                     <div class="card">
 
-                        <checkbox-field :value="blog.publish" :label="'Publikovano'" @changeValue="blog.publish = $event"></checkbox-field>
-
                         <upload-image-helper
                                 :image="blog.image"
                                 :defaultImage="null"
@@ -39,13 +37,15 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-field :lists="lists" :value="blog.parent" :label="'Nad kategorija'" :error="error? error.parent : ''" @changeValue="blog.parent = $event"></select2-field>
+                            <select-field v-if="lists" :labela="'Nad kategorija'" :options="lists" :value="blog.parent_category" :error="error? error.parent : ''" @changeValue="blog.parent = $event"></select-field>
 
                             <text-field :value="blog.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="blog.title = $event"></text-field>
 
                             <text-field :value="blog.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="blog.slug = $event"></text-field>
 
                             <text-area-ckeditor-field :value="blog.short" :label="'Opis'" :error="error? error.short : ''" @changeValue="blog.short = $event"></text-area-ckeditor-field>
+
+                            <checkbox-field :value="blog.publish" :label="'Publikovano'" @changeValue="blog.publish = $event"></checkbox-field>
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
@@ -68,21 +68,23 @@
           return {
               blog: false,
               error: null,
-              lists: [],
+              lists: false,
           }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
-        created(){
-            this.getList();
+        mounted(){
+            this.getCategory();
         },
         methods: {
             getCategory(){
                 axios.get('api/blogs/' + this.$route.params.id)
                     .then(res => {
+                        this.lists = res.data.blogs;
                         this.blog = res.data.blog;
+                        this.blog.parent_category = res.data.parent;
                     })
                     .catch(e => {
                         console.log(e);
@@ -123,16 +125,6 @@
                         });
                     }).catch(e => {
                         console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getList(){
-                axios.get('api/blogs/lists?parent=1')
-                    .then(res => {
-                        this.lists = res.data.blogs;
-                        this.getCategory();
-                    }).catch(e => {
-                        console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },

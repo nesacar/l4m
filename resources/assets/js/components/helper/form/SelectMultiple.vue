@@ -1,7 +1,8 @@
 <template>
     <div class="form-group">
         <label>{{ labela }} <span v-if="required">*</span></label><br>
-        <multiselect v-model="selected" :options="options" :multiple="multiple" track-by="title" :custom-label="customLabel" :allow-empty="true"></multiselect>
+        <multiselect v-model="selected" :options="options" :multiple="true" track-by="title" :custom-label="customLabel" :allow-empty="true"></multiselect>
+        <small class="form-text text-muted" v-if="error != null">{{ error[0] }}</small>
     </div>
 </template>
 
@@ -14,7 +15,7 @@
                 selected: this.value,
             }
         },
-        props: ['options', 'value', 'multiple', 'labela', 'required'],
+        props: ['options', 'value', 'labela', 'required', 'error'],
         components: { Multiselect },
         methods: {
             customLabel (option) {
