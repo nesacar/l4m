@@ -1,38 +1,75 @@
 class InputField {
-  static init () {
-    const fields = document.querySelectorAll('.js-input-field');
-    fields.forEach(field => new InputField(field));
+  /**
+   * Grabs all input fields and wrapps them inside a InputField.
+   */
+  static init() {
+    document.querySelectorAll('.js-input-field')
+      .forEach((e) => new InputField(e));
   }
 
-  constructor (root) {
+  /**
+   * Creates new instance of the InputField.
+   *
+   * @param {HTMLElement} root root element
+   */
+  constructor(root) {
     this._root = root;
     this._input = this._root.querySelector('.js-input');
 
-    this._onBlur = this._onBlur.bind(this);
-    this._onFocus = this._onFocus.bind(this);
+    // initial state.
+    this.state = {
+      float: this._input.value !== '',
+      focus: false,
+    };
 
-    if (this._input.value) {
-      this._root.classList.add('float');
-    }
-
-    this._addEventListeners();
+    this._input.addEventListener('focus', this._onFocus.bind(this));
+    this._input.addEventListener('blur', this._onBlur.bind(this));
+   
+    // initial render.
+    this.update();
   }
 
-  _addEventListeners () {
-    this._input.addEventListener('focus', this._onFocus);
-    this._input.addEventListener('blur', this._onBlur);
+  /**
+   * blur event handler.
+   */
+  _onBlur() {
+    this.setState({
+      focus: false,
+      float: this._input.value !== '',
+    });
   }
 
-  _onBlur (evt) {
-    this._root.classList.remove('focus');
-
-    if (this._input.value === '') {
-      this._root.classList.remove('float');
-    }
+  /**
+   * focus event handler.
+   */
+  _onFocus() {
+    this.setState({
+      focus: true,
+      float: true,
+    });
   }
 
-  _onFocus (evt) {
-    this._root.classList.add('focus', 'float');
+  /**
+   * Updates the state with partial state and calls update.
+   *
+   * @param {Object} update partial state.
+   */
+  setState(update) {
+    this.state = Object.assign({}, this.state, update);
+    this.update();
+  }
+
+  /**
+   * Updates the root element to represent the state.
+   */
+  update() {
+    const state = Object.keys(this.state);
+    const classname = Array.from(this._root.classList)
+      .filter((cn) => !state.includes(cn)) // constant class names.
+      .concat(state.filter((cn) => this.state[cn])) // attach state classes.
+      .join(' '); // turn to string.
+
+    this._root.className = classname;
   }
 }
 
