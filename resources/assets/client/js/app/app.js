@@ -16,9 +16,6 @@ function init() {
       // Wrap elements in Product class and update.
       Array.from(document.querySelectorAll('.js-product'))
         .map((item) => new Product(item))
-        .forEach((product) => {
-          product.inCart = products.includes(product.id);
-        });
     })
     .catch(errorHandler);
 
