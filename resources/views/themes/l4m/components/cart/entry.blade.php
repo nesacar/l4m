@@ -1,6 +1,6 @@
 @php $productItem = \App\Product::find($product->id); @endphp
 
-<div class="cart_table-row cart_entry js-product" data-id="{{$product->id}}">
+<div class="cart_table-row cart_entry is-in-cart js-product" data-id="{{$product->id}}">
   <div class="cart_table-cell expand--md">
     <div class="shop-item_image">
       <div class="image image--square lazy-image"
