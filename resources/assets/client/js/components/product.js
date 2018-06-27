@@ -1,3 +1,6 @@
+import {hasValue} from '../utils';
+import {Toast} from './toast';
+
 /**
  * Product helper class.
  */
@@ -39,6 +42,19 @@ class Product {
   }
 
   /**
+   * @type {boolean}
+   */
+  get hasSizes() {
+    return this._root.querySelector('.js-sizes') !== null;
+  }
+
+  get size() {
+    return [this._root.querySelector('.js-size-picker:checked')]
+      .filter(hasValue)
+      .map((e) => e.value)[0];
+  }
+
+  /**
    * @type {Boolean}
    */
   get inWishlist() {
@@ -74,7 +90,14 @@ class Product {
   _clickHandler(evt) {
     evt.preventDefault();
     const type = evt.target.dataset.event;
-    this._dispatch(`product:${type}`);
+    switch (type) {
+      case 'add:cart':
+        this.addToCart();
+        break;
+      
+      default:
+        this._dispatch(`product:${type}`);
+    }
   }
 
   /**
@@ -82,6 +105,11 @@ class Product {
    * @public
    */
   addToCart() {
+    if (this.hasSizes && !this.size) {
+      Toast.create('Morate izabrati veličinu');
+      return;
+    }
+
     this._dispatch('product:add:cart');
   }
 

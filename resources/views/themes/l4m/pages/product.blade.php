@@ -63,7 +63,7 @@
                     @if(count($sizes)>0)
                         <div class="product_section">
                             <div class="product_section-title">veličina</div>
-                            <div>
+                            <div class="js-sizes">
                                 @foreach($sizes as $size)
                                     @size(['label' => $size->title ,'value' => $size->id, 'checked' => false,])@endsize
                                 @endforeach
