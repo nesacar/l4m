@@ -68,6 +68,9 @@ class PagesController extends Controller
 
     public function proba()
     {
+        $shopBar = ShopBar::find(44);
+        $shopBar->product()->sync([541, 542, 543, 544]);
+
 //        factory('App\Tag', 30)->create();
         //return Attribute::find(41)->product;
 //        $product = Product::find(225);

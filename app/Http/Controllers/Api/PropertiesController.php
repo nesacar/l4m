@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Attribute;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePropertyRequest;
 use App\Product;
@@ -53,11 +54,12 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
-        $categories = $property->category()->pluck('categories.id');
+        $categories = $property->category()->get(['categories.id', 'categories.title']);
 
         return response()->json([
             'property' => $property,
             'cat_ids' => $categories,
+            'categories' => Category::select('id', 'title')->where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get(),
         ]);
     }
 

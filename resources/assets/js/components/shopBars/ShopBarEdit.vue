@@ -31,9 +31,9 @@
                                 </select>
                             </div>
 
-                            <select2-field :lists="parents" :value="shopBar.parent_category_id" :label="'Nad kategorija'" @changeValue="shopBar.parent_category_id = $event; getCategories();"></select2-field>
+                            <select-field v-if="parents" :labela="'Nad kategorija'" :options="parents" :error="error? error.parent_category_id : ''" :value="shopBar.parent_category_id" @changeValue="shopBar.parent_category_id = $event; getCategories()"></select-field>
 
-                            <select2-field :lists="categories" :value="shopBar.category_id" :label="'Kategorija'" @changeValue="shopBar.category_id = $event"></select2-field>
+                            <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :error="error? error.category_id : ''" :value="shopBar.category_id" @changeValue="shopBar.category_id = $event"></select-field>
 
                             <text-field :value="shopBar.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="shopBar.title = $event"></text-field>
 
@@ -43,10 +43,10 @@
 
                             <div v-if="trigger">
 
-                                <select2-field :lists="products" :value="prod_id1" :label="'Proizvod 1'" @changeValue="prod_id1 = $event"></select2-field>
-                                <select2-field :lists="products" :value="prod_id2" :label="'Proizvod 2'" @changeValue="prod_id2 = $event"></select2-field>
-                                <select2-field :lists="products" :value="prod_id3" :label="'Proizvod 3'" @changeValue="prod_id3 = $event"></select2-field>
-                                <select2-field :lists="products" :value="prod_id4" :label="'Proizvod 4'" @changeValue="prod_id4 = $event"></select2-field>
+                                <select-field v-if="prod_id1" :labela="'Proizvod 1'" :options="products" :value="prod_id1" @changeValue="shopBar.prod_id1 = $event"></select-field>
+                                <select-field v-if="prod_id2" :labela="'Proizvod 2'" :options="products" :value="prod_id2" @changeValue="shopBar.prod_id2 = $event"></select-field>
+                                <select-field v-if="prod_id3" :labela="'Proizvod 3'" :options="products" :value="prod_id3" @changeValue="shopBar.prod_id3 = $event"></select-field>
+                                <select-field v-if="prod_id4" :labela="'Proizvod 4'" :options="products" :value="prod_id4" @changeValue="shopBar.prod_id4 = $event"></select-field>
 
                                 <checkbox-field :value="shopBar.latest" :label="'Prikazuj najnovije proizvode'" @changeValue="shopBar.latest = $event"></checkbox-field>
                                 <checkbox-field :value="shopBar.publish" :label="'Publikovano'" @changeValue="shopBar.publish = $event"></checkbox-field>
@@ -75,14 +75,14 @@
         data(){
           return {
               shopBar: false,
-              trigger: true,
-              prod_id1: 0,
-              prod_id2: 0,
-              prod_id3: 0,
-              prod_id4: 0,
-              parents: {},
+              trigger: false,
+              prod_id1: false,
+              prod_id2: false,
+              prod_id3: false,
+              prod_id4: false,
+              parents: false,
               categories: false,
-              products: {},
+              products: false,
               error: null,
               domain : apiHost
           }
@@ -123,6 +123,8 @@
                 axios.get('api/shop-bars/' + this.$route.params.id)
                     .then(res => {
                         this.shopBar = res.data.shopBar;
+                        this.shopBar.parent_category_id = res.data.parent_category;
+                        this.shopBar.category_id = res.data.category;
                         this.getParents();
                     })
                     .catch(e => {
@@ -135,9 +137,13 @@
                     .then(res => {
                         let ids = res.data.prod_ids;
                         this.prod_id1 = ids[0];
+                        this.shopBar.prod_id1 = ids[0][0].id;
                         this.prod_id2 = ids[1];
+                        this.shopBar.prod_id2 = ids[1][0].id;
                         this.prod_id3 = ids[2];
+                        this.shopBar.prod_id3 = ids[2][0].id;
                         this.prod_id4 = ids[3];
+                        this.shopBar.prod_id4 = ids[3][0].id;
                     })
                     .catch(e => {
                         console.log(e);
@@ -162,9 +168,13 @@
                     });
             },
             submit(){
+                this.shopBar.parent_category_id = this.shopBar.parent_category_id.id;
+                this.shopBar.category_id = this.shopBar.category_id.id;
                 this.doMagic();
+                this.trigger = false;
                 axios.put('api/shop-bars/' + this.shopBar.id, this.shopBar)
                     .then(res => {
+                        this.trigger = true;
                         this.shopBar = res.data.shopBar;
                         let ids = res.data.prod_ids;
                         this.prod_id1 = ids[0];
@@ -186,10 +196,10 @@
             },
             doMagic(){
                 this.shopBar.prod_ids = [];
-                this.shopBar.prod_ids.push(this.prod_id1);
-                this.shopBar.prod_ids.push(this.prod_id2);
-                this.shopBar.prod_ids.push(this.prod_id3);
-                this.shopBar.prod_ids.push(this.prod_id4);
+                this.shopBar.prod_ids.push(this.shopBar.prod_id1);
+                this.shopBar.prod_ids.push(this.shopBar.prod_id2);
+                this.shopBar.prod_ids.push(this.shopBar.prod_id3);
+                this.shopBar.prod_ids.push(this.shopBar.prod_id4);
             },
         }
     }

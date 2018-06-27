@@ -87,7 +87,6 @@
                         console.log(res);
                         this.shopBars = res.data.shopBars.data;
                         this.paginate = res.data.shopBars;
-                        console.log(this.shopBars);
                     })
                     .catch(e => {
                         console.log(e);

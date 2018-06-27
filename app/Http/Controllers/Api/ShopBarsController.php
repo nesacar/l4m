@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateShopBarRequest;
+use App\Product;
 use App\ShopBar;
 use Illuminate\Http\Request;
 use DB;
@@ -53,11 +55,12 @@ class ShopBarsController extends Controller
      */
     public function show(ShopBar $shopBar)
     {
-        $prodIds = DB::table('product_shop_bar')->where('product_shop_bar.shop_bar_id', $shopBar->id)->orderBy('order', 'ASC')->pluck('product_shop_bar.product_id');
 
         return response()->json([
             'shopBar' => $shopBar,
-            'prod_ids' => $prodIds,
+            'prod_ids' => $prodIds = Product::getCleanProductForShopBar($shopBar),
+            'parent_category' => Category::select('id', 'title')->find($shopBar->parent_category_id),
+            'category' => Category::select('id', 'title')->find($shopBar->category_id),
         ]);
     }
 
@@ -74,7 +77,7 @@ class ShopBarsController extends Controller
 
         $shopBar->sync();
 
-        $prodIds = DB::table('product_shop_bar')->where('product_shop_bar.shop_bar_id', $shopBar->id)->orderBy('order', 'ASC')->pluck('product_shop_bar.product_id');
+        $prodIds = Product::getCleanProductForShopBar($shopBar);
 
         return response()->json([
             'shopBar' => $shopBar,

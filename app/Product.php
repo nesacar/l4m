@@ -205,6 +205,17 @@ class Product extends Model
         return $res;
     }
 
+    public static function getCleanProductForShopBar($shopBar){
+        $res = [];
+        $values = \DB::table('product_shop_bar')->where('product_shop_bar.shop_bar_id', $shopBar->id)->orderBy('order', 'ASC')->get();
+        if(count($values)>0){
+            foreach ($values as $value){
+                $res[] = \DB::table('products')->where('id', $value->product_id)->get(['id', 'code as title']);
+            }
+        }
+        return $res;
+    }
+
     public function brand(){
         return $this->belongsTo(Brand::class);
     }

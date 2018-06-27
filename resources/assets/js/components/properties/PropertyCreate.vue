@@ -24,7 +24,7 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select2-multiple-field :lists="categories" :label="'Kategorije'" :required="true" :error="error? error.cat_ids : ''" @changeValue="property.cat_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :error="error? error.cat_ids : ''" :value="null" @changeValue="property.cat_ids = $event"></select-multiple-field>
 
                             <text-field :value="property.title" :label="'Naziv'" :required="true" :error="error? error.title : ''" @changeValue="property.title = $event"></text-field>
 
@@ -57,7 +57,7 @@
         data(){
           return {
               property: {},
-              categories: {},
+              categories: false,
               error: null,
               domain : apiHost
           }
@@ -77,17 +77,14 @@
             getTopCategories(){
                 axios.get('api/categories/top-lists')
                     .then(res => {
-                        this.categories = _.map(res.data.categories, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
+                        this.categories = res.data.categories;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
             submit(){
+                console.log(this.property);
                 axios.post('api/properties', this.property)
                     .then(res => {
                         swal({

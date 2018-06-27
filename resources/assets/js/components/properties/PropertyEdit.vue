@@ -24,7 +24,7 @@
                     <div class="card" v-if="property">
                         <form @submit.prevent="submit()">
 
-                            <select2-multiple-field :lists="categories" :value="property.cat_ids" :label="'Kategorije'" :required="true" :error="error? error.cat_ids : ''" @changeValue="property.cat_ids = $event"></select2-multiple-field>
+                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :error="error? error.cat_ids : ''" :value="property.cat_ids" @changeValue="property.cat_ids = $event"></select-multiple-field>
 
                             <text-field :value="property.title" :label="'Naziv'" :required="true" :error="error? error.title : ''" @changeValue="property.title = $event"></text-field>
 
@@ -64,7 +64,7 @@
         data(){
           return {
               property: false,
-              categories: {},
+              categories: false,
               error: null,
               domain : apiHost
           }
@@ -77,27 +77,14 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
         },
-        created(){
-            this.getTopCategories();
+        mounted(){
+            this.getProperty();
         },
         methods: {
-            getTopCategories(){
-                axios.get('api/categories/top-lists')
-                    .then(res => {
-                        this.categories = _.map(res.data.categories, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
-                        this.getProperty();
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             getProperty(){
                 axios.get('api/properties/' + this.$route.params.id)
                     .then(res => {
+                        this.categories = res.data.categories;
                         this.property = res.data.property;
                         this.property.cat_ids = res.data.cat_ids;
                     })

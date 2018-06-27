@@ -31,9 +31,9 @@
                                 </select>
                             </div>
 
-                            <select2-field :lists="parents" :label="'Nad kategorija'" @changeValue="shopBar.parent_category_id = $event; getCategories();"></select2-field>
+                            <select-field v-if="parents" :labela="'Nad kategorija'" :options="parents" :error="error? error.parent_category_id : ''" :value="null" @changeValue="shopBar.parent_category_id = $event; getCategories()"></select-field>
 
-                            <select2-field :lists="categories" :label="'Kategorija'" @changeValue="shopBar.category_id = $event"></select2-field>
+                            <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :error="error? error.category_id : ''" :value="null" @changeValue="shopBar.category_id = $event"></select-field>
 
                             <text-field :value="shopBar.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="shopBar.title = $event"></text-field>
 
@@ -44,10 +44,10 @@
 
                             <div v-if="trigger">
 
-                                <select2-field :lists="products" :label="'Proizvod 1'" @changeValue="prod_id1 = $event"></select2-field>
-                                <select2-field :lists="products" :label="'Proizvod 2'" @changeValue="prod_id2 = $event"></select2-field>
-                                <select2-field :lists="products" :label="'Proizvod 3'" @changeValue="prod_id3 = $event"></select2-field>
-                                <select2-field :lists="products" :label="'Proizvod 4'" @changeValue="prod_id4 = $event"></select2-field>
+                                <select-field v-if="products" :labela="'Proizvod 1'" :options="products" :value="null" @changeValue="prod_id1 = $event"></select-field>
+                                <select-field v-if="products" :labela="'Proizvod 2'" :options="products" :value="null" @changeValue="prod_id2 = $event"></select-field>
+                                <select-field v-if="products" :labela="'Proizvod 3'" :options="products" :value="null" @changeValue="prod_id3 = $event"></select-field>
+                                <select-field v-if="products" :labela="'Proizvod 4'" :options="products" :value="null" @changeValue="prod_id4 = $event"></select-field>
 
                                 <checkbox-field :value="shopBar.latest" :label="'Prikazuj najnovije proizvode'" @changeValue="shopBar.latest = $event"></checkbox-field>
                                 <checkbox-field :value="shopBar.publish" :label="'Publikovano'" @changeValue="shopBar.publish = $event"></checkbox-field>
@@ -75,17 +75,15 @@
     export default {
         data(){
             return {
-                shopBar: {
-                    prod_ids: []
-                },
+                shopBar: {},
                 trigger: true,
                 prod_id1: 0,
                 prod_id2: 0,
                 prod_id3: 0,
                 prod_id4: 0,
-                parents: {},
-                categories: {},
-                products: {},
+                parents: false,
+                categories: false,
+                products: false,
                 error: null,
                 domain : apiHost
             }
@@ -114,6 +112,7 @@
                     });
             },
             getCategories(){
+                this.categories = false;
                 axios.get('api/categories/children-lists?category=' + this.shopBar.parent_category_id)
                     .then(res => {
                         this.categories = res.data.categories;
@@ -140,6 +139,7 @@
             },
             submit(){
                 this.doMagic();
+                console.log(this.shopBar);
                 axios.post('api/shop-bars', this.shopBar)
                     .then(res => {
                         swal({
