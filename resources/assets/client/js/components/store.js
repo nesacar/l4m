@@ -51,17 +51,20 @@ class Store {
   /**
    * Adds the product to collection.
    *
-   * @param {(string|number)} id Product id.
+   * @param {Object} data
+   * @property {number|string} data.id
+   * @property {number|string} data.size
    * @returns {Promise}
    * @public
    */
-  add(id) {
-    return axios.post(this._routes.get('add')(id), {
-      id,
+  add(data) {
+    return axios.post(this._routes.get('add')(data.id), {
+      data,
       _token: Store.then,
     })
     .then(() => {
-      return this._products.push(parseInt(id));
+      data.id = parseInt(data.id);
+      return this._products.push(data);
     });
   }
 
@@ -76,7 +79,11 @@ class Store {
       _token: Store.token,
     })
     .then(() => {
-      const index = this.products.indexOf(parseInt(id));
+      // index of the item in store.
+      const index = this.products.findIndex((item) => {
+        return item.id === parseInt(id);
+      });
+
       if (index < 0) {
         throw new Error(`Could not fined the product with the ID: ${id}`);
       }

@@ -31,8 +31,9 @@ function init() {
  */
 function addItem(evt) {
   const product = evt.detail;
+  const {id, size} = product;
 
-  cart.add(product.id)
+  cart.add({id, size})
     .then(() => {
       product.inCart = true;
       cartIcon.value = cart.products.length;
