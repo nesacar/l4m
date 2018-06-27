@@ -82,6 +82,12 @@ export const bindTogglerWithTarget = (target, toggle, open, close) => {
   };
 };
 
+/**
+ * Logging middleware.
+ *
+ * @param {any} x
+ * @return {any}
+ */
 export const log = (x) => {
   console.log(x)
   return x;
