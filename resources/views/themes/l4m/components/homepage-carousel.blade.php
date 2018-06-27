@@ -18,11 +18,9 @@
       </div>
       <div class="masthead-carousel_content--homepage">
         <div class="masthead_action-box masthead_action-box--left">
-          <h1 class="masthead_title display-2">{{$item->title}}</h1>
-          <p class="masthead_desc">{{$item->subtitle}}</p>
-          <a class="btn btn--primary masthead_action"
-            href="{{url($item->link)}}"
-          >{{$item->button}}</a>
+          <h1 class="masthead_title display-2">{!! $item->title !!}</h1>
+          <p class="masthead_desc">{!! $item->subtitle !!}</p>
+          <a class="btn btn--primary masthead_action" href="{{url($item->link)}}">{{$item->button}}</a>
         </div>
       </div>
     </div>
