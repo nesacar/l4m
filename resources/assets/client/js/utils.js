@@ -1,4 +1,4 @@
-const preloadImage = url => {
+export const preloadImage = url => {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.src = url;
@@ -7,17 +7,14 @@ const preloadImage = url => {
   });
 };
 
-const mapOverObject = (obj, fn) => {
-  const res = {};
-
-  Object.keys(obj).forEach(key => {
+export const mapOverObject = (obj, fn) => {
+  return Object.keys(obj).reduce((res, key) => {
     res[key] = fn(obj[key], key);
-  });
-
-  return res;
+    return res;
+  }, {});
 };
 
-const hasValue = (value) => {
+export const hasValue = (value) => {
   return value !== null && value !== undefined;
 };
 
@@ -26,7 +23,7 @@ const hasValue = (value) => {
  * @param {Object} base - Base object
  * @param {Object} extension - The extension.
  */
-const extend = (base, extension) => {
+export const extend = (base, extension) => {
   for (let key in extension) {
     if (Object.prototype.hasOwnProperty.call(extension, key)) {
       base[key] = extension[key];
@@ -35,20 +32,20 @@ const extend = (base, extension) => {
 };
 
 // Find the closest element in the chain with the given tag name:
-const closest = (element, tagName) => {
+export const closest = (element, tagName) => {
   if (element.tagName.toLowerCase() === tagName.toLowerCase()) {
     return element;
   }
   return closest(element.parentNode, tagName);
 };
 
-const openHelper = (target, toggle, action) => {
+export const openHelper = (target, toggle, action) => {
   target.setAttribute('aria-hidden', false);
   toggle.setAttribute('aria-expanded', true);
   action(target, toggle);
 };
 
-const closeHelper = (target, toggle, action) => {
+export const closeHelper = (target, toggle, action) => {
   target.setAttribute('aria-hidden', true);
   toggle.setAttribute('aria-expanded', false);
   action(target, toggle)
@@ -65,7 +62,7 @@ const closeHelper = (target, toggle, action) => {
  * element.
  * @return {Function} - Function to remove event listener.
  */
-const bindTogglerWithTarget = (target, toggle, open, close) => {
+export const bindTogglerWithTarget = (target, toggle, open, close) => {
   function handler(evt) {
     const expanded =
       (toggle.getAttribute('aria-expanded') === 'true');
@@ -85,13 +82,15 @@ const bindTogglerWithTarget = (target, toggle, open, close) => {
   };
 };
 
-export {
-  preloadImage,
-  mapOverObject,
-  hasValue,
-  extend,
-  closest,
-  openHelper,
-  closeHelper,
-  bindTogglerWithTarget,
+export const log = (x) => {
+  console.log(x)
+  return x;
+};
+
+export const dispatch = (type, detail) => {
+  const event = new CustomEvent(type, {
+    bubbles: true,
+    detail,
+  });
+  window.dispatchEvent(event);
 };
