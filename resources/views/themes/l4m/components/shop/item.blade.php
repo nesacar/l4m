@@ -22,12 +22,12 @@
             <use xlink:href="#icon_star-border">
           </svg>
         </button>
-        <button tabindex="-1" data-event="add:cart" class="icon-btn shop-item_action-btn" title="add to cart">
+        {{-- <button tabindex="-1" data-event="add:cart" class="icon-btn shop-item_action-btn" title="add to cart">
           <div class="icon-plus">
             <span></span>
             <span></span>
           </div>
-        </button>
+        </button> --}}
       </div>
       @if($product->discount)
         <span class="shop-item_discount-tag">{{ $product->discount }}</span>
