@@ -24,6 +24,9 @@ class Customer extends Model
 
         static::deleting(function($customer){
             $customer->user->delete();
+            $customer->shoppingCart->each(function($cart){
+               $cart->delete();
+            });
         });
     }
 
