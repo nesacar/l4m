@@ -47,7 +47,7 @@
 
                             <text-area-ckeditor-field :value="brand.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="brand.body = $event"></text-area-ckeditor-field>
 
-                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :value="brand.categories :error="error? error.category_ids : ''"" @changeValue="brand.category_ids = $event"></select-multiple-field>
+                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :value="brand.categories" :error="error? error.category_ids : ''" @changeValue="brand.category_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
 

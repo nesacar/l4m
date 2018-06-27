@@ -27,7 +27,6 @@ Vue.component('search-helper', require('./components/helper/SearchHelper.vue'));
 Vue.component('font-awesome-icon', require('@fortawesome/vue-fontawesome'));
 Vue.component('upload-pdf-helper', require('./components/helper/UploadPdfHelper.vue'));
 Vue.component('upload-pdf-helper', require('./components/helper/UploadPdfHelper.vue'));
-Vue.component('select2-helper', require('./components/helper/Select2Helper.vue'));
 Vue.component('preview-image', require('./components/helper/PreviewImage.vue'));
 
 /** FORM HELPER **/
@@ -38,8 +37,6 @@ Vue.component('password-field', require('./components/helper/form/PasswordField.
 Vue.component('email-field', require('./components/helper/form/EmailField.vue'));
 Vue.component('text-area-field', require('./components/helper/form/TextAreaField.vue'));
 Vue.component('text-area-ckeditor-field', require('./components/helper/form/TextAreaCKeditorField.vue'));
-Vue.component('select2-multiple-field', require('./components/helper/form/Select2MultipleField.vue'));
-Vue.component('select2-field', require('./components/helper/form/Select2Field.vue'));
 Vue.component('checkbox-field', require('./components/helper/form/CheckBoxField.vue'));
 Vue.component('select-multiple-field', require('./components/helper/form/SelectMultiple.vue'));
 Vue.component('select-field', require('./components/helper/form/Select.vue'));

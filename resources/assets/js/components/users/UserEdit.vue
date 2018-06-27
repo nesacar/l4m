@@ -40,12 +40,8 @@
                                     <option value="2" :selected="user.role_id == 2">Admin</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Klijenti</label>
-                                <select2 :options="clients" :multiple="true" :value="user.client_ids" @input="input($event)">
-                                    <option value="0" disabled>select one</option>
-                                </select2>
-                            </div>
+
+                            <select-multiple-field v-if="clients" :labela="'Klijenti'" :options="clients" :error="error? error.client_ids : ''" :value="user.client_lists" @changeValue="user.client_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="user.publish" :label="'Publikovano'" @changeValue="user.publish = $event"></checkbox-field>
 
@@ -67,42 +63,23 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
-    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){
           return {
               user: {},
-              clients: {},
+              clients: false,
               error: null
           }
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
-            'switches': Switches,
-            'select2': Select2,
         },
-        created(){
-            this.getClients();
+        mounted(){
+            this.getUser();
         },
         methods: {
-            getClients(){
-                axios.get('api/clients')
-                    .then(res => {
-                        this.clients = _.map(res.data.clients.data, (data) => {
-                            var pick = _.pick(data, 'title', 'id');
-                            var object = {id: pick.id, text: pick.title};
-                            return object;
-                        });
-                        this.getUser();
-                    })
-                    .catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
             submit(){
                 axios.patch('api/users/' + this.user.id, this.user)
                     .then(res => {
@@ -122,8 +99,13 @@
             getUser(){
                 axios.get('api/users/' + this.$route.params.id)
                     .then(res => {
+                        this.clients = res.data.clients;
                         this.user = res.data.user;
-                        this.user.client_ids = res.data.client_ids;
+                        this.user.client_lists = res.data.client_ids;
+                        this.user.client_ids = res.data.client_ids.map(({id}) => {
+                            return id;
+                        });
+                        console.log(this.user.client_ids);
                     })
                     .catch(e => {
                         console.log(e);
@@ -135,7 +117,6 @@
                 data.append('image', image.file);
                 axios.post('api/users/' + this.user.id + '/image', data)
                     .then(res => {
-                        console.log(res);
                         this.user.image = res.data.image;
                         this.error = null;
                         swal({
@@ -149,10 +130,6 @@
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
-            },
-            input(client){
-                this.user.client_ids = client;
-                console.log(client);
             },
         }
     }

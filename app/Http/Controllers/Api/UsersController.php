@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\CreateUserRequest;
@@ -39,10 +40,10 @@ class UsersController extends Controller
 
     public function show($id){
         $user = User::with('client')->find($id);
-        $client_ids = $user->client()->pluck('id');
         return response()->json([
             'user' => $user,
-            'client_ids' => $client_ids,
+            'client_ids' =>  $user->client()->get(['id', 'title']),
+            'clients' => Client::select('id', 'title')->where('publish', 1)->get(),
         ]);
     }
 

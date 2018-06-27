@@ -74,7 +74,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
-    import Select2 from '../helper/Select2Helper.vue';
 
     export default {
         data(){

@@ -45,7 +45,6 @@
 <script>
     import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
-    import Select2 from '../helper/Select2Helper.vue';
     import swal from 'sweetalert2';
 
     export default {
@@ -65,7 +64,6 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'select2': Select2,
         },
         mounted(){
             this.getProducts();
