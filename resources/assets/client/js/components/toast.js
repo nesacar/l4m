@@ -1,3 +1,5 @@
+import {div} from '../html';
+
 export class Toast {
   static create (msg, options) {
     let toastContainer = document.querySelector('.toast-container');
@@ -16,10 +18,8 @@ export class Toast {
       });
 
     // Make a toast
-    const toast = document.createElement('div');
-    const toastContent = document.createElement('div');
-    toast.classList.add('toast');
-    toastContent.classList.add('toast_content');
+    const toast = div({class: 'toast'});
+    const toastContent = div({class: 'toast_content'});
     toastContent.textContent = msg;
     toast.appendChild(toastContent);
     toast.dataset.tag = tag;
