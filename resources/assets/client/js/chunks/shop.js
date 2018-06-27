@@ -8,14 +8,7 @@ import {button, div, li} from '../html';
 /**
  * Helper class for controling filter drawer.
  */
-class FilterDrawer {
-  /**
-   * @type {string}
-   */
-  static get ACTIVE_CLASS() {
-    return 'active';
-  }
-  
+class FilterDrawer {  
   /**
    * Creates new instance of the FilterDrawer helper component.
    */
@@ -24,8 +17,9 @@ class FilterDrawer {
     this.el = document.querySelector('.js-filters-container');
     this.backdrop = document.querySelector('.js-filters-backdrop');
 
+    // state keys represent class names.
     this.state = {
-      active: this.el.classList.contains(FilterDrawer.ACTIVE_CLASS),
+      active: this.el.classList.contains('active'),
     };
 
     this.btn.addEventListener('click', this.open.bind(this));
@@ -64,13 +58,13 @@ class FilterDrawer {
    * Updates the DOM to represent the state.
    */
   render() {
-    const {active} = this.state;
+    const state = Object.keys(this.state);
+    const classname = Array.from(this.el.classList)
+      .filter((cn) => !state.includes(cn))
+      .concat(state.filter((cn) => this.state[cn]))
+      .join(' ');
 
-    if (active) {
-      this.el.classList.add(FilterDrawer.ACTIVE_CLASS);
-    } else {
-      this.el.classList.remove(FilterDrawer.ACTIVE_CLASS);
-    }
+    this.el.className = classname;
   }
 }
 

@@ -6,7 +6,6 @@ import Accordion from './components/accordion';
 import RevealAccordion from './components/reveal-accordion';
 import {createCarousel} from './components/carousel';
 import { Toast } from './components/toast';
-import InvertableImage from './components/invertable-image';
 import InputField from './components/input-field';
 import Currency from './currency';
 
@@ -25,14 +24,8 @@ export function init () {
   Currency.init();
   NavItem.init();
 
-  window.addEventListener('load', () => {
-    // Wait for evertything to load before applying images.
-    InvertableImage.init();
-    app.init();
-  }, {once: true});
+  window.addEventListener('load', app.init, {once: true});
 
-  document.querySelectorAll('.showcase_carousel')
-    .forEach((carousel) => {
-      return createCarousel(carousel);
-    });
+  Array.from(document.querySelectorAll('.showcase_carousel'))
+    .map(createCarousel);
 };

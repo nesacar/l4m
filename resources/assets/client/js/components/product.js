@@ -51,7 +51,7 @@ class Product {
   get size() {
     return [this._root.querySelector('.js-size-picker:checked')]
       .filter(hasValue)
-      .map((e) => e.value)[0];
+      .map((e) => e.value)[0] || null;
   }
 
   /**
