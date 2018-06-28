@@ -4,7 +4,7 @@
         <div class="accordion_pane product_description-section">
             <button class="js-accordion_toggle product_description-tab"
                     aria-controls="#_sub-id-1"
-                    aria-expanded="true"
+                    aria-expanded="false"
             >
                 O PROIZVODU
                 <svg class="icon">
@@ -35,6 +35,22 @@
                 </div>
             </div>
         </div>
+    @elseif($product->brand->delivery)
+            <div class="accordion_pane product_description-section">
+                <button class="js-accordion_toggle product_description-tab"
+                        aria-controls="#_sub-id-2"
+                >
+                    ISPORUKA I POVRAĆAJ
+                    <svg class="icon">
+                        <use xlink:href="#icon_arrow">
+                    </svg>
+                </button>
+                <div class="accordion_wrapper" id="_sub-id-2">
+                    <div class="accordion_content product_description-content">
+                        {!! $product->brand->delivery !!}
+                    </div>
+                </div>
+            </div>
     @endif
 
 </div>
