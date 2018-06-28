@@ -39,7 +39,7 @@ class CartsController extends Controller
         $product = Product::withoutGlobalScope('attribute')->find($id);
         if(self::isExists($product) == false){
             $price = (float) $product->totalPrice;
-            \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $price, 'options' => ['brand' => $product->brand->title]]);
+            \Cart::add(['id' => $product->id, 'name' => $product->title, 'qty' => 1, 'price' => $price, 'options' => ['brand' => $product->brand->title, 'size' => request('size')?: null ]]);
 
             return response([
                 'message' => 'added'

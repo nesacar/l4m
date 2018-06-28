@@ -24,7 +24,6 @@ class CreateBoxRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
             'order' => 'required|numeric|min:1',
             'block_id' => 'required|numeric|min:1',
         ];
@@ -33,7 +32,6 @@ class CreateBoxRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Naziv je obavezan',
             'order.required' => 'Redosled je obavezan',
             'order.numeric' => 'Redosled je obavezan',
             'order.min' => 'Redosled je obavezan',

@@ -17,23 +17,6 @@
                 </div>
             </div>
         </div>
-    @elseif($product->brand)
-        <div class="accordion_pane product_description-section">
-            <button class="js-accordion_toggle product_description-tab"
-                    aria-controls="#_sub-id-1"
-                    aria-expanded="true"
-            >
-                O BRENDU
-                <svg class="icon">
-                    <use xlink:href="#icon_arrow">
-                </svg>
-            </button>
-            <div class="accordion_wrapper" id="_sub-id-1">
-                <div class="accordion_content product_description-content">
-                    {!! $product->brand->body !!}
-                </div>
-            </div>
-        </div>
     @endif
 
     @if($product->body2)

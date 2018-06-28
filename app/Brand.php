@@ -12,7 +12,7 @@ class Brand extends Model
 {
     use UploudableImageTrait;
 
-    protected $fillable = ['title', 'slug', 'short', 'body', 'order', 'logo', 'image', 'publish'];
+    protected $fillable = ['title', 'slug', 'short', 'body', 'delivery', 'order', 'logo', 'image', 'publish'];
 
     protected static function boot(){
         parent::boot();

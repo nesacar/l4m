@@ -20,7 +20,6 @@
                     <li><router-link tag="a" :to="'/settings/1/edit'">SEO</router-link></li>
                     <li><router-link tag="a" :to="'/currencies'">Valute</router-link></li>
                     <li><router-link tag="a" :to="'/themes'">Teme</router-link></li>
-                    <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }"  v-if="admin">
@@ -31,6 +30,7 @@
                     <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
                     <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
                     <li><router-link tag="a" :to="'/shop-bars'">ShopBars</router-link></li>
+                    <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>
             <li :class="{ 'active': showUsersItemActive }" :style="{ 'display': showUsersItem ? 'block' : 'none' }" v-if="admin">

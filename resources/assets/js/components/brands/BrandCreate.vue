@@ -34,6 +34,8 @@
 
                             <text-area-ckeditor-field :value="brand.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="brand.body = $event"></text-area-ckeditor-field>
 
+                            <text-area-ckeditor-field :value="brand.delivery" :label="'Isporuka i povraćaj'" :error="error? error.delivery : ''" @changeValue="brand.delivery = $event"></text-area-ckeditor-field>
+
                             <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :error="error? error.category_ids : ''" :value="null" @changeValue="brand.category_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
