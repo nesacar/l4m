@@ -63,9 +63,9 @@
 
                             <text-area-field :value="product.short" :label="'Kratak opis'" :error="error? error.short : ''" @changeValue="product.short = $event"></text-area-field>
 
-                            <text-area-ckeditor-field :value="product.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="product.body = $event"></text-area-ckeditor-field>
+                            <text-area-ckeditor-field v-if="product" :value="product.body" :label="'Opis'" :error="error? error.body : ''" @changeValue="product.body = $event"></text-area-ckeditor-field>
 
-                            <text-area-ckeditor-field :value="product.body2" :label="'Isporuka i povraćaj'" :error="error? error.body2 : ''" @changeValue="product.body2 = $event"></text-area-ckeditor-field>
+                            <text-area-ckeditor-field v-if="product" :value="product.body2" :label="'Isporuka i povraćaj'" :error="error? error.body2 : ''" @changeValue="product.body2 = $event"></text-area-ckeditor-field>
 
                             <text-field :value="product.price" :label="'Cena'" :error="error? error.price : ''" :required="true" @changeValue="product.price = $event"></text-field>
 

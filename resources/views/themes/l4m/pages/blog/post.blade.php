@@ -92,6 +92,7 @@
                     @endcomponent
                 </div>
                 @endif
+                @if(false)
                 <div class="expand--lg">
                     {{--<h4 class="side-content-title">categories</h4>--}}
                     <div class="categorie-banner categorie-banner--small">
@@ -106,6 +107,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </aside>
         </div>
     </section>

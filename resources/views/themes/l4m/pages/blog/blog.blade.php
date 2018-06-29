@@ -56,6 +56,7 @@
         </div>
     </section>
 
+    @if(false)
     <section class="container">
         <div class="categorie-banner">
             <div class="image image--ultra-wide invertable-image">
@@ -69,6 +70,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     <section class="container">
         <h2 class="section-title with-lines"><span>featured</span></h2>

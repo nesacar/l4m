@@ -71,13 +71,13 @@ class Post extends Model
                 if($exclude){
                     $query->where('posts.id', '<>', $exclude->id);
                 }
-            })->published()->paginate($limit);
+            })->where('blog_id', '<>', 6)->published()->paginate($limit);
         }else{
             return self::where(function($query) use ($exclude){
                 if($exclude){
                     $query->where('posts.id', '<>', $exclude->id);
                 }
-            })->published()->paginate($limit);
+            })->where('blog_id', '<>', 6)->published()->paginate($limit);
         }
     }
 
