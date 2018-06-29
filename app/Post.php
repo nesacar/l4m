@@ -97,8 +97,16 @@ class Post extends Model
         }
     }
 
-    public static function getHomePosts($limit = 3){
-        return self::where('blog_id', '<>', 6)->published()->limit($limit)->get();
+    public static function getHomePosts($slug = false, $limit = 3){
+        if($slug){
+            $blog = Blog::whereSlug($slug)->first();
+            if(!empty($blog)){
+                return $blog->post()->where('blog_id', '<>', 6)->published()->limit($limit)->get();
+            }
+            return [];
+        }else{
+            return self::where('blog_id', '<>', 6)->published()->limit($limit)->get();
+        }
     }
 
     public function scopePublished($query){

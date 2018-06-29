@@ -53,7 +53,7 @@ class PagesController extends Controller
     public function category($slug)
     {
         Category::setPrimaryCategory($slug);
-        $posts = Post::getHomePosts();
+        $posts = Post::getHomePosts($slug);
         $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
         $slider = Block::getSlider();
