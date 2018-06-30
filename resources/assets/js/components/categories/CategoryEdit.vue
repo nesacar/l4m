@@ -101,7 +101,6 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
@@ -115,7 +114,6 @@
               category: false,
               error: null,
               lists: false,
-              domain : apiHost
           }
         },
         computed: {

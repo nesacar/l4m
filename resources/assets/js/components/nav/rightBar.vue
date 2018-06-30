@@ -31,13 +31,12 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
     export default {
         data(){
             return {
-                domain : apiHost,
+                domain: domain,
                 loginUsers: {},
                 logoutUsers: {}
             }
@@ -50,7 +49,7 @@
                 return this.$store.getters.getShowRightBar;
             }
         },
-        created(){
+        mounted(){
             this.getUsers();
         },
         methods: {

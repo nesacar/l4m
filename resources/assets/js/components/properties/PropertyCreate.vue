@@ -49,7 +49,6 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
 
@@ -59,7 +58,6 @@
               property: {},
               categories: false,
               error: null,
-              domain : apiHost
           }
         },
         computed: {

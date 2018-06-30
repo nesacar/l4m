@@ -43,7 +43,6 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
 
@@ -53,7 +52,6 @@
               post: {},
               error: null,
               products: false,
-              domain : apiHost,
               trigger: false,
           }
         },

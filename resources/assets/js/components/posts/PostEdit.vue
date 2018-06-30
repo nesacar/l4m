@@ -112,7 +112,6 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import UploadImageHelper from '../helper/UploadImageHelper.vue';
     import swal from 'sweetalert2';
@@ -136,7 +135,6 @@
                   maxFilesize: 0.5,
                   headers: { "Authorization": "Bearer " + this.$auth.getToken() }
               },
-              domain : apiHost
           }
         },
         computed: {

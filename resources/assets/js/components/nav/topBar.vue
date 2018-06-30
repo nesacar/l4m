@@ -86,13 +86,12 @@
 </template>
 
 <script>
-    import { apiHost } from '../../config';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
     export default {
         data(){
             return {
-                domain : apiHost
+                domain: domain,
             }
         },
         components: {
@@ -109,7 +108,7 @@
                 return this.$store.getters.isAdmin;
             },
         },
-        created(){
+        mounted(){
             this.storeUser();
         },
         methods: {
