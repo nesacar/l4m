@@ -23,7 +23,7 @@ export class Toast {
     toastContent.textContent = msg;
     toast.appendChild(toastContent);
     toast.dataset.tag = tag;
-    toastContainer.appendChild(toast);
+    toastContainer.insertBefore(toast, toastContainer.firstChild);
 
     // Wait a secund, than fade out
     const timeout = options.timeout || 3000;

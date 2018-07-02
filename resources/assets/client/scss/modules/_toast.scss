@@ -2,10 +2,10 @@
   position: fixed;
   padding: $base-line * 2;
   width: 100%;
-  bottom: 0;
+  top: 0;
   right: 0;
   pointer-events: none;
-  z-index: 100;
+  z-index: 10001;
 }
 
 .toast {
@@ -23,7 +23,6 @@
     background: $theme-primary;
     color: #FFF;
     display: inline;
-    // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   }
 
   &--dismissed {
