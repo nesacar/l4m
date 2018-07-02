@@ -7,14 +7,18 @@ class CartIcon {
    * @type {number}
    */
   set value(n) {
-    this._root.innerHTML = (n > 0) ? n : '';
+    let html = (n > 0) ? n : '';
+    Array.from(this._els, (el) => {
+      el.innerHTML = html;
+      return el;
+    });
   }
 
   /**
    * Creates new CartItem helper instance.
    */
   constructor() {
-    this._root = document.querySelector('.js-basket-chip');
+    this._els = document.querySelectorAll('.js-basket-chip');
   }
 }
 

@@ -1,15 +1,32 @@
-.chip:not(:empty) {
-  position: absolute;
-  top: 0;
-  right: 0;
+.chip:empty {
+  display: none;
+}
+
+.chip {
   background-color: $theme-secondary;
   color: #FFF;
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 10px;
+  border-radius: 50%;
+  font-variant-numeric: lining-nums;
+}
+
+.chip--header {
+  font-size: 0.75rem;
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 16px;
   height: 16px;
-  line-height: 10px;
-  border-radius: 16px;
-  font-variant-numeric: lining-nums;
+}
+
+.chip--side-nav {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
 }

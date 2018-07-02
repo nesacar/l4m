@@ -1,10 +1,10 @@
 @drawer(['id' => 'navdrawer'])
 <nav class="side-nav">
     <ul class="side-nav_menu accordion">
-      <li class="side-nav_menu-item">
+      <li class="side-nav_menu-item" style="position: relative;">
         <a class="side-nav_menu-link"
           href="/korpa"
-        >Korpa</a>
+        >Korpa<span class="chip chip--side-nav js-basket-chip"></span></a>
       </li>
       @foreach($menu as $link)
         @if(count($link->children) == 0)

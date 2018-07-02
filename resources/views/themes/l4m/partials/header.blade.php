@@ -38,9 +38,9 @@
                     @endselect
                 </form>
             </div>
-            <div class="header_basket">
+            <div class="header_basket expand--sm">
                 <a href="{{ url('korpa') }}" class="icon-btn">
-                    <small class="chip js-basket-chip">{{ !! \Cart::count() ? \Cart::count() : '' }}</small>
+                    <small class="chip chip--header js-basket-chip">{{ !! \Cart::count() ? \Cart::count() : '' }}</small>
                     <svg class="icon" role="presentation">
                         <use xlink:href="#icon_cart">
                     </svg>
