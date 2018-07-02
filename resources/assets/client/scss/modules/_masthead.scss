@@ -148,6 +148,10 @@ $_HOMEPAGE_IMAGE_HEIGHT: 300px;
   &_content--homepage {
     color: $text-primary-on-light;
 
+    @include media-breakpoint-down(sm) {
+      color: $text-primary-on-light !important;
+    }
+
     @include media-breakpoint-up(md) {
       position: absolute;
       top: 0;
