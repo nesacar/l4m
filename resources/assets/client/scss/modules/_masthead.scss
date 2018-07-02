@@ -8,7 +8,7 @@
 
   &_action-box {
     width: 100%;
-    text-align: center;
+    text-align: center;  
 
     @include media-breakpoint-down(sm) {
       padding: (4 * $base-line) 0;
