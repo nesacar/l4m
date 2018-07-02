@@ -94,6 +94,12 @@
   }
 }
 
+.expand--sm {
+  @include media-breakpoint-down(xs) {
+    display: none !important;
+  }
+}
+
 .expand--md {
   @include media-breakpoint-down(sm) {
     display: none !important;

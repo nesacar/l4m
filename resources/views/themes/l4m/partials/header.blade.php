@@ -27,7 +27,7 @@
                     <use xlink:href="#logo">
                 </svg>
             </a>
-            <div class="header_currency">
+            <div class="header_currency expand--sm">
                 <form method="GET" id="currency_form">
                     @select([
                         'id' => 'currency',
