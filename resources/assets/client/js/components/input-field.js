@@ -3,8 +3,8 @@ class InputField {
    * Grabs all input fields and wrapps them inside a InputField.
    */
   static init() {
-    document.querySelectorAll('.js-input-field')
-      .forEach((e) => new InputField(e));
+    Array.from(document.querySelectorAll('.js-input-field'))
+      .map((e) => new InputField(e));
   }
 
   /**

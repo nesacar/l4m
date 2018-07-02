@@ -1,8 +1,8 @@
 import {closeHelper, bindTogglerWithTarget, openHelper} from '../utils';
 
 function init() {
-  document.querySelectorAll('.js-accordion_toggle')
-    .forEach(_initMenu);
+  Array.from(document.querySelectorAll('.js-accordion_toggle'))
+    .map(_initMenu);
 }
 
 function _initMenu(toggle, index) {

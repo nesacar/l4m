@@ -6,7 +6,8 @@ class LazyImages {
   }
 
   static get SUPPORTS_INTERSECTION_OBSERVER () {
-    return ('IntersectionObserver' in window);
+    return ('IntersectionObserver' in window
+      && 'IntersectionObserverEntry' in window);
   }
 
   static init () {
@@ -35,7 +36,7 @@ class LazyImages {
 
     this._onIntersection = this._onIntersection.bind(this);
     this._io = new IntersectionObserver(this._onIntersection);
-    images.forEach(image => {
+    images.forEach((image) => {
       if (image.classList.contains(LazyImages.HANDLED_CLASS)) {
         return;
       }
@@ -45,7 +46,9 @@ class LazyImages {
   }
 
   _loadImagesImmediately (images) {
-    Array.from(images, this._preLoadImages);
+    Array.from(images).map((img) => {
+      this._preLoadImages(img);
+    });
   }
 
   _onIntersection (entries) {
@@ -64,12 +67,18 @@ class LazyImages {
   }
 
   _preLoadImages (image) {
-    const src = image.dataset.src;
+    const src = image.getAttribute('data-src');
     if (!src) {
       return;
     }
-
-    return Utils.preloadImage(src).then(evt => this._applyImage(image, evt.target));
+    
+    Utils.preloadImage(src)
+      .then((evt) => {
+        this._applyImage(image, evt.target);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   }
 
   _applyImage (image, img) {

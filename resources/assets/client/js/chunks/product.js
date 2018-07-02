@@ -41,7 +41,7 @@ import {createCarousel} from '../components/carousel';
       dialog.showModal();
     });
 
-    $thumbs = document.querySelectorAll('.image-gallery_thumbnails img');
+    $thumbs = Array.from(document.querySelectorAll('.image-gallery_thumbnails img'));
     $prev = document.querySelector('.js-arrow--prev');
     $next = document.querySelector('.js-arrow--next');
     $thumbs.forEach((img, i) => {
