@@ -1,14 +1,14 @@
 @php
 
   $name = isset($name) ? $name : 'Brand name';
-  // tmp
-  $img = isset($img) ? $img : 'https://images.pexels.com/photos/968245/pexels-photo-968245.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
 
 @endphp
 
 <div class="shop-header">
+  @if(isset($img))
   <div class="image shop-header_image invertable-image">
     <img src="{{ url($img) }}">
   </div>
+  @endif
   {{-- <h2 class="display-2 shop-header_title">{{ $name }}</h2> --}}
 </div>
