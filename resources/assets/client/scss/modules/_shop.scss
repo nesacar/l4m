@@ -1,4 +1,7 @@
 .shop-grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   display: grid;
   grid-gap: $grid-gutter-width;
   grid-template-columns: 1fr 1fr;
@@ -19,8 +22,26 @@
 }
 
 .shop-item {
-  display: block;
+  // display: block;
   margin-bottom: 4 * $base-line;
+  // ie workaround
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 50%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 25%;
+  }
+
+  .shop-grid--shop & {
+    @include media-breakpoint-up(md) {
+      flex-basis: 50%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      flex-basis: 33.3333%;
+    }
+  }
 
   &:focus {
     .shop-item_actions {
