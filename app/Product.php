@@ -29,7 +29,8 @@ class Product extends Model
 
     protected static $searchable = ['filters', 'price'];
 
-    protected static $paginate = 15;
+    // Sinisa - Changed shop listing from 15 to 12 products per page.
+    protected static $paginate = 12;
 
     protected static $simplePaginate = 16;
 
