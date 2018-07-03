@@ -1,4 +1,6 @@
 .side-nav {
+  padding-bottom: 40px;
+
   &_toggle {
     position: absolute;
     top: 5px;
@@ -16,15 +18,12 @@
 
   &_menu {
     border-bottom: 1px solid $border-color-dark;
-    padding-bottom: 40px;
-    padding-top: 64px;
 
     &-item {
       background: #FFF;
     }
 
     &-link {
-      // color: $text-secondary-on-light;
       display: block;
       line-height: 18px;
       padding: 12px 48px;
