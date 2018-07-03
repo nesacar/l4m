@@ -13,8 +13,17 @@ class VladanController extends Controller {
     $this->theme = Theme::getTheme();
   }
 
-  public function index() {
+  public function profile() {
     $menu = MenuLink::getMenu();
-    return view('themes.' . $this->theme . '.pages.user.profile', compact('menu'));
+    return view($this->getView('profile'), compact('menu'));
+  }
+
+  public function orders() {
+    $menu = MenuLink::getMenu();
+    return view($this->getView('orders'), compact('menu'));
+  }
+
+  private function getView($str) {
+    return 'themes.' . $this->theme . '.pages.user.' . $str;
   }
 }
