@@ -12,6 +12,10 @@
     contain: strict;
     z-index: 5;
 
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+
     &::before {
       position: absolute;
       top: 0;
