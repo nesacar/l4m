@@ -18,6 +18,7 @@
 .logo {
   height: 2 * $base-line;
   fill: $theme-secondary;
+  width: 100%;
 
   @include media-breakpoint-up(sm) {
     height: 3 * $base-line;
