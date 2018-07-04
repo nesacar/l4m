@@ -13,10 +13,22 @@
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_list"></svg>'
     ],
     (object)[
-      'link' => '/user/password',
-      'text' => 'Zamena lozinke',
+      'link' => '/user/wishlist',
+      'text' => 'Wishlist',
       'disabled' => false,
-      'icon' => 'P'
+      'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_star-border"></svg>'
+    ],
+    (object)[
+      'link' => '/korpa',
+      'text' => 'Korpa',
+      'disabled' => false,
+      'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_cart"></svg>'
+    ],
+    (object)[
+      'link' => '/user/logout',
+      'text' => 'Logout',
+      'disabled' => false,
+      'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_logout"></svg>'
     ],
   ],
 ])

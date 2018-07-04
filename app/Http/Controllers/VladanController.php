@@ -13,14 +13,9 @@ class VladanController extends Controller {
     $this->theme = Theme::getTheme();
   }
 
-  public function profile() {
+  public function render($view) {
     $menu = MenuLink::getMenu();
-    return view($this->getView('profile'), compact('menu'));
-  }
-
-  public function orders() {
-    $menu = MenuLink::getMenu();
-    return view($this->getView('orders'), compact('menu'));
+    return view($this->getView($view), compact('menu'));
   }
 
   private function getView($str) {

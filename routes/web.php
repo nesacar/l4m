@@ -16,8 +16,7 @@ Route::get('/admin', function () {
 });
 
 // Vladan: user
-Route::get('user/profile', 'VladanController@profile');
-Route::get('user/orders', 'VladanController@orders');
+Route::get('user/{view}', 'VladanController@render');
 
 // Checkout steps.
 

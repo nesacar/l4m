@@ -77,11 +77,11 @@
                             </div>
                             <div class="footer_newsletter-form">
                                 <input
-                                        type="email"
-                                        name="email"
-                                        id="nl-email"
-                                        placeholder="Unesite email adresu"
-                                        aria-label="email address"
+                                  type="email"
+                                  name="email"
+                                  id="nl-email"
+                                  placeholder="Unesite email adresu"
+                                  aria-label="email address"
                                 />
                                 <button class="with-flare"
                                         aria-label="subscribe to newsletter"
@@ -107,21 +107,21 @@
                             </form>
                         </div>
                     @else
-                        <div class="footer_nav-item">
-                            <a href="{{ url('logovanje') }}">Logovanje</a>
-                        </div>
+                      <div class="footer_nav-item">
+                        <a href="{{ url('logovanje') }}">Logovanje</a>
+                      </div>
                     @endif
                     <div class="footer_nav-item">
-                        <a href="{{ url('registracija') }}">Registracija</a>
+                      <a href="{{ url('registracija') }}">Registracija</a>
                     </div>
                     <div class="footer_nav-item">
-                        <a href="#">My orders</a>
+                      <a href="{{url('user/orders')}}">My orders</a>
                     </div>
                     <div class="footer_nav-item">
-                        <a href="#">My details</a>
+                      <a href="{{url('user/profile')}}">My details</a>
                     </div>
                     <div class="footer_nav-item">
-                        <a href="#">Wishlist</a>
+                      <a href="{{url('user/wishlist')}}">Wishlist</a>
                     </div>
                 </div>
             </div>
