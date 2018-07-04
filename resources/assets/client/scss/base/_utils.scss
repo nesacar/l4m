@@ -142,6 +142,13 @@
   }
 
   // vertical padding util
+  .pb-#{$i} {
+    padding-bottom: $i * $base-line;
+  }
+
+  .pt-#{$i} {
+    padding-top: $i * $base-line;
+  }
   .py-#{$i} {
     padding-top: $i * $base-line;
     padding-bottom: $i * $base-line;
