@@ -5,77 +5,56 @@
     <h2 class="display-2 text--sans-serif">Moj profil</h2>
     <div class="checkout">
       <div class="checkout-steps">
-        @stepper([
-          'steps' => [
-            (object)[
-              'link' => '/user/profile',
-              'text' => 'Moj Profil',
-              'disabled' => false,
-              'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_user"></svg>',
-            ],
-            (object)[
-              'link' => '/user/orders',
-              'text' => 'Moje porudzbine',
-              'disabled' => false,
-              'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_list"></svg>'
-            ],
-            (object)[
-              'link' => '/user/password',
-              'text' => 'Zamena lozinke',
-              'disabled' => false,
-              'icon' => 'P'
-            ],
-          ],
-        ])
-        @endstepper
+        {{-- stepper --}}
+        @include('themes.' . $theme . '.pages.user.nav')
       </div>
-      <div class="checkout-content my-4">
-        <h3 class="display-4 text--sans-serif">Moje porudzbine</h3>
-        <div>
-          <div class="checkout-table-wrap">
-            <table class="checkout-table">
-              <tr class="checkout-table_header">
-                <th>Naziv</th>
-                <th>Cena</th>
-                <th>Datum</th>
-                <th>Status</th>
-              </tr>
-              <tr class="checkout-table_row">
-                <td valign="top">
-                  <div class="shop-item_name">product name</div>
-                  <div class="shop-item_brand">product brand</div>
-                </td>
-                <td valign="top">1234,00</td>
-                <td valign="top">01.11.2018.</td>
-                <td valign="top">
-                  <span class="badge badge--pending">u obradi</span>
-                </td>
-              </tr>
-              <tr class="checkout-table_row">
-                <td valign="top">
-                  <div class="shop-item_name">product name</div>
-                  <div class="shop-item_brand">product brand</div>
-                </td>
-                <td valign="top">1234,00</td>
-                <td valign="top">01.11.2018.</td>
-                <td valign="top">
-                  <span class="badge badge--received">primljena</span>
-                </td>
-              </tr>
-              <tr class="checkout-table_row">
-                <td valign="top">
-                  <div class="shop-item_name">product name</div>
-                  <div class="shop-item_brand">product brand</div>
-                </td>
-                <td valign="top">1234,00</td>
-                <td valign="top">01.11.2018.</td>
-                <td valign="top">
-                  <span class="badge badge--completed">kompletirana</span>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
+      <div class="checkout-content mb-4 py-1">
+        <h3 class="display-4 text--uppercase text--sans-serif">Moje porudzbine</h3>
+        <div><!-- all orders container -->
+          @for($i = 0; $i < 2; $i++)
+          <div class="order mb-2"><!-- single order -->
+            <header class="order-header">
+              <div class="text--s">
+                <span>Datum kupovine:</span>
+                <span>01.11.2018</span>
+              </div>
+              <span class="badge badge--completed">status</span>
+            </header>
+            <div class="shop-grid shop-grid--shop order-body"><!-- products in single order -->
+              @php
+              // generate random number of items in order
+              $n = rand(1, 4);
+              @endphp
+              @for($j = 0; $j < $n; $j++)
+              <a href="#" class="shop-item no-link">
+                <div class="shop-item_container">
+                  <div class="shop-item_presentation">
+                    <div class="shop-item_image">
+                      <div class="image image--portrait lazy-image"
+                        data-src="http://www.s-l.co.rs/images/products/g-shock-camouflage-collection-2208.jpg"
+                      ></div>
+                    </div>
+                    <div class="shop-item_content">
+                      <div class="shop-item_name">name</div>
+                      <div class="shop-item_brand">brand</div>
+                      <div class="shop-item_price">
+                        <div class="shop-item_price-tag">321.25 rsd</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              @endfor
+            </div><!-- /products in single order -->
+            <footer class="order-footer text--bold">
+              <div>
+                <span>Ukupna cena: </span><span>321654,00</span> rsd
+              </div>
+            </footer>
+          </div><!-- /single order -->
+          @endfor
+
+        </div><!-- /all orders container -->
       </div>
     </div>
   </div>

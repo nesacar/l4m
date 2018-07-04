@@ -5,31 +5,10 @@
     <h2 class="display-2 text--sans-serif">Moj profil</h2>
     <div class="checkout">
       <div class="checkout-steps">
-        @stepper([
-          'steps' => [
-            (object)[
-              'link' => '/user/profile',
-              'text' => 'Moj Profil',
-              'disabled' => false,
-              'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_user"></svg>',
-            ],
-            (object)[
-              'link' => '/user/orders',
-              'text' => 'Moje porudzbine',
-              'disabled' => false,
-              'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_list"></svg>'
-            ],
-            (object)[
-              'link' => '/user/password',
-              'text' => 'Zamena lozinke',
-              'disabled' => false,
-              'icon' => 'P'
-            ],
-          ],
-        ])
-        @endstepper
+        {{-- stepper --}}
+        @include('themes.' . $theme . '.pages.user.nav')
       </div>
-      <div class="checkout-content my-4">
+      <div class="checkout-content mb-4 py-1">
         <h3 class="display-4 text--sans-serif">Moj profil</h3>
         <form class="pb-4">
           <div class="mb-2">

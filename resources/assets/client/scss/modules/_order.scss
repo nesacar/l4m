@@ -1,0 +1,13 @@
+.order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-footer {
+  display: flex;
+  height: 32px;
+  background-color: rgba($theme-primary, $alpha: .12);
+  padding: 0 16px;
+  align-items: center;
+}
