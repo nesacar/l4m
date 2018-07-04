@@ -36,12 +36,19 @@
   }
 
   &_actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
     :first-child {
-      margin-right: 2 * $base-line;
+      margin-bottom: $base-line;
+    }
+
+    @include media-breakpoint-up(sm) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      :first-child {
+        margin-right: 2 * $base-line;
+        margin-bottom: 0;
+      }
     }
   }
 

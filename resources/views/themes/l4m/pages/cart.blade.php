@@ -53,9 +53,13 @@
                                 </div>
                             </div>
                             <div class="cart_coupon">
-                                <input class="text-input" type="text" name="kupon" id="kupon"
-                                       placeholder="Unesite promo kod">
-                                <button class="btn btn--primary">iskoristi promo kod</button>
+                                <input class="text-input"
+                                  type="text"
+                                  name="kupon"
+                                  id="kupon"
+                                  size="10"
+                                  placeholder="Unesite promo kod">
+                                <button class="btn btn--primary btn--small">promo kod</button>
                             </div>
                             <div class="cart_actions">
                                 <a href="/shop" class="btn btn--outline btn--block">nastavi kupovinu</a>
