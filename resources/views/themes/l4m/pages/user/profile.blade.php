@@ -2,14 +2,13 @@
 
 @section('content')
   <div class="container">
-    <h2 class="display-2 text--sans-serif">Moj profil</h2>
     <div class="checkout">
       <div class="checkout-steps">
         {{-- stepper --}}
         @include('themes.' . $theme . '.pages.user.nav')
       </div>
       <div class="checkout-content mb-4 py-1">
-        <h3 class="display-4 text--sans-serif">Moj profil</h3>
+        <h3 class="display-4 text--uppercase text--sans-serif">Moj profil</h3>
         <form class="pb-4">
           <div class="mb-2">
             @textfield([

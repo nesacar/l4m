@@ -2,7 +2,6 @@
 
 @section('content')
   <div class="container">
-    <h2 class="display-2 text--sans-serif">Moj profil</h2>
     <div class="checkout">
       <div class="checkout-steps">
         {{-- stepper --}}
