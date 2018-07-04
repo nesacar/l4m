@@ -11,7 +11,7 @@
         @include('themes.'.$theme.'.pages.user.nav')
       </div>
       <div class="checkout-content mb-4 py-1">
-        <h3 class="display-4 text--uppercase text--sans-serif">wishlist</h3>
+        <h3 class="display-3 text--uppercase text--sans-serif">wishlist</h3>
         @wishlisttable()
         @endwishlisttable
       </div>
