@@ -44,6 +44,10 @@ class AppServiceProvider extends ServiceProvider
       Blade::component($components . 'zoomer', 'zoomer');
       Blade::component($components . 'filter', 'filter');
 
+      // wishlist
+      Blade::component($components . 'wishlist.item', 'wishlistitem');
+      Blade::component($components . 'wishlist.table', 'wishlisttable');
+
       // carousel stuff.
       Blade::component($components . 'carousel-controls', 'carouselcontrols');
       Blade::component($components . 'homepage-carousel', 'homepagecarousel');
