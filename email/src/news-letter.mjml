@@ -36,6 +36,17 @@
         overflow: hidden;
         margin-bottom: 0;
       }
+      .product_name {
+        text-transform: uppercase;
+      }
+      .product_type {
+        color: rgba(0,0,0,.54);
+        font-size: 12px;
+      }
+      .product_price {
+        font-weight: 500;
+        margin-top: 8px;
+      }
     </mj-style>
     <mj-attributes>
       <mj-all
@@ -139,6 +150,18 @@
     </mj-section>
 
     <mj-section><!-- shop-items -->
+      <mj-column vertical-align="top" width="33.3333%"><!-- single-item -->
+        <mj-image
+          href="#"
+          src="http://l4m.mia.rs/storage/imagecache/215x287/storage/uploads/products/06-2018/cipele-511-rU.jpg"/>
+        <mj-text align="center">
+          <div class="product">
+            <div class="product_name">gianni marra</div>
+            <div class="product_type">Cipele</div>
+            <div class="product_price">253 &euro;</div>
+          </div>
+        </mj-text>
+      </mj-column><!-- single-item -->
     </mj-section><!-- ./shop-items -->
 
     <mj-hero
@@ -148,7 +171,9 @@
 
     <mj-section background-color="#f3f3f3"><!-- articles -->
       <mj-column vertical-align="top" width="50%"><!-- single-article -->
-        <mj-image src="http://l4m.mia.rs/storage/uploads/posts/05-2018/lezerno-leto-uz-nove-boss-komade-0A-2.jpeg"/>
+        <mj-image
+          href="#"
+          src="http://l4m.mia.rs/storage/uploads/posts/05-2018/lezerno-leto-uz-nove-boss-komade-0A-2.jpeg"/>
         <mj-text padding-bottom="0">
           <div class="article">
             <h2>Hello, world!</h2>
