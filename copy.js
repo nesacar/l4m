@@ -14,6 +14,6 @@ fs.readdirSync(destDir)
 fs.readdirSync(srcDir)
   .forEach((srcFile) => {
     const content = fs.readFileSync(`${srcDir}/${srcFile}`, 'utf8');
-    const destFile = srcFile.replace(/\.mjml$/, '.blade.php');
+    const destFile = srcFile.concat('.blade.php');
     fs.writeFileSync(`${destDir}/${destFile}`, content, 'utf8');
   });
