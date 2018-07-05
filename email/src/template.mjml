@@ -10,6 +10,13 @@
       .link {
         color: #bc8f5c;
       }
+      h3 {
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.075em;
+        margin: 0;
+      }
     </mj-style>
     <mj-attributes>
       <mj-all
@@ -74,6 +81,38 @@
       </mj-column>
     </mj-section><!-- ./header -->
 
+    <mj-section background-color="#f3f3f3">
+    <!-- content -->
+    </mj-section>
+
+    <mj-section
+      padding="8px"
+    >
+      <mj-column>
+        <mj-text padding-bottom="0" align="center">
+          <h3>pratite nas!</h3>
+        </mj-text>
+
+        <mj-social mj-class="py-0"
+          icon-size="32px"
+          inner-padding="8px"
+          mode="horizontal"
+        >
+          <mj-social-element
+            src="http://l4m.mia.rs/img/facebook-icon.png"
+            href="https://facebook.com/"
+          ></mj-social-element>
+          <mj-social-element
+            src="http://l4m.mia.rs/img/twitter-icon.png"
+            href="https://twitter.com/"
+          ></mj-social-element>
+          <mj-social-element
+            src="http://l4m.mia.rs/img/instagram-icon.png"
+            href="https://www.instagram.com/"
+          ></mj-social-element>
+        </mj-social>
+      </mj-column>
+    </mj-section>
     <mj-section mj-class="footer"><!-- footer -->
       <mj-column>
         <mj-navbar base-url="http://www.luxury4.me/">
