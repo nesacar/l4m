@@ -25,7 +25,7 @@
       'active' => $isActive == 'wishlist',
     ],
     (object)[
-      'link' => '/korpa',
+      'link' => '/user/cart',
       'text' => 'Korpa',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_cart"></svg>',
