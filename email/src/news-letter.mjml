@@ -108,6 +108,22 @@
       </mj-column>
     </mj-section><!-- ./header -->
 
+    <mj-section background-color="#f3f3f3"><!-- articles -->
+      <mj-column vertical-align="top" width="50%"><!-- single-article -->
+        <mj-image src="http://l4m.mia.rs/storage/uploads/posts/05-2018/lezerno-leto-uz-nove-boss-komade-0A-2.jpeg"/>
+        <mj-text padding-bottom="0">
+          <div class="article">
+            <h2>Hello, world!</h2>
+            <p class="article_text">Sed porttitor nulla vel nulla rutrum cursus et a erat. Vestibulum fringilla vestibulum tincidunt. Pellentesque in urna ac orci congue euismod. Phasellus odio mauris, rhoncus ac metus id, ultrices convallis arcu.</p>
+          </div>
+        </mj-text>
+        <mj-button mj-class="btn btn--link"
+          href="#"
+          align="left"
+        >pročitaj više</mj-button>
+      </mj-column><!-- ./single-article -->
+    </mj-section><!-- ./articles -->
+
     <mj-section padding="8px"><!-- footer -->
       <mj-column>
         <mj-text padding-bottom="0" align="center">
