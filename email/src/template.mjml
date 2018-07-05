@@ -1,0 +1,63 @@
+<mjml>
+  <mj-head>
+    <mj-font name="Montserrat" href="https://fonts.googleapis.com/css?family=Montserrat:400,500" />
+    <mj-font name="Lora" href="https://fonts.googleapis.com/css?family=Lora" />
+    <mj-style>
+      body {
+        font-family: 'Arial', sans-serif;
+        color: rgba(0,0,0,.87);
+      }
+    </mj-style>
+    <mj-attributes>
+      <mj-all
+        font-size="14px"
+        line-height="1.5"
+        font-family="Montserrat"
+      />
+      <mj-class name="py-0"
+        padding-top="0"
+        padding-bottom="0"
+      />
+      <mj-class name="border-bottom"
+        border-bottom="1px solid rgba(0,0,0,.21)"
+      />
+      <mj-class name="header"
+        padding-top="16px"
+        padding-bottom="16px"
+      />
+      <mj-class name="category-link"
+        font-size="12px"
+        text-transform="uppercase"
+        padding="8px"
+      />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#FFF">
+    <mj-section mj-class="header border-bottom">
+      <mj-column width="50%">
+        <mj-image
+          src="http://l4m.mia.rs/img/l4m-logo.png"
+          href="http://www.l4m.mia.rs/"
+        />
+      </mj-column>
+    </mj-section>
+    <mj-section mj-class="py-0 border-bottom">
+      <mj-column>
+        <mj-navbar base-url="http://www.l4m.mia.rs/">
+          <mj-navbar-link mj-class="category-link"
+            href="/shop/zene"
+          >žene</mj-navbar-link>
+          <mj-navbar-link mj-class="category-link"
+            href="/shop/muskarci"
+          >muškarci</mj-navbar-link>
+          <mj-navbar-link mj-class="category-link"
+            href="/shop/deca"
+          >deca</mj-navbar-link>
+          <mj-navbar-link mj-class="category-link"
+            href="/shop/living"
+          >living</mj-navbar-link>
+        </mj-navbar>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
