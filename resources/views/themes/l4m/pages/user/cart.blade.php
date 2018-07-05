@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <div class="checkout">
-      <div class="checkout-steps">
+      <div class="checkout-steps"><!-- show stepper only if user is registered? -->
         {{-- stepper --}}
         @include('themes.'.$theme.'.pages.user.nav', ['active' => 'cart'])
       </div>
