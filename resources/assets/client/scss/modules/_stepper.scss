@@ -67,6 +67,10 @@
       background: rgba(0,0,0,.38);
     }
 
+    .step--active & {
+      background: $theme-primary;
+    }
+
     @include media-breakpoint-up(lg) {
       margin-right: 16px;
     }

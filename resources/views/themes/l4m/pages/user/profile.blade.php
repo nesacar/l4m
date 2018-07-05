@@ -5,7 +5,7 @@
     <div class="checkout">
       <div class="checkout-steps">
         {{-- stepper --}}
-        @include('themes.' . $theme . '.pages.user.nav')
+        @include('themes.' . $theme . '.pages.user.nav', ['active' => 'profile'])
       </div>
       <div class="checkout-content mb-4 py-1">
         <h3 class="display-3 text--uppercase text--sans-serif">Moj profil</h3>
