@@ -7,6 +7,9 @@
         font-family: 'Arial', sans-serif;
         color: rgba(0,0,0,.87);
       }
+      .link {
+        color: #bc8f5c;
+      }
     </mj-style>
     <mj-attributes>
       <mj-all
@@ -30,10 +33,14 @@
         text-transform="uppercase"
         padding="8px"
       />
+      <mj-class name="subfooter"
+        font-size="10px"
+        text-align="center"
+      />
     </mj-attributes>
   </mj-head>
   <mj-body background-color="#FFF">
-    <mj-section mj-class="header border-bottom">
+    <mj-section mj-class="header border-bottom"><!-- header -->
       <mj-column width="50%">
         <mj-image
           src="http://l4m.mia.rs/img/l4m-logo.png"
@@ -58,6 +65,17 @@
           >living</mj-navbar-link>
         </mj-navbar>
       </mj-column>
+    </mj-section><!-- ./header -->
+
+    <mj-section><!-- footer -->
+
     </mj-section>
+    <mj-section mj-class="py-0">
+      <mj-column>
+        <mj-text mj-class="subfooter" align="center">
+          <p>Dobili ste ovu poruku jer ste se prijavili na mailing listu na sajtu <a class="link" href="http://www.l4m.mia.rs/">www.luxury4.me</a>. Da bi ste se dojavili sa mailling liste, kliknite <a class="link" href="#">ovde</a>.</p>
+        </mj-text>
+      </mj-column>
+    </mj-section><!-- ./footer -->
   </mj-body>
 </mjml>
