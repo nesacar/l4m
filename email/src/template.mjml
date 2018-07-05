@@ -33,6 +33,13 @@
         text-transform="uppercase"
         padding="8px"
       />
+      <mj-class name="category-link--inverse"
+        color="#fff"
+      />
+      <mj-class name="footer"
+        background-color="#131b24"
+        color="#fff"
+      />
       <mj-class name="subfooter"
         font-size="10px"
         text-align="center"
@@ -43,14 +50,14 @@
     <mj-section mj-class="header border-bottom"><!-- header -->
       <mj-column width="50%">
         <mj-image
-          src="http://l4m.mia.rs/img/l4m-logo.png"
-          href="http://www.l4m.mia.rs/"
+          src="http://www.l4m.mia.rs/img/l4m-logo.png"
+          href="http://www.luxury4.me/"
         />
       </mj-column>
     </mj-section>
     <mj-section mj-class="py-0 border-bottom">
       <mj-column>
-        <mj-navbar base-url="http://www.l4m.mia.rs/">
+        <mj-navbar base-url="http://www.luxury4.me/">
           <mj-navbar-link mj-class="category-link"
             href="/shop/zene"
           >žene</mj-navbar-link>
@@ -67,13 +74,38 @@
       </mj-column>
     </mj-section><!-- ./header -->
 
-    <mj-section><!-- footer -->
-
+    <mj-section mj-class="footer"><!-- footer -->
+      <mj-column>
+        <mj-navbar base-url="http://www.luxury4.me/">
+          <mj-navbar-link mj-class="category-link category-link--inverse"
+            href="/shop"
+          >shop</mj-navbar-link>
+          <mj-navbar-link mj-class="category-link category-link--inverse"
+            href="/blog"
+          >blog</mj-navbar-link>
+        </mj-navbar>
+      </mj-column>
+    </mj-section>
+    <mj-section mj-class="footer py-0">
+      <mj-column width="50%">
+        <mj-image
+          src="http://www.l4m.mia.rs/img/l4m-logo.png"
+          href="http://www.luxury4.me"
+        />
+      </mj-column>
+    </mj-section>
+    <mj-section mj-class="footer">
+      <mj-column>
+        <mj-text mj-class="subfooter" color="#fff" align="center">
+          <div>LUXURY4.ME, Luxury concept store, Zmaja od noćaja 9, Beograd, Srbija</div>
+          <div>Email: luxury@luxury4.me, support@luxury4.me. Tel: (+381) 11 123 4567, (+381) 11 123 4567</div>
+        </mj-text>
+      </mj-column>
     </mj-section>
     <mj-section mj-class="py-0">
       <mj-column>
         <mj-text mj-class="subfooter" align="center">
-          <p>Dobili ste ovu poruku jer ste se prijavili na mailing listu na sajtu <a class="link" href="http://www.l4m.mia.rs/">www.luxury4.me</a>. Da bi ste se dojavili sa mailling liste, kliknite <a class="link" href="#">ovde</a>.</p>
+          <p>Dobili ste ovu poruku jer ste se prijavili na mailing listu na sajtu <a class="link" href="http://www.luxury4.me/">www.luxury4.me</a>. Da bi ste se dojavili sa mailling liste, kliknite <a class="link" href="#">ovde</a>.</p>
         </mj-text>
       </mj-column>
     </mj-section><!-- ./footer -->
