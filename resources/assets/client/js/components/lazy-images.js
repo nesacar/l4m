@@ -1,4 +1,4 @@
-import * as Utils from '../utils';
+import {preloadImage} from '../utils';
 
 class LazyImages {
   static get HANDLED_CLASS () {
@@ -72,7 +72,7 @@ class LazyImages {
       return;
     }
     
-    Utils.preloadImage(src)
+    preloadImage(src)
       .then((evt) => {
         this._applyImage(image, evt.target);
       })
