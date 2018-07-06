@@ -115,3 +115,5 @@ export const classNames = (el, obj) => {
     .concat(names.filter((n) => obj[n])) // attach obj classes
     .join(' '); // turn to string.
 };
+
+export const toBool = (s) => s === 'true';
