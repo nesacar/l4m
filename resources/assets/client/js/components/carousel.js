@@ -1,4 +1,5 @@
 import Siema from 'siema';
+import {div, button, span} from '../html';
 
 const DEFAULT_OPTIONS = {
   perPage: {
@@ -46,9 +47,88 @@ class Carousel extends Siema {
    * @param {boolean} enableTransition
    */
   slideToCurrent(enableTransition) {
-    super.slideToCurrent(enableTransition)
+    super.slideToCurrent(enableTransition);
     this.setActiveSlide();
   }
+
+  /**
+   * Inserts the carousel controls.
+   * https://codepen.io/pawelgrzybek/pen/yVxmEp
+   */
+  addArrows() {
+    // controls container
+    const ctrls = div({class: 'carousel-ctrls'});
+    // create controls wrap with buttons.
+    const wrap = ['prev', 'next']
+      .map(createArrows)
+      .map(createIconButtons)
+      .map((btn) => {
+        const action = getDir(btn);
+        btn.addEventListener('click', () => {
+          this[action]();
+        });
+        return btn;
+      })
+      .reduce(
+        appendToWrapper,
+        div({class: 'container carousel-ctrls_container'})
+      );
+    ctrls.appendChild(wrap);
+    this.selector.appendChild(ctrls);
+  }
+}
+
+/**
+ * Creates an arrow icon pointing in the given direction.
+ *
+ * @param {string} dir Direction
+ * @return {HTMLSpanElement} arrow icon
+ */
+function createArrows(dir) {
+  return span({
+    class: `arrow arrow--${dir}`,
+    role: 'presentation',
+    'data-dir': dir,
+  });
+}
+
+/**
+ * Creates an icon button with the given icon.
+ *
+ * @param {HTMLSpanElement} icon
+ * @return {HTMLButtonElement} icon button
+ */
+function createIconButtons(icon) {
+  const dir = getDir(icon);
+  const btn = button({
+    class: `carousel-ctrl carousel-ctrl--${dir}`,
+    'aria-label': `${dir}-slide`,
+    'data-dir': dir,
+  });
+  btn.appendChild(icon);
+  return btn;
+}
+
+/**
+ * Appends the element to the wrapper component.
+ *
+ * @param {HTMLElement} wrap wrapper element
+ * @param {HTMLElement} element element to append
+ * @return {HTMLElement} wrapper.
+ */
+function appendToWrapper(wrap, btn) {
+  wrap.appendChild(btn);
+  return wrap;
+}
+
+/**
+ * Convinience function to get `data-dir` attribute.
+ *
+ * @param {HTMLElement} el
+ * @return {string}
+ */
+function getDir(el) {
+  return el.getAttribute('data-dir');
 }
 
 /**

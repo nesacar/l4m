@@ -35,7 +35,8 @@
   }
 
   
-  &--left {
+  &--left,
+  &--prev {
     &::after {
       transform: translateX(-50%) skewX(-45deg);
     }
@@ -45,7 +46,8 @@
     }
   }
 
-  &--right {
+  &--right,
+  &--next {
     &::after {
       transform: translateX(-50%) skewX(45deg);
     }

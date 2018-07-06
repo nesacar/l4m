@@ -4,8 +4,6 @@
 
 
 <section class="masthead" id="masthead">
-  @carouselcontrols(['controls' => $controls])
-  @endcarouselcontrols
   <div class="container masthead-carousel is-loading overflow--hidden">
     @foreach($data as $item)
     @php

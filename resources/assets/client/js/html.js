@@ -9,3 +9,4 @@ export const html = (name) => (attrs={}) => {
 export const button = html('button');
 export const div = html('div');
 export const li = html('li');
+export const span = html('span');

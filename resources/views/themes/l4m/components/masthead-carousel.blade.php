@@ -10,8 +10,6 @@
 @endphp
 
 <section class="masthead" id="masthead">
-  @carouselcontrols(['controls' => $controls])
-  @endcarouselcontrols
   <div class="container masthead-carousel overflow--visible is-loading">
     @foreach($data as $item)
     <div class="masthead-carousel_item">

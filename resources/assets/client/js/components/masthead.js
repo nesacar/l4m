@@ -22,24 +22,9 @@ function pauseAutoPlay () {
 }
 
 function addAutoPlay (root) {
-  root.addEventListener('mouseenter', pauseAutoPlay);
+  root.addEventListener('mouseover', pauseAutoPlay);
   root.addEventListener('mouseleave', startAutoPlay);
   startAutoPlay();
-}
-
-function next() {
-  carousel.next();
-}
-
-function prev() {
-  carousel.prev();
-}
-
-function addControls (root) {
-  const btnElNext = root.querySelector('.masthead-carousel-control--next');
-  const btnElPrev = root.querySelector('.masthead-carousel-control--prev');
-  btnElNext.addEventListener('click', next);
-  btnElPrev.addEventListener('click', prev);
 }
 
 export function init () {
@@ -51,6 +36,6 @@ export function init () {
 
   carousel = createCarousel(root.querySelector('.masthead-carousel'), OPTIONS);
 
-  addControls(root);
   addAutoPlay(root);
+  carousel.addArrows();
 };
