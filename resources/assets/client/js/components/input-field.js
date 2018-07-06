@@ -1,3 +1,5 @@
+import {classNames} from '../utils';
+
 class InputField {
   /**
    * Grabs all input fields and wrapps them inside a InputField.
@@ -63,13 +65,7 @@ class InputField {
    * Updates the root element to represent the state.
    */
   update() {
-    const state = Object.keys(this.state);
-    const classname = Array.from(this._root.classList)
-      .filter((cn) => !state.includes(cn)) // constant class names.
-      .concat(state.filter((cn) => this.state[cn])) // attach state classes.
-      .join(' '); // turn to string.
-
-    this._root.className = classname;
+    this._root.className = classNames(this._root, this.state);
   }
 }
 

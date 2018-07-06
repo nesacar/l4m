@@ -100,3 +100,18 @@ export const dispatch = (type, detail) => {
   });
   window.dispatchEvent(event);
 };
+
+/**
+ * Generates a className based on the given object.
+ *
+ * @param {HTMLElement} el
+ * @param {Object} obj
+ * @return {string}
+ */
+export const classNames = (el, obj) => {
+  const names = Object.keys(obj);
+  return Array.from(el.classList)
+    .filter((n) => !names.includes(n)) // constant class names
+    .concat(names.filter((n) => obj[n])) // attach obj classes
+    .join(' '); // turn to string.
+};

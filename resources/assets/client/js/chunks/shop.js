@@ -1,9 +1,6 @@
 import DoubleSlider from '../components/double-slider';
 import {button, div, li} from '../html';
-
-// Prevent content flashes
-// form.classList.remove('filters--loading');
-// form.classList.add('filters--has-loaded');
+import {classNames} from '../utils';
 
 /**
  * Helper class for controling filter drawer.
@@ -210,3 +207,12 @@ const appliedFilters =
     el.addEventListener('click', removeAllFilters(appliedFilters));
     return el;
   });
+
+// show filters.
+[formEl].map((el) => {
+  el.className = classNames(formEl, {
+    'filters--loading': false,
+    'filters--has-loaded': true,
+  });
+  return el;
+});

@@ -1,4 +1,4 @@
-<form method="GET" class="filters" id="filters">
+<form method="GET" class="filters filters--loading" id="filters">
 
     <div class="filter">
       <h4 class="filter_name">primenjeni filteri:</h4>
