@@ -1,5 +1,9 @@
 <header id="header">
-    <button class="icon-btn menu-toggler" aria-controls="#navdrawer" aria-expanded="false" data-controls="#navdrawer">
+    <button class="icon-btn menu-toggler"
+      aria-label="nav toggle"
+      aria-expanded="false"
+      aria-controls="#navdrawer"
+    >
         <div class="menu-icon">
             <span></span>
             <span></span>

@@ -24,10 +24,14 @@
       </svg>
     </div>
     <div class="image-box_controls">
-      <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev">
+      <button class="icon-btn image-box_arrow image-box_arrow--left js-arrow--prev"
+        aria-label="prev"
+      >
         <span class="arrow arrow--left" role="presentation"></span>
       </button>
-      <button class="icon-btn image-box_arrow image-box_arrow--right js-arrow--next">
+      <button class="icon-btn image-box_arrow image-box_arrow--right js-arrow--next"
+        aria-label="next"
+      >
         <span class="arrow arrow--right" role="presentation"></span>
       </button>
     </div><!-- /.image-box_controls -->
