@@ -171,7 +171,9 @@ new FilterDrawer();
 
 // submit form on change.
 [formEl, sortEl].map((el) => {
-  el.addEventListener('change', formEl.submit);
+  el.addEventListener('change', () => {
+    formEl.submit();
+  });
   return el;
 });
 
