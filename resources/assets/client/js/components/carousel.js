@@ -1,5 +1,6 @@
 import Siema from 'siema';
 import {div, button, span} from '../html';
+import {classNames} from '../utils';
 
 const DEFAULT_OPTIONS = {
   perPage: {
@@ -15,6 +16,13 @@ const DEFAULT_OPTIONS = {
  */
 class Carousel extends Siema {
   /**
+   * @type {number}
+   */
+  get timeOut() {
+    return 3000;
+  }
+
+  /**
    * Creates new Carousel instance. Adds/remove loaded classes.
    * Useful for pre-loaded styling.
    *
@@ -23,8 +31,13 @@ class Carousel extends Siema {
   constructor(config) {
     super(config);
 
-    this.selector.classList.remove('is-loading');
-    this.selector.classList.add('has-loaded');
+    this.selector.className = classNames(this.selector, {
+      'is-loading': false,
+      'has-loaded': true,
+    });
+
+    this.startAutoPlay = this.startAutoPlay.bind(this);
+    this.pauseAutoPlay = this.pauseAutoPlay.bind(this);
   }
 
   /**
@@ -75,6 +88,33 @@ class Carousel extends Siema {
       );
     ctrls.appendChild(wrap);
     this.selector.appendChild(ctrls);
+    return this;
+  }
+
+  /**
+   * Add auto play to the carousel.
+   */
+  addAutoPlay() {
+    this.selector.addEventListener('mouseover', this.pauseAutoPlay);
+    this.selector.addEventListener('mouseleave', this.startAutoPlay);
+    this.startAutoPlay();
+    return this;
+  }
+
+  /**
+   * Start autoplay.
+   */
+  startAutoPlay() {
+    this._interval = setInterval(() => {
+      this.next();
+    }, this.timeOut);
+  }
+
+  /**
+   * Pause autoplay.
+   */
+  pauseAutoPlay() {
+    clearInterval(this._interval);
   }
 }
 

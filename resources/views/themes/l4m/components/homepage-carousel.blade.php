@@ -4,7 +4,7 @@
 
 
 <section class="masthead" id="masthead">
-  <div class="container masthead-carousel is-loading overflow--hidden">
+  <div class="container masthead-carousel is-loading overflow--hidden js-carousel">
     @foreach($data as $item)
     @php
       $has_content = !empty($item->title)

@@ -10,7 +10,7 @@
 @endphp
 
 <section class="masthead" id="masthead">
-  <div class="container masthead-carousel overflow--visible is-loading">
+  <div class="container masthead-carousel overflow--visible is-loading js-carousel">
     @foreach($data as $item)
     <div class="masthead-carousel_item">
       <div class="image image--ultra-wide masthead-image">
