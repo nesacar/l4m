@@ -148,6 +148,12 @@
 .subfooter {
   background-color: darken($theme-primary, 3%);
 
+  a:hover,
+  a:focus {
+    color: #fff;
+    text-decoration: underline;
+  }
+
   &_copy {
     display: flex;
     flex-direction: column;
