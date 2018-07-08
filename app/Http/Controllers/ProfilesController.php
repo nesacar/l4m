@@ -7,6 +7,7 @@ use App\Customer;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\CreateAddressRequest;
 use App\MenuLink;
+use App\ShoppingCart;
 use App\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,21 @@ class ProfilesController extends Controller
     {
         $this->middleware('auth')->except(['emailConfirmation']);
         $this->theme = Theme::getTheme();
+    }
+
+    /**
+     * method used to confirm registration from email
+     *
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function emailConfirmation($slug){
+        $customer = Customer::where('activation', $slug)->first();
+        $customer->update(['active' => 1]);
+
+        auth()->loginUsingId($customer->user->id, true);
+
+        return redirect('profile');
     }
 
     /**
@@ -69,21 +85,6 @@ class ProfilesController extends Controller
     }
 
     /**
-     * method used to confirm registration from email
-     *
-     * @param $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function emailConfirmation($slug){
-        $customer = Customer::where('activation', $slug)->first();
-        $customer->update(['active' => 1]);
-
-        auth()->loginUsingId($customer->user->id, true);
-
-        return redirect('profile');
-    }
-
-    /**
      * method used to change customer profile password
      *
      * @param ChangePasswordRequest $request
@@ -95,5 +96,17 @@ class ProfilesController extends Controller
         }
         auth()->user()->update(['password' => Hash::make(request('password'))]);
         return back()->with('message', 'Lozinka je uspešno promenjena');
+    }
+
+    /**
+     * method used to show customer shopping carts
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myOrders(){
+        $customer = Customer::where('user_id', auth()->id())->first();
+        $carts = ShoppingCart::where('customer_id', $customer->id)->latest()->get();
+        $menu = MenuLink::getMenu();
+        return view('themes.'.$this->theme.'.pages.user.orders', compact('customer', 'carts', 'menu'));
     }
 }

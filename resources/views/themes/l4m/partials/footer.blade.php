@@ -118,7 +118,7 @@
                       <a href="{{url('user/orders')}}">My orders</a>
                     </div>
                     <div class="footer_nav-item">
-                      <a href="{{url('user/profile')}}">My details</a>
+                      <a href="{{url('profile')}}">Moj profil</a>
                     </div>
                     <div class="footer_nav-item">
                       <a href="{{url('user/wishlist')}}">Wishlist</a>

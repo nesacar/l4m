@@ -30,6 +30,7 @@ class CheckoutController extends Controller
      */
     public function step1(){
         $menu = MenuLink::getMenu();
+        $customer = Customer::where('user_id', auth()->id())->first();
         return view('themes.' . $this->theme . '.pages.checkout.address', compact('menu', 'customer'));
     }
 

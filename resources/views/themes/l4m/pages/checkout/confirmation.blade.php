@@ -78,7 +78,7 @@
                             </a>
                         </div>
                         <div class="checkout-detail_body">
-                            <p class="chekcout-detail_line no-margin">{{ session('shipping') }}</p>
+                            <p class="chekcout-detail_line no-margin">{{ session('shipping') == 1? 'DHL' : 'PostExpress' }}</p>
                         </div>
                     </div>
                     <div class="checkout-detail">

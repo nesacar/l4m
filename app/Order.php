@@ -14,7 +14,7 @@ class Order extends Model
         parent::boot();
 
         static::addGlobalScope('product', function (Builder $builder) {
-            $builder->with('product');
+            $builder->withoutGlobalScope('attribute')->with('product');
         });
     }
 

@@ -124,6 +124,7 @@ Route::put('customers/{id}/edit/{user}', 'Api\CustomersController@updateCustomer
 Route::resource('customers', 'Api\CustomersController');
 
 Route::resource('shopping-carts', 'Api\ShoppingCartsController');
+Route::post('shopping-carts/{id}/change-paid-status', 'Api\ShoppingCartsController@changePaidStatus');
 
 Route::resource('currencies', 'Api\CurrenciesController');
 

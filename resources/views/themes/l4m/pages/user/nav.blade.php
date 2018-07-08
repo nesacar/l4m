@@ -4,14 +4,14 @@
 @stepper([
   'steps' => [
     (object)[
-      'link' => '/user/profile',
+      'link' => '/profile',
       'text' => 'Moj Profil',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_user"></svg>',
       'active' => $isActive == 'profile',
     ],
     (object)[
-      'link' => '/user/orders',
+      'link' => '/profile/moje-porudzbine',
       'text' => 'Moje porudzbine',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_list"></svg>',

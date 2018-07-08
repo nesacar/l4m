@@ -42,4 +42,19 @@ class ShoppingCartsController extends Controller
         ]);
     }
 
+    /**
+     * method used to change shopping cart paid status
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changePaidStatus($id){
+        $cart = ShoppingCart::find($id);
+        $cart->update(['paid' => request('paid')?: 0]);
+
+        return response()->json([
+            'message' => 'done',
+        ]);
+    }
+
 }

@@ -58,6 +58,17 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <checkbox-field v-if="shoppingCart" :value="shoppingCart.paid" :label="'Plaćeno'" @changeValue="shoppingCart.paid = $event"></checkbox-field>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit" @click="changePaidStatus()">Izmeni</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -67,7 +78,6 @@
 <script>
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import swal from 'sweetalert2';
-    import Switches from 'vue-switches';
 
     export default {
         data(){
@@ -78,9 +88,8 @@
         },
         components: {
             'font-awesome-icon': FontAwesomeIcon,
-            'switches': Switches,
         },
-        created(){
+        mounted(){
             this.getCart();
         },
         methods: {
@@ -89,6 +98,22 @@
                     .then(res => {
                         this.shoppingCart = res.data.shoppingCart;
                         console.log(this.shoppingCart);
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            changePaidStatus(){
+                axios.post('api/shopping-carts/' + this.$route.params.id + '/change-paid-status', {paid: this.shoppingCart.paid})
+                    .then(res => {
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Uspeh',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     })
                     .catch(e => {
                         console.log(e);
