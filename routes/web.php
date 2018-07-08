@@ -15,9 +15,6 @@ Route::get('/admin', function () {
     return view('layouts.admin-app');
 });
 
-// Vladan: user
-Route::get('user/{view}', 'VladanController@render');
-
 /**
  * Customer profile page
  */
@@ -30,6 +27,18 @@ Route::put('izmena-adrese/{id}', 'ProfilesController@editAddress')->name('edit.a
  * Customer shopping carts page
  */
 Route::get('profile/moje-porudzbine', 'ProfilesController@myOrders');
+
+/**
+ * Customer profile wishlist
+ */
+Route::get('profile/lista-zelja', 'ProfilesController@wishList');
+
+/**
+ * Set and remove cookies
+ */
+Route::get('cookie', 'CookieController@index');
+Route::post('cookie/{id}/add', 'CookieController@add');
+Route::post('cookie/{id}/remove', 'CookieController@remove');
 
 /**
  * Checkout steps.

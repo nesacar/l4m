@@ -115,13 +115,13 @@
                       <a href="{{ url('registracija') }}">Registracija</a>
                     </div>
                     <div class="footer_nav-item">
-                      <a href="{{url('user/orders')}}">My orders</a>
+                      <a href="{{url('profile/moje-porudzbine')}}">Moje porudžbine</a>
                     </div>
                     <div class="footer_nav-item">
                       <a href="{{url('profile')}}">Moj profil</a>
                     </div>
                     <div class="footer_nav-item">
-                      <a href="{{url('user/wishlist')}}">Wishlist</a>
+                      <a href="{{url('profile/lista-zelja')}}">Lista želja</a>
                     </div>
                 </div>
             </div>

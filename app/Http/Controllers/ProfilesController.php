@@ -7,10 +7,12 @@ use App\Customer;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\CreateAddressRequest;
 use App\MenuLink;
+use App\Product;
 use App\ShoppingCart;
 use App\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class ProfilesController extends Controller
@@ -108,5 +110,17 @@ class ProfilesController extends Controller
         $carts = ShoppingCart::where('customer_id', $customer->id)->latest()->get();
         $menu = MenuLink::getMenu();
         return view('themes.'.$this->theme.'.pages.user.orders', compact('customer', 'carts', 'menu'));
+    }
+
+    /**
+     * method used to return products stored in cookies
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function wishList(){
+        $cookies = Cookie::get('products')? unserialize(Cookie::get('products')): [];
+        $products = Product::whereIn('id', $cookies)->published()->get();
+        $menu = MenuLink::getMenu();
+        return view('themes.'.$this->theme.'.pages.user.wishlist', compact('products', 'menu'));
     }
 }

@@ -68,6 +68,7 @@ class PagesController extends Controller
 
     public function proba()
     {
-        //
+        \Artisan::call('view:clear');
+        return 'done';
     }
 }

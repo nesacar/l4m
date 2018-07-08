@@ -12,7 +12,7 @@
       </div>
       <div class="checkout-content mb-4 py-1">
         <h3 class="display-3 text--uppercase text--sans-serif">wishlist</h3>
-        @wishlisttable()
+        @wishlisttable(['products' => $products])
         @endwishlisttable
       </div>
     </div>

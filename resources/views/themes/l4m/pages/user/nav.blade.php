@@ -1,5 +1,5 @@
 @php
-  $isActive = isset($active) ? $active : false;
+    $isActive = isset($active) ? $active : false;
 @endphp
 @stepper([
   'steps' => [
@@ -12,28 +12,28 @@
     ],
     (object)[
       'link' => '/profile/moje-porudzbine',
-      'text' => 'Moje porudzbine',
+      'text' => 'Moje porudžbine',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_list"></svg>',
       'active' => $isActive == 'orders',
     ],
     (object)[
-      'link' => '/user/wishlist',
-      'text' => 'Wishlist',
+      'link' => '/profile/lista-zelja',
+      'text' => 'Lista želja',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_star-border"></svg>',
       'active' => $isActive == 'wishlist',
     ],
     (object)[
-      'link' => '/user/cart',
+      'link' => '/korpa',
       'text' => 'Korpa',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_cart"></svg>',
       'active' => $isActive == 'cart',
     ],
     (object)[
-      'link' => '/user/logout',
-      'text' => 'Logout',
+      'link' => '/odjava',
+      'text' => 'Odjava',
       'disabled' => false,
       'icon' => '<svg class="icon" role="presentation"><use xlink:href="#icon_logout"></svg>',
     ],
