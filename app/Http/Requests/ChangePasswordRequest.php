@@ -24,7 +24,7 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'oldpassword' => 'required|min:6',
+            'old_password' => 'required|min:6',
             'password' => 'required|min:6|confirmed',
         ];
     }
@@ -32,8 +32,8 @@ class ChangePasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'oldpassword.required' => 'Stara lozinka je obavezna',
-            'oldpassword.min' => 'Stara lozinka mora imati minimum 6 karaktera',
+            'old_password.required' => 'Stara lozinka je obavezna',
+            'old_password.min' => 'Stara lozinka mora imati minimum 6 karaktera',
             'password.required' => 'Lozinka je obavezna',
             'password.min' => 'Lozinka mora imati minimum 6 karaktera',
             'password.confirmed' => 'Niste ispravno potvrdili lozinku',

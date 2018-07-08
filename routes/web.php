@@ -18,6 +18,9 @@ Route::get('/admin', function () {
 // Vladan: user
 Route::get('user/{view}', 'VladanController@render');
 
+Route::get('profile', 'ProfilesController@profile');
+Route::post('profil/promena-lozinke', 'ProfilesController@changePassword')->name('profile.change-password');
+
 // Checkout steps.
 
 Route::get('placanje/adresa-slanja', 'CheckoutController@step1');
@@ -35,9 +38,9 @@ Route::post('placanje/potvrda-porudzbine', 'CheckoutController@step4Update')->na
 Route::get('placanje/kraj', 'CheckoutController@step5');
 
 Route::post('nova-adresa', 'ProfilesController@createAddress')->name('create.address');
+Route::put('izmena-adrese/{id}', 'ProfilesController@editAddress')->name('edit.address');
 
 Route::get('profile/{registration}/confirmation', 'ProfilesController@emailConfirmation');
-Route::get('profile', 'ProfilesController@profile');
 
 // /Checkout steps.
 
