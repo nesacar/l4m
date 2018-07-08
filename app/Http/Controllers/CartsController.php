@@ -47,7 +47,7 @@ class CartsController extends Controller
         }
         return response([
             'message' => 'already exist'
-        ], 422);
+        ], 200);
     }
 
     /**
