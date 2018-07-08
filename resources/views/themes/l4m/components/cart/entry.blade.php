@@ -18,6 +18,9 @@
                   {{ number_format($product->total, 2, ',', '.') }}
                 </span>
             </div>
+            @if($product->options->size)
+                <div class="shop-item_brand">Veličina: {{ $product->options->size }}</div>
+            @endif
         </div>
     </div>
     <div class="cart_table-cell cart_entry-column">
