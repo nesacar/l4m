@@ -35,7 +35,7 @@
                                                     <div class="shop-item_name">{{ $order->product->title }}</div>
                                                     <div class="shop-item_brand">{{ $order->product->brand->title }}</div>
                                                     <div class="shop-item_price">
-                                                        <div class="shop-item_price-tag">{{ $order->total }}</div>
+                                                        <div class="shop-item_price-tag">@currency(['price' => $order->total])@endcurrency</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -46,7 +46,7 @@
                             @endif
                             <footer class="order-footer text--bold">
                                 <div>
-                                    <span>Ukupna cena: </span><span>{{ $cart->total}}</span> rsd
+                                    <span>Ukupna cena: </span><span>@currency(['price' => $cart->total])@endcurrency</span>
                                 </div>
                             </footer>
                         </div><!-- /single order -->
