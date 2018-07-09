@@ -22,7 +22,7 @@
       <div class="shop-item_actions">
         <button tabindex="-1" data-event="add:wishlist" class="icon-btn shop-item_action-btn" title="add to favorites">
           <svg class="icon">
-            <use xlink:href="#icon_star-border">
+            <use class="js-wishlist-icon" xlink:href="#icon_star-border">
           </svg>
         </button>
         {{-- <button tabindex="-1" data-event="add:cart" class="icon-btn shop-item_action-btn" title="add to cart">

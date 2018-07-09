@@ -34,11 +34,8 @@ class Product {
   }
 
   set inCart(val) {
-    if (val) {
-      this._root.classList.add(Product.CART_CLASS);
-    } else {
-      this._root.classList.remove(Product.CART_CLASS);
-    }
+    const action = val ? 'add' : 'remove';
+    this._root.classList[action](Product.CART_CLASS);
   }
 
   /**
@@ -62,11 +59,14 @@ class Product {
   }
 
   set inWishlist(val) {
-    if (val) {
-      this._root.classList.add(Product.WISHLIST_CLAS);
-    } else {
-      this._root.classList.remove(Product.WISHLIST_CLAS);
+    const action = val ? 'add' : 'remove';
+    this._root.classList[action](Product.WISHLIST_CLAS);
+    const use = this._root.querySelector('.js-wishlist-icon');
+    if (!use) {
+      return;
     }
+    const icon = val ? '#icon_star' : '#icon_star-border';
+    use.setAttribute('xlink:href', icon);
   }
   
   /**

@@ -89,7 +89,7 @@ function removeFromWishlist(evt) {
 
   wishlist.remove(product.id)
     .then(() => {
-      product.inCart = false;
+      product.inWishlist = false;
       Toast.create('Proizvod izbačen iz liste želja');
     })
     .catch(errorHandler);
