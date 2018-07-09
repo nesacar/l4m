@@ -95,6 +95,10 @@ class Product {
         this.addToCart();
         break;
       
+      case 'add:wishlist':
+        this.addToWishlist();
+        break;
+      
       default:
         this._dispatch(`product:${type}`);
     }
@@ -126,6 +130,10 @@ class Product {
    * @public
    */
   addToWishlist() {
+    if (this.inWishlist) {
+      this.removeFromWishlist();
+      return;
+    }
     this._dispatch('product:add:wishlist');
   }
 

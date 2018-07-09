@@ -1,4 +1,5 @@
 import {cart} from './store';
+import {wishlist} from './wishlist';
 import Product from '../components/product';
 import {Toast} from '../components/toast';
 import cartIcon from '../components/cart-icon';
@@ -20,8 +21,10 @@ function init() {
     .catch(errorHandler);
 
   // Add custom event handlers.
-  window.addEventListener('product:add:cart', addItem);
-  window.addEventListener('product:remove:cart', removeItem);
+  window.addEventListener('product:add:cart', addToCart);
+  window.addEventListener('product:remove:cart', removeFromCart);
+  window.addEventListener('product:add:wishlist', addToWishlist);
+  window.addEventListener('product:remove:wishlist', removeFromWishlist);
 }
 
 /**
@@ -29,7 +32,7 @@ function init() {
  *
  * @param {CustomEvent} evt `product:add:cart`
  */
-function addItem(evt) {
+function addToCart(evt) {
   const product = evt.detail;
   const {id, size} = product;
 
@@ -47,7 +50,7 @@ function addItem(evt) {
  *
  * @param {CustomEvent} evt `product:remove:cart`
  */
-function removeItem(evt) {
+function removeFromCart(evt) {
   const product = evt.detail;
 
   cart.remove(product.id)
@@ -55,6 +58,39 @@ function removeItem(evt) {
       product.inCart = false;
       cartIcon.value = cart.products.length;
       Toast.create(`Prouizoid izbačen iz korpe. ID: ${product.id}`);
+    })
+    .catch(errorHandler);
+}
+
+/**
+ * Adds product to wishlist.
+ *
+ * @param {CustomEvent} evt `product:add:wishlist`
+ */
+function addToWishlist(evt) {
+  const product = evt.detail;
+  const {id} = product;
+
+  wishlist.add({id})
+    .then(() => {
+      product.inWishlist = true;
+      Toast.create(`Proizvod dodat u listu želja`);
+    })
+    .catch(errorHandler);
+}
+
+/**
+ * Removes the product from the wishlist.
+ *
+ * @param {CustomEvent} evt `product:remove:wishlist`
+ */
+function removeFromWishlist(evt) {
+  const product = evt.detail;
+
+  wishlist.remove(product.id)
+    .then(() => {
+      product.inCart = false;
+      Toast.create('Proizvod izbačen iz liste želja');
     })
     .catch(errorHandler);
 }

@@ -64,7 +64,16 @@ class Store {
     })
     .then(() => {
       data.id = parseInt(data.id);
-      return this._products.push(data);
+
+      const index = this.products.findIndex((item) => {
+        return item.id === data.id;
+      });
+
+      if (index < 0) {
+        return this._products.push(data);
+      }
+
+      return true;
     });
   }
 
