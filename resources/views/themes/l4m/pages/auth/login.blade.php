@@ -23,7 +23,7 @@
           'type' => 'email',
           'helper_text' => 'Ovo polje je obavezno',
           'required' => true,
-          'error' => false,
+          'error_message' => false,
           ])
         @endtextfield
       </div>
@@ -36,7 +36,7 @@
           'type' => 'password',
           'helper_text' => 'Ovo polje je obavezno',
           'required' => true,
-          'error' => false,
+          'error_message' => false,
           ])
         @endtextfield
       </div>

@@ -22,7 +22,7 @@
                               'label' => 'Ime i prezime',
                               'helper_text' => 'Ovo polje je obavezno',
                               'required' => true,
-                              'error' => $errors->first('name'),
+                              'error_message' => $errors->first('name'),
                             ])
                             @endtextfield
                             @textfield([
@@ -32,7 +32,7 @@
                               'label' => 'Telefon',
                               'helper_text' => 'Ovo polje je obavezno',
                               'required' => true,
-                              'error' => $errors->first('phone'),
+                              'error_message' => $errors->first('phone'),
                             ])
                             @endtextfield
                             @textfield([
@@ -42,7 +42,7 @@
                               'label' => 'Ulica i broj',
                               'helper_text' => 'Ovo polje je obavezno',
                               'required' => true,
-                              'error' => $errors->first('address'),
+                              'error_message' => $errors->first('address'),
                             ])
                             @endtextfield
                             @textfield([
@@ -52,7 +52,7 @@
                               'label' => 'Grad',
                               'helper_text' => 'Ovo polje je obavezno',
                               'required' => true,
-                              'error' => $errors->first('town'),
+                              'error_message' => $errors->first('town'),
                             ])
                             @endtextfield
                             @textfield([
@@ -62,7 +62,7 @@
                               'label' => 'Poštanski broj',
                               'helper_text' => 'Ovo polje je obavezno',
                               'required' => true,
-                              'error' => $errors->first('postcode'),
+                              'error_message' => $errors->first('postcode'),
                             ])
                             @endtextfield
                             @selectbox([
@@ -71,7 +71,7 @@
                               'label' => 'Država',
                               'helper_text' => 'Ovo polje je obavezno',
                               'required' => true,
-                              'error' => $errors->first('country'),
+                              'error_message' => $errors->first('country'),
                             ])
                             <option value="1" {{ $address->country == 1? 'selected' : '' }}>Srbija</option>
                             <option value="2" {{ $address->country == 2? 'selected' : '' }}>Hrvatska</option>
