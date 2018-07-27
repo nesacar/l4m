@@ -31,6 +31,7 @@
                                 <th scope="col">naslov</th>
                                 <th scope="col">kategorija</th>
                                 <th scope="col">proizvodi</th>
+                                <th scope="col">broj karaktera</th>
                                 <th scope="col">vidljivo</th>
                                 <th scope="col">vidljivo od</th>
                                 <th>akcija</th>
@@ -42,6 +43,7 @@
                                 <td>{{ row.title }}</td>
                                 <td v-if="row.blog">{{ row.blog.title }}</td> <td v-else>/</td>
                                 <td v-if="row.product.length > 0">[<span v-for="product in row.product">{{ product.title }},</span>]</td> <td v-else>/</td>
+                                <td>{{ charCount(row.body) }}</td>
                                 <td>{{ row.publish? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>
@@ -70,6 +72,7 @@
     import SearchHelper from '../helper/SearchHelper.vue';
     import swal from 'sweetalert2';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+    import { charCount } from '../../packages/utils/char-count';
 
     export default {
         data(){
@@ -94,6 +97,9 @@
             this.getBlogs();
         },
         methods: {
+            charCount(str){
+                return charCount(str);
+            },
             getPosts(){
                 this.$store.dispatch('changeSearchPostPage', 1);
                 axios.post('api/posts/search', this.searchPost)
