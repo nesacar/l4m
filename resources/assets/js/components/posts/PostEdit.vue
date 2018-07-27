@@ -176,6 +176,7 @@
                         this.post.blog = res.data.blog_id;
                         this.post.brand = res.data.brand_id;
                         this.post.tags = res.data.tag_ids;
+                        this.post.product_ids = res.data.product_ids
                     })
                     .catch(e => {
                         console.log(e);

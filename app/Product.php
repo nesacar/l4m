@@ -93,9 +93,10 @@ class Product extends Model
         }else{
             $str = 'shop/';
             if(count($this->category)>0){
-                foreach ($this->category as $category){
+                /*foreach ($this->category as $category){
                     $str .= $category->slug . '/';
-                }
+                }*/
+                $str .= $this->category->first()->slug . '/';
             }
             $str .= $this->slug . '/' . $this->id;
             return url($str);
@@ -123,14 +124,7 @@ class Product extends Model
 
     public static function filter($array = []){
         if(count($array)>0){
-            $res = [];
-            $tagsIds = self::pluck('id')->toArray();
-            foreach ($array as $item){
-                if(in_array($item, $tagsIds)){
-                    $res[] = $item;
-                }
-            }
-            return $res;
+            return array_column($array, 'id');
         }
     }
 
