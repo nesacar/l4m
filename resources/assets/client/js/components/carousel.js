@@ -87,7 +87,10 @@ class Carousel extends Siema {
         div({class: 'container carousel-ctrls_container'})
       );
     ctrls.appendChild(wrap);
-    this.selector.appendChild(ctrls);
+    this.selector.parentElement.insertBefore(
+      ctrls,
+      this.selector.nextElementSibling
+    );
     return this;
   }
 
