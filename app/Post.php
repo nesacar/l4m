@@ -12,7 +12,7 @@ class Post extends Model
 {
     use UploudableImageTrait;
 
-    protected $fillable = ['user_id', 'client_id', 'blog_id', 'brand_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'publish'];
+    protected $fillable = ['user_id', 'client_id', 'blog_id', 'brand_id', 'title', 'slug', 'short', 'body', 'views', 'image', 'publish_at', 'slider', 'on_slider', 'publish'];
 
     protected $appends = ['date', 'time', 'link'];
 
@@ -62,7 +62,7 @@ class Post extends Model
     }
 
     public static function getSlider($limit = 3){
-        return self::with('blog')->where('slider', '<>', null)->published()->take($limit)->get();
+        return self::with('blog')->where('slider', '<>', null)->published()->slider()->take($limit)->get();
     }
 
     public static function getLatest($category = false, $exclude = false, $limit = 8){
@@ -111,6 +111,11 @@ class Post extends Model
 
     public function scopePublished($query){
         $query->where('posts.publish_at', '<=', Carbon::now()->format('Y-m-d H:00'))->where('posts.publish', 1)->orderBy('posts.publish_at', 'DESC');
+    }
+
+    public function scopeSlider($query)
+    {
+        $query->where('posts.on_slider', 1);
     }
 
     public function getLink(){

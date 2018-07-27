@@ -53,6 +53,8 @@
 
                             <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 
+                            <checkbox-field :value="post.on_slider" :label="'Na slajderu'" @changeValue="post.on_slider = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
                             </div>

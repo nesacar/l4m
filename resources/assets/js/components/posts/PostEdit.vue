@@ -98,8 +98,11 @@
 
                                     <checkbox-field :value="post.publish" :label="'Publikovano'" @changeValue="post.publish = $event"></checkbox-field>
 
+                                    <checkbox-field :value="post.on_slider" :label="'Na slajderu'" @changeValue="post.on_slider = $event"></checkbox-field>
+
                                     <div class="form-group">
                                         <button class="btn btn-primary" type="submit">Izmeni</button>
+                                        <button class="btn btn-secondary" type="button" @click="preview">Pregledaj</button>
                                     </div>
                                 </form>
                             </div><!-- #srb -->
@@ -259,6 +262,10 @@
             showSuccess(){
                 this.getGallery();
             },
+            preview(){
+                var link = "blog/" + this.post.blog.slug + '/' + this.post.slug + '/' +this.post.id;
+                window.open(link);
+            }
         },
     }
 </script>

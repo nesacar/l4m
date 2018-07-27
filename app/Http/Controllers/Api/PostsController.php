@@ -88,7 +88,7 @@ class PostsController extends Controller
         return response()->json([
             'post' => $post,
             'client_id' => $post->client()->select('title', 'id')->first(),
-            'blog_id' => $post->blog()->select('title', 'id')->first(),
+            'blog_id' => $post->blog()->select('title', 'id', 'slug')->first(),
             'brand_id' => $post->brand()->select('title', 'id')->first(),
             'tag_ids' => $postIds,
             'product_ids' => count($productIds)? $productIds : null,
