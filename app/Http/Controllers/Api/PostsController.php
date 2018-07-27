@@ -51,11 +51,19 @@ class PostsController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $post = Post::create(request()->except('image', 'slider'));
+        $postRequest = $request->except('image', 'slider');
+        /* If there isn't slug field in request, mutator for slug won't be called and it will not be inserted in db
+            Add value in slug request
+        */
+        if (array_key_exists('slug', $postRequest) == false) {
+            $postRequest['slug'] = $request->title;
+        }
+
+        $post = Post::create($postRequest);
         if(empty(request('client_id'))) $post->update(['client_id' => Client::getClientId()]);
 
         $post->tag()->sync(Tag::filter(request('tag_ids')));
-       $post->product()->sync(Product::filter(request('product_ids')));
+        $post->product()->sync(Product::filter(request('product_ids')));
 
         return response()->json([
             'post' => $post
