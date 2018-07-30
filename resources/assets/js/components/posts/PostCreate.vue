@@ -30,6 +30,8 @@
 
                             <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="null" :error="error? error.brand_id : ''" @changeValue="post.brand_id = $event"></select-field>
 
+                            <select-field v-if="categories" :labela="'Kategorija vezanog proizvoda'" :options="categories" :value="post.category_id" :error="error? error.category_id : ''" @changeValue="post.category_id = $event"></select-field>
+
                             <div class="row">
                                 <div class="col-sm-6">
                                     <date-field :value="post.date" :label="'Publikovano od:'" :error="error? error.publish_at : ''" @changeValue="post.date = $event"></date-field>
@@ -112,6 +114,7 @@
               lists: false,
               tags: false,
               brands: false,
+              categories: false,
               error: null,
           }
         },
@@ -135,6 +138,7 @@
             this.getTags();
             this.getBrands();
             this.getClients();
+            this.getCategories();
         },
         methods: {
             submit(){
@@ -229,6 +233,15 @@
                         this.error = e.response.data.errors;
                     });
             },
+            getCategories(){
+                axios.get('api/categories/listsSelect')
+                    .then(res => {
+                        this.categories = res.data.categories
+                    })
+                    .catch(e => {
+                        this.error = e.response.data.errors;
+                    })
+            }
         }
     }
 </script>

@@ -88,6 +88,7 @@ Route::post('categories/search', 'Api\CategoriesController@search');
 Route::get('categories/top-lists', 'Api\CategoriesController@topLists');
 Route::get('categories/children-lists', 'Api\CategoriesController@childrenLists');
 Route::get('categories/lists', 'Api\CategoriesController@lists');
+Route::get('categories/listsSelect', 'Api\CategoriesController@listsSelect');
 Route::get('categories/tree', 'Api\CategoriesController@tree');
 Route::get('categories/sort', 'Api\CategoriesController@sort');
 Route::resource('categories', 'Api\CategoriesController');

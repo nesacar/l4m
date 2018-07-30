@@ -144,6 +144,54 @@ class Product extends Model
         }
     }
 
+    /**
+     * Get related products by category
+     *
+     * @param $post
+     * @param $products_num
+     * @param bool $parent
+     * @return mixed
+     */
+    public static function relatedProductsByCategory($post, $products_num, $parent = false)
+    {
+        // If post have category and have products less than defined number, get related products by category
+        if ($post->category_id && count($post->product) < $products_num) {
+
+            $relatedProducts = Product::withoutGlobalScope('attribute')
+                ->publish()->whereHas('category', function ($query) use ($post, $parent) {
+
+                    // If there isn't products for category, get parent category
+                if ($parent) {
+
+                    if ($post->category->parentCategory) {
+                        $query->where('id', $post->category->parentCategory->id);
+                    }
+                    else {
+                        // If there isn't parent category, return products fetched so far
+                        return $post;
+                    }
+                }
+                else {
+                    $query->where('id', $post->category_id);
+                }
+            })
+                ->take($products_num - count($post->product))
+                ->inRandomOrder()->get();
+
+            // Merge products into post
+            foreach ($relatedProducts as $product) {
+                $post->product->push($product);
+            }
+
+            // If post have products less than defined number
+            if (count($post->product) < $products_num) {
+                // run recursive
+                self::relatedProductsByCategory($post, $products_num, true);
+            }
+        }
+        return $post;
+    }
+
     public function getDateAttribute(){
         return Carbon::parse($this->publish_at)->format('Y-m-d');
     }
@@ -170,6 +218,11 @@ class Product extends Model
                 $query->select('id', 'title', 'extra')->where('property_id', self::$colorId)->first();
             }])->where('id', '<>', $this->id)->where('code', $this->code)->get();
         });
+    }
+
+    public function scopePublish($query)
+    {
+        return $query->where('publish', 1);
     }
 
     public function colors(){

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\CacheQueryBuilder;
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use File;
@@ -12,6 +13,8 @@ class Category extends Model
     use UploudableImageTrait;
 
     protected $fillable = ['title', 'slug', 'seoTitle', 'seoKeywords', 'seoShort', 'order', 'parent', 'level', 'image', 'box_image', 'featured', 'publish'];
+
+    private $categories = [];
 
     protected static function boot(){
         parent::boot();
@@ -93,9 +96,33 @@ class Category extends Model
         $this->attributes['publish'] = $value?: false;
     }
 
-    public static function tree() {
-        return static::with(implode('.', array_fill(0, 3, 'children')))->where('parent', 0)
+    public static function tree($parent = 0) {
+        return static::with(implode('.', array_fill(0, 3, 'children')))->where('parent', $parent)
             ->orderBy('order', 'ASC')->get();
+    }
+
+    public function getCategories($parent_id = 0)
+    {
+        $str = '-';
+        $categories = self::tree($parent_id);
+
+        if (isset($categories)) {
+
+            foreach ($categories as $category) {
+
+                $this->categories[] = [
+                    'id' => $category->id,
+                    'title' => str_repeat($str, $category->level) . ' ' . $category->title
+                ];
+
+                if ($category->children()) {
+                    // call recursive
+                    $this->getCategories($category->id);
+                }
+            }
+
+        }
+        return $this->categories;
     }
 
     public static function setPrimaryCategory($slug){

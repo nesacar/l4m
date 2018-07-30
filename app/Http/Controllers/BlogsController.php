@@ -6,10 +6,12 @@ use App\Blog;
 use App\Category;
 use App\MenuLink;
 use App\Post;
+use App\Product;
 use App\Seo;
 use App\Setting;
 use App\ShopBar;
 use App\Theme;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
@@ -60,6 +62,8 @@ class BlogsController extends Controller
             $post = Post::with(['tag', 'gallery'])->with(['product' => function($query){
                 $query->withoutGlobalScope('attribute')->take(6)->inRandomOrder();
             }])->find($slug3);
+            // Merge products in post
+            $post = Product::relatedProductsByCategory($post, 6);
             $post->increment('views');
             $posts = $slug1 != 'info'? Post::getLatest($category, $post) : null;
             $mostView  = $slug1 != 'info'? Post::getMostView($category, $post) : null;

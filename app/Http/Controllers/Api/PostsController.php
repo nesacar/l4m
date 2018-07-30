@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Block;
 use App\Blog;
 use App\Brand;
+use App\Category;
 use App\Client;
 use App\Gallery;
 use App\Http\Controllers\Controller;
@@ -92,12 +93,14 @@ class PostsController extends Controller
         $brands = Brand::select('id', 'title')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
         $photos = $post->gallery;
         $tags = Tag::select('id', 'title')->where('publish', 1)->orderBy('title', 'ASC')->get();
+        $categories = new Category();
 
         return response()->json([
             'post' => $post,
             'client_id' => $post->client()->select('title', 'id')->first(),
             'blog_id' => $post->blog()->select('title', 'id', 'slug')->first(),
             'brand_id' => $post->brand()->select('title', 'id')->first(),
+            'category_id' => $post->category()->select('title', 'id')->first(),
             'tag_ids' => $postIds,
             'product_ids' => count($productIds)? $productIds : null,
             'clients' => $clients,
@@ -105,6 +108,7 @@ class PostsController extends Controller
             'brands' => $brands,
             'photos' => $photos,
             'tags' => $tags,
+            'categories' => $categories->getCategories(),
         ]);
     }
 

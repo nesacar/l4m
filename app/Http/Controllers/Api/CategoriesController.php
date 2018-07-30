@@ -215,4 +215,13 @@ class CategoriesController extends Controller
             'categories' => $categories,
         ]);
     }
+
+    public function listsSelect()
+    {
+        $categories = new Category();
+
+        return response()->json([
+            'categories' => $categories->getCategories(),
+        ]);
+    }
 }

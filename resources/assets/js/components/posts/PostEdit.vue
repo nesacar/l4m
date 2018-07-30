@@ -75,6 +75,8 @@
 
                                     <select-field v-if="brands" :labela="'Brend'" :options="brands" :value="post.brand" :error="error? error.brand_id : ''" @changeValue="post.brand_id = $event"></select-field>
 
+                                    <select-field v-if="categories" :labela="'Kategorija vezanog proizvoda'" :options="categories" :value="post.categories" :error="error? error.category_id : ''" @changeValue="post.category_id = $event"></select-field>
+
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <date-field :value="post.date" :label="'Publikovano od:'" :error="error? error.publish_at : ''" @changeValue="post.date = $event"></date-field>
@@ -131,6 +133,7 @@
               gallery: {},
               clients: {},
               brands: {},
+              categories: {},
               tags: false,
               dropzoneOptions: {
                   url: 'api/posts/' + this.$route.params.id + '/gallery',
@@ -172,11 +175,13 @@
                         this.gallery = res.data.photos;
                         this.tags = res.data.tags;
                         this.post = res.data.post;
+                        this.categories = res.data.categories;
                         this.post.client = res.data.client_id;
                         this.post.blog = res.data.blog_id;
                         this.post.brand = res.data.brand_id;
                         this.post.tags = res.data.tag_ids;
-                        this.post.product_ids = res.data.product_ids
+                        this.post.product_ids = res.data.product_ids;
+                        this.post.categories = res.data.category_id;
                     })
                     .catch(e => {
                         console.log(e);

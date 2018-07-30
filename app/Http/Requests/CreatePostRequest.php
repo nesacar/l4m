@@ -29,6 +29,7 @@ class CreatePostRequest extends FormRequest
             'short' => 'required',
             'body' => 'required',
             'publish_at' => 'required|date',
+            'category_id' => 'integer',
         ];
     }
 
@@ -43,6 +44,7 @@ class CreatePostRequest extends FormRequest
             'body.required' => 'Opis je obavezan',
             'publish_at.required' => 'Datum publikovanja je obavezan',
             'publish_at.date' => 'Datum publikovanja nije u ispravnom formatu',
+            'category_id.integer' => 'Nepravilan uneti format za kategoriju proizvoda',
         ];
     }
 }
