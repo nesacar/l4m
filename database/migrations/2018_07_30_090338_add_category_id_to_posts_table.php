@@ -14,7 +14,7 @@ class AddCategoryIdToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->tinyInteger('category_id')->nullable()->after('brand_id');
+            $table->integer('category_id')->nullable()->after('brand_id');
         });
     }
 
