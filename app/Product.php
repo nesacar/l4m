@@ -93,10 +93,9 @@ class Product extends Model
         }else{
             $str = 'shop/';
             if(count($this->category)>0){
-                /*foreach ($this->category as $category){
+                foreach ($this->category as $category){
                     $str .= $category->slug . '/';
-                }*/
-                $str .= $this->category->first()->slug . '/';
+                }
             }
             $str .= $this->slug . '/' . $this->id;
             return url($str);

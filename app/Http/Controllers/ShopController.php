@@ -126,4 +126,31 @@ class ShopController extends Controller
             return view('themes.' . $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb', 'menu'));
         }
     }
+
+    public function category6($slug1, $slug2, $slug3, $slug4, $slug5, $slug6)
+    {
+        Category::setPrimaryCategory($slug1);
+        $menu = MenuLink::getMenu();
+        if (is_numeric($slug5)) {
+            $product = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
+                $query->with('children');
+            }])->with('photo')->find($slug6);
+            $category = Category::whereSlug($slug4)->first();
+            $related = Product::getRelated($product, $category, $limit=6);
+            Seo::shopProduct($product, $category);
+            $breadcrumb = $product->getBreadcrumb($slug1);
+            $sizes = $product->sizes()->get();
+            $colors = $product->same();
+            $activeColor = $product->getColor();
+            return view('themes.'. $this->theme . '.pages.shop', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors', 'activeColor'));
+        }
+        else {
+            $category = Category::whereSlug($slug4)->first();
+            $data = Product::search($category);
+            $properties = Category::getProperties($slug1);
+            Seo::shopCategory($category);
+            $breadcrumb = $category->getBreadcrumb();
+            return view('themes.'. $this->theme . '.pages.shop', compact('category', 'data', 'properties', 'breadcrumb', 'menu'));
+        }
+    }
 }
