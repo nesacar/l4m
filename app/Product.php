@@ -93,13 +93,27 @@ class Product extends Model
         }else{
             $str = 'shop/';
             if(count($this->category)>0){
-                foreach ($this->category as $category){
+
+                $categories = $this->removeDuplicate($this->category);
+
+                foreach ($categories as $category) {
                     $str .= $category->slug . '/';
                 }
             }
             $str .= $this->slug . '/' . $this->id;
             return url($str);
         }
+    }
+
+    /**
+     * Remove duplicated categories from collection
+     *
+     * @param $categories
+     * @return mixed
+     */
+    protected function removeDuplicate($categories)
+    {
+        return $categories->unique('slug')->unique('parent');
     }
 
     public function getBreadcrumb($slug){

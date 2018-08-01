@@ -131,7 +131,7 @@ class ShopController extends Controller
     {
         Category::setPrimaryCategory($slug1);
         $menu = MenuLink::getMenu();
-        if (is_numeric($slug5)) {
+        if (is_numeric($slug6)) {
             $product = Product::withoutGlobalScope('attribute')->with(['category' => function($query){
                 $query->with('children');
             }])->with('photo')->find($slug6);
