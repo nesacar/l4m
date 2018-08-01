@@ -88,9 +88,9 @@ class Product extends Model
     }
 
     public function getLink($category = false){
-        if($category){
+        /*if($category){
             return url($category->getLink() . '/' .  $this->slug . '/' . $this->id);
-        }else{
+        }else{*/
             $str = 'shop/';
             if(count($this->category)>0){
 
@@ -102,7 +102,7 @@ class Product extends Model
             }
             $str .= $this->slug . '/' . $this->id;
             return url($str);
-        }
+        /*}*/
     }
 
     /**
