@@ -142,7 +142,7 @@ class ShopController extends Controller
             $sizes = $product->sizes()->get();
             $colors = $product->same();
             $activeColor = $product->getColor();
-            return view('themes.'. $this->theme . '.pages.shop', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors', 'activeColor'));
+            return view('themes.'. $this->theme . '.pages.product', compact('category', 'product', 'related', 'breadcrumb', 'menu', 'sizes', 'colors', 'activeColor'));
         }
         else {
             $category = Category::whereSlug($slug4)->first();
