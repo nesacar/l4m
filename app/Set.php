@@ -17,6 +17,13 @@ class Set extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function filter($array = [])
+    {
+        if(count($array)>0){
+            return array_column($array, 'id');
+        }
+    }
+
 //    public function getPublishAttribute($value){
 //        return $value? 'Da' : 'Ne';
 //    }

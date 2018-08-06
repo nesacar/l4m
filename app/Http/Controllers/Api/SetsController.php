@@ -40,6 +40,9 @@ class SetsController extends Controller
         $set->publish = request('publish')?: false;
         $set->update();
 
+        // Sync products with set
+        $set->property()->sync($request->property_ids);
+
         return response()->json([
             'set' => $set
         ]);
@@ -54,7 +57,8 @@ class SetsController extends Controller
     public function show(Set $set)
     {
         return response()->json([
-            'set' => $set
+            'set' => $set,
+            'property_ids' => $set->property()->withoutGlobalScopes()->select('id', 'title')->get(),
         ]);
     }
 
@@ -71,6 +75,8 @@ class SetsController extends Controller
         $set->slug = request('slug')?: request('title');
         $set->publish = request('publish')?: false;
         $set->update();
+
+        $set->property()->sync($request->property_ids);
 
         return response()->json([
             'set' => $set

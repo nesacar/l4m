@@ -50,6 +50,7 @@ export const router = new VueRouter({
         { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAuth: true } },
         { path: "/products/create", component: require('./components/products/ProductCreate.vue'), meta: { forAuth: true } },
         { path: "/products/:id/edit", component: require('./components/products/ProductEdit.vue'), meta: { forAuth: true } },
+        { path: "/products/table", component: require('./components/products/ProductTable.vue'), meta: { forAuth: true } },
 
         { path: "/settings/:id/edit", component: require('./components/settings/SettingEdit.vue'), meta: { forAdmin: true } },
 
@@ -107,6 +108,10 @@ export const router = new VueRouter({
         { path: "/clients/:id/category", component: require('./components/clients/ClientCategory.vue'), meta: { forAdmin: true } },
 
         { path: "/client-bars/:id", component: require('./components/clientBars/BarList.vue'), meta: { forAdmin: true } },
+
+        { path: "/sets", component: require('./components/sets/SetList.vue'), meta: { forAdmin: true } },
+        { path: "/sets/create", component: require('./components/sets/SetCreate.vue'), meta: { forAdmin: true } },
+        { path: "/sets/:id/edit", component: require('./components/sets/SetEdit.vue'), meta: { forAdmin: true } },
     ],
 
     linkActiveClass: 'active',

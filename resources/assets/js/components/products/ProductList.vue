@@ -18,6 +18,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <h5>Proizvodi</h5>
+                        <font-awesome-icon style="margin-right: 20px;" icon="link" @click="addTableProducts()" class="new-link-add" />
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -187,6 +188,9 @@
             },
             addRow(){
                 this.$router.push('/products/create');
+            },
+            addTableProducts(){
+                this.$router.push('/products/table');
             },
             cloneRow(row){
                 axios.post('api/products/' + row.id + '/clone')
