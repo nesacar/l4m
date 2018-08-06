@@ -49,7 +49,13 @@
 
                             <text-area-ckeditor-field :value="brand.delivery" :label="'Isporuka i povraćaj'" :error="error? error.delivery : ''" @changeValue="brand.delivery = $event"></text-area-ckeditor-field>
 
-                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :value="brand.categories" :error="error? error.category_ids : ''" @changeValue="brand.category_ids = $event"></select-multiple-field>
+                            <select-multiple-field
+                                    v-if="categories"
+                                    :labela="'Kategorije'"
+                                    :options="categories"
+                                    :value="category_ids"
+                                    :error="error? error.category_ids : ''"
+                            ></select-multiple-field>
 
                             <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
 
@@ -99,9 +105,10 @@
     export default {
         data(){
           return {
-              brand: false,
+              brand: {},
               gallery: {},
-              categories: false,
+              category_ids: [],
+              categories: [],
               error: null,
               dropzoneOptions: {
                   url: 'api/brands/' + this.$route.params.id + '/gallery',
@@ -122,31 +129,48 @@
             'vue-dropzone': vue2Dropzone,
         },
         mounted(){
+            this.$root.$on('changeValue', this.handleChange);
             this.getBrand();
         },
+        destroyed() {
+            this.$root.$off('changeValue', this.handleChange);
+        },
         methods: {
+            handleChange(data) {
+                this.category_ids = data;
+            },
+
             getBrand(){
                 axios.get('api/brands/' + this.$route.params.id)
-                    .then(res => {
-                        this.categories = res.data.categories
+                    .then((res) => {
+                        this.categories = res.data.categories;
                         this.gallery = res.data.images;
                         this.brand = res.data.brand;
-                        this.brand.categories = res.data.category_ids;
+                        this.category_ids = res.data.category_ids;
                     })
                     .catch(e => {
                         console.log(e);
                         this.error = e.response.data.errors;
                     });
             },
+
             showSuccess(){
                 this.getGallery();
             },
+
             submit(){
-                this.brand.user_id = this.user.id;
-                axios.put('api/brands/' + this.brand.id, this.brand)
-                    .then(res => {
-                        this.brand = res.data.brand;
-                        this.brand.category_ids = res.data.category_ids;
+                const payload = {
+                    /**
+                     * extend brand with user_id and category_ids. After this brand is
+                     * completely new object, there's no mutating.
+                     */
+                    ...this.brand,
+                    user_id: this.user.id,
+                    category_ids: this.category_ids.map((e) => e.id),
+                };
+
+                axios.put('api/brands/' + this.brand.id, payload)
+                    .then((_) => {
                         swal({
                             position: 'center',
                             type: 'success',
@@ -160,6 +184,7 @@
                     this.error = e.response.data.errors;
                 });
             },
+
             upload(image){
                 this.brand.image = image.src;
                 let data = new FormData();
@@ -181,6 +206,7 @@
                     this.error = e.response.data.errors;
                 });
             },
+
             uploadLogo(image){
                 this.brand.logo = image.src;
                 let data = new FormData();
@@ -202,6 +228,7 @@
                         this.error = e.response.data.errors;
                     });
             },
+
             deletePhoto(photo){
                 axios.post('api/brands/' + photo.id + '/remove-gallery')
                     .then(res => {

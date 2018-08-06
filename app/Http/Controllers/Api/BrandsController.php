@@ -56,12 +56,12 @@ class BrandsController extends Controller
      */
     public function show(Brand $brand)
     {
-        $categories = Category::where('publish', 1)->where('parent', 0)->orderBy('created_at', 'DESC')->get();
+        $categories = Category::select('id', 'title')->where('publish', 1)->where('parent', 0)->withoutGlobalscopes()->orderBy('created_at', 'DESC')->get();
         $images = $brand->slider()->get();
 
         return response()->json([
             'brand' => $brand,
-            'category_ids' => $brand->category()->select('id', 'title')->get(),
+            'category_ids' => $brand->category()->select('id', 'title')->withoutGlobalScopes()->get(),
             'categories' => $categories,
             'images' => $images,
         ]);
@@ -140,7 +140,8 @@ class BrandsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function lists(){
-        $brands = Brand::select('id', 'title')->where('publish', 1)->orderBy('created_at', 'DESC')->get(['title', 'id']);
+        $brands = Brand::select('id', 'title')->where('publish', 1)->orderBy('title')->get(['title', 'id'])
+            ->prepend(['title' => 'Izaberi', 'id' => 0]);
 
         return response()->json([
             'brands' => $brands,

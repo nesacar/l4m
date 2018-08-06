@@ -36,7 +36,13 @@
 
                             <text-area-ckeditor-field :value="brand.delivery" :label="'Isporuka i povraćaj'" :error="error? error.delivery : ''" @changeValue="brand.delivery = $event"></text-area-ckeditor-field>
 
-                            <select-multiple-field v-if="categories" :labela="'Kategorije'" :options="categories" :error="error? error.category_ids : ''" :value="null" @changeValue="brand.category_ids = $event"></select-multiple-field>
+                            <select-multiple-field
+                                    v-if="categories"
+                                    :labela="'Kategorije'"
+                                    :options="categories"
+                                    :error="error? error.category_ids : ''"
+                                    :value="category_ids"
+                            ></select-multiple-field>
 
                             <checkbox-field :value="brand.publish" :label="'Publikovano'" @changeValue="brand.publish = $event"></checkbox-field>
 
@@ -82,7 +88,8 @@
               image: {},
               logo: {},
               brand: {},
-              categories: false,
+              category_ids: [],
+              categories: [],
               error: null,
           }
         },
@@ -97,11 +104,29 @@
         },
         mounted(){
             this.getCategories();
+            this.$root.$on('changeValue', this.handleChange);
+        },
+        destroyed() {
+            this.$root.$off('changeValue', this.handleChange);
         },
         methods: {
+            handleChange(data) {
+                this.category_ids = data;
+            },
+
             submit(){
-                this.brand.user_id = this.user.id;
-                axios.post('api/brands', this.brand)
+
+                const payload = {
+                    /**
+                     * extend brand with user_id and category_ids. After this brand is
+                     * completely new object, there's no mutating.
+                     */
+                    ...this.brand,
+                    user_id: this.user.id,
+                    category_ids: this.category_ids.map((e) => e.id),
+                };
+
+                axios.post('api/brands', payload)
                     .then(res => {
                         this.brand = res.data.brand;
                         this.sendImage();
