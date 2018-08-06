@@ -1,7 +1,15 @@
 <template>
     <div class="form-group">
         <label>{{ labela }} <span v-if="required">*</span></label><br>
-        <multiselect v-model="selected" :options="options" :multiple="true" track-by="title" :custom-label="customLabel" :allow-empty="true"></multiselect>
+        <multiselect
+                :value="value"
+                :options="options"
+                :multiple="true"
+                track-by="title"
+                :custom-label="customLabel"
+                :allow-empty="true"
+                @input="onChange"
+        ></multiselect>
         <small class="form-text text-muted" v-if="error != null">{{ error[0] }}</small>
     </div>
 </template>
@@ -10,28 +18,15 @@
     import Multiselect from 'vue-multiselect';
 
     export default {
-        data(){
-            return {
-                selected: this.value,
-            }
-        },
         props: ['options', 'value', 'labela', 'required', 'error'],
-        components: { Multiselect },
+        components: {Multiselect},
         methods: {
-            customLabel (option) {
-                return `${option.title}`
+            customLabel(option) {
+                return option.title;
             },
-            filtered(){
-                let filteredIds = [];
-                this.selected.forEach(function(element) {
-                    filteredIds.push(element.id);
-                });
-                return filteredIds;
-            }
-        },
-        watch: {
-            selected(value){
-                this.$emit('changeValue', this.filtered());
+
+            onChange(value) {
+                this.$root.$emit('changeValue', value);
             },
         },
     }
