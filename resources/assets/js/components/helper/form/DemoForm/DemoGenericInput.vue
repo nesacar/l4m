@@ -1,6 +1,6 @@
 <template>
-    <div class="demo-generic-input" v-if="field.type === 'select'">
-        <select
+    <div class="generic-input" v-if="field.type === 'select'">
+        <select class="generic-input_control"
             :name="field.name"
             @change="onChange"
         >
@@ -12,8 +12,8 @@
         </select>
     </div>
 
-    <div class="demo-generic-input" v-else-if="field.type === 'multiselect'">
-        <dropdown-select
+    <div class="generic-input" v-else-if="field.type === 'multiselect'">
+        <dropdown-select class="generic-input_control"
             :name="field.name"
             :onChange="onChange"
             :options="field.options"
@@ -21,8 +21,8 @@
         ></dropdown-select>
     </div>
 
-    <div class="demo-generic-input" v-else>
-        <input key="text"
+    <div class="generic-input" v-else>
+        <input key="text" class="generic-input_control"
             :type="field.type"
             :value="field.value"
             :name="field.name"
@@ -58,9 +58,28 @@
     }
 </script>
 
-<style scoped>
-    .demo-generic-input {
-        display: inline-block;
+<style lang="scss" scoped>
+    .generic-input {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .generic-input_control {
+      font-size: 12px;
+      height: 24px;
+      padding: 0;
+      margin: 0;
+      outline: none !important;
+      border: 2px solid #E0E0E0;
+      background-color: #FFF;
+
+      &:hover {
+        background-color: #E0E0E0;
+      }
+
+      &:focus {
+        border-color: #2196F3;
+      }
     }
 </style>
 
