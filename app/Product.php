@@ -141,6 +141,28 @@ class Product extends Model
         }
     }
 
+    /**
+     * Filter only fields with attributes from all form fields in request
+     *
+     * @param $product
+     * @return array
+     */
+    public static function filterAttributes($product)
+    {
+        // Filter array keys with prefix "dynamic_"
+        $array = array_map(function ($product, $key) {
+            if (preg_match('/dynamic_/', $key) && $product['value'] != -1) {
+                return $product['value'];
+            }
+        }, $product, array_keys($product));
+
+         /* Since we also map other elements including attributes,
+            all elements will have null value except attributes.
+            Passing this array through the array_filter will remove elements with empty values.
+         */
+        return array_filter($array);
+    }
+
     public static function getHomeLatest(){
         return Category::where('publish', 1)->where('parent', 0)->get()->map(function($category){
             $category->products4;

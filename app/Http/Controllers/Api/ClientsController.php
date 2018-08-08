@@ -115,7 +115,7 @@ class ClientsController extends Controller
     public function lists(){
         return response()->json([
             'clients' => Client::where('publish', 1)->with('user')->get(),
-            'lists' => Client::where('publish', 1)->get(['title', 'id']),
+            'lists' => Client::where('publish', 1)->orderBy('title')->get(['title', 'id'])->prepend(['title' => 'Izaberi', 'id' => 0]),
         ]);
     }
 

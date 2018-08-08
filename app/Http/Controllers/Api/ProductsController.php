@@ -15,6 +15,7 @@ use App\Photo;
 use App\Product;
 use App\Property;
 use App\Set;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
@@ -282,5 +283,110 @@ class ProductsController extends Controller
         return response()->json([
             'product' => $product
         ]);
+    }
+
+    /**
+     * Return filtered list of products,
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function tableList(Request $request)
+    {
+        return Product::with('attribute.property')->orderBy('created_at', 'DESC')->paginate(10);
+    }
+
+    /**
+     * Get column properties for given set
+     *
+     * @param null $set_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function table($set_id = null)
+    {
+        $setProperties = Set::with('property')->find($set_id);
+        return response()->json([
+            'setProperties' => $setProperties->property
+        ]);
+    }
+
+    public function tableCreate(Request $request)
+    {
+        $oldCount = 0;
+        $newCount = 0;
+        // If there is any product rows in request
+        if (count($request->fields)) {
+
+            // Get user
+            $user = User::find($request->user_id);
+            // Get client
+            $client = $user->client->first();
+            foreach ($request->fields as $product) {
+
+                if ($product['sifra_artikla']['value']) {
+                    // Get product if exist
+                    $old = Product::where('code', $product['sifra_artikla']['value'])->first();
+                    if (!empty($old)) {
+                        // Update existed product
+                        //$oldProduct->update($request->all());
+                        $old->user_id = $user->id;
+                        $old->client_id = $client->id;
+                        $old->brand_id = $product['brands']['value'];
+                        $old->collection_id = $product['collections']['value'];
+                        $old->title = $product['naziv']['value'];
+                        $old->short = $product['kratak_opis']['value'];
+                        $old->body = $product['opis']['value'];
+                        $old->body2 = $product['opis2']['value'];
+                        $old->code = $product['sifra_artikla']['value'];
+                        $old->price = $product['cena']['value'];
+                        $old->amount = $product['kolicina']['value'];
+                        $old->discount = $product['popust']['value'];
+                        $old->publish = $product['publikovanje']['value'];
+                        $old->publish_at = $product['dan_objave']['value'].' '.$product['vreme_objave']['value'];
+
+                        // Update product
+                        $old->update();
+                        // Update categories and attributes for product
+                        $old->category()->sync($product['categories']['value']);
+                        $old->attribute()->sync(Product::filterAttributes($product));
+
+                        $oldCount++;
+                    }
+                    else {
+                        // If there isnt' product with that code, create new
+                        $new = new Product();
+                        $new->user_id = $user->id;
+                        $new->client_id = $client->id;
+                        $new->brand_id = $product['brands']['value'];
+                        $new->collection_id = $product['collections']['value'];
+                        $new->title = $product['naziv']['value'];
+                        $new->short = $product['kratak_opis']['value'];
+                        $new->body = $product['opis']['value'];
+                        $new->body2 = $product['opis2']['value'];
+                        $new->code = $product['sifra_artikla']['value'];
+                        $new->price = $product['cena']['value'];
+                        $new->amount = $product['kolicina']['value'];
+                        $new->discount = $product['popust']['value'] ? $product['popust']['value'] : 0;
+                        $new->publish = $product['publikovanje']['value'];
+
+                        // Create new product
+                        $new->save();
+                        // Link categories and attributes for product
+                        $new->category()->sync($product['categories']['value']);
+                        $new->attribute()->sync(Product::filterAttributes($product));
+
+                        $newCount++;
+                    }
+
+                }
+
+            }
+
+            return response()->json([
+                'new' => $newCount,
+                'old' => $oldCount,
+            ]);
+
+        }
     }
 }
