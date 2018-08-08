@@ -78,7 +78,7 @@
       }
 
       &:focus {
-        border-color: #2196F3;
+        border-color: #131b24;
       }
     }
 </style>

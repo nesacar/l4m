@@ -1,35 +1,42 @@
 <template>
     <div id="place">
-        <div>
-            <div>
-                <select v-model="selected" @change="onChange">
-                    <option :key="option.id"
-                        :value="option.id"
-                        v-for="(option) in sets"
-                    >{{ option.title }}</option>
-                </select>
-                <button @click="onAddNewRow">add new row</button>
-            </div>
-            <form @submit.prevent="onSubmit" v-if="showTable">
-                <div>
-                    <span v-for="field in formFields[0]"
+        <div style="overflow: hidden;">
+          <div>
+              <select v-model="selected" @change="onChange">
+                  <option :key="option.id"
+                      :value="option.id"
+                      v-for="(option) in sets"
+                  >{{ option.title }}</option>
+              </select>
+              <button @click="onAddNewRow">add new row</button>
+          </div>
+          <form @submit.prevent="onSubmit" v-if="showTable">
+            <div class="overflow">
+
+              <table class="table">
+                <tr>
+                    <th v-for="field in formFields[0]"
                         :key="field.name"
-                    >{{field.name}}</span>
-                </div>
-                <div class="demo-row"
+                    >{{field.name}}</th>
+                </tr>
+
+                <tr class="demo-row"
                     v-for="(field, i) in formFields"
                     :key="i"
                 >
-                    <demo-generic-input :key="fieldItem.name"
-                        v-for="(fieldItem) in field"
+                  <td v-for="(fieldItem) in field" :key="fieldItem.name">
+                    <demo-generic-input
                         :field="fieldItem"
                         :onChange="(evt) => onInputChange(i)(evt)"
                     ></demo-generic-input>
-                </div>
+                  </td>
+                </tr>
 
-                <button type="submit">Sacuvaj</button>
+              </table>
 
-            </form>
+            </div>
+            <button type="submit">Sacuvaj</button>
+          </form>
         </div>
     </div>
 </template>
@@ -264,9 +271,6 @@
             },
 
             onSubmit() {
-//                const date = moment().format('YYYY-MM-DD');
-//                const time = moment().format('HH:00');
-
                 // Merge user info in fields
                 const payload = {
                     fields: this.fields,
@@ -291,8 +295,13 @@
             },
         }
     }
-
 </script>
-<style>
+<style <style lang="scss" scoped>
+  .overflow {
+    overflow: auto;
+  }
 
+  .table {
+    table-layout: auto;
+  }
 </style>
