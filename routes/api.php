@@ -30,7 +30,7 @@ Route::put('settings/{id}', 'Api\SettingsController@update');
 Route::resource('themes', 'Api\ThemesController');
 Route::post('themes/{id}/image', 'Api\ThemesController@uploadImage');
 
-Route::resource('menus', 'Api\MenusController');
+Route::resource('sets', 'Api\MenusController');
 
 Route::get('menu-links/lists', 'Api\MenuLinksController@lists');
 Route::resource('menu-links', 'Api\MenuLinksController');
@@ -99,12 +99,15 @@ Route::post('categories/order', 'Api\CategoriesController@saveOrder');
 
 Route::post('products/search', 'Api\ProductsController@search');
 Route::get('products/lists', 'Api\ProductsController@lists');
+Route::get('products/tableList', 'Api\ProductsController@tableList');
 Route::resource('products', 'Api\ProductsController');
 Route::post('products/{id}/image', 'Api\ProductsController@uploadImage');
 Route::post('products/{id}/clone', 'Api\ProductsController@cloneProduct');
 Route::post('products/{id}/code', 'Api\ProductsController@code');
 Route::post('products/{id}/gallery', 'Api\ProductsController@galleryUpdate');
 Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');
+Route::get('products/{id}/table', 'Api\ProductsController@table');
+Route::post('products/tableCreate', 'Api\ProductsController@tableCreate');
 
 Route::post('photos/{id}/destroy', 'Api\PhotosController@destroy');
 
