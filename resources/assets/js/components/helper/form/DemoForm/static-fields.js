@@ -19,49 +19,49 @@ export const STATIC_FIELDS = {
   },
   dan_objave: {
     type: "date",
-    value: moment().format("YYYY-MM-DD")
+    value: moment().format("YYYY-MM-DD"),
   },
   vreme_objave: {
     type: "time",
-    value: moment().format("HH:00")
+    value: moment().format("HH:00"),
   },
   kolicina: {
     type: "number",
-    value: ""
+    value: 1,
   },
   cena: {
     type: "number",
-    value: ""
+    value: 0,
   },
   popust: {
     type: "number",
-    value: ""
+    value: 0,
   },
   brands: {
     type: "select",
     value: -1,
-    options: []
+    options: [],
   },
   collections: {
     type: "select",
     value: -1,
-    options: []
+    options: [],
   },
   categories: {
     type: "multiselect",
     value: [],
-    options: []
+    options: [],
   },
   kratak_opis: {
     type: "text",
-    value: ""
+    value: "",
   },
   opis: {
     type: "textfield",
-    value: ""
+    value: "",
   },
   opis2: {
     type: "textfield",
-    value: ""
+    value: "",
   },
 };
