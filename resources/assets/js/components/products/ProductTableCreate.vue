@@ -1,8 +1,8 @@
 <template>
   <div id="place">
     <div class="px-4" style="overflow: hidden;">
-      <div>
-        <select v-model="selected" @change="onChange">
+      <div class="d-flex py-3 justify-content-between">
+        <select class="select-set" v-model="selected" @change="onChange">
           <option :key="option.id"
             :value="option.id"
             v-for="(option) in sets"
@@ -42,7 +42,9 @@
           </table>
 
         </div>
-        <button class="btn" type="submit">Sacuvaj</button>
+        <div class="d-flex py-2 justify-content-end">
+          <button class="btn" type="submit">Sacuvaj</button>
+        </div>
       </form>
     </div>
   </div>
@@ -303,6 +305,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .select-set {
+    height: 36px;
+    padding: 0 4px;
+  }
+  
   .overflow {
     overflow-x: auto;
     overflow-y: visible;

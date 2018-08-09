@@ -26,15 +26,15 @@ export const STATIC_FIELDS = {
     value: moment().format("HH:00")
   },
   kolicina: {
-    type: "text",
+    type: "number",
     value: ""
   },
   cena: {
-    type: "text",
+    type: "number",
     value: ""
   },
   popust: {
-    type: "text",
+    type: "number",
     value: ""
   },
   brands: {

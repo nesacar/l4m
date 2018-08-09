@@ -85,6 +85,10 @@
     background-color: transparent;
     min-width: 100%;
 
+    &[type="number"] {
+      width: 100px;
+    }
+
     &:hover {
       background-color: #E0E0E0;
     }
