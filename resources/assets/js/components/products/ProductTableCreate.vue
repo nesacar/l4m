@@ -8,7 +8,10 @@
             v-for="(option) in sets"
           >{{ option.title }}</option>
         </select>
-        <button @click="onAddNewRow">add new row</button>
+        <button class="btn"
+          @click="onAddNewRow"
+          v-if="showTable"
+        >add new row</button>
       </div>
       <form @submit.prevent="onSubmit" v-if="showTable">
         <div class="overflow" style="padding-bottom: 120px;">
@@ -39,7 +42,7 @@
           </table>
 
         </div>
-        <button type="submit">Sacuvaj</button>
+        <button class="btn" type="submit">Sacuvaj</button>
       </form>
     </div>
   </div>
