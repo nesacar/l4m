@@ -330,7 +330,7 @@ class ProductsController extends Controller
                         // Update existed product
                         //$oldProduct->update($request->all());
                         $old->user_id = $user->id;
-                        $old->client_id = $client->id;
+                        $old->client_id = isset($client->id) ? $client->id : 1;
                         $old->brand_id = $product['brands']['value'];
                         $old->collection_id = $product['collections']['value'];
                         $old->title = $product['naziv']['value'];
@@ -356,7 +356,7 @@ class ProductsController extends Controller
                         // If there isnt' product with that code, create new
                         $new = new Product();
                         $new->user_id = $user->id;
-                        $new->client_id = $client->id;
+                        $new->client_id = isset($client->id) ? $client->id : 1;
                         $new->brand_id = $product['brands']['value'];
                         $new->collection_id = $product['collections']['value'];
                         $new->title = $product['naziv']['value'];
