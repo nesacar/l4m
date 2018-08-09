@@ -1,44 +1,48 @@
 <template>
-    <div id="place">
-        <div style="overflow: hidden;">
-          <div>
-              <select v-model="selected" @change="onChange">
-                  <option :key="option.id"
-                      :value="option.id"
-                      v-for="(option) in sets"
-                  >{{ option.title }}</option>
-              </select>
-              <button @click="onAddNewRow">add new row</button>
-          </div>
-          <form @submit.prevent="onSubmit" v-if="showTable">
-            <div class="overflow">
+  <div id="place">
+    <div class="px-4" style="overflow: hidden;">
+      <div>
+        <select v-model="selected" @change="onChange">
+          <option :key="option.id"
+            :value="option.id"
+            v-for="(option) in sets"
+          >{{ option.title }}</option>
+        </select>
+        <button @click="onAddNewRow">add new row</button>
+      </div>
+      <form @submit.prevent="onSubmit" v-if="showTable">
+        <div class="overflow" style="padding-bottom: 120px;">
 
-              <table class="table">
-                <tr>
-                    <th v-for="field in formFields[0]"
-                        :key="field.name"
-                    >{{field.name}}</th>
-                </tr>
+          <table class="table">
+            <thead>
+              <tr>
+                <th v-for="field in formFields[0]"
+                  :key="field.name"
+                >{{field.name}}</th>
+              </tr>
+            </thead>
 
-                <tr class="demo-row"
-                    v-for="(field, i) in formFields"
-                    :key="i"
-                >
-                  <td v-for="(fieldItem) in field" :key="fieldItem.name">
-                    <demo-generic-input
-                        :field="fieldItem"
-                        :onChange="(evt) => onInputChange(i)(evt)"
-                    ></demo-generic-input>
-                  </td>
-                </tr>
+            <tbody>
+              <tr class="demo-row"
+                v-for="(field, i) in formFields"
+                :key="i"
+              >
+                <td v-for="(fieldItem) in field" :key="fieldItem.name">
+                  <demo-generic-input
+                    :field="fieldItem"
+                    :onChange="(evt) => onInputChange(i)(evt)"
+                  ></demo-generic-input>
+                </td>
+              </tr>
+            </tbody>
 
-              </table>
+          </table>
 
-            </div>
-            <button type="submit">Sacuvaj</button>
-          </form>
         </div>
+        <button type="submit">Sacuvaj</button>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -295,12 +299,38 @@
   }
 </script>
 
-<style <style lang="scss" scoped>
+<style lang="scss" scoped>
   .overflow {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: visible;
   }
 
   .table {
     table-layout: auto;
+
+    thead {
+      tr {
+        background-color: #EEE;
+      }
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: #EEE;
+      }
+    }
+
+    td {
+      padding: 0;
+      border: 0;
+    }
+
+    th {
+      font-size: 12px;
+      font-weight: bold;
+      padding: 8px;
+      white-space: nowrap;
+      border: 0;
+    }
   }
 </style>
