@@ -80,11 +80,11 @@
                     </div>
                     <div class="row">
                         <template v-if="properties.length > 0">
-                            <div class="card col-sm-4" v-for="property in properties">
+                            <div class="card col-sm-4" v-for="property in properties" :key="property.title">
                                 <div class="form-group">
                                     <label>{{ property.title }}</label>
                                     <ul class="list-group">
-                                        <li class="list-group-item" v-for="attribute in property.attribute">
+                                        <li class="list-group-item" v-for="attribute in property.attribute" :key="attribute.id">
                                             <input type="checkbox" :value="attribute.id" v-model="product.att_ids">
                                             {{ attribute.title }}
                                         </li>
@@ -112,18 +112,44 @@
                             <label>Kategorije</label>
                             <small class="form-text text-muted" v-if="error != null && error.cat_ids">{{ error.cat_ids[0] }}</small>
                             <ol style="margin-left: -15px;">
-                                <li :id="`list_${cat.id}`" v-for="cat in categories">
-                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat.id" @change="getProperties()"> {{ cat.title }}</div>
-                                    <ol v-if="cat.children.length > 0">
-                                        <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children">
-                                            <div><input type="checkbox" v-model="product.cat_ids" :value="cat2.id"> {{ cat2.title }}</div>
-                                            <ol v-if="cat2.children.length > 0">
-                                                <li :id="`list_${cat3.id}`" v-for="cat3 in cat2.children">
-                                                    <div><input type="checkbox" v-model="product.cat_ids" :value="cat3.id"> {{ cat3.title }}</div>
-                                                </li>
-                                            </ol>
+                                <li :id="`list_${cat.id}`"
+                                  v-for="cat in categories"
+                                  :key="cat.id"
+                                >
+                                  <div>
+                                    <input
+                                      type="checkbox"
+                                      v-model="product.cat_ids"
+                                      :value="cat.id"
+                                      @change="getProperties()"
+                                    > {{ cat.title }}
+                                  </div>
+                                  <ol v-if="cat.children.length > 0">
+                                    <li :id="`list_${cat2.id}`" v-for="cat2 in cat.children" :key="cat2.id">
+                                      <div>
+                                        <input
+                                          type="checkbox"
+                                          v-model="product.cat_ids"
+                                          :value="cat2.id"
+                                        > {{ cat2.title }}
+                                      </div>
+                                      <ol v-if="cat2.children.length > 0">
+                                        <li
+                                          :id="`list_${cat3.id}`"
+                                          v-for="cat3 in cat2.children"
+                                          :key="cat3.id"
+                                        >
+                                          <div>
+                                            <input
+                                              type="checkbox"
+                                              v-model="product.cat_ids"
+                                              :value="cat3.id"
+                                            > {{ cat3.title }}
+                                          </div>
                                         </li>
-                                    </ol>
+                                      </ol>
+                                    </li>
+                                  </ol>
                                 </li>
                             </ol>
                         </div>

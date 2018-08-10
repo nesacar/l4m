@@ -16,11 +16,27 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
-                        <h5>Proizvodi</h5>
-                        <font-awesome-icon style="margin-right: 20px;" icon="link" @click="addTableProducts()" class="new-link-add" />
-                        <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
+                  <div class="d-flex justify-content-between align-items-center py-2">
+                    <h5>Proizvodi</h5>
+                    <div>
+                      <button
+                        class="btn"
+                        title="Create multiple"
+                        @click="addTableProducts()"
+                      >
+                        <font-awesome-icon icon="plus-square"/>
+                      </button>
+                      <button 
+                        class="btn" 
+                        title="Create single"
+                        @click="addRow()"
+                       >
+                        <font-awesome-icon
+                          icon="plus"
+                        />
+                      </button>
                     </div>
+                  </div>
                 </div>
 
                 <div class="col-md-12">
@@ -39,7 +55,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(row, index) in products">
+                            <tr v-for="(row) in products" :key="row.id">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
                                 <td v-if="!row.edit" @click="row.edit = !row.edit" style="cursor: pointer;">{{ row.code }}</td>
