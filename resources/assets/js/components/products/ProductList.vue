@@ -16,7 +16,6 @@
 
             <div class="row">
                 <div class="col-md-12">
-<<<<<<< HEAD
                   <div class="d-flex justify-content-between align-items-center py-2">
                     <h5>Proizvodi</h5>
                     <div>
@@ -40,13 +39,6 @@
                           icon="plus"
                         />
                       </button>
-=======
-                    <div class="card">
-                        <h5>Proizvodi</h5>
-                        <font-awesome-icon style="margin-right: 20px;" icon="link" @click="addTableProducts()" class="new-link-add" />
-                        <button class="btn btn-secondary" @click="editTableProducts()">Izmeni proizovde</button>
-                        <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
->>>>>>> 350dff31387dc5aeac4e1f726627ecf7f2983d93
                     </div>
                   </div>
                 </div>
