@@ -1,6 +1,9 @@
 import moment from "moment";
 
 export const STATIC_FIELDS = {
+  id: {
+    value: -1,
+  },
   sifra_artikla: {
     type: "text",
     value: ""

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePropertyRequest;
 use App\Product;
 use App\Property;
+use App\Set;
 use Illuminate\Http\Request;
 
 class PropertiesController extends Controller
@@ -119,6 +120,20 @@ class PropertiesController extends Controller
         return response()->json([
             'properties' => $properties,
             'newIds' => $newAttIds,
+        ]);
+    }
+
+    /**
+     * Get properties for given set
+     *
+     * @param null $set_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listsBySet($set_id = null)
+    {
+        $setProperties = Set::with('property')->find($set_id);
+        return response()->json([
+            'setProperties' => $setProperties->property
         ]);
     }
 }

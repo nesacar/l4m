@@ -99,15 +99,16 @@ Route::post('categories/order', 'Api\CategoriesController@saveOrder');
 
 Route::post('products/search', 'Api\ProductsController@search');
 Route::get('products/lists', 'Api\ProductsController@lists');
-Route::get('products/tableList', 'Api\ProductsController@tableList');
+Route::post('products/tableList', 'Api\ProductsController@tableList');
 Route::resource('products', 'Api\ProductsController');
 Route::post('products/{id}/image', 'Api\ProductsController@uploadImage');
 Route::post('products/{id}/clone', 'Api\ProductsController@cloneProduct');
 Route::post('products/{id}/code', 'Api\ProductsController@code');
 Route::post('products/{id}/gallery', 'Api\ProductsController@galleryUpdate');
 Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');
-Route::get('products/{id}/table', 'Api\ProductsController@table');
+/*Route::get('products/{id}/table', 'Api\ProductsController@table');*/
 Route::post('products/tableCreate', 'Api\ProductsController@tableCreate');
+Route::post('products/{id}/tableUpdate', 'Api\ProductsController@tableUpdate');
 
 Route::post('photos/{id}/destroy', 'Api\PhotosController@destroy');
 

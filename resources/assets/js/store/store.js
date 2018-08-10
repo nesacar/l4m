@@ -49,6 +49,14 @@ export const store = new Vuex.Store({
             page: 1,
         },
 
+        /** search product table **/
+        searchProductTable: {
+          text: '',
+          page: 1,
+          brand_id: '',
+          category_id: '',
+        },
+
         /** search category **/
         searchCategory: {
             text: '',
@@ -161,6 +169,11 @@ export const store = new Vuex.Store({
             return state.searchProduct;
         },
 
+        /** search product table **/
+        getSearchProductTable: state => {
+          return state.searchProductTable;
+        },
+
         /** search category **/
         getSearchCategory: state => {
             return state.searchCategory;
@@ -244,6 +257,20 @@ export const store = new Vuex.Store({
         },
         changeSearchProductPage: (state, data) => {
             state.searchProduct.page = data;
+        },
+
+        /** search product table **/
+        changeSearchProductTable: (state, data) => {
+            state.searchProductTable = data;
+        },
+        changeSearchProductTablePage: (state, data) => {
+            state.searchProductTable.page = data;
+        },
+        changeSearchProductTableBrand: (state, data) => {
+            state.searchProductTable.brand_id = data;
+        },
+        changeSearchProductTableCategory: (state, data) => {
+            state.searchProductTable.category_id = data;
         },
 
         /** search category **/
@@ -341,6 +368,20 @@ export const store = new Vuex.Store({
         },
         changeSearchProductPage: (context, data) => {
             context.commit('changeSearchProductPage', data);
+        },
+
+        /** search products table **/
+        changeSearchProductTable: (context, data) => {
+            context.commit('changeSearchProductTable', data);
+        },
+        changeSearchProductTablePage: (context, data) => {
+            context.commit('changeSearchProductTablePage', data);
+        },
+        changeSearchProductTableBrand: (context, data) => {
+            context.commit('changeSearchProductTableBrand', data);
+        },
+        changeSearchProductTableCategory: (context, data) => {
+            context.commit('changeSearchProductTableCategory', data);
         },
 
         /** search category **/

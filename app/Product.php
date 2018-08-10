@@ -23,7 +23,7 @@ class Product extends Model
 
     //protected $dates = ['publish_at'];
 
-    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice'];
+    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice', 'brands', 'categories', 'collections', 'dan_objave', 'vreme_objave'];
 
     protected static $selectable = ['id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
@@ -35,6 +35,18 @@ class Product extends Model
     protected static $simplePaginate = 16;
 
     protected static $colorId = 9;
+
+    protected static $mappable = [
+        'title' => 'naziv',
+        'code' => 'sifra_artikla',
+        'publish' => 'publikovanje',
+        'amount' => 'kolicina',
+        'price' => 'cena',
+        'discount' => 'popust',
+        'short' => 'kratak_opis',
+        'body' => 'opis',
+        'body2' => 'opis2',
+    ];
 
     /**
      * The "booting" method of the model.
@@ -81,6 +93,35 @@ class Product extends Model
 
     public function getTmbAttribute(){
         return $this->image? \Imagecache::get($this->attributes['image'], '63x84')->src : '';
+    }
+
+    public function getBrandsAttribute()
+    {
+        return $this->attributes['brand_id'];
+    }
+
+    public function getCollectionsAttribute()
+    {
+        return $this->attributes['collection_id'];
+    }
+
+    public function getCategoriesAttribute()
+    {
+        return $this->category()->pluck('id');
+    }
+
+    public function getDanObjaveAttribute()
+    {
+        $publish_at = $this->attributes['publish_at'];
+        $date = explode(' ', $publish_at);
+        return $date[0];
+    }
+
+    public function getVremeObjaveAttribute()
+    {
+        $publish_at = $this->attributes['publish_at'];
+        $time = explode(' ', $publish_at);
+        return $time[1];
     }
 
     public static function getHome($limit = 4){
@@ -161,6 +202,54 @@ class Product extends Model
             Passing this array through the array_filter will remove elements with empty values.
          */
         return array_filter($array);
+    }
+
+    /**
+     * Rename class properties with names from $mappable
+     *
+     * @param $products
+     * @return mixed
+     */
+    public static function mappableFields($products) {
+        foreach ($products as $product) {
+            // Get array with indexes from product attributes
+            $keys = array_keys($product->attributes);
+
+            foreach ($keys as $key) {
+                // Check if there is key in $mappable array which corresponding to iterating key
+                if (array_key_exists($key, self::$mappable)) {
+
+                    $map = self::$mappable[$key];
+                    // Append product with renamed properties
+                    $product->$map = $product->$key;
+                }
+            }
+            // Append product with drop-down select and time-date picker properties
+            $product->setAppends(['brands', 'collections', 'categories', 'dan_objave', 'vreme_objave']);
+            // Append product with dynamic properties
+            self::mapDynamicFields($product);
+        }
+        return $products;
+    }
+
+    /**
+     * Rename class properties with dynamic properties (with dynamic_ prefix).
+     *
+     * @param $product
+     * @return mixed
+     */
+    public static function mapDynamicFields($product)
+    {
+        // Loop through product attributes to find property_id for attribute
+        foreach ($product->attribute as $attribute) {
+            // Get property name
+            $propertyName = Property::find($attribute->property_id)->slug;
+            // Define dynamic field name with prefix "dynamic_"
+            $dynamicFieldName = 'dynamic_'.$propertyName;
+            // Append dynamic property to product
+            $product->$dynamicFieldName = $attribute->id;
+        }
+        return $product;
     }
 
     public static function getHomeLatest(){
