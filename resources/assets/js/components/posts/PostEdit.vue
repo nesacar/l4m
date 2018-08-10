@@ -94,7 +94,7 @@
 
                                     <text-field v-if="post.category_id == 3" :value="post.author" :label="'Autor'" :error="error? error.author : ''" @changeValue="post.author = $event"></text-field>
 
-                                    <text-area-ckeditor-field v-if="post.body" :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
+                                    <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
                                     <select-multiple-field :options="tags" :error="error? error.tag_ids : ''" :value="post.tags" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
