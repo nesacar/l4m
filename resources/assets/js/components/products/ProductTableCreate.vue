@@ -20,6 +20,7 @@
             <thead>
               <tr>
                 <th v-for="field in formFields[0]"
+                  v-if="field.name !== 'id'"
                   :key="field.name"
                 >{{field.name}}</th>
               </tr>
@@ -30,7 +31,10 @@
                 v-for="(field, i) in formFields"
                 :key="i"
               >
-                <td v-for="(fieldItem) in field" :key="fieldItem.name">
+                <td v-for="(fieldItem) in field"
+                  v-if="fieldItem.name !== 'id'"
+                  :key="fieldItem.name"
+                >
                   <demo-generic-input
                     :field="fieldItem"
                     :onChange="(evt) => onInputChange(i)(evt)"
@@ -239,7 +243,7 @@
         // Clear previously generated fields
         this.fields = [];
 
-        axios.get(`api/products/${id}/table`)
+        axios.get(`api/properties/${id}/set`)
           .then((res) => {
             this.showTable = true;
 

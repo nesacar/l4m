@@ -21,7 +21,7 @@ class SetsController extends Controller
     public function index()
     {
         $sets = Set::select('id', 'title', 'short', 'publish', 'created_at')->orderBy('created_at', 'DESC')->paginate(50);
-        $lists = Set::select('id', 'title')->orderBy('created_at', 'DESC')->get();
+        $lists = Set::select('id', 'title')->where('publish', 1)->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'sets' => $sets,

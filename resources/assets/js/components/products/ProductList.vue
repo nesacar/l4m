@@ -19,6 +19,7 @@
                     <div class="card">
                         <h5>Proizvodi</h5>
                         <font-awesome-icon style="margin-right: 20px;" icon="link" @click="addTableProducts()" class="new-link-add" />
+                        <button class="btn btn-secondary" @click="editTableProducts()">Izmeni proizovde</button>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -192,6 +193,11 @@
             addTableProducts(){
                 this.$router.push('/products/table');
             },
+
+            editTableProducts() {
+              this.$router.push('/products/table-edit');
+            },
+
             cloneRow(row){
                 axios.post('api/products/' + row.id + '/clone')
                     .then(res => {

@@ -293,23 +293,40 @@ class ProductsController extends Controller
      */
     public function tableList(Request $request)
     {
-        return Product::with('attribute.property')->orderBy('created_at', 'DESC')->paginate(10);
+        // Check if there is filters in request
+        isset($request->brand_id) ? $brand = $request->brand_id : $brand = false;
+        isset($request->category_id) ? $category = $request->category_id : $category = false;
+        isset($request->text) ? $search = $request->text : $search = false;
+
+        $products = Product::with(['attribute.property']);
+
+        if ($brand) {
+            $products = $products->where('brand_id', $brand);
+        }
+        if ($category) {
+            $products = $products->whereHas('category', function ($query) use ($category) {
+                $query->where('id', $category);
+            });
+        }
+        if ($search) {
+            $products = $products->where('title', 'like', '%'.$search.'%')
+                ->orWhere('code','like', '%'.$search.'%')
+                ->orWhere('id','like', '%'.$search.'%');
+        }
+
+        $products = $products->orderBy('created_at', 'DESC')->paginate(10, ['*'], false, $request->page);
+        // Convert products column names to work with frontend
+        $products = Product::mappableFields($products);
+
+        return response()->json($products);
     }
 
     /**
-     * Get column properties for given set
+     * Create product table
      *
-     * @param null $set_id
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function table($set_id = null)
-    {
-        $setProperties = Set::with('property')->find($set_id);
-        return response()->json([
-            'setProperties' => $setProperties->property
-        ]);
-    }
-
     public function tableCreate(Request $request)
     {
         $oldCount = 0;
@@ -388,5 +405,58 @@ class ProductsController extends Controller
             ]);
 
         }
+    }
+
+    public function tableUpdate(Request $request, $id)
+    {
+        if (is_numeric($id)) {
+
+            $product = Product::find($id);
+
+            if ($product) {
+                // Get user which created product
+                $user = User::find($product->user_id);
+                // Get client
+                $client = $user->client->first();
+
+                // Fill product fields
+                $product->user_id = $user->id;
+                $product->client_id = isset($client->id) ? $client->id : 1;
+                $product->brand_id = $request['brands']['value'];
+                $product->collection_id = $request['collections']['value'];
+                $product->title = $request['naziv']['value'];
+                $product->short = $request['kratak_opis']['value'];
+                $product->body = $request['opis']['value'];
+                $product->body2 = $request['opis2']['value'];
+                $product->code = $request['sifra_artikla']['value'];
+                $product->price = $request['cena']['value'];
+                $product->amount = $request['kolicina']['value'];
+                $product->discount = $request['popust']['value'];
+                $product->publish = $request['publikovanje']['value'];
+                $product->publish_at = $request['dan_objave']['value'].' '.$request['vreme_objave']['value'];
+
+                // Update product
+                try {
+                    $product->update();
+                    // Update categories and attributes for product
+                    $product->category()->sync($request['categories']['value']);
+                    $product->attribute()->sync(Product::filterAttributes($request->all()));
+                }
+                catch (\Exception $e) {
+                    // Catch error exception
+                    return response()->json([
+                        'error' => $e->getMessage(),
+                    ], 500);
+                }
+
+                return response()->json([
+                    'success' => 'radi'
+                ], 200);
+            }
+
+        }
+        return response()->json([
+            'error' => 'Doslo je do greske prilikom update-a!',
+        ], 500);
     }
 }
