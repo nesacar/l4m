@@ -23,7 +23,7 @@ class Product extends Model
 
     //protected $dates = ['publish_at'];
 
-    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice', 'brands', 'categories', 'collections', 'dan_objave', 'vreme_objave'];
+    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice'];
 
     protected static $selectable = ['id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
@@ -224,6 +224,8 @@ class Product extends Model
                     $product->$map = $product->$key;
                 }
             }
+            // ReAppend product with drop-down select and time-date picker properties
+            $product->setAppends(['brands', 'collections', 'categories', 'dan_objave', 'vreme_objave']);
             // Append product with dynamic properties
             self::mapDynamicFields($product);
         }
