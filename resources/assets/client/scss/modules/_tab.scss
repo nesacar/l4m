@@ -49,7 +49,23 @@
 #latest-tab-0:checked ~ #latest-content-0,
 #latest-tab-1:checked ~ #latest-content-1,
 #latest-tab-2:checked ~ #latest-content-2,
-#latest-tab-3:checked ~ #latest-content-3 {
+#latest-tab-3:checked ~ #latest-content-3,
+#zene-tab-0:checked ~ #zene-content-0,
+#zene-tab-1:checked ~ #zene-content-1,
+#zene-tab-2:checked ~ #zene-content-2,
+#zene-tab-3:checked ~ #zene-content-3,
+#muskarci-tab-0:checked ~ #muskarci-content-0,
+#muskarci-tab-1:checked ~ #muskarci-content-1,
+#muskarci-tab-2:checked ~ #muskarci-content-2,
+#muskarci-tab-3:checked ~ #muskarci-content-3,
+#deca-tab-0:checked ~ #deca-content-0,
+#deca-tab-1:checked ~ #deca-content-1,
+#deca-tab-2:checked ~ #deca-content-2,
+#deca-tab-3:checked ~ #deca-content-3,
+#living-tab-0:checked ~ #living-content-0,
+#living-tab-1:checked ~ #living-content-1,
+#living-tab-2:checked ~ #living-content-2,
+#living-tab-3:checked ~ #living-content-3 {
   display: block;
 
   .shop-item {

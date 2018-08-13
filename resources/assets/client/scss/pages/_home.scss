@@ -1,3 +1,14 @@
+#masthead {
+  .masthead-carousel + .carousel-ctrls {
+    opacity: 0;
+    transition: .12s opacity;
+  }
+  .masthead-carousel:hover + .carousel-ctrls,
+  .carousel-ctrls:hover {
+    opacity: 1;
+  }
+}
+
 .home {
   $b: &;
 

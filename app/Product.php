@@ -23,7 +23,7 @@ class Product extends Model
 
     //protected $dates = ['publish_at'];
 
-    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice', 'brands', 'categories', 'collections', 'dan_objave', 'vreme_objave'];
+    protected $appends = ['date', 'time', 'link', 'tmb', 'totalPrice'];
 
     protected static $selectable = ['id', 'brand_id', 'title', 'slug', 'code', 'image', 'price', 'price_outlet', 'amount', 'discount'];
 
@@ -97,12 +97,12 @@ class Product extends Model
 
     public function getBrandsAttribute()
     {
-        return $this->attributes['brand_id'];
+        return $this->brand_id;
     }
 
     public function getCollectionsAttribute()
     {
-        return $this->attributes['collection_id'];
+        return $this->collection_id;
     }
 
     public function getCategoriesAttribute()
@@ -112,14 +112,14 @@ class Product extends Model
 
     public function getDanObjaveAttribute()
     {
-        $publish_at = $this->attributes['publish_at'];
+        $publish_at = $this->publish_at;
         $date = explode(' ', $publish_at);
         return $date[0];
     }
 
     public function getVremeObjaveAttribute()
     {
-        $publish_at = $this->attributes['publish_at'];
+        $publish_at = $this->publish_at;
         $time = explode(' ', $publish_at);
         return $time[1];
     }
@@ -224,7 +224,7 @@ class Product extends Model
                     $product->$map = $product->$key;
                 }
             }
-            // Append product with drop-down select and time-date picker properties
+            // ReAppend product with drop-down select and time-date picker properties
             $product->setAppends(['brands', 'collections', 'categories', 'dan_objave', 'vreme_objave']);
             // Append product with dynamic properties
             self::mapDynamicFields($product);
