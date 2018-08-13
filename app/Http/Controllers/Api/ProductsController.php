@@ -10,7 +10,6 @@ use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
-use App\Http\Requests\CreateProductTableRequest;
 use App\Http\Requests\EditProductTableRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Photo;
