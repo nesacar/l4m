@@ -4,6 +4,7 @@
 Route::middleware('admin')->get('filemanager/show', 'FilemanagerController@index');
 
 Route::get('/', 'PagesController@index');
+Route::get('/landing', 'PagesController@landing');
 
 Route::get('brendovi', 'BrandsController@index');
 Route::get('brendovi/{slug}', 'BrandsController@show');

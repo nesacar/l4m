@@ -36,6 +36,20 @@ class PagesController extends Controller
         $this->theme = Theme::getTheme();
         $this->settings = Setting::get();
     }
+    
+    /** Izbrisi landing iz rute i ovde */
+    public function landing()
+    {
+      $posts = Post::getHomePosts();
+        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
+        $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
+        $slider = Block::getSlider();
+        $categories = Category::where(['parent' => session('category_id'), 'publish' => 1, 'featured' => 1])->orderBy('order', 'ASC')->get();
+        $brands = Brand::getLogos();
+        Seo::home($this->settings);
+        $menu = MenuLink::getMenu();
+        return view('themes.' . $this->theme . '.pages.landing', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands', 'menu'));
+    }
 
     public function index()
     {
