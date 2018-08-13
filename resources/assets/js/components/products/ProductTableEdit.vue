@@ -3,6 +3,7 @@
         <div class="px-4" style="overflow: hidden;">
             <search-helper :search="searchProductTable" :enableList="false" @updateSearch="search($event)"></search-helper>
             <div class="d-flex py-3 justify-content-between">
+                Set tabele za:
                 <select class="select-set" v-model="selected" @change="onChangeSet">
                     <option :key="option.id"
                             :value="option.id"
@@ -196,8 +197,27 @@
             const product = this.fields[n];
             axios.post(`api/products/${product.id.value}/tableUpdate`, product)
                 .then(res => {
-                  console.log(res.data);
-                });
+                  swal({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Success',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+                })
+                .catch (err => {
+                  const greska = Object.keys(err.response.data.errors).reduce((acc, cur) => {
+                    return acc + err.response.data.errors[cur][0];
+                  }, '');
+                  swal({
+                    position: 'center',
+                    type: 'error',
+                    title: 'Greška, ',
+                    text: greska,
+                    showConfirmButton: false,
+                    timer: 5000
+                  });
+                })
           },
 
           getStaticData() {
@@ -402,7 +422,7 @@
                   });
                 })
                 .catch(err => {
-                  console.error(err);
+                  console.log(err);
                 })
           },
 

@@ -2,6 +2,7 @@
   <div id="place">
     <div class="px-4" style="overflow: hidden;">
       <div class="d-flex py-3 justify-content-between">
+        Izaberi set:
         <select class="select-set" v-model="selected" @change="onChange">
           <option :key="option.id"
             :value="option.id"
@@ -300,8 +301,20 @@
               timer: 5000
             });
           })
+          // Ovo samo Vladan zna sta radi!!! :D
           .catch(err => {
-            console.error(err);
+            const greska = Object.keys(err.response.data.errors).reduce((acc, cur) => {
+              return acc + err.response.data.errors[cur][0];
+            }, '');
+
+            swal({
+              position: 'center',
+              type: 'error',
+              title: 'Greska, ',
+              text: greska,
+              showConfirmButton: true,
+              timer: 5000
+            });
           });
       },
     }

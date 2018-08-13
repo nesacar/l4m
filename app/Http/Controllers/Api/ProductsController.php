@@ -10,6 +10,8 @@ use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\CreateProductTableRequest;
+use App\Http\Requests\EditProductTableRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Photo;
 use App\Product;
@@ -20,6 +22,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
 use DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
@@ -329,6 +332,29 @@ class ProductsController extends Controller
      */
     public function tableCreate(Request $request)
     {
+        // Validate input
+        foreach ($request->get('fields') as $key => $product) {
+            $validate = new Request([
+                'sifra_artikla' => $product['sifra_artikla']['value'],
+                'naziv' => $product['naziv']['value'],
+                'dan_objave' => $product['dan_objave']['value'],
+                'vreme_objave' => $product['vreme_objave']['value'],
+                'kolicina' => $product['kolicina']['value'],
+                'cena' => $product['cena']['value'],
+                'kratak_opis' => $product['kratak_opis']['value'],
+            ]);
+
+            $this->validate($validate, [
+                'sifra_artikla' => 'required|max:255',
+                'naziv' => 'required|max:255',
+                'dan_objave' => 'required|max:255',
+                'vreme_objave' => 'required|max:255',
+                'kolicina' => 'required|numeric',
+                'cena' => 'required|numeric',
+                'kratak_opis' => 'required',
+            ]);
+        }
+
         $oldCount = 0;
         $newCount = 0;
         // If there is any product rows in request
@@ -407,7 +433,7 @@ class ProductsController extends Controller
         }
     }
 
-    public function tableUpdate(Request $request, $id)
+    public function tableUpdate(EditProductTableRequest $request, $id)
     {
         if (is_numeric($id)) {
 
