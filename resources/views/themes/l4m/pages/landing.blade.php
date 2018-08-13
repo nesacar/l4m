@@ -71,12 +71,12 @@
   @endif
 
   <section class="container">
-    <h2 class="display-3 section-title--serif">Istaknuti proizvodi</h2>
+    <h2 class="display-3 section-title--serif">Najnoviji proizvodi</h2>
     @include('themes.' . $theme . '.partials.tab-list', [
       'options' => (object)[
-        'id' => 'featured',
+        'id' => 'latest',
       ],
-      'bars' => $featuredProducts
+      'bars' => $latestProducts
     ])
   </section>
 
