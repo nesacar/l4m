@@ -61,6 +61,7 @@
             <aside class="col-lg-3 col-md-4 filters-container js-filters-container">
                 @include('themes.' . $theme . '.partials.filters')
             </aside>
+            <div class="filters-backdrop js-filters-backdrop"></div>
 
             <div class="col-lg-9 col-md-8">
 
