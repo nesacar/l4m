@@ -58,7 +58,7 @@
         </div>
 
         <div class="row">
-            <aside class="col-lg-3 col-md-4 filters-container">
+            <aside class="col-lg-3 col-md-4 filters-container js-filters-container">
                 @include('themes.' . $theme . '.partials.filters')
             </aside>
 
