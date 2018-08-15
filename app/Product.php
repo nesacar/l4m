@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\ProductCreated;
 use App\Traits\SearchableProductTraits;
 use App\Traits\UploudableImageTrait;
 use Carbon\Carbon;
@@ -46,6 +47,15 @@ class Product extends Model
         'short' => 'kratak_opis',
         'body' => 'opis',
         'body2' => 'opis2',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => ProductCreated::class,
     ];
 
     /**

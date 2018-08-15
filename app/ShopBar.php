@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\ShopBarCreatedUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,8 @@ class ShopBar extends Model
                 $this->product()->attach($id, ['order' => ++$index]);
             }
         }
+        // Trigger shop-bar create/update event after sync in case if overriding products is needed.
+        event(new ShopBarCreatedUpdated($this));
     }
 
     public static function getLatest($parent, $template="home"){
