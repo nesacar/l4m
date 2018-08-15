@@ -137,6 +137,16 @@ class Category extends Model
         }
     }
 
+    public function scopePublished($query)
+    {
+        $query->where('publish', 1);
+    }
+
+    public function scopeFeatured($query)
+    {
+        $query->where('featured', 1);
+    }
+
     public function parentCategory() {
         return $this->hasOne(Category::class, 'id', 'parent');
     }
