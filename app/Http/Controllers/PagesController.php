@@ -36,19 +36,27 @@ class PagesController extends Controller
         $this->theme = Theme::getTheme();
         $this->settings = Setting::get();
     }
-    
-    /** Izbrisi landing iz rute i ovde */
+
+    /**
+     * Load landing page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function landing()
     {
       $posts = Post::getHomePosts();
-        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
+        // Get primary categories
+        $categories = Category::where(['parent' => 0, 'level' => 1])->published()->orderBy('order', 'ASC')->get();
+        $featuredProducts = array();
+        // Get ShopBar for each primary category
+        foreach ($categories as $category) {
+            $featuredProducts[] = ShopBar::getFeatured($category->id, 'home');
+        }
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
-        $slider = Block::getSlider();
-        $categories = Category::where(['parent' => session('category_id'), 'publish' => 1, 'featured' => 1])->orderBy('order', 'ASC')->get();
-        $brands = Brand::getLogos();
+        $brands = Brand::getAllLogos();
         Seo::home($this->settings);
         $menu = MenuLink::getMenu();
-        return view('themes.' . $this->theme . '.pages.landing', compact('latestProducts', 'featuredProducts', 'slider', 'posts', 'categories', 'brands', 'menu'));
+        return view('themes.' . $this->theme . '.pages.landing', compact('latestProducts', 'featuredProducts', 'posts', 'categories', 'brands', 'menu'));
     }
 
     public function index()

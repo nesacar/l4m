@@ -40,6 +40,13 @@ class Brand extends Model
         });
     }
 
+    public static function getAllLogos()
+    {
+        return Cache::remember('landingBrands', Helper::getMinutesToTheNextHour(), function () {
+            return self::select('title', 'slug', 'logo')->where('publish', 1)->where('logo', '<>', null)->where('logo', '<>', '')->get();
+        });
+    }
+
     public function setSlugAttribute($value){
         $this->attributes['slug'] = $value? str_slug($value) : str_slug($this->attributes['title']);
     }
