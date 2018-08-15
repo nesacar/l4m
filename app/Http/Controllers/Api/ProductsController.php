@@ -340,7 +340,7 @@ class ProductsController extends Controller
                 'vreme_objave' => $product['vreme_objave']['value'],
                 'kolicina' => $product['kolicina']['value'],
                 'cena' => $product['cena']['value'],
-                'kratak_opis' => $product['kratak_opis']['value'],
+                'opis' => $product['opis']['value'],
             ]);
 
             $this->validate($validate, [
@@ -350,7 +350,7 @@ class ProductsController extends Controller
                 'vreme_objave' => 'required|max:255',
                 'kolicina' => 'required|numeric',
                 'cena' => 'required|numeric',
-                'kratak_opis' => 'required',
+                'opis' => 'required',
             ]);
         }
 

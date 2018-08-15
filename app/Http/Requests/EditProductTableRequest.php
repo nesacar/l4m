@@ -30,7 +30,7 @@ class EditProductTableRequest extends FormRequest
             'vreme_objave.value' => 'required|max:255',
             'kolicina.value' => 'required|numeric',
             'cena.value' => 'required|numeric',
-            'kratak_opis.value' => 'required',
+            'opis.value' => 'required',
         ];
     }
 
@@ -43,7 +43,7 @@ class EditProductTableRequest extends FormRequest
             'vreme_objave.value.required' => 'Vreme objave je obavezno ',
             'kolicina.value.required' => 'Količina je obavezna ',
             'cena.value.required' => 'Cena je obavezna ',
-            'kratak_opis.value.required' => 'Kratak opis je obavezan ',
+            'opis.value.required' => 'Kratak opis je obavezan ',
         ];
     }
 }
