@@ -46,6 +46,60 @@ class ShopBar extends Model
         });
     }
 
+    /**
+     * Update shop-bar products with latest products based on shop-bar category
+     * Update will occur only if shop-bar have column 'latest' set to 1
+     *
+     * @param string $template
+     */
+    public function syncShopBarLatestProducts($template = 'home')
+    {
+        // Get shopBars for $parent category
+        $shopBars = $this->where('template', $template)
+            ->orderBy('order', 'ASC')
+            ->get();
+
+        // Loop through each shop-bar and take 4 products based on shop-bar category
+        foreach ($shopBars as $shopBar) {
+
+            // If shopBar has "latest" column set to 1, get latest products based on shop-bar category
+            // It will also override existing products for this shop-bar
+            if ($shopBar->latest) {
+
+                // Get products for iterating shop-bar
+                $products = Product::withoutGlobalScopes()
+                    ->whereHas('category', function ($query) use ($shopBar) {
+                        // Select product based on his category
+                        $query->where('id', $shopBar->category_id);
+                    })
+                    ->orderBy('created_at', 'DESC')
+                    ->take(4)
+                    ->get(['id']);
+
+                // Convert products collection into array of products ids
+                $productsIds = $products->pluck('id')->toArray();
+
+                /**
+                 * Prepare pivot data which will be send with products ids.
+                 * In this case this is order column, which value increases by 1 on every product for shop-bar id.
+                 */
+                $pivotData = [];
+                foreach ($productsIds as $key => $productsId)
+                {
+                    $pivotData[] = ['order' => ++$key];
+                }
+                // Merge pivot data into product ids array
+                $productsIds = array_combine($productsIds, $pivotData);
+
+                /**
+                 * Finally, sync pivot shop_bar-product table with iterating shop_bar id and products ids
+                 */
+                $shopBar->product()->sync($productsIds);
+            }
+
+        }
+    }
+
     public function setPublishAttribute($value){
         $this->attributes['publish'] = $value ?: false;
     }
