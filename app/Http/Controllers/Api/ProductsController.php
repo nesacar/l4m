@@ -7,6 +7,7 @@ use App\Brand;
 use App\Category;
 use App\Client;
 use App\Collection;
+use App\Events\ProductCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeProductCodeRequest;
 use App\Http\Requests\CreateProductRequest;
@@ -16,6 +17,7 @@ use App\Photo;
 use App\Product;
 use App\Property;
 use App\Set;
+use App\ShopBar;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -66,6 +68,9 @@ class ProductsController extends Controller
         $product->category()->sync(request('cat_ids'));
         $product->attribute()->sync(request('att_ids'));
         $product->tag()->sync(request('tag_ids'));
+
+        // Trigger product created event to sync latest shop-bar's products.
+        event(new ProductCreated(new Product()));
 
         return response()->json([
             'product' => $product

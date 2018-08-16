@@ -41,17 +41,19 @@
 
                             <text-field :value="shopBar.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="shopBar.order = $event"></text-field>
 
-                            <div v-if="trigger">
+                            <div v-if="!shopBar.latest">
 
                                 <select-field v-if="prod_id1" :labela="'Proizvod 1'" :options="products" :value="prod_id1" @changeValue="shopBar.prod_id1 = $event"></select-field>
                                 <select-field v-if="prod_id2" :labela="'Proizvod 2'" :options="products" :value="prod_id2" @changeValue="shopBar.prod_id2 = $event"></select-field>
                                 <select-field v-if="prod_id3" :labela="'Proizvod 3'" :options="products" :value="prod_id3" @changeValue="shopBar.prod_id3 = $event"></select-field>
                                 <select-field v-if="prod_id4" :labela="'Proizvod 4'" :options="products" :value="prod_id4" @changeValue="shopBar.prod_id4 = $event"></select-field>
 
-                                <checkbox-field :value="shopBar.latest" :label="'Prikazuj najnovije proizvode'" @changeValue="shopBar.latest = $event"></checkbox-field>
-                                <checkbox-field :value="shopBar.publish" :label="'Publikovano'" @changeValue="shopBar.publish = $event"></checkbox-field>
 
                             </div>
+
+                            <checkbox-field :value="shopBar.latest" :label="'Prikazuj najnovije proizvode'" @changeValue="shopBar.latest = $event"></checkbox-field>
+                            <checkbox-field :value="shopBar.publish" :label="'Publikovano'" @changeValue="shopBar.publish = $event"></checkbox-field>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Izmeni</button>
                             </div>

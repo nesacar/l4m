@@ -50,7 +50,7 @@ class PagesController extends Controller
         $featuredProducts = array();
         // Get ShopBar for each primary category
         foreach ($categories as $category) {
-            $featuredProducts[] = ShopBar::getFeatured($category->id, 'home');
+            $featuredProducts[] = ShopBar::getLatest($category->id, 'home');
         }
         $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
         $brands = Brand::getAllLogos();

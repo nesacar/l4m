@@ -50,15 +50,6 @@ class Product extends Model
     ];
 
     /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'created' => ProductCreated::class,
-    ];
-
-    /**
      * The "booting" method of the model.
      *
      * @return void

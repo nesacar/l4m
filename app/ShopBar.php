@@ -13,12 +13,14 @@ class ShopBar extends Model
     protected $fillable = ['parent_category_id', 'category_id', 'title', 'desc', 'template', 'order', 'order', 'latest', 'publish'];
 
     public function sync(){
-        $this->product()->sync([]);
+        $this->product()->detach();
 
         $index = 0;
         if(count(request('prod_ids'))){
             foreach (request('prod_ids') as $id){
-                $this->product()->attach($id, ['order' => ++$index]);
+                if ($id) {
+                    $this->product()->attach($id, ['order' => ++$index]);
+                }
             }
         }
         // Trigger shop-bar create/update event after sync in case if overriding products is needed.
@@ -28,8 +30,12 @@ class ShopBar extends Model
     public static function getLatest($parent, $template="home"){
         $parent = $parent?: 5;
         return Cache::remember($parent.'.najnoviji', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
-            return self::where('template', $template)->where('desc', 'Najnoviji')->where('parent_category_id', $parent)
-                ->orderBy('order', 'ASC')->with(['category' => function($query){
+            return self::where('template', $template)
+                ->where('desc', 'Najnoviji')
+                ->where('parent_category_id', $parent)
+                ->where('publish', 1)
+                ->orderBy('order', 'ASC')
+                ->with(['category' => function($query){
                     $query->withoutGlobalScopes();
                 }])->with(['product' => function($query){
                     $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
@@ -40,12 +46,16 @@ class ShopBar extends Model
     public static function getFeatured($parent, $template="home"){
         $parent = $parent?: 5;
         return Cache::remember($parent.'.istaknuti', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
-            return self::where('template', $template)->where('desc', 'Istaknuti')->where('parent_category_id', $parent)
-                ->orderBy('order', 'ASC')->with(['category' => function($query){
-                $query->withoutGlobalScopes();
-            }])->with(['product' => function($query){
-                $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
-            }])->get();
+            return self::where('template', $template)
+                ->where('desc', 'Istaknuti')
+                ->where('parent_category_id', $parent)
+                ->where('publish', 1)
+                ->orderBy('order', 'ASC')
+                ->with(['category' => function($query){
+                    $query->withoutGlobalScopes();
+                }])->with(['product' => function($query){
+                    $query->withoutGlobalScope('attribute')->orderBy('pivot_order', 'ASC');
+                }])->get();
         });
     }
 
