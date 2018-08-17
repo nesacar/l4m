@@ -24,10 +24,19 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
                             <div class="form-group">
-                                <label>Strana</label>
+                                <label>Prikaži na: </label>
                                 <select class="form-control" v-model="shopBar.template">
                                     <option value="home">Početna</option>
+                                    <option value="shop">Shop</option>
                                     <option value="blog">Blog</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tip ShopBar-a</label>
+                                <select class="form-control" v-model="shopBar.desc">
+                                    <option value="Najnoviji">Najnoviji</option>
+                                    <option value="Istaknuti">Istaknuti</option>
                                 </select>
                             </div>
 
@@ -36,8 +45,6 @@
                             <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :error="error? error.category_id : ''" :value="null" @changeValue="shopBar.category_id = $event"></select-field>
 
                             <text-field :value="shopBar.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="shopBar.title = $event"></text-field>
-
-                            <text-field :value="shopBar.desc" :label="'Pomoćni opis'" :error="error? error.desc : ''" @changeValue="shopBar.desc = $event"></text-field>
 
                             <text-field :value="shopBar.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="shopBar.order = $event"></text-field>
 

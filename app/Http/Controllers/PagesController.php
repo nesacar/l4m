@@ -50,9 +50,9 @@ class PagesController extends Controller
         $featuredProducts = array();
         // Get ShopBar for each primary category
         foreach ($categories as $category) {
-            $featuredProducts[] = ShopBar::getLatest($category->id, 'home');
+            $featuredProducts[] = ShopBar::getFeatured($category->id);
         }
-        $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
+        $latestProducts = ShopBar::getLatest();
         $brands = Brand::getAllLogos();
         Seo::home($this->settings);
         $menu = MenuLink::getMenu();
@@ -76,8 +76,8 @@ class PagesController extends Controller
     {
         Category::setPrimaryCategory($slug);
         $posts = Post::getHomePosts($slug);
-        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'home');
-        $latestProducts = ShopBar::getLatest(session('category_id'), 'home');
+        $featuredProducts = ShopBar::getFeatured(session('category_id'), 'shop');
+        $latestProducts = ShopBar::getLatest(session('category_id'), 'shop');
         $slider = Block::getSlider();
         $categories = Category::where(['parent' => session('category_id'), 'publish' => 1, 'featured' => 1])->orderBy('order', 'ASC')->get();
         $brands = Brand::getLogos();

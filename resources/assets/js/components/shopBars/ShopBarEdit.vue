@@ -27,17 +27,37 @@
                                 <label>Strana</label>
                                 <select class="form-control" v-model="shopBar.template">
                                     <option value="home">Početna</option>
+                                    <option value="shop">Shop</option>
                                     <option value="blog">Blog</option>
                                 </select>
                             </div>
 
-                            <select-field v-if="parents" :labela="'Nad kategorija'" :options="parents" :error="error? error.parent_category_id : ''" :value="shopBar.parent_category_id" @changeValue="shopBar.parent_category_id = $event; getCategories()"></select-field>
+                            <div class="form-group">
+                                <label>Tip ShopBar-a</label>
+                                <select class="form-control" v-model="shopBar.desc">
+                                    <option value="Najnoviji">Najnoviji</option>
+                                    <option value="Istaknuti">Istaknuti</option>
+                                </select>
+                            </div>
 
-                            <select-field v-if="categories" :labela="'Kategorija'" :options="categories" :error="error? error.category_id : ''" :value="shopBar.category_id" @changeValue="shopBar.category_id = $event"></select-field>
+                            <div class="form-group">
+                                <label>Nad kategorija</label>
+                                <select class="form-control"
+                                        v-model="shopBar.parent_category_id.id"
+                                        v-on:change="getCategories()"
+                                >
+                                    <option v-for="parent in parents" :value="parent.id">{{ parent.title }}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kategorija</label>
+                                <select class="form-control" v-model="shopBar.category_id.id">
+                                    <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+                                </select>
+                            </div>
 
                             <text-field :value="shopBar.title" :label="'Naziv'" :error="error? error.title : ''" @changeValue="shopBar.title = $event"></text-field>
-
-                            <text-field :value="shopBar.desc" :label="'Pomoćni opis'" :error="error? error.desc : ''" @changeValue="shopBar.desc = $event"></text-field>
 
                             <text-field :value="shopBar.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="shopBar.order = $event"></text-field>
 
@@ -111,7 +131,7 @@
                     });
             },
             getCategories(){
-                axios.get('api/categories/children-lists?category=' + this.shopBar.parent_category_id)
+                axios.get('api/categories/children-lists?category=' + this.shopBar.parent_category_id.id)
                     .then(res => {
                         this.categories = res.data.categories;
                     }).catch(e => {
@@ -168,7 +188,12 @@
                     });
             },
             submit(){
-                this.shopBar.parent_category_id = this.shopBar.parent_category_id.id;
+                if (this.shopBar.parent_category_id) {
+                  this.shopBar.parent_category_id = this.shopBar.parent_category_id.id;
+                }
+                else {
+                  this.shopBar.parent_category_id = 0;
+                }
                 this.shopBar.category_id = this.shopBar.category_id.id;
                 this.doMagic();
                 this.trigger = false;

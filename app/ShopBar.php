@@ -27,12 +27,12 @@ class ShopBar extends Model
         event(new ShopBarCreatedUpdated($this));
     }
 
-    public static function getLatest($parent, $template="home"){
-        $parent = $parent?: 5;
+    public static function getLatest($parent = false, $template="home")
+    {
         return Cache::remember($parent.'.najnoviji', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
             return self::where('template', $template)
                 ->where('desc', 'Najnoviji')
-                ->where('parent_category_id', $parent)
+                ->parent($parent)
                 ->where('publish', 1)
                 ->orderBy('order', 'ASC')
                 ->with(['category' => function($query){
@@ -43,12 +43,12 @@ class ShopBar extends Model
         });
     }
 
-    public static function getFeatured($parent, $template="home"){
-        $parent = $parent?: 5;
+    public static function getFeatured($parent = false, $template="home")
+    {
         return Cache::remember($parent.'.istaknuti', Helper::getMinutesToTheNextHour(), function () use ($template, $parent) {
             return self::where('template', $template)
                 ->where('desc', 'Istaknuti')
-                ->where('parent_category_id', $parent)
+                ->parent($parent)
                 ->where('publish', 1)
                 ->orderBy('order', 'ASC')
                 ->with(['category' => function($query){
@@ -63,14 +63,11 @@ class ShopBar extends Model
      * Update shop-bar products with latest products based on shop-bar category
      * Update will occur only if shop-bar have column 'latest' set to 1
      *
-     * @param string $template
      */
-    public function syncShopBarLatestProducts($template = 'home')
+    public function syncShopBarLatestProducts()
     {
         // Get shopBars for $parent category
-        $shopBars = $this->where('template', $template)
-            ->orderBy('order', 'ASC')
-            ->get();
+        $shopBars = $this->orderBy('order', 'ASC')->get();
 
         // Loop through each shop-bar and take 4 products based on shop-bar category
         foreach ($shopBars as $shopBar) {
@@ -111,6 +108,11 @@ class ShopBar extends Model
             }
 
         }
+    }
+
+    public function scopeParent($query, $parent)
+    {
+        return is_int($parent) ? $query->where('parent_category_id', $parent) : $query->where('parent_category_id', 0);
     }
 
     public function setPublishAttribute($value){
